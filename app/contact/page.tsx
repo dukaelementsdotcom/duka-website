@@ -191,17 +191,19 @@ export default function ContactPage() {
         </section>
 
         {/* --- MAP SECTION START --- */}
-        <section className="w-full h-[450px] border-t border-gray-100">
-          <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.612543948011!2d38.7845423!3d8.9912196!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b85002b65103d%3A0xe54955b259160533!2sWelela%20Building!5e0!3m2!1sen!2set!4v1715800000000!5m2!1sen!2set" 
-            width="100%" 
-            height="100%" 
-            style={{ border: 0 }} 
-            allowFullScreen={true} 
-            loading="lazy" 
-            referrerPolicy="no-referrer-when-downgrade"
-          ></iframe>
-        </section>
+       {/* --- MAP SECTION START (FIXED) --- */}
+<section className="w-full h-[450px] border-t border-gray-100">
+  <iframe 
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.694146403223!2d38.783185449027535!3d9.00026526647423!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b853122071a1d%3A0x9a618cb0a0a76b04!2sDuka%20Interiors%20P.L.C!5e0!3m2!1sen!2set!4v1769465498662!5m2!1sen!2set" 
+    width="100%" 
+    height="100%" 
+    style={{ border: 0 }} 
+    allowFullScreen 
+    loading="lazy" 
+    referrerPolicy="no-referrer-when-downgrade"
+  ></iframe>
+</section>
+{/* --- MAP SECTION END --- */}
         {/* --- MAP SECTION END --- */}
 
       </main>
