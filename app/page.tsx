@@ -272,6 +272,7 @@ useEffect(() => {
        {/* === SERVICES: THE CLARITY GRID === */}
 <section className="py-24 px-6 lg:px-8 bg-gray-50">
   <div className="mx-auto w-full max-w-[80vw] lg:max-w-6xl">
+    
     {/* Header Section */}
     <div className="text-center mb-12 lg:mb-16 px-4">
       <div className="inline-block px-5 py-2 bg-red-600 text-white rounded-none text-xs font-bold uppercase tracking-wider mb-6">
@@ -285,35 +286,39 @@ useEffect(() => {
       </p>
     </div>
 
-    {/* Dynamic Grid */}
+    {/* Dynamic Grid: Now matches the Services Page exactly */}
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-fr">
-      {services.map((service) => (
-        <Link
-          key={service.slug}
-          href={`/services/${service.slug}`}
-          className="block group"
+      {services.map((service, index) => (
+        <div
+          key={index}
+          className="group relative bg-white border border-gray-200 rounded-none transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 overflow-hidden"
         >
-          <div className="relative bg-white border border-gray-200 rounded-none transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 overflow-hidden h-full">
-            <div className="p-6 pt-8 flex flex-col h-full">
-              <div className="flex items-center justify-center mb-4 text-red-600 group-hover:scale-110 transition-transform duration-300">
-                <span className="text-2xl font-bold">★</span>
-              </div>
-              <h3 className="text-2xl font-semibold text-gray-900 mb-4 leading-tight text-center group-hover:text-red-600 transition-colors duration-300">
-                {service.title}
-              </h3>
-              <p className="text-gray-600 text-sm leading-relaxed mb-6 line-clamp-3 text-center">
-                {service.shortDesc}
-              </p>
+          {/* Card Content */}
+          <div className="p-6 pt-8 flex flex-col h-full">
+            {/* Icon - You can keep your SVGs or use a placeholder */}
+            <div className="flex items-center justify-center mb-4 text-red-600 group-hover:scale-110 transition-transform duration-300">
+               <span className="text-2xl font-bold">★</span>
             </div>
-
-            {/* Hover Overlay — static span, no Link */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/70 to-black/90 flex items-end p-6 opacity-0 group-hover:opacity-100 transition-all duration-500 pointer-events-none">
-              <span className="px-6 py-2 bg-red-600 text-white font-bold text-xs uppercase tracking-wide rounded-none hover:bg-red-700 transition-colors duration-300 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 min-w-[120px] text-center shadow-lg">
-                Learn More
-              </span>
-            </div>
+            {/* Title from servicesData.ts */}
+            <h3 className="text-2xl font-semibold text-gray-900 mb-4 leading-tight text-center group-hover:text-red-600 transition-colors duration-300">
+              {service.title}
+            </h3>
+            {/* Short Description from servicesData.ts */}
+            <p className="text-gray-600 text-sm leading-relaxed mb-6 line-clamp-3 text-center">
+              {service.shortDesc}
+            </p>
           </div>
-        </Link>
+
+          {/* Hover Layer with the correct Slug */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/70 to-black/90 flex items-end p-6 opacity-0 group-hover:opacity-100 transition-all duration-500 pointer-events-none">
+            <Link 
+              href={`/services/${service.slug}`}
+              className="px-6 py-2 bg-red-600 text-white font-bold text-xs uppercase tracking-wide rounded-none hover:bg-red-700 transition-colors duration-300 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 pointer-events-auto min-w-[120px] text-center shadow-lg"
+            >
+              Learn More
+            </Link>
+          </div>
+        </div>
       ))}
     </div>
   </div>
