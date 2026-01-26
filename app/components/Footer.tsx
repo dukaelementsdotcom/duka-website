@@ -1,6 +1,8 @@
 'use client';
 
 import Link from 'next/link';
+// IMPORT the same data source your service page uses
+import { services } from '@/lib/servicesData'; 
 
 export default function Footer() {
   const socialLinks = [
@@ -10,16 +12,6 @@ export default function Footer() {
     { name: 'Instagram', href: 'https://www.instagram.com/dukainteriors', icon: 'fab fa-instagram' },
     { name: 'LinkedIn', href: 'https://www.linkedin.com/company/duka-interiors', icon: 'fab fa-linkedin-in' },
     { name: 'TikTok', href: 'https://www.tiktok.com/@duka.interiors.plc', icon: 'fab fa-tiktok' },
-  ];
-
-  // MANUAL MAPPING: This matches exactly how we fixed the "Learn More" buttons
-  // This ensures Google and users find the correct page every time.
-  const serviceLinks = [
-    { name: 'Interior Design', slug: 'interior-design' },
-    { name: 'Design + Build', slug: 'design-and-build' },
-    { name: 'Branding and Signage', slug: 'branding-and-signage' },
-    { name: 'Electrical and Technology', slug: 'electrical-and-technology' },
-    { name: 'Furniture and Fixtures', slug: 'furniture-and-fixtures' },
   ];
 
   return (
@@ -67,17 +59,17 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Services - FIXED LINKS USING MAPPING */}
+          {/* Services - NOW PULLING DIRECTLY FROM DATA SOURCE */}
           <div className="md:col-span-1">
             <h3 className="text-lg font-semibold text-[#0a0a0a] mb-6 tracking-wide">SERVICES</h3>
             <ul className="space-y-3">
-              {serviceLinks.map((service) => (
-                <li key={service.name}>
+              {services.map((service) => (
+                <li key={service.slug}>
                   <Link 
                     href={`/services/${service.slug}`} 
                     className="text-[#4a4a4a] text-sm hover:text-[#c73e1d] transition-colors"
                   >
-                    {service.name}
+                    {service.title}
                   </Link>
                 </li>
               ))}
