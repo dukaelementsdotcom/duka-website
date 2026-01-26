@@ -12,12 +12,11 @@ export default function NavBar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Content Arrays (RETAINED FULLY)
   const navItems = [
     { name: 'HOME', href: '/' },
     { name: 'SERVICES', href: '/services' },
@@ -52,139 +51,155 @@ export default function NavBar() {
   ];
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-white py-2' : 'bg-transparent py-5'
-    }`}>
-      {/* Top Utility Bar (Always Visible on Desktop) */}
-      <div className={`hidden lg:flex border-b transition-colors duration-300 px-10 py-2 justify-between items-center ${
-        isScrolled ? 'border-gray-100 text-gray-500' : 'border-white/10 text-white/70'
-      }`}>
-        <div className="flex gap-6 text-[10px] font-bold tracking-widest">
+    <header className="fixed top-0 left-0 right-0 z-[100] font-sans">
+      {/* TOP UTILITY BAR - Solid & High Contrast */}
+      <div className="hidden lg:flex bg-[#1a1a1a] text-white/80 py-2 px-8 justify-between items-center border-b border-white/5">
+        <div className="flex gap-8 items-center">
           {phones.map((p) => (
-            <a key={p.number} href={`tel:${p.number}`} className="hover:text-red-600 transition-colors">
-              <i className="fas fa-phone mr-2 text-red-600"></i> {p.label}
+            <a key={p.number} href={`tel:${p.number}`} className="text-[10px] font-bold tracking-[0.1em] hover:text-[#c73e1d] transition-colors flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-[#c73e1d] rounded-full"></span> {p.label}
             </a>
           ))}
-          <a href="mailto:contact@dukainteriors.com" className="hover:text-red-600 transition-colors uppercase">
-            <i className="fas fa-envelope mr-2 text-red-600"></i> contact@dukainteriors.com
+          <a href="mailto:contact@dukainteriors.com" className="text-[10px] font-bold tracking-[0.1em] hover:text-[#c73e1d] transition-colors">
+            CONTACT@DUKAINTERIORS.COM
           </a>
         </div>
         <div className="flex gap-4">
           {socialLinks.map((s) => (
-            <a key={s.name} href={s.href} target="_blank" className="text-xs hover:text-red-600 transition-colors">
+            <a key={s.name} href={s.href} target="_blank" className="text-xs hover:text-[#c73e1d] transition-colors">
               <i className={s.icon}></i>
             </a>
           ))}
         </div>
       </div>
 
-      {/* Main Navigation Bar */}
-      <div className={`px-6 lg:px-10 flex items-center justify-between transition-all ${isScrolled ? 'mt-0' : 'mt-2'}`}>
-        <Link href="/" className="relative z-[60]">
-          <Image
-            src="/images/icons-duka-interiors/logo-duka-interiors-big.svg"
-            alt="Duka Interiors"
-            width={180}
-            height={60}
-            priority
-            className={`h-10 w-auto transition-all duration-500 ${!isScrolled ? 'brightness-0 invert' : ''}`}
-          />
-        </Link>
+      {/* MAIN NAVIGATION - Solid White with Industrial Feel */}
+      <div className={`bg-white transition-all duration-300 border-b-2 ${isScrolled ? 'py-3 border-[#c73e1d]' : 'py-5 border-black'}`}>
+        <div className="max-w-[1800px] mx-auto px-6 lg:px-8 flex items-center justify-between">
+          
+          {/* Logo */}
+          <Link href="/" className="relative z-[110]">
+            <Image
+              src="/images/icons-duka-interiors/logo-duka-interiors-big.svg"
+              alt="Duka Interiors"
+              width={160}
+              height={50}
+              priority
+              className="h-9 w-auto"
+            />
+          </Link>
 
-        {/* Navigation Items */}
-        <nav className="hidden lg:flex items-center">
-          {navItems.map((item) => {
-            const isActive = pathname === item.href;
-            const textClass = isScrolled ? 'text-black' : 'text-white';
-            
-            return (
-              <div 
-                key={item.name} 
-                className="relative h-16 flex items-center px-5 group"
-                onMouseEnter={() => item.hasDropdown && setIsDropdownOpen(true)}
-                onMouseLeave={() => item.hasDropdown && setIsDropdownOpen(false)}
-              >
+          {/* Desktop Nav Items */}
+          <nav className="hidden lg:flex items-center h-full">
+            {navItems.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <div 
+                  key={item.name} 
+                  className="relative px-5 group"
+                  onMouseEnter={() => item.hasDropdown && setIsDropdownOpen(true)}
+                  onMouseLeave={() => item.hasDropdown && setIsDropdownOpen(false)}
+                >
+                  <Link 
+                    href={item.href} 
+                    className={`text-[12px] font-black tracking-[0.2em] transition-colors flex items-center gap-1 ${isActive ? 'text-[#c73e1d]' : 'text-black hover:text-[#c73e1d]'}`}
+                  >
+                    {item.name}
+                    {item.hasDropdown && <i className="fas fa-plus text-[8px] opacity-50"></i>}
+                    {item.comingSoon && <span className="text-[7px] bg-black text-white px-1 ml-1 font-bold">SOON</span>}
+                  </Link>
+
+                  {/* Dropdown Menu - Industrial Block Style */}
+                  {item.hasDropdown && (
+                    <div className={`absolute top-full left-0 w-64 bg-white border-2 border-black mt-[22px] shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 ${isDropdownOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}`}>
+                      {item.subItems?.map((sub) => (
+                        <Link key={sub.name} href={sub.href} className="block p-4 text-[10px] font-black tracking-widest text-black hover:bg-[#c73e1d] hover:text-white border-b last:border-0 border-black transition-colors">
+                          {sub.name}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </nav>
+
+          {/* CTA Section */}
+          <div className="flex items-center gap-4">
+            <Link 
+              href="/contact" 
+              className="hidden md:block bg-black text-white px-8 py-3 text-[11px] font-black uppercase tracking-[0.2em] hover:bg-[#c73e1d] transition-all shadow-[4px_4px_0px_0px_rgba(199,62,29,1)]"
+            >
+              Start Your Build
+            </Link>
+
+            {/* Mobile Toggle Button */}
+            <button 
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="lg:hidden w-12 h-12 flex flex-col items-center justify-center gap-1.5 border-2 border-black hover:bg-black hover:text-white transition-all"
+            >
+              <span className={`h-[3px] bg-current transition-all ${isMenuOpen ? 'w-6 rotate-45 translate-y-2' : 'w-6'}`}></span>
+              <span className={`h-[3px] bg-current transition-all ${isMenuOpen ? 'opacity-0' : 'w-6'}`}></span>
+              <span className={`h-[3px] bg-current transition-all ${isMenuOpen ? 'w-6 -rotate-45 -translate-y-2' : 'w-6'}`}></span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* IMPROVED MOBILE VERSION - Structured Sidebar */}
+      <div className={`fixed inset-0 z-[105] transition-all duration-500 ${isMenuOpen ? 'visible' : 'invisible'}`}>
+        {/* Backdrop */}
+        <div className={`absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-500 ${isMenuOpen ? 'opacity-100' : 'opacity-0'}`} onClick={() => setIsMenuOpen(false)}></div>
+        
+        {/* Menu Panel */}
+        <div className={`absolute top-0 right-0 w-full max-w-md h-full bg-white border-l-4 border-[#c73e1d] shadow-2xl transition-transform duration-500 flex flex-col ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+          <div className="p-8 flex justify-between items-center border-b border-gray-100">
+            <p className="text-[10px] font-black tracking-[0.4em] text-gray-400">MENU</p>
+            <button onClick={() => setIsMenuOpen(false)} className="text-2xl font-light hover:text-[#c73e1d]">&times; CLOSE</button>
+          </div>
+
+          <nav className="flex flex-col p-8 overflow-y-auto flex-grow">
+            {navItems.map((item, i) => (
+              <div key={item.name} className="py-3 border-b border-gray-50 last:border-0">
                 <Link 
                   href={item.href} 
-                  className={`text-[12px] font-black tracking-[0.15em] transition-all flex items-center gap-2 ${isActive ? 'text-red-600' : textClass} group-hover:text-red-600`}
+                  onClick={() => setIsMenuOpen(false)}
+                  className="text-3xl font-black text-black uppercase tracking-tighter hover:text-[#c73e1d] transition-colors flex items-center justify-between group"
                 >
                   {item.name}
-                  {item.hasDropdown && <i className={`fas fa-chevron-down text-[8px] transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`}></i>}
-                  {item.comingSoon && <span className="text-[7px] bg-red-600 text-white px-1 py-0.5 rounded ml-1">SOON</span>}
+                  <span className="text-[10px] font-bold text-gray-300 group-hover:text-[#c73e1d]">0{i+1}</span>
                 </Link>
-
-                {/* TWO-INSPIRED DROPDOWN */}
-                {item.hasDropdown && (
-                  <div className={`absolute top-full left-0 w-64 bg-black text-white p-6 shadow-2xl transition-all duration-300 origin-top border-t-4 border-red-600 ${isDropdownOpen ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0 pointer-events-none'}`}>
-                    {item.subItems?.map((sub) => (
-                      <Link key={sub.name} href={sub.href} className="block py-3 text-[10px] font-bold tracking-widest hover:text-red-600 border-b border-white/10 last:border-0 transition-colors">
-                        {sub.name}
+                {item.subItems && (
+                  <div className="mt-4 pl-4 space-y-2">
+                    {item.subItems.map(sub => (
+                      <Link key={sub.name} href={sub.href} onClick={() => setIsMenuOpen(false)} className="block text-xs font-bold text-gray-500 uppercase tracking-widest hover:text-black">
+                        → {sub.name}
                       </Link>
                     ))}
                   </div>
                 )}
-                
-                {/* Underline Indicator */}
-                <span className={`absolute bottom-0 left-0 h-1 bg-red-600 transition-all duration-300 ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
               </div>
-            );
-          })}
-        </nav>
+            ))}
+          </nav>
 
-        {/* Final CTA / Contact */}
-        <div className="flex items-center gap-4">
-          <Link 
-            href="/contact" 
-            className={`hidden md:flex items-center gap-3 px-8 py-4 text-[11px] font-black uppercase tracking-widest transition-all ${
-              isScrolled 
-              ? 'bg-black text-white hover:bg-red-600' 
-              : 'bg-white text-black hover:bg-red-600 hover:text-white'
-            }`}
-          >
-            Start Your Project <i className="fas fa-arrow-right"></i>
-          </Link>
-
-          {/* Hamburger Menu */}
-          <button 
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className={`lg:hidden p-4 border-2 transition-colors ${isScrolled ? 'border-black text-black' : 'border-white text-white'}`}
-          >
-            <div className="space-y-1.5">
-              <span className={`block h-0.5 w-6 bg-current transition-transform ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
-              <span className={`block h-0.5 w-6 bg-current transition-opacity ${isMenuOpen ? 'opacity-0' : ''}`}></span>
-              <span className={`block h-0.5 w-6 bg-current transition-transform ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+          {/* Mobile Footer Area - Restored Content */}
+          <div className="bg-black p-8 text-white space-y-6">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <p className="text-[9px] font-bold text-[#c73e1d] tracking-[0.2em] mb-2 uppercase">Office</p>
+                {phones.map(p => <a key={p.number} href={`tel:${p.number}`} className="block text-xs font-bold hover:text-[#c73e1d] mb-1">{p.label}</a>)}
+              </div>
+              <div className="flex flex-wrap gap-3 items-end justify-end">
+                {socialLinks.map(s => <a key={s.name} href={s.href} target="_blank" className="text-xl hover:text-[#c73e1d]"><i className={s.icon}></i></a>)}
+              </div>
             </div>
-          </button>
-        </div>
-      </div>
-
-      {/* Fullscreen Mobile Menu (Inspired by Two) */}
-      <div className={`fixed inset-0 bg-black z-[100] transition-transform duration-700 p-10 flex flex-col ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-        <div className="flex justify-between items-center mb-10">
-           <Image src="/images/icons-duka-interiors/logo-duka-interiors-big.svg" alt="Logo" width={140} height={40} className="brightness-0 invert" />
-           <button onClick={() => setIsMenuOpen(false)} className="text-white text-4xl">&times;</button>
-        </div>
-        
-        <nav className="flex flex-col space-y-4">
-          {navItems.map((item, i) => (
             <Link 
-              key={item.name} 
-              href={item.href} 
+              href="/contact" 
               onClick={() => setIsMenuOpen(false)}
-              className="text-white text-4xl md:text-6xl font-black uppercase tracking-tighter hover:text-red-600 flex items-center gap-4"
+              className="block w-full bg-[#c73e1d] py-4 text-center text-xs font-black uppercase tracking-[0.2em] hover:bg-white hover:text-black transition-all"
             >
-              <span className="text-red-600 text-sm">0{i+1}</span> {item.name}
+              Start Your Project
             </Link>
-          ))}
-        </nav>
-
-        <div className="mt-auto grid grid-cols-1 md:grid-cols-2 gap-10 border-t border-white/10 pt-10">
-          <div className="space-y-4">
-            <p className="text-red-600 text-[10px] font-bold tracking-[.3em] uppercase">Connect With Us</p>
-            {phones.map(p => <a key={p.number} href={`tel:${p.number}`} className="block text-xl text-white font-bold">{p.label}</a>)}
-            <div className="flex gap-6 pt-4">
-               {socialLinks.map(s => <a key={s.name} href={s.href} className="text-white hover:text-red-600 text-2xl"><i className={s.icon}></i></a>)}
-            </div>
           </div>
         </div>
       </div>
