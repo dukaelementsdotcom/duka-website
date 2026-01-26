@@ -209,7 +209,7 @@ useEffect(() => {
   <div className="relative min-h-[400px] overflow-hidden rounded-none border border-gray-200 group">
     <Image
       // Fixed: 'duka-interiors-projects' (lowercase 'p') 
-      src="/images/duka-interiors-projects/habesha-breweries-duka-interiors/habesha-breweries-duka-interiors-3.webp"
+      src="/images/duka-interiors-portfolio/modern-conference-room-and-lobby-design/modern-conference-room-addis-ababa.webp"
       alt="Modern conference room and lobby design by Duka Interiors"
       fill
       className="object-cover"
