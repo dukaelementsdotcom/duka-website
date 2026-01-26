@@ -12,20 +12,20 @@ export default function Footer() {
     { name: 'TikTok', href: 'https://www.tiktok.com/@duka.interiors.plc', icon: 'fab fa-tiktok' },
   ];
 
-  // Helper to create clean slugs that match your file system
+  // This function ensures the links match your folder names exactly
   const createSlug = (text: string) => {
     return text
       .toLowerCase()
-      .replace(/\s+\+\s+/g, '-and-') // Specifically handle " + "
-      .replace(/\s+/g, '-')          // Handle remaining spaces
-      .replace(/[^\w-]/g, '');       // Remove any other special characters
+      .replace(/\s+\+\s+/g, '-and-') // Specifically changes " + " to "-and-"
+      .replace(/\s+/g, '-')          // Changes spaces to "-"
+      .replace(/[^\w-]/g, '');       // Removes special characters like + if they aren't surrounded by spaces
   };
 
   return (
     <footer className="bg-[#f8f5f2] pt-16 pb-8">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-          {/* Brand */}
+          {/* Brand Section */}
           <div className="md:col-span-1">
             <div className="mb-6">
               <img
@@ -52,7 +52,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Navigation */}
+          {/* Navigation Section */}
           <div className="md:col-span-1">
             <h3 className="text-lg font-semibold text-[#0a0a0a] mb-6 tracking-wide">NAVIGATION</h3>
             <ul className="space-y-3">
@@ -66,7 +66,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Services */}
+          {/* Services Section - FIXED LINKS */}
           <div className="md:col-span-1">
             <h3 className="text-lg font-semibold text-[#0a0a0a] mb-6 tracking-wide">SERVICES</h3>
             <ul className="space-y-3">
@@ -78,6 +78,7 @@ export default function Footer() {
                 'Furniture and Fixtures',
               ].map((service) => (
                 <li key={service}>
+                  {/* Now uses createSlug to ensure valid URLs */}
                   <Link 
                     href={`/services/${createSlug(service)}`} 
                     className="text-[#4a4a4a] text-sm hover:text-[#c73e1d] transition-colors"
@@ -89,7 +90,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* Contact Section */}
           <div className="md:col-span-1">
             <h3 className="text-lg font-semibold text-[#0a0a0a] mb-6 tracking-wide">CONTACT US</h3>
             <div className="space-y-4">
@@ -121,24 +122,9 @@ export default function Footer() {
               © {new Date().getFullYear()} Duka Interiors PLC. All rights reserved.
             </p>
             <div className="flex space-x-6">
-              <Link 
-                href="/privacy-policy" 
-                className="text-[#4a4a4a] text-sm hover:text-[#c73e1d] transition-colors"
-              >
-                Privacy Policy
-              </Link>
-              <Link 
-                href="/terms-of-service" 
-                className="text-[#4a4a4a] text-sm hover:text-[#c73e1d] transition-colors"
-              >
-                Terms of Service
-              </Link>
-              <Link 
-                href="/directory" 
-                className="text-[#4a4a4a] text-sm hover:text-[#c73e1d] transition-colors"
-              >
-                Sitemap
-              </Link>
+              <Link href="/privacy-policy" className="text-[#4a4a4a] text-sm hover:text-[#c73e1d] transition-colors">Privacy Policy</Link>
+              <Link href="/terms-of-service" className="text-[#4a4a4a] text-sm hover:text-[#c73e1d] transition-colors">Terms of Service</Link>
+              <Link href="/directory" className="text-[#4a4a4a] text-sm hover:text-[#c73e1d] transition-colors">Sitemap</Link>
             </div>
           </div>
         </div>
