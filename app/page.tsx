@@ -269,7 +269,7 @@ useEffect(() => {
        
        
        
-       {/* === SERVICES: THE CLARITY GRID === */}
+     {/* === SERVICES: THE CLARITY GRID === */}
 <section className="py-24 px-6 lg:px-8 bg-gray-50">
   <div className="mx-auto w-full max-w-[80vw] lg:max-w-6xl">
     
