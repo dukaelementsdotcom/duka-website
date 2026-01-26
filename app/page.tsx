@@ -1,301 +1,199 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 
-// OPTIMIZATION: Heavy components below-the-fold are loaded dynamically
+// Dynamic imports for performance
 const AnimatedStat = dynamic(() => import('./components/AnimatedStat'), { ssr: true });
-const Testimonials = dynamic(() => import('./components/Testimonials'));
 const Gallery = dynamic(() => import('./components/Gallery'));
-const ClientLogosGallery = dynamic(() => import('./components/ClientLogosGallery'));
-const FinalCTA = dynamic(() => import('./components/FinalCTA'));
-const ResetScroll = dynamic(() => import('./components/ResetScroll'));
+const Testimonials = dynamic(() => import('./components/Testimonials'));
 const Footer = dynamic(() => import('./components/Footer'));
 const ClientLogosFinal = dynamic(() => import('./components/ClientLogosFinal'));
+const FinalCTA = dynamic(() => import('./components/FinalCTA'));
+const ResetScroll = dynamic(() => import('./components/ResetScroll'));
 const NavBar = dynamic(() => import('./components/NavBar'));
 
 import { services } from '@/lib/servicesData';
-import StructuredData from '../components/StructuredData';
-
-// Optimized Structured Data
-const InteriorDesignCompanySchema = () => (
-  <script
-    type="application/ld+json"
-    dangerouslySetInnerHTML={{
-      __html: JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'InteriorDesignCompany',
-        name: 'Duka Interiors',
-        description: 'Elite interior design and construction company in Addis Ababa, Ethiopia. We provide single-point Design + Build solutions with transparent fixed costs.',
-        url: 'https://www.dukainteriors.com',
-        telephone: ['+251940607055', '+251929144290'],
-        email: 'welcome@dukainteriors.com',
-        address: {
-          '@type': 'PostalAddress',
-          streetAddress: 'Djibouti street, Welela building, 5th floor, suite 507',
-          addressLocality: 'Addis Ababa',
-          addressRegion: 'Addis Ababa',
-          addressCountry: 'ET',
-        },
-        geo: {
-          '@type': 'GeoCoordinates',
-          latitude: 9.032,
-          longitude: 38.7469,
-        },
-        sameAs: [
-          'https://www.facebook.com/dukainteriors',
-          'https://www.instagram.com/dukainteriors',
-          'https://www.linkedin.com/company/duka-interiors',
-          'https://www.tiktok.com/@duka.interiors.plc',
-        ],
-        areaServed: {
-          '@type': 'City',
-          name: 'Addis Ababa',
-        },
-        foundingYear: '2015',
-      }),
-    }}
-  />
-);
 
 export default function Home() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  
+  // Reference for Smooth Scroll
+  const consultationRef = useRef<HTMLDivElement>(null);
 
-  // Force scroll to top on load - Optimized
-  useEffect(() => {
-    if ('scrollRestoration' in window.history) {
-      window.history.scrollRestoration = 'manual';
+  const scrollToConsultation = () => {
+    // This finds the FinalCTA or Contact section and scrolls smoothly
+    const section = document.getElementById('final-cta');
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
     }
-    window.scrollTo(0, 0);
-  }, []);
+  };
 
-  // Optimized Scroll Listener
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPos = window.scrollY;
-      if (scrollPos > 100 && !isScrolled) setIsScrolled(true);
-      else if (scrollPos <= 100 && isScrolled) setIsScrolled(false);
+      setIsScrolled(window.scrollY > 100);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isScrolled]);
-
-  // Lock body scroll efficiently
-  useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? 'hidden' : 'unset';
-    return () => { document.body.style.overflow = 'unset'; };
-  }, [isMenuOpen]);
-
-  // Close mobile menu on desktop resize
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 1024 && isMenuOpen) setIsMenuOpen(false);
-    };
-    window.addEventListener('resize', handleResize, { passive: true });
-    return () => window.removeEventListener('resize', handleResize);
-  }, [isMenuOpen]);
+  }, []);
 
   return (
     <>
-      <InteriorDesignCompanySchema />
       <NavBar />
+      <ResetScroll />
 
-      {/* Hero Section: Optimized with fetchPriority for LCP */}
-      <div className="relative h-screen overflow-hidden pt-20">
+      {/* Hero Section: Replaced Mailto with Smooth Scroll */}
+      <div className="relative h-screen overflow-hidden">
         <Image
           src="/images/duka-interiors-portfolio/modern-conference-room-and-lobby-design/modern-board-room-habesha-breweries.webp"
           alt="Luxury executive office reception design by Duka Interiors"
           fill
-          style={{ objectFit: 'cover' }}
+          className="object-cover"
           priority
-          fetchPriority="high"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="absolute inset-0 bg-black/40"></div>
+        
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-light leading-tight max-w-4xl mb-8 text-shadow-lg">
-            WE DESIGN <br />
-            WE BUILD <br />
-            <span className="text-red-600 font-semibold">EXCEPTIONAL INTERIORS</span> <br />
-            IN ADDIS ABABA
+          <p className="text-red-600 font-black tracking-[0.4em] uppercase text-xs mb-4 animate-fade-in">
+            Established 2015
+          </p>
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black leading-[0.9] max-w-5xl mb-10 uppercase tracking-tighter">
+            We Design. <br />
+            We Build. <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">Exceptional.</span>
           </h1>
-          <Link
-            href="mailto:welcome@dukainteriors.com"
-            className="mt-4 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
-          >
-            Get a Free Consultation
-          </Link>
+          
+          <div className="flex flex-col sm:flex-row gap-6">
+            <button
+              onClick={scrollToConsultation}
+              className="bg-red-600 hover:bg-white hover:text-black text-white font-black py-5 px-10 text-[10px] uppercase tracking-[0.2em] transition-all duration-500 shadow-2xl"
+            >
+              Get a Free Consultation
+            </button>
+            <Link
+              href="/projects"
+              className="bg-transparent border border-white/30 backdrop-blur-sm hover:bg-white hover:text-black text-white font-black py-5 px-10 text-[10px] uppercase tracking-[0.2em] transition-all duration-500"
+            >
+              View Portfolio
+            </Link>
+          </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-50">
+           <div className="w-[1px] h-12 bg-gradient-to-b from-white to-transparent"></div>
         </div>
       </div>
-
-      <main className="pt-0">
-        <ResetScroll />
-        
-        {/* === INTRO SECTION === */}
-        <section className="py-20 px-6 lg:px-8 bg-gray-50">
-          <div className="mx-auto w-full max-w-[80vw] lg:max-w-6xl">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-              <div>
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight mb-6">
-                  DESIGNING THE BEST OFFICES IN ADDIS ABABA SINCE 2015
+      <main className="bg-white">
+        {/* Intro Section */}
+        <section className="py-32 px-6 lg:px-12">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+              <div className="lg:col-span-7 space-y-8">
+                <h2 className="text-4xl md:text-5xl font-black text-gray-900 leading-[1.1] uppercase tracking-tighter">
+                  Setting the Standard for <br />
+                  <span className="text-red-600">Office Excellence</span> in Addis.
                 </h2>
-                <p className="text-gray-600 text-base md:text-lg leading-relaxed mb-6">
-                  Duka Interiors is a leading name among office interior design and construction companies in Addis Ababa, Ethiopia. Since 2015, we’ve specialized in creating exceptional and highly functional office environments that inspire productivity and reflect your brand.
+                <div className="h-1 w-20 bg-red-600"></div>
+                <p className="text-gray-500 text-lg md:text-xl leading-relaxed max-w-2xl font-medium">
+                  Since 2015, Duka Interiors has delivered single-point Design + Build solutions. 
+                  We eliminate the stress of coordinating multiple contractors by providing 
+                  a unified, transparent journey from concept to occupation.
                 </p>
-                <p className="text-gray-600 text-base md:text-lg leading-relaxed mb-6">
-                  We offer turnkey office fit-out solutions, providing a single point of contact from initial concept to a seamless occupation.
-                </p>
-                <p className="text-gray-600 text-base md:text-lg leading-relaxed mb-6">
-                  Transform your office. Enhance your business. Contact Duka Interiors today for a consultation.
-                </p>
+                <div className="pt-4">
+                  <Link href="/about" className="group flex items-center gap-4 font-black uppercase tracking-widest text-xs">
+                    Our Story <span className="group-hover:translate-x-2 transition-transform text-red-600 text-xl">→</span>
+                  </Link>
+                </div>
               </div>
 
-              <Link href="/projects/modern-conference-room-and-lobby-design" className="block">
-                <div className="relative min-h-[400px] overflow-hidden rounded-none border border-gray-200 group">
+              <div className="lg:col-span-5">
+                <div className="relative aspect-square lg:aspect-[4/5] overflow-hidden group border border-gray-100">
                   <Image
                     src="/images/duka-interiors-portfolio/modern-conference-room-and-lobby-design/modern-conference-room-addis-ababa.webp"
-                    alt="Modern conference room and lobby design by Duka Interiors"
+                    alt="Modern conference room design"
                     fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    loading="lazy"
+                    className="object-cover transition-transform duration-1000 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-black bg-opacity-90 text-white flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
-                    <span className="px-6 py-2 bg-red-600 text-white font-bold text-xs uppercase tracking-wide min-w-[120px] text-center">
-                      See Project
-                    </span>
-                  </div>
                 </div>
-              </Link>
-            </div>
-          </div>
-        </section>
-        {/* === THE STATEMENT: BLACK BAR WITH ANIMATED STATS + BUTTONS === */}
-        <section className="w-full bg-black text-white py-8">
-          <div className="max-w-[80vw] lg:max-w-6xl mx-auto px-6 lg:px-8">
-            <div className="flex flex-col lg:flex-row justify-between items-center gap-8">
-              {/* Animated Stats - Left */}
-              <div className="flex flex-col sm:flex-row lg:flex-row gap-8 lg:gap-12 text-center lg:text-left">
-                <div>
-                  <AnimatedStat target={150} />
-                  <div className="text-gray-300 text-xs uppercase tracking-wide mt-1">Projects Completed</div>
-                </div>
-                <div>
-                  <AnimatedStat target={50} />
-                  <div className="text-gray-300 text-xs uppercase tracking-wide mt-1">Happy Clients</div>
-                </div>
-                <div>
-                  <AnimatedStat target={9} />
-                  <div className="text-gray-300 text-xs uppercase tracking-wide mt-1">Years Experience</div>
-                </div>
-              </div>
-
-              {/* Buttons - Right */}
-              <div className="flex flex-col sm:flex-row gap-4 whitespace-nowrap">
-                <Link
-                  href="/about"
-                  className="px-8 py-3 bg-red-600 text-white font-bold text-sm uppercase tracking-wide rounded-none hover:bg-red-700 transition-colors duration-300 min-w-[180px] text-center"
-                >
-                  Learn More About Us
-                </Link>
-                <Link
-                  href="/contact"
-                  className="px-8 py-3 border-2 border-gray-400 text-white font-bold text-sm uppercase tracking-wide rounded-none hover:border-white transition-colors duration-300 min-w-[180px] text-center"
-                >
-                  Start Your Project
-                </Link>
               </div>
             </div>
           </div>
         </section>
 
-        {/* === SERVICES: THE CLARITY GRID === */}
-        <section className="py-24 px-6 lg:px-8 bg-gray-50">
-          <div className="mx-auto w-full max-w-[80vw] lg:max-w-6xl">
-            {/* Header Section */}
-            <div className="text-center mb-12 lg:mb-16 px-4">
-              <div className="inline-block px-5 py-2 bg-red-600 text-white rounded-none text-xs font-bold uppercase tracking-wider mb-6">
-                Our Services
+        {/* Stats Section: Redesigned for High Contrast */}
+        <section className="w-full bg-black text-white py-20 border-y border-white/10">
+          <div className="max-w-7xl mx-auto px-6 lg:px-12">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+              <div className="space-y-2">
+                <div className="text-4xl md:text-6xl font-black tracking-tighter flex items-center">
+                   <AnimatedStat target={150} /><span className="text-red-600">+</span>
+                </div>
+                <div className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">Projects Built</div>
               </div>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight max-w-4xl mx-auto mb-4">
-                Interior Design & Build in Addis Ababa — From Vision to Reality.
-              </h2>
-              <p className="text-base md:text-lg text-gray-600 max-w-xl mx-auto">
-                Single-point responsibility. Transparent pricing. Exceptional spaces.
-              </p>
+              <div className="space-y-2">
+                <div className="text-4xl md:text-6xl font-black tracking-tighter flex items-center">
+                   <AnimatedStat target={50} /><span className="text-red-600">+</span>
+                </div>
+                <div className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">Happy Clients</div>
+              </div>
+              <div className="space-y-2">
+                <div className="text-4xl md:text-6xl font-black tracking-tighter flex items-center">
+                   <AnimatedStat target={9} /><span className="text-red-600">+</span>
+                </div>
+                <div className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">Years Experience</div>
+              </div>
+              <div className="flex items-center justify-end">
+                 <Link href="/contact" className="hidden lg:block border border-white/20 px-8 py-4 text-[10px] font-black uppercase tracking-widest hover:bg-white hover:text-black transition-all">
+                    Start Your Project
+                 </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+        {/* Services Section */}
+        <section className="py-32 px-6 lg:px-12 bg-gray-50">
+          <div className="max-w-7xl mx-auto">
+            <div className="mb-20">
+              <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-red-600 mb-4">Our Expertise</h3>
+              <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">Vision to Reality.</h2>
             </div>
 
-            {/* Dynamic Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-fr">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-1px bg-gray-200 border border-gray-200">
               {services.map((service, index) => (
-                <div
-                  key={index}
-                  className="group relative bg-white border border-gray-200 rounded-none transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 overflow-hidden"
-                >
-                  <div className="p-6 pt-8 flex flex-col h-full">
-                    <div className="flex items-center justify-center mb-4 text-red-600 group-hover:scale-110 transition-transform duration-300">
-                      <span className="text-2xl font-bold">★</span>
-                    </div>
-                    <h3 className="text-2xl font-semibold text-gray-900 mb-4 leading-tight text-center group-hover:text-red-600 transition-colors duration-300">
-                      {service.title}
-                    </h3>
-                    <p className="text-gray-600 text-sm leading-relaxed mb-6 line-clamp-3 text-center">
-                      {service.shortDesc}
-                    </p>
-                  </div>
-
-                  {/* Hover Layer */}
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/70 to-black/90 flex items-end p-6 opacity-0 group-hover:opacity-100 transition-all duration-500 pointer-events-none">
-                    <Link 
-                      href={`/services/${service.slug}`}
-                      className="px-6 py-2 bg-red-600 text-white font-bold text-xs uppercase tracking-wide rounded-none hover:bg-red-700 transition-colors duration-300 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 pointer-events-auto min-w-[120px] text-center shadow-lg"
-                    >
-                      Learn More
-                    </Link>
-                  </div>
+                <div key={index} className="bg-white p-12 space-y-6 group hover:bg-black transition-colors duration-500">
+                  <div className="w-12 h-[2px] bg-red-600 group-hover:w-full transition-all duration-500"></div>
+                  <h4 className="text-2xl font-black uppercase tracking-tighter group-hover:text-white transition-colors">
+                    {service.title}
+                  </h4>
+                  <p className="text-gray-500 group-hover:text-gray-400 transition-colors text-sm leading-relaxed">
+                    {service.shortDesc}
+                  </p>
+                  <Link 
+                    href={`/services/${service.slug}`}
+                    className="inline-block pt-4 text-[10px] font-black uppercase tracking-widest group-hover:text-red-600 transition-colors"
+                  >
+                    Explore Service +
+                  </Link>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* === FULL-SPAN CTA === */}
-        <section className="w-full bg-black text-white py-8">
-          <div className="container mx-auto px-4 lg:px-8 max-w-7xl text-center">
-            <h2 className="text-2xl font-light mb-1">Let’s Build Together</h2>
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-3 mt-6">
-              <Link
-                href="/services"
-                className="px-6 py-2.5 border border-white text-white font-bold text-xs uppercase tracking-wide rounded-none hover:bg-white hover:text-black transition-all duration-300 group min-w-[140px] flex items-center justify-center"
-              >
-                View All Services
-                <svg
-                  className="w-3 h-3 ml-2 transform group-hover:translate-x-1 transition-transform duration-300"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M5 12H19M19 12L12 5M19 12L12 19" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </Link>
-              <Link
-                href="/contact"
-                className="px-6 py-2.5 bg-red-600 text-white font-bold text-xs uppercase tracking-wide rounded-none hover:bg-red-700 transition-all duration-300 min-w-[170px]"
-              >
-                Get a Free Consultation
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* Components below are dynamically loaded via imports in Part 1 */}
+        {/* Global Components */}
         <Gallery />
         <ClientLogosFinal />
         <Testimonials />
-        <FinalCTA />
+        
+        {/* ID added for the smooth scroll anchor */}
+        <div id="final-cta">
+          <FinalCTA />
+        </div>
+        
         <Footer />
       </main>
     </>
