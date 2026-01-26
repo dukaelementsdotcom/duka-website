@@ -30,7 +30,6 @@ export default function ContactPage() {
         (e.target as HTMLFormElement).reset();
       } else {
         setStatus("error");
-        // This helps us see the actual error from Resend
         setErrorMessage(result.error || "Submission failed");
       }
     } catch (err) {
@@ -42,60 +41,156 @@ export default function ContactPage() {
   return (
     <>
       <Navbar />
-      <main className="bg-white min-h-screen pt-20">
-        <section className="max-w-6xl mx-auto px-4 py-16">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            
-            {/* Info Column */}
-            <div className="space-y-8">
-              <h1 className="text-5xl font-black uppercase tracking-tighter">Let's Build.</h1>
-              <p className="text-gray-600 text-lg">Send us your project details and we'll get back to you within 24 hours.</p>
-              <div className="pt-4 space-y-4">
-                <p className="font-bold">contact@dukainteriors.com</p>
-                <p className="font-bold">+251 940 607 055</p>
+      
+      <main className="bg-white min-h-screen">
+        {/* Header Hero */}
+        <div className="pt-32 pb-12 px-6 md:px-12 border-b border-gray-100">
+          <div className="max-w-7xl mx-auto">
+            <h1 className="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-4">
+              Get in <span className="text-red-600">Touch.</span>
+            </h1>
+            <p className="text-gray-400 font-medium tracking-[0.2em] uppercase text-xs">
+              07 — Contact Us
+            </p>
+          </div>
+        </div>
+
+        <section className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 min-h-[70vh]">
+          
+          {/* Left Side: Contact Information (4 Columns) */}
+          <div className="lg:col-span-4 p-6 md:p-12 border-r border-gray-100 flex flex-col justify-between space-y-12">
+            <div className="space-y-10">
+              <div>
+                <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 mb-6">General Inquiries</h3>
+                <a href="mailto:contact@dukainteriors.com" className="text-xl font-bold hover:text-red-600 transition-colors block underline underline-offset-8 decoration-1">
+                  contact@dukainteriors.com
+                </a>
+              </div>
+
+              <div>
+                <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 mb-6">Direct Line</h3>
+                <div className="space-y-2">
+                  <a href="tel:+251940607055" className="text-xl font-bold block hover:text-red-600 transition-colors">+251 940 607 055</a>
+                  <a href="tel:+251929144290" className="text-xl font-bold block hover:text-red-600 transition-colors">+251 929 144 290</a>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 mb-6">Visit Our Studio</h3>
+                <p className="text-lg font-medium leading-snug">
+                  Bole, Addis Ababa<br />
+                  Ethiopia
+                </p>
               </div>
             </div>
 
-            {/* Form Column */}
-            <div className="bg-gray-50 p-8 border border-gray-200">
-              {status === "success" ? (
-                <div className="text-center py-10">
-                  <h2 className="text-2xl font-bold text-green-600 mb-2">Message Sent!</h2>
-                  <p>We will contact you shortly.</p>
-                  <button onClick={() => setStatus("idle")} className="mt-4 text-red-600 font-bold underline">Send another</button>
+            {/* Social Icons Sidebar Style */}
+            <div className="flex gap-6 pt-12">
+              {['fab fa-whatsapp', 'fab fa-telegram', 'fab fa-instagram', 'fab fa-linkedin'].map((icon) => (
+                <i key={icon} className={`${icon} text-xl text-gray-300 hover:text-black transition-colors cursor-pointer`}></i>
+              ))}
+            </div>
+          </div>
+
+          {/* Right Side: The Form (8 Columns) */}
+          <div className="lg:col-span-8 p-6 md:p-12 bg-gray-50/50">
+            {status === "success" ? (
+              <div className="h-full flex flex-col items-center justify-center text-center space-y-6">
+                <div className="w-20 h-20 bg-black rounded-full flex items-center justify-center text-white text-3xl">
+                  ✓
                 </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  <input name="name" placeholder="Full Name" required className="w-full p-3 border border-gray-300 outline-none focus:border-red-600" />
-                  <input name="email" type="email" placeholder="Email Address" required className="w-full p-3 border border-gray-300 outline-none focus:border-red-600" />
-                  <input name="phone" placeholder="Phone Number" className="w-full p-3 border border-gray-300 outline-none focus:border-red-600" />
-                  <select name="project-type" required className="w-full p-3 border border-gray-300 outline-none focus:border-red-600">
-                    <option value="">Select Project Type</option>
-                    <option value="office">Office Fit-out</option>
-                    <option value="residential">Residential Design</option>
-                    <option value="furniture">Custom Furniture</option>
-                  </select>
-                  <textarea name="message" placeholder="Project Details" rows={4} required className="w-full p-3 border border-gray-300 outline-none focus:border-red-600"></textarea>
-                  
+                <h2 className="text-4xl font-black uppercase tracking-tighter">Inquiry Received</h2>
+                <p className="text-gray-500 max-w-sm">Our design team has been notified. We will reach out within one business day.</p>
+                <button 
+                  onClick={() => setStatus("idle")} 
+                  className="px-10 py-4 border border-black font-black uppercase tracking-widest text-[10px] hover:bg-black hover:text-white transition-all"
+                >
+                  Send Another Message
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="max-w-3xl space-y-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                  <div className="relative group">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 group-focus-within:text-red-600 transition-colors">Full Name</label>
+                    <input 
+                      name="name" 
+                      required 
+                      className="w-full bg-transparent border-b border-gray-300 py-3 outline-none focus:border-black transition-all font-medium text-lg" 
+                      placeholder="e.g. Dagmawi Tilahun"
+                    />
+                  </div>
+                  <div className="relative group">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 group-focus-within:text-red-600 transition-colors">Email Address</label>
+                    <input 
+                      name="email" 
+                      type="email" 
+                      required 
+                      className="w-full bg-transparent border-b border-gray-300 py-3 outline-none focus:border-black transition-all font-medium text-lg" 
+                      placeholder="name@domain.com"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                  <div className="relative group">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 group-focus-within:text-red-600 transition-colors">Phone Number</label>
+                    <input 
+                      name="phone" 
+                      className="w-full bg-transparent border-b border-gray-300 py-3 outline-none focus:border-black transition-all font-medium text-lg" 
+                      placeholder="+251 --- --- ---"
+                    />
+                  </div>
+                  <div className="relative group">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 group-focus-within:text-red-600 transition-colors">Project Type</label>
+                    <select 
+                      name="project-type" 
+                      required 
+                      className="w-full bg-transparent border-b border-gray-300 py-3 outline-none focus:border-black transition-all font-medium text-lg appearance-none cursor-pointer"
+                    >
+                      <option value="">Select Service</option>
+                      <option value="office">Office Fit-out</option>
+                      <option value="residential">Residential Design</option>
+                      <option value="furniture">Custom Furniture</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="relative group">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 group-focus-within:text-red-600 transition-colors">Project Brief</label>
+                  <textarea 
+                    name="message" 
+                    rows={4} 
+                    required 
+                    className="w-full bg-transparent border-b border-gray-300 py-3 outline-none focus:border-black transition-all font-medium text-lg resize-none" 
+                    placeholder="Tell us about your space..."
+                  ></textarea>
+                </div>
+
+                <div className="pt-6">
                   <button 
                     disabled={status === "sending"}
-                    className="w-full bg-black text-white py-4 font-bold uppercase tracking-widest hover:bg-red-600 transition-colors"
+                    className="group relative overflow-hidden bg-black text-white px-12 py-5 font-black uppercase tracking-widest text-xs transition-all flex items-center gap-4"
                   >
-                    {status === "sending" ? "Sending..." : "Send Inquiry"}
+                    <span className="relative z-10">
+                      {status === "sending" ? "Processing..." : "Submit Inquiry"}
+                    </span>
+                    <span className="text-xl group-hover:translate-x-2 transition-transform">→</span>
+                    <div className="absolute inset-0 bg-red-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                   </button>
+                </div>
 
-                  {status === "error" && (
-                    <div className="bg-red-50 p-3 border border-red-200 text-red-600 text-sm font-bold">
-                      Error: {errorMessage}
-                    </div>
-                  )}
-                </form>
-              )}
-            </div>
-
+                {status === "error" && (
+                  <div className="p-4 bg-red-50 text-red-600 text-[10px] font-black uppercase tracking-widest border border-red-100 animate-pulse">
+                    Error // {errorMessage}
+                  </div>
+                )}
+              </form>
+            )}
           </div>
         </section>
       </main>
+
       <Footer />
     </>
   );
