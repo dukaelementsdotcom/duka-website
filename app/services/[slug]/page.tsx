@@ -1,17 +1,16 @@
-
+// app/services/[slug]/page.tsx
 
 import { services } from '@/lib/servicesData';
 import NavBar from '@/app/components/NavBar';
 import Footer from '@/app/components/Footer';
 import Link from 'next/link';
-import { use } from 'react';
 
 export default function ServiceDetail({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 }) {
-  const { slug } = use(params);
+  const { slug } = params;
 
   const service = services.find((s) => s.slug === slug);
 
