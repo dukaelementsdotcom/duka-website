@@ -229,7 +229,7 @@ export const BLOG_POSTS: BlogPost[] = [
           Our 2026 Technical Pack includes CAD blocks, material load-bearing specs (HDF vs. MDF), and the Ethiopian fire compliance checklist used by Duka Interiors on every project.
         </p>
         <div class="flex flex-col sm:flex-row justify-center gap-4">
-          <a href="https://t.me/dukainteriorsplc" class="bg-black text-white px-12 py-5 font-black uppercase tracking-widest text-sm hover:bg-red-600 transition-colors">
+          href="https://t.me/dukainteriorsplc" class="bg-black text-white px-12 py-5 font-black uppercase tracking-widest text-sm hover:bg-red-600 transition-colors">
             Get The Blueprint →
           </a>
           <div class="px-8 py-5 border-2 border-black font-black uppercase text-sm">
@@ -408,7 +408,7 @@ export const BLOG_POSTS: BlogPost[] = [
           Duka Interiors doesn't just sell furniture; we engineer the atmospheric conditions for your company's growth. From the Financial District to Bole, we are redefining the Ethiopian workspace.
         </p>
         <div class="flex flex-col sm:flex-row justify-center gap-6">
-          <a href="https://t.me/dukainteriorsplc" class="bg-black text-white px-12 py-5 font-black uppercase tracking-widest text-sm hover:bg-red-600 transition-all">
+          href="https://t.me/dukainteriorsplc" class="bg-black text-white px-12 py-5 font-black uppercase tracking-widest text-sm hover:bg-red-600 transition-all">
             Consult Our Design Scientists →
           </a>
           <div class="px-10 py-5 bg-white border-2 border-black font-black uppercase text-sm flex items-center justify-center">
