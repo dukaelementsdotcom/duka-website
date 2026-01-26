@@ -4,16 +4,26 @@ import Footer from '@/app/components/Footer';
 import Link from 'next/link';
 import React, { use } from 'react';
 
-// This function ensures Vercel builds the pages as Static (●) instead of Dynamic (ƒ)
+// 1. Tell Next.js which paths to pre-render at build time
 export async function generateStaticParams() {
   return services.map((service) => ({
     slug: service.slug,
   }));
 }
 
-export default function ServiceDetail({ params }: { params: Promise<{ slug: string }> }) {
-  // We must 'use' the promise to get the slug in Next.js 15+
-  const { slug } = use(params);
+// 2. IMPORTANT: Force a 404 for any slug NOT in the list above 
+// instead of letting it try to resolve dynamically (which causes the home redirect)
+export const dynamicParams = false;
+
+interface PageProps {
+  params: Promise<{ slug: string }>;
+}
+
+export default function ServiceDetail({ params }: PageProps) {
+  // 3. Unwrap the params promise using 'use' (Next.js 15 standard)
+  const resolvedParams = use(params);
+  const { slug } = resolvedParams;
+  
   const service = services.find((s) => s.slug === slug);
 
   if (!service) {
