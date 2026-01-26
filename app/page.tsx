@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 
-// Dynamic imports for performance
+// Dynamic imports for performance optimization
 const AnimatedStat = dynamic(() => import('./components/AnimatedStat'), { ssr: true });
 const Gallery = dynamic(() => import('./components/Gallery'));
 const Testimonials = dynamic(() => import('./components/Testimonials'));
@@ -20,11 +20,7 @@ import { services } from '@/lib/servicesData';
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
   
-  // Reference for Smooth Scroll
-  const consultationRef = useRef<HTMLDivElement>(null);
-
   const scrollToConsultation = () => {
-    // This finds the FinalCTA or Contact section and scrolls smoothly
     const section = document.getElementById('final-cta');
     if (section) {
       section.scrollIntoView({ behavior: 'smooth' });
@@ -44,11 +40,11 @@ export default function Home() {
       <NavBar />
       <ResetScroll />
 
-      {/* Hero Section: Replaced Mailto with Smooth Scroll */}
+      {/* Hero Section: Engineered for Maximum Visual Impact */}
       <div className="relative h-screen overflow-hidden">
         <Image
           src="/images/duka-interiors-portfolio/modern-conference-room-and-lobby-design/modern-board-room-habesha-breweries.webp"
-          alt="Luxury executive office reception design by Duka Interiors"
+          alt="Premium commercial interior design and office fit-out in Addis Ababa by Duka Interiors"
           fill
           className="object-cover"
           priority
@@ -57,139 +53,159 @@ export default function Home() {
         <div className="absolute inset-0 bg-black/40"></div>
         
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
-          <p className="text-red-600 font-black tracking-[0.4em] uppercase text-xs mb-4 animate-fade-in">
-            Established 2015
+          <p className="text-red-600 font-black tracking-[0.5em] uppercase text-[10px] mb-6 animate-pulse">
+            Leading Interior Design & Build Firm
           </p>
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black leading-[0.9] max-w-5xl mb-10 uppercase tracking-tighter">
+          <h1 className="text-5xl md:text-7xl lg:text-9xl font-black leading-[0.85] max-w-6xl mb-12 uppercase tracking-tighter">
             We Design. <br />
             We Build. <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">Exceptional.</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500">Corporate Elite.</span>
           </h1>
           
           <div className="flex flex-col sm:flex-row gap-6">
             <button
               onClick={scrollToConsultation}
-              className="bg-red-600 hover:bg-white hover:text-black text-white font-black py-5 px-10 text-[10px] uppercase tracking-[0.2em] transition-all duration-500 shadow-2xl"
+              className="bg-red-600 hover:bg-white hover:text-black text-white font-black py-6 px-12 text-[10px] uppercase tracking-[0.3em] transition-all duration-500 shadow-2xl"
             >
-              Get a Free Consultation
+              Start Your Consultation
             </button>
             <Link
               href="/projects"
-              className="bg-transparent border border-white/30 backdrop-blur-sm hover:bg-white hover:text-black text-white font-black py-5 px-10 text-[10px] uppercase tracking-[0.2em] transition-all duration-500"
+              className="bg-transparent border border-white/40 backdrop-blur-md hover:bg-white hover:text-black text-white font-black py-6 px-12 text-[10px] uppercase tracking-[0.3em] transition-all duration-500"
             >
-              View Portfolio
+              Explore Portfolio
             </Link>
           </div>
         </div>
 
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-50">
-           <div className="w-[1px] h-12 bg-gradient-to-b from-white to-transparent"></div>
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-40">
+           <div className="w-[1px] h-16 bg-gradient-to-b from-white to-transparent"></div>
         </div>
       </div>
       <main className="bg-white">
-        {/* Intro Section */}
+        {/* Intro Section: Strategic SEO-Rich Storytelling */}
         <section className="py-32 px-6 lg:px-12">
           <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-              <div className="lg:col-span-7 space-y-8">
-                <h2 className="text-4xl md:text-5xl font-black text-gray-900 leading-[1.1] uppercase tracking-tighter">
-                  Setting the Standard for <br />
-                  <span className="text-red-600">Office Excellence</span> in Addis.
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 items-start">
+              <div className="lg:col-span-7 space-y-10">
+                <h2 className="text-4xl md:text-6xl font-black text-gray-900 leading-[1.05] uppercase tracking-tighter">
+                  The Gold Standard of <br />
+                  <span className="text-red-600 font-black">Design + Build</span> in Ethiopia.
                 </h2>
-                <div className="h-1 w-20 bg-red-600"></div>
-                <p className="text-gray-500 text-lg md:text-xl leading-relaxed max-w-2xl font-medium">
-                  Since 2015, Duka Interiors has delivered single-point Design + Build solutions. 
-                  We eliminate the stress of coordinating multiple contractors by providing 
-                  a unified, transparent journey from concept to occupation.
-                </p>
-                <div className="pt-4">
-                  <Link href="/about" className="group flex items-center gap-4 font-black uppercase tracking-widest text-xs">
-                    Our Story <span className="group-hover:translate-x-2 transition-transform text-red-600 text-xl">→</span>
+                
+                <div className="space-y-6 text-gray-500 text-lg md:text-xl leading-relaxed max-w-2xl font-medium">
+                  <p>
+                    Established in 2015, <span className="text-black font-bold">Duka Interiors</span> was founded on a singular premise: that world-class interior design should be inseparable from world-class construction. We are an architect-led firm that has spent the last decade redefining the corporate and residential landscape of Addis Ababa.
+                  </p>
+                  <p>
+                    Our approach moves beyond traditional decorating. We provide <span className="text-black font-bold text-base uppercase tracking-wider">Turnkey Office Fit-Outs</span> and high-end residential solutions that prioritize both aesthetic brilliance and structural integrity. By merging architectural visualization with on-site construction management, we eliminate the friction between "the dream" and "the delivery."
+                  </p>
+                  <p>
+                    Whether we are designing a modern corporate headquarters in Bole or a luxury private residence, Duka Interiors guarantees transparent, fixed-cost pricing and a single point of responsibility. We don't just create spaces; we build the environments where Ethiopia’s future leaders work and live.
+                  </p>
+                </div>
+
+                <div className="pt-6">
+                  <Link href="/about" className="group flex items-center gap-6 font-black uppercase tracking-[0.2em] text-[10px] text-black">
+                    Discover Our Philosophy <span className="group-hover:translate-x-3 transition-transform text-red-600 text-2xl">→</span>
                   </Link>
                 </div>
               </div>
 
               <div className="lg:col-span-5">
-                <div className="relative aspect-square lg:aspect-[4/5] overflow-hidden group border border-gray-100">
+                <div className="relative aspect-[4/5] overflow-hidden group border-[12px] border-gray-50 shadow-sm">
                   <Image
                     src="/images/duka-interiors-portfolio/modern-conference-room-and-lobby-design/modern-conference-room-addis-ababa.webp"
-                    alt="Modern conference room design"
+                    alt="Award-winning office interior design project in Addis Ababa"
                     fill
-                    className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                    className="object-cover transition-transform duration-1000 group-hover:scale-105"
                   />
+                  <div className="absolute top-0 right-0 bg-red-600 text-white p-4 font-black uppercase text-[10px] tracking-widest">
+                    Featured Project
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Stats Section: Redesigned for High Contrast */}
-        <section className="w-full bg-black text-white py-20 border-y border-white/10">
+        {/* High-Impact Performance Metrics */}
+        <section className="w-full bg-black text-white py-24 border-y border-white/5">
           <div className="max-w-7xl mx-auto px-6 lg:px-12">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
-              <div className="space-y-2">
-                <div className="text-4xl md:text-6xl font-black tracking-tighter flex items-center">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-16 lg:gap-8 text-center lg:text-left">
+              <div className="space-y-3">
+                <div className="text-5xl md:text-7xl font-black tracking-tighter text-white flex items-center justify-center lg:justify-start">
                    <AnimatedStat target={150} /><span className="text-red-600">+</span>
                 </div>
-                <div className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">Projects Built</div>
+                <div className="text-[10px] font-black uppercase tracking-[0.4em] text-gray-600">Premium Projects</div>
               </div>
-              <div className="space-y-2">
-                <div className="text-4xl md:text-6xl font-black tracking-tighter flex items-center">
+              <div className="space-y-3">
+                <div className="text-5xl md:text-7xl font-black tracking-tighter text-white flex items-center justify-center lg:justify-start">
                    <AnimatedStat target={50} /><span className="text-red-600">+</span>
                 </div>
-                <div className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">Happy Clients</div>
+                <div className="text-[10px] font-black uppercase tracking-[0.4em] text-gray-600">Corporate Partners</div>
               </div>
-              <div className="space-y-2">
-                <div className="text-4xl md:text-6xl font-black tracking-tighter flex items-center">
+              <div className="space-y-3">
+                <div className="text-5xl md:text-7xl font-black tracking-tighter text-white flex items-center justify-center lg:justify-start">
                    <AnimatedStat target={9} /><span className="text-red-600">+</span>
                 </div>
-                <div className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">Years Experience</div>
+                <div className="text-[10px] font-black uppercase tracking-[0.4em] text-gray-600">Years of Mastery</div>
               </div>
-              <div className="flex items-center justify-end">
-                 <Link href="/contact" className="hidden lg:block border border-white/20 px-8 py-4 text-[10px] font-black uppercase tracking-widest hover:bg-white hover:text-black transition-all">
-                    Start Your Project
+              <div className="flex items-center justify-center lg:justify-end">
+                 <Link href="/contact" className="border-2 border-white/10 px-10 py-5 text-[10px] font-black uppercase tracking-widest hover:bg-white hover:text-black hover:border-white transition-all duration-500">
+                    Partner With Us
                  </Link>
               </div>
             </div>
           </div>
         </section>
-        {/* Services Section */}
-        <section className="py-32 px-6 lg:px-12 bg-gray-50">
+        {/* Expertise Grid: Minimalist & Architecturally Driven */}
+        <section className="py-32 px-6 lg:px-12 bg-[#fafafa]">
           <div className="max-w-7xl mx-auto">
-            <div className="mb-20">
-              <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-red-600 mb-4">Our Expertise</h3>
-              <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">Vision to Reality.</h2>
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-24 gap-8">
+              <div className="max-w-2xl">
+                <h3 className="text-[10px] font-black uppercase tracking-[0.5em] text-red-600 mb-6">Our Capabilities</h3>
+                <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter leading-none">
+                  Tailored Spaces, <br />
+                  <span className="text-gray-300 italic">Absolute Precision.</span>
+                </h2>
+              </div>
+              <p className="text-gray-400 text-sm max-w-xs font-medium uppercase tracking-widest leading-loose">
+                From structural renovation to bespoke furniture fabrication.
+              </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-1px bg-gray-200 border border-gray-200">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-gray-200 border border-gray-200 shadow-2xl">
               {services.map((service, index) => (
-                <div key={index} className="bg-white p-12 space-y-6 group hover:bg-black transition-colors duration-500">
-                  <div className="w-12 h-[2px] bg-red-600 group-hover:w-full transition-all duration-500"></div>
+                <div key={index} className="bg-white p-16 space-y-8 group hover:bg-black transition-all duration-700 relative overflow-hidden">
+                  <div className="w-10 h-[3px] bg-red-600 group-hover:w-full transition-all duration-700"></div>
                   <h4 className="text-2xl font-black uppercase tracking-tighter group-hover:text-white transition-colors">
                     {service.title}
                   </h4>
-                  <p className="text-gray-500 group-hover:text-gray-400 transition-colors text-sm leading-relaxed">
+                  <p className="text-gray-500 group-hover:text-gray-400 transition-colors text-sm leading-relaxed font-medium">
                     {service.shortDesc}
                   </p>
                   <Link 
                     href={`/services/${service.slug}`}
-                    className="inline-block pt-4 text-[10px] font-black uppercase tracking-widest group-hover:text-red-600 transition-colors"
+                    className="inline-flex items-center gap-4 pt-6 text-[10px] font-black uppercase tracking-[0.2em] group-hover:text-red-600 transition-colors"
                   >
-                    Explore Service +
+                    View Specialty <span>→</span>
                   </Link>
+                  {/* Subtle Background Numbering */}
+                  <span className="absolute -bottom-4 -right-2 text-8xl font-black text-gray-50 opacity-0 group-hover:opacity-5 transition-opacity">
+                    0{index + 1}
+                  </span>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Global Components */}
+        {/* Retained Dynamic Components */}
         <Gallery />
         <ClientLogosFinal />
         <Testimonials />
         
-        {/* ID added for the smooth scroll anchor */}
         <div id="final-cta">
           <FinalCTA />
         </div>
