@@ -75,17 +75,17 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              {/* Updated Studio Section */}
+              {/* CORRECTED STUDIO SECTION */}
               <div>
-                {/* Replaced text with image */}
+                {/* Replaced with your image */}
                 <img 
                   src="/images/studio-logo.png" 
                   alt="Duka Interiors Studio Location" 
                   className="w-16 h-16 object-contain mb-4"
                 />
-                {/* Clickable address with Google Maps link */}
+                {/* Clickable address with YOUR exact Google Maps link */}
                 <a 
-                  href="https://www.google.com/maps/search/?api=1&query=Djibouti+street,+Welela+building,+5th+floor,+suite+507,+Addis+Ababa,+Ethiopia" 
+                  href="https://maps.app.goo.gl/FNBrMacYUefLEH7k8" 
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-lg font-medium leading-snug hover:text-red-600 transition-colors block"
@@ -122,7 +122,81 @@ export default function ContactPage() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="max-w-3xl space-y-10">
-                {/* ... [form remains unchanged] ... */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                  <div className="relative group">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 group-focus-within:text-red-600 transition-colors">Full Name</label>
+                    <input 
+                      name="name" 
+                      required 
+                      className="w-full bg-transparent border-b border-gray-300 py-3 outline-none focus:border-black transition-all font-medium text-lg" 
+                      placeholder="e.g. Dagmawi Tilahun"
+                    />
+                  </div>
+                  <div className="relative group">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 group-focus-within:text-red-600 transition-colors">Email Address</label>
+                    <input 
+                      name="email" 
+                      type="email" 
+                      required 
+                      className="w-full bg-transparent border-b border-gray-300 py-3 outline-none focus:border-black transition-all font-medium text-lg" 
+                      placeholder="name@domain.com"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                  <div className="relative group">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 group-focus-within:text-red-600 transition-colors">Phone Number</label>
+                    <input 
+                      name="phone" 
+                      className="w-full bg-transparent border-b border-gray-300 py-3 outline-none focus:border-black transition-all font-medium text-lg" 
+                      placeholder="+251 --- --- ---"
+                    />
+                  </div>
+                  <div className="relative group">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 group-focus-within:text-red-600 transition-colors">Project Type</label>
+                    <select 
+                      name="project-type" 
+                      required 
+                      className="w-full bg-transparent border-b border-gray-300 py-3 outline-none focus:border-black transition-all font-medium text-lg appearance-none cursor-pointer"
+                    >
+                      <option value="">Select Service</option>
+                      <option value="office">Office Fit-out</option>
+                      <option value="residential">Residential Design</option>
+                      <option value="furniture">Custom Furniture</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="relative group">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 group-focus-within:text-red-600 transition-colors">Project Brief</label>
+                  <textarea 
+                    name="message" 
+                    rows={4} 
+                    required 
+                    className="w-full bg-transparent border-b border-gray-300 py-3 outline-none focus:border-black transition-all font-medium text-lg resize-none" 
+                    placeholder="Tell us about your space..."
+                  ></textarea>
+                </div>
+
+                <div className="pt-6">
+                  <button 
+                    disabled={status === "sending"}
+                    className="group relative overflow-hidden bg-black text-white px-12 py-5 font-black uppercase tracking-widest text-xs transition-all flex items-center gap-4"
+                  >
+                    <span className="relative z-10">
+                      {status === "sending" ? "Processing..." : "Submit Inquiry"}
+                    </span>
+                    <span className="text-xl group-hover:translate-x-2 transition-transform">→</span>
+                    <div className="absolute inset-0 bg-red-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                  </button>
+                </div>
+
+                {status === "error" && (
+                  <div className="p-4 bg-red-50 text-red-600 text-[10px] font-black uppercase tracking-widest border border-red-100 animate-pulse">
+                    Error // {errorMessage}
+                  </div>
+                )}
               </form>
             )}
           </div>
