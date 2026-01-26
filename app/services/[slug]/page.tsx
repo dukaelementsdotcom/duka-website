@@ -1,4 +1,4 @@
-'use client';
+
 
 import { services } from '@/lib/servicesData';
 import NavBar from '@/app/components/NavBar';

@@ -1,6 +1,6 @@
 // app/services/page.tsx
 
-'use client';
+
 
 import Link from 'next/link';
 import { services } from '@/lib/servicesData';
