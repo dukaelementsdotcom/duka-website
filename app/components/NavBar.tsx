@@ -8,7 +8,6 @@ export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Your Navigation items - Fully Restored
   const navItems = [
     { name: 'HOME', href: '/' },
     { name: 'SERVICES', href: '/services' },
@@ -18,13 +17,11 @@ export default function NavBar() {
     { name: 'CONTACT', href: '/contact' },
   ];
 
-  // Your Contact info - Fully Restored
   const phones = [
     { number: '+251940607055', label: '+251 940 607 055' },
     { number: '+251929144290', label: '+251 929 144 290' },
   ];
 
-  // Your Social links - Fully Restored
   const socialLinks = [
     { name: 'WhatsApp', href: 'https://wa.me/251940607055', icon: 'fab fa-whatsapp' },
     { name: 'Telegram', href: 'https://t.me/dukainteriorsplc', icon: 'fab fa-telegram' },
@@ -35,132 +32,113 @@ export default function NavBar() {
   ];
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 60);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
-    <header className="fixed w-full z-[100]">
-      {/* 1. TOP UTILITY BAR: High Visibility Phone & Socials */}
-      <div className={`hidden lg:flex py-2.5 px-12 justify-between items-center transition-all duration-300 ${
-        isScrolled ? 'bg-black/90' : 'bg-[#0a0a0a]'
-      } border-b border-white/10`}>
-        
-        {/* Left Side: Phones with visual anchors */}
-        <div className="flex gap-10 items-center">
+    <header className="fixed w-full z-[100] font-sans">
+      {/* 1. TOP UTILITY: Minimalist & Clean */}
+      <div className={`hidden lg:flex py-3 px-12 justify-between items-center transition-all duration-700 ${
+        isScrolled ? 'bg-black translate-y-[-100%]' : 'bg-transparent border-b border-white/10'
+      }`}>
+        <div className="flex gap-12">
           {phones.map((p) => (
-            <a 
-              key={p.number} 
-              href={`tel:${p.number}`} 
-              className="flex items-center text-[12px] font-black tracking-widest text-white hover:text-red-600 transition-colors group"
-            >
-              <i className="fas fa-phone-alt mr-2.5 text-red-600 text-sm"></i>
-              {p.label}
+            <a key={p.number} href={`tel:${p.number}`} className="text-[10px] uppercase tracking-[0.3em] text-white/70 hover:text-white transition-colors font-light">
+              <span className="text-red-600 mr-2">/</span> {p.label}
             </a>
           ))}
         </div>
-
-        {/* Right Side: Social Icons - Bold and Bright */}
         <div className="flex items-center gap-6">
-          <span className="text-[10px] font-black text-white/40 tracking-[0.2em] mr-2">FOLLOW US:</span>
           {socialLinks.map((s) => (
-            <a 
-              key={s.name} 
-              href={s.href} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-lg text-white hover:text-red-600 transition-all transform hover:scale-125"
-              title={s.name}
-            >
+            <a key={s.name} href={s.href} target="_blank" className="text-xs text-white/50 hover:text-red-600 transition-all">
               <i className={s.icon}></i>
             </a>
           ))}
         </div>
       </div>
 
-      {/* 2. MAIN NAVIGATION: Logo and Menu */}
-      <nav className={`w-full transition-all duration-500 px-6 lg:px-12 ${
-        isScrolled 
-          ? 'bg-white py-3 shadow-2xl' 
-          : 'bg-black/40 backdrop-blur-md py-6'
+      {/* 2. MAIN NAV: Architectural Spacing */}
+      <nav className={`w-full transition-all duration-700 ease-in-out px-8 lg:px-16 ${
+        isScrolled ? 'bg-white/95 backdrop-blur-md py-4 shadow-sm' : 'bg-transparent py-10'
       }`}>
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
+        <div className="max-w-[1800px] mx-auto flex justify-between items-center">
           
-          {/* THE LOGO: Increased size and visibility logic */}
-          <Link href="/" className="relative flex items-center group">
+          {/* LOGO: Scaled for elegance */}
+          <Link href="/" className="relative transition-transform duration-500 hover:scale-105">
             <Image
               src="/images/icons-duka-interiors/logo-duka-interiors-big.svg"
-              alt="Duka Interiors Logo"
-              width={200} // Increased for presence
+              alt="Duka Interiors"
+              width={220}
               height={60}
               priority
-              className={`h-12 md:h-14 w-auto transition-all duration-500 ${
-                !isScrolled ? 'brightness-0 invert' : ''
+              className={`h-8 md:h-10 w-auto transition-all duration-700 ${
+                !isScrolled ? 'brightness-0 invert' : 'brightness-100'
               }`}
             />
           </Link>
 
-          {/* DESKTOP LINKS: Bold tracking for luxury feel */}
-          <div className="hidden lg:flex items-center gap-10">
+          {/* NAV LINKS: Designer Typography (Thin + Wide) */}
+          <div className="hidden lg:flex items-center gap-12">
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className={`text-[13px] font-black tracking-[0.2em] transition-all relative group ${
-                  isScrolled ? 'text-gray-900 hover:text-red-600' : 'text-white hover:text-red-600'
+                className={`text-[11px] font-medium tracking-[0.4em] uppercase transition-all duration-500 relative group ${
+                  isScrolled ? 'text-gray-900' : 'text-white/90'
                 }`}
               >
                 {item.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-red-600 transition-all duration-300 group-hover:w-full"></span>
+                <span className="absolute -bottom-2 left-1/2 w-0 h-[1px] bg-red-600 transition-all duration-500 group-hover:w-full group-hover:left-0"></span>
               </Link>
             ))}
           </div>
 
-          {/* MOBILE TOGGLE */}
-          <button 
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className={`lg:hidden p-2 ${isScrolled ? 'text-gray-900' : 'text-white'}`}
-          >
-            <i className={`fas ${isMenuOpen ? 'fa-times' : 'fa-bars'} text-2xl`}></i>
+          {/* MOBILE TOGGLE: Minimalist lines */}
+          <button onClick={() => setIsMenuOpen(true)} className={`lg:hidden flex flex-col gap-1.5 ${isScrolled ? 'text-gray-900' : 'text-white'}`}>
+            <span className="w-8 h-[1px] bg-current"></span>
+            <span className="w-5 h-[1px] bg-current self-end"></span>
           </button>
         </div>
       </nav>
 
-      {/* MOBILE MENU: Full Visibility Overrides */}
-      <div className={`fixed inset-0 bg-black z-[120] transition-transform duration-500 lg:hidden ${
-        isMenuOpen ? 'translate-x-0' : 'translate-x-full'
+      {/* 3. MOBILE OVERLAY: High-End Fashion Style */}
+      <div className={`fixed inset-0 bg-[#0a0a0a] z-[200] flex flex-col transition-all duration-700 ease-in-out ${
+        isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
       }`}>
-        <div className="flex flex-col h-full p-8">
-          <div className="flex justify-between items-center mb-12">
-            <Image src="/images/icons-duka-interiors/logo-duka-interiors-big.svg" alt="Logo" width={160} height={50} className="brightness-0 invert" />
-            <button onClick={() => setIsMenuOpen(false)} className="text-white text-4xl">&times;</button>
-          </div>
-          <div className="flex flex-col gap-6">
-            {navItems.map((item) => (
-              <Link 
-                key={item.name} 
-                href={item.href} 
-                onClick={() => setIsMenuOpen(false)}
-                className="text-white text-4xl font-bold tracking-tighter hover:text-red-600 transition-colors"
-              >
-                {item.name}
-              </Link>
-            ))}
-          </div>
-          <div className="mt-auto border-t border-white/10 pt-8">
-            <div className="flex flex-col gap-4">
-              {phones.map(p => (
-                <a key={p.number} href={`tel:${p.number}`} className="text-red-600 text-xl font-black tracking-widest">{p.label}</a>
+        <div className="p-8 flex justify-between items-center">
+          <Image src="/images/icons-duka-interiors/logo-duka-interiors-big.svg" alt="Logo" width={180} height={40} className="brightness-0 invert" />
+          <button onClick={() => setIsMenuOpen(false)} className="text-white font-thin text-5xl">&times;</button>
+        </div>
+        
+        <div className="flex flex-col justify-center items-center flex-grow gap-6">
+          {navItems.map((item) => (
+            <Link 
+              key={item.name} 
+              href={item.href} 
+              onClick={() => setIsMenuOpen(false)}
+              className="text-white text-3xl font-light tracking-[0.2em] uppercase hover:text-red-600 transition-colors"
+            >
+              {item.name}
+            </Link>
+          ))}
+        </div>
+
+        <div className="p-12 border-t border-white/5 grid grid-cols-2 gap-4">
+          <div className="flex flex-col gap-2">
+            <p className="text-red-600 text-[10px] tracking-[0.3em] mb-2 uppercase">Connect</p>
+            <div className="flex gap-4">
+              {socialLinks.slice(0, 4).map(s => (
+                <a key={s.name} href={s.href} className="text-white/60 text-xl"><i className={s.icon}></i></a>
               ))}
             </div>
-            <div className="flex gap-6 mt-8">
-              {socialLinks.map(s => (
-                <a key={s.name} href={s.href} className="text-white text-2xl"><i className={s.icon}></i></a>
-              ))}
-            </div>
+          </div>
+          <div className="flex flex-col text-right">
+             <p className="text-red-600 text-[10px] tracking-[0.3em] mb-2 uppercase">Inquiries</p>
+             {phones.map(p => (
+               <a key={p.number} href={`tel:${p.number}`} className="text-white/60 text-xs tracking-widest">{p.label}</a>
+             ))}
           </div>
         </div>
       </div>
