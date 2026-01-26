@@ -75,15 +75,9 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              {/* CORRECTED STUDIO SECTION */}
+              {/* FIXED STUDIO SECTION - ONLY ADDRESS CLICKABLE */}
               <div>
-                {/* Replaced with your image */}
-                <img 
-                  src="/images/studio-logo.png" 
-                  alt="Duka Interiors Studio Location" 
-                  className="w-16 h-16 object-contain mb-4"
-                />
-                {/* Clickable address with YOUR exact Google Maps link */}
+                <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 mb-6">Visit Our Studio</h3>
                 <a 
                   href="https://maps.app.goo.gl/FNBrMacYUefLEH7k8" 
                   target="_blank"
