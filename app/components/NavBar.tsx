@@ -50,7 +50,7 @@ export default function NavBar() {
     ? 'bg-white text-gray-800 border-b border-gray-200 shadow-md'
     : 'bg-black/80 backdrop-blur-md text-white border-b border-gray-800';
 
-  // Navigation items — PRODUCTS now links to /products
+  // Navigation items
   const navItems = [
     { name: 'HOME', href: '/' },
     { name: 'SERVICES', href: '/services' },
@@ -79,7 +79,7 @@ export default function NavBar() {
     { number: '+251940607055', label: '+251 940 607 055' },
     { number: '+251929144290', label: '+251 929 144 290' },
   ];
-  const email = 'welcome@dukainteriors.com';
+  const email = 'contact@dukainteriors.com';
 
   // Social links
   const socialLinks = [
@@ -111,7 +111,6 @@ export default function NavBar() {
                 const isActive = pathname === item.href;
                 const baseClass = "text-sm uppercase tracking-wide py-2 transition-all";
 
-                // Coming Soon item — now clickable!
                 if (item.comingSoon) {
                   return (
                     <div key={item.name} className="relative group">
@@ -125,7 +124,6 @@ export default function NavBar() {
                   );
                 }
 
-                // Dropdown item
                 if (item.hasDropdown) {
                   return (
                     <div 
@@ -138,7 +136,6 @@ export default function NavBar() {
                         {item.name} <i className={`fas fa-chevron-down text-[10px] transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`}></i>
                       </Link>
                       
-                      {/* Dropdown Box */}
                       <div className={`absolute top-full left-0 w-56 bg-white border border-gray-100 shadow-xl py-2 transition-all duration-300 ${isDropdownOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'}`}>
                         {item.subItems?.map((sub) => (
                           <Link 
@@ -154,7 +151,6 @@ export default function NavBar() {
                   );
                 }
 
-                // Regular link
                 return (
                   <Link
                     key={item.name}
@@ -168,7 +164,6 @@ export default function NavBar() {
             </nav>
           </div>
 
-          {/* Right Group: Phones, Socials, CTA */}
           <div className="flex items-center gap-x-4">
             <div className="hidden lg:flex items-center gap-x-3">
               <div className="hidden xl:flex gap-x-2">
@@ -223,7 +218,6 @@ export default function NavBar() {
           </div>
         </div>
 
-        {/* Mobile Menu Overlay */}
         {isMenuOpen && (
           <div className="fixed inset-0 lg:hidden bg-black/90 backdrop-blur-sm z-40 h-screen overflow-y-auto text-white">
             <div className="flex flex-col h-full pt-16 pb-12 px-8">
@@ -282,7 +276,7 @@ export default function NavBar() {
                 {phones.map((phone, idx) => (
                   <a
                     key={idx}
-                    href={`tel:${phone.number.replace(/\s+/g, '')}`}
+                    href={`tel:${phone.number.replace(/\\s+/g, '')}`}
                     className="block text-lg hover:text-red-600"
                     onClick={() => setIsMenuOpen(false)}
                   >

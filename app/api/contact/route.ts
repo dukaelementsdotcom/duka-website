@@ -10,7 +10,7 @@ export async function POST(req: Request) {
 
     const { data, error } = await resend.emails.send({
       from: 'Duka Website <onboarding@resend.dev>',
-      to: 'dukaelements@gmail.com',
+      to: 'contact@dukainteriors.com',
       subject: `NEW INQUIRY: ${name} - ${projectType}`,
       reply_to: email,
       text: `

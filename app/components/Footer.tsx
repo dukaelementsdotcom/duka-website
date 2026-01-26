@@ -96,7 +96,7 @@ export default function Footer() {
               </div>
               <div className="flex items-start gap-3">
                 <div className="mt-1 text-[#c73e1d]"><i className="fas fa-envelope"></i></div>
-                <a href="mailto:welcome@dukainteriors.com" className="text-[#4a4a4a] text-sm hover:text-[#c73e1d]">welcome@dukainteriors.com</a>
+                <a href="mailto:contact@dukainteriors.com" className="text-[#4a4a4a] text-sm hover:text-[#c73e1d]">contact@dukainteriors.com</a>
               </div>
             </div>
           </div>
