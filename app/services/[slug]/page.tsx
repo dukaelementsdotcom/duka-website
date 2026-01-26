@@ -4,25 +4,29 @@ import { services } from '@/lib/servicesData';
 import NavBar from '@/app/components/NavBar';
 import Footer from '@/app/components/Footer';
 import Link from 'next/link';
-import React, { use } from 'react';
+import { use } from 'react';
 
-// Next.js 15+ requires params to be a Promise. 
-// We use React.use() to 'unwrap' it inside this Client Component.
-export default function ServiceDetail({ params }: { params: Promise<{ slug: string }> }) {
-  
-  // This line safely extracts the slug and fixes the 'red lines' in VS Code
+export default function ServiceDetail({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = use(params);
 
-  const service = services.find(s => s.slug === slug);
+  const service = services.find((s) => s.slug === slug);
 
-  // If no service matches the slug, show a clean 404 state
   if (!service) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-4xl font-black text-gray-900 mb-4">404</h1>
-          <p className="text-gray-600 mb-8 uppercase tracking-widest text-xs">Service not found.</p>
-          <Link href="/" className="bg-black text-white px-8 py-3 font-black uppercase text-xs tracking-widest hover:bg-red-600 transition-colors">
+          <p className="text-gray-600 mb-8 uppercase tracking-widest text-xs">
+            Service not found.
+          </p>
+          <Link
+            href="/"
+            className="bg-black text-white px-8 py-3 font-black uppercase text-xs tracking-widest hover:bg-red-600 transition-colors"
+          >
             ← Back to Home
           </Link>
         </div>
@@ -35,7 +39,6 @@ export default function ServiceDetail({ params }: { params: Promise<{ slug: stri
       <NavBar />
 
       <main className="pt-24 md:pt-32">
-        
         {/* --- SERVICE HERO HEADER --- */}
         <section className="py-12 px-4 md:px-12 bg-gray-50 border-b border-gray-100">
           <div className="max-w-5xl mx-auto">
@@ -63,12 +66,12 @@ export default function ServiceDetail({ params }: { params: Promise<{ slug: stri
             {service.processSteps && (
               <div className="mb-24">
                 <div className="flex items-center gap-4 mb-12">
-                   <h2 className="text-3xl font-black text-gray-900 uppercase tracking-tighter shrink-0">
-                     <span className="text-red-600 italic">01.</span> Our Process
-                   </h2>
-                   <div className="h-px bg-gray-200 w-full"></div>
+                  <h2 className="text-3xl font-black text-gray-900 uppercase tracking-tighter shrink-0">
+                    <span className="text-red-600 italic">01.</span> Our Process
+                  </h2>
+                  <div className="h-px bg-gray-200 w-full"></div>
                 </div>
-                
+
                 <div className="flex flex-col gap-6">
                   {service.processSteps.map((step, i) => (
                     <ProcessStep key={i} index={i + 1} step={step} />
@@ -77,19 +80,22 @@ export default function ServiceDetail({ params }: { params: Promise<{ slug: stri
               </div>
             )}
 
-            {/* WHY CHOOSE US: BRUTALIST GRID */}
+            {/* WHY CHOOSE US */}
             {service.whyChooseUs && (
               <div className="mb-24">
                 <div className="flex items-center gap-4 mb-12">
-                   <h2 className="text-3xl font-black text-gray-900 uppercase tracking-tighter shrink-0">
-                     <span className="text-red-600 italic">02.</span> Why Choose Us
-                   </h2>
-                   <div className="h-px bg-gray-200 w-full"></div>
+                  <h2 className="text-3xl font-black text-gray-900 uppercase tracking-tighter shrink-0">
+                    <span className="text-red-600 italic">02.</span> Why Choose Us
+                  </h2>
+                  <div className="h-px bg-gray-200 w-full"></div>
                 </div>
 
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {service.whyChooseUs.map((reason, i) => (
-                    <li key={i} className="flex items-start gap-4 text-gray-900 font-black uppercase text-[10px] tracking-widest bg-gray-50 p-6 border border-gray-100 hover:border-red-600 transition-colors group">
+                    <li
+                      key={i}
+                      className="flex items-start gap-4 text-gray-900 font-black uppercase text-[10px] tracking-widest bg-gray-50 p-6 border border-gray-100 hover:border-red-600 transition-colors group"
+                    >
                       <span className="w-2 h-2 bg-red-600 mt-0.5 group-hover:scale-150 transition-transform"></span>
                       {reason}
                     </li>
@@ -102,8 +108,12 @@ export default function ServiceDetail({ params }: { params: Promise<{ slug: stri
           {/* FINAL CTA SECTION */}
           <div className="mt-12 py-16 border-t-2 border-black flex flex-col md:flex-row gap-6 justify-between items-center bg-white">
             <div className="text-center md:text-left">
-               <h4 className="text-xl font-black uppercase tracking-tighter mb-1">Ready to start?</h4>
-               <p className="text-xs text-gray-500 uppercase tracking-widest font-bold">Free consultation for your next project</p>
+              <h4 className="text-xl font-black uppercase tracking-tighter mb-1">
+                Ready to start?
+              </h4>
+              <p className="text-xs text-gray-500 uppercase tracking-widest font-bold">
+                Free consultation for your next project
+              </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
               <Link
@@ -128,8 +138,13 @@ export default function ServiceDetail({ params }: { params: Promise<{ slug: stri
   );
 }
 
-// Reusable process step component
-function ProcessStep({ index, step }: { index: number; step: { title: string; description: string } }) {
+function ProcessStep({
+  index,
+  step,
+}: {
+  index: number;
+  step: { title: string; description: string };
+}) {
   return (
     <div className="group flex items-start gap-8 p-8 bg-white border border-gray-100 hover:shadow-2xl hover:border-red-600/20 transition-all duration-500">
       <div className="flex-shrink-0 w-16 h-16 bg-black text-white flex items-center justify-center text-xl font-black group-hover:bg-red-600 transition-colors duration-500">
