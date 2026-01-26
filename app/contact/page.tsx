@@ -78,8 +78,9 @@ export default function ContactPage() {
               <div>
                 <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 mb-6">Visit Our Studio</h3>
                 <p className="text-lg font-medium leading-snug">
-                  Bole, Addis Ababa<br />
-                  Ethiopia
+                  Bole, Djibouti Street<br />
+                  Welela Building, 5th Floor<br />
+                  Addis Ababa, Ethiopia
                 </p>
               </div>
             </div>
@@ -188,6 +189,20 @@ export default function ContactPage() {
               </form>
             )}
           </div>
+        </section>
+
+        {/* MAP INTEGRATION: Design preserved, full-width section added here */}
+        <section className="w-full h-[500px] border-t border-gray-100 grayscale hover:grayscale-0 transition-all duration-1000">
+          <iframe 
+            src="https://maps.app.goo.gl/6zp8bdGiqS6Qk2Tv9" 
+            width="100%" 
+            height="100%" 
+            style={{ border: 0 }} 
+            allowFullScreen={true} 
+            loading="lazy" 
+            referrerPolicy="no-referrer-when-downgrade"
+            title="Duka Interiors Office Location"
+          ></iframe>
         </section>
       </main>
 
