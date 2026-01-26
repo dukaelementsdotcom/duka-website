@@ -12,14 +12,14 @@ export default function Footer() {
     { name: 'TikTok', href: 'https://www.tiktok.com/@duka.interiors.plc', icon: 'fab fa-tiktok' },
   ];
 
-  // This function ensures the links match your folder names exactly
-  const createSlug = (text: string) => {
-    return text
-      .toLowerCase()
-      .replace(/\s+\+\s+/g, '-and-') // Specifically changes " + " to "-and-"
-      .replace(/\s+/g, '-')          // Changes spaces to "-"
-      .replace(/[^\w-]/g, '');       // Removes special characters like + if they aren't surrounded by spaces
-  };
+  // Manual mapping ensures these links NEVER break
+  const serviceLinks = [
+    { name: 'Interior Design', slug: 'interior-design' },
+    { name: 'Design + Build', slug: 'design-and-build' },
+    { name: 'Branding and Signage', slug: 'branding-and-signage' },
+    { name: 'Electrical and Technology', slug: 'electrical-and-technology' },
+    { name: 'Furniture and Fixtures', slug: 'furniture-and-fixtures' },
+  ];
 
   return (
     <footer className="bg-[#f8f5f2] pt-16 pb-8">
@@ -66,24 +66,17 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Services Section - FIXED LINKS */}
+          {/* Services Section - NOW USING MANUAL MAPPING */}
           <div className="md:col-span-1">
             <h3 className="text-lg font-semibold text-[#0a0a0a] mb-6 tracking-wide">SERVICES</h3>
             <ul className="space-y-3">
-              {[
-                'Interior Design',
-                'Design + Build',
-                'Branding and Signage',
-                'Electrical and Technology',
-                'Furniture and Fixtures',
-              ].map((service) => (
-                <li key={service}>
-                  {/* Now uses createSlug to ensure valid URLs */}
+              {serviceLinks.map((service) => (
+                <li key={service.name}>
                   <Link 
-                    href={`/services/${createSlug(service)}`} 
+                    href={`/services/${service.slug}`} 
                     className="text-[#4a4a4a] text-sm hover:text-[#c73e1d] transition-colors"
                   >
-                    {service}
+                    {service.name}
                   </Link>
                 </li>
               ))}
