@@ -206,24 +206,25 @@ useEffect(() => {
 
       {/* Image - Right — Now links to a real project */}
       <Link href="/projects/modern-conference-room-and-lobby-design" className="block">
-        <div className="relative min-h-[400px] overflow-hidden rounded-none border border-gray-200 group">
-          <Image
-            src="/images/duka-interiors-Projects/habesha-breweries-duka-interiors/habesha-breweries-duka-interiors-3.webp"
-            alt="Modern conference room and lobby design by Duka Interiors"
-            fill
-            className="object-cover"
-            sizes="(max-width: 1024px) 100vw, 50vw"
-            priority={false}
-          />
-          
-          {/* Hover Overlay */}
-          <div className="absolute inset-0 bg-black bg-opacity-90 text-white flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
-            <span className="px-6 py-2 bg-red-600 text-white font-bold text-xs uppercase tracking-wide rounded-none hover:bg-red-700 transition-colors duration-300 pointer-events-auto min-w-[120px] text-center">
-              See Project
-            </span>
-          </div>
-        </div>
-      </Link>
+  <div className="relative min-h-[400px] overflow-hidden rounded-none border border-gray-200 group">
+    <Image
+      // Changed 'duka-interiors-Projects' to 'duka-interiors-projects'
+      src="/images/duka-interiors-projects/habesha-breweries-duka-interiors/habesha-breweries-duka-interiors-3.webp"
+      alt="Modern conference room and lobby design by Duka Interiors"
+      fill
+      className="object-cover"
+      sizes="(max-width: 1024px) 100vw, 50vw"
+      priority={false}
+    />
+    
+    {/* Hover Overlay */}
+    <div className="absolute inset-0 bg-black bg-opacity-90 text-white flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+      <span className="px-6 py-2 bg-red-600 text-white font-bold text-xs uppercase tracking-wide rounded-none hover:bg-red-700 transition-colors duration-300 pointer-events-auto min-w-[120px] text-center">
+        See Project
+      </span>
+    </div>
+  </div>
+</Link>
     </div>
   </div>
 </section>
