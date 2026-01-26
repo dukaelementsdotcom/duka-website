@@ -1,5 +1,3 @@
-// lib/servicesData.ts
-
 export type Service = {
   title: string;
   slug: string;
@@ -228,3 +226,5 @@ export const services: Service[] = [
     ]
   }
 ];
+
+export default services;
