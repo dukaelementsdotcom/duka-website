@@ -12,7 +12,8 @@ export default function Footer() {
     { name: 'TikTok', href: 'https://www.tiktok.com/@duka.interiors.plc', icon: 'fab fa-tiktok' },
   ];
 
-  // Manual mapping ensures these links NEVER break
+  // MANUAL MAPPING: This matches exactly how we fixed the "Learn More" buttons
+  // This ensures Google and users find the correct page every time.
   const serviceLinks = [
     { name: 'Interior Design', slug: 'interior-design' },
     { name: 'Design + Build', slug: 'design-and-build' },
@@ -25,7 +26,7 @@ export default function Footer() {
     <footer className="bg-[#f8f5f2] pt-16 pb-8">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-          {/* Brand Section */}
+          {/* Brand */}
           <div className="md:col-span-1">
             <div className="mb-6">
               <img
@@ -52,7 +53,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Navigation Section */}
+          {/* Navigation */}
           <div className="md:col-span-1">
             <h3 className="text-lg font-semibold text-[#0a0a0a] mb-6 tracking-wide">NAVIGATION</h3>
             <ul className="space-y-3">
@@ -66,7 +67,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Services Section - NOW USING MANUAL MAPPING */}
+          {/* Services - FIXED LINKS USING MAPPING */}
           <div className="md:col-span-1">
             <h3 className="text-lg font-semibold text-[#0a0a0a] mb-6 tracking-wide">SERVICES</h3>
             <ul className="space-y-3">
@@ -83,7 +84,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact Section */}
+          {/* Contact */}
           <div className="md:col-span-1">
             <h3 className="text-lg font-semibold text-[#0a0a0a] mb-6 tracking-wide">CONTACT US</h3>
             <div className="space-y-4">
