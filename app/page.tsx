@@ -152,7 +152,9 @@ useEffect(() => {
      {/* Hero Section */}
 <div className="relative h-screen overflow-hidden pt-20">
   <Image
-    src="/images/duka-interiors-portfolio/luxury-executive-office-design-ethiopia/reception-interior-design-habesha-cement.webp"
+    src="/images/duka-interiors-portfolio/modern-conference-room-and-lobby-design/modern-board-room-habesha-breweries.webp"
+    
+    
     alt="Luxury executive office reception design by Duka Interiors"
     fill
     style={{ objectFit: 'cover' }}
