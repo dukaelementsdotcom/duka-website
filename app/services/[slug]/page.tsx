@@ -4,22 +4,26 @@ import { services } from '@/lib/servicesData';
 import NavBar from '@/app/components/NavBar';
 import Footer from '@/app/components/Footer';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import React from 'react';
+import React, { use } from 'react';
 
+// Next.js 15+ requires params to be a Promise. 
+// We use React.use() to 'unwrap' it inside this Client Component.
 export default function ServiceDetail({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = React.use(params);
+  
+  // This line safely extracts the slug and fixes the 'red lines' in VS Code
+  const { slug } = use(params);
 
   const service = services.find(s => s.slug === slug);
 
+  // If no service matches the slug, show a clean 404 state
   if (!service) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-4xl font-black text-gray-900 mb-4">404</h1>
           <p className="text-gray-600 mb-8 uppercase tracking-widest text-xs">Service not found.</p>
-          <Link href="/services" className="bg-black text-white px-8 py-3 font-black uppercase text-xs tracking-widest hover:bg-red-600 transition-colors">
-            ← Back to Services
+          <Link href="/" className="bg-black text-white px-8 py-3 font-black uppercase text-xs tracking-widest hover:bg-red-600 transition-colors">
+            ← Back to Home
           </Link>
         </div>
       </div>
@@ -30,9 +34,6 @@ export default function ServiceDetail({ params }: { params: Promise<{ slug: stri
     <div className="min-h-screen bg-white selection:bg-red-600 selection:text-white">
       <NavBar />
 
-      {/* WRAPPER: Added pt-24 (mobile) and md:pt-32 (desktop) 
-          to push content below the fixed NavBar.
-      */}
       <main className="pt-24 md:pt-32">
         
         {/* --- SERVICE HERO HEADER --- */}
@@ -50,6 +51,7 @@ export default function ServiceDetail({ params }: { params: Promise<{ slug: stri
             </p>
           </div>
         </section>
+
         {/* --- MAIN CONTENT SECTION --- */}
         <section className="py-20 px-4 md:px-12 max-w-5xl mx-auto">
           <div className="text-gray-800 leading-relaxed">
@@ -126,7 +128,7 @@ export default function ServiceDetail({ params }: { params: Promise<{ slug: stri
   );
 }
 
-// REUSABLE PROCESS STEP COMPONENT: REFINED STYLE
+// Reusable process step component
 function ProcessStep({ index, step }: { index: number; step: { title: string; description: string } }) {
   return (
     <div className="group flex items-start gap-8 p-8 bg-white border border-gray-100 hover:shadow-2xl hover:border-red-600/20 transition-all duration-500">
