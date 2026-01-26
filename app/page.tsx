@@ -204,19 +204,25 @@ useEffect(() => {
         </p>
       </div>
 
-      {/* Image - Right — Now links to a real project */}
       <Link href="/projects/modern-conference-room-and-lobby-design" className="block">
   <div className="relative min-h-[400px] overflow-hidden rounded-none border border-gray-200 group">
-    <Image
-      // Fixed: 'duka-interiors-projects' (lowercase 'p') 
-      src="/images/duka-interiors-projects/habesha-breweries-duka-interiors/habesha-breweries-duka-interiors-3.webp"
-      alt="Modern conference room and lobby design by Duka Interiors"
-      fill
-      className="object-cover"
-      sizes="(max-width: 1024px) 100vw, 50vw"
-      priority={true} // Setting this to true since it's in the intro/top section
-    />
-    
+    {/* Fallback image in case webp fails */}
+    <picture>
+      <source
+        srcSet="/images/duka-interiors-projects/habesha-breweries-duka-interiors/habesha-breweries-duka-interiors-3.webp"
+        type="image/webp"
+      />
+      <img
+        src="/images/duka-interiors-projects/habesha-breweries-duka-interiors/habesha-breweries-duka-interiors-3.jpg"
+        alt="Modern conference room and lobby design by Duka Interiors"
+        className="object-cover w-full h-full"
+        loading="eager"
+        onError={(e) => {
+          e.target.src = '/images/fallback-image.jpg'; // Optional: add a fallback
+        }}
+      />
+    </picture>
+
     {/* Hover Overlay */}
     <div className="absolute inset-0 bg-black bg-opacity-90 text-white flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
       <span className="px-6 py-2 bg-red-600 text-white font-bold text-xs uppercase tracking-wide rounded-none hover:bg-red-700 transition-colors duration-300 pointer-events-auto min-w-[120px] text-center">
