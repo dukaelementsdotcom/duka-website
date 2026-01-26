@@ -1,15 +1,19 @@
-// app/services/[slug]/page.tsx
-
 import { services } from '@/lib/servicesData';
 import NavBar from '@/app/components/NavBar';
 import Footer from '@/app/components/Footer';
 import Link from 'next/link';
+import React, { use } from 'react';
 
-// ❌ REMOVED: generateStaticParams — we'll use on-demand routing for now
-// export async function generateStaticParams() { ... }
+// This function ensures Vercel builds the pages as Static (●) instead of Dynamic (ƒ)
+export async function generateStaticParams() {
+  return services.map((service) => ({
+    slug: service.slug,
+  }));
+}
 
-export default function ServiceDetail({ params }: { params: { slug: string } }) {
-  const { slug } = params;
+export default function ServiceDetail({ params }: { params: Promise<{ slug: string }> }) {
+  // We must 'use' the promise to get the slug in Next.js 15+
+  const { slug } = use(params);
   const service = services.find((s) => s.slug === slug);
 
   if (!service) {

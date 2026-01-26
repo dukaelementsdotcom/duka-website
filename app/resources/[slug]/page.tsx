@@ -1,15 +1,18 @@
-// app/resources/[slug]/page.tsx
-
 import { BLOG_POSTS } from '@/app/resources/post.data';
 import NavBar from '@/app/components/NavBar';
 import Footer from '@/app/components/Footer';
 import Link from 'next/link';
+import React, { use } from 'react';
 
-// ❌ REMOVED: generateStaticParams — we'll use on-demand routing for now
-// export async function generateStaticParams() { ... }
+// Pre-rendering all blog paths
+export async function generateStaticParams() {
+  return BLOG_POSTS.map((post) => ({
+    slug: post.slug,
+  }));
+}
 
-export default function ArticlePage({ params }: { params: { slug: string } }) {
-  const { slug } = params;
+export default function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = use(params);
   const post = BLOG_POSTS.find((p) => p.slug === slug);
 
   if (!post) {
