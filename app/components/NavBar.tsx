@@ -12,7 +12,7 @@ export default function NavBar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -52,32 +52,37 @@ export default function NavBar() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-[100] font-sans">
-      {/* TOP UTILITY BAR - Solid & High Contrast */}
-      <div className="hidden lg:flex bg-[#1a1a1a] text-white/80 py-2 px-8 justify-between items-center border-b border-white/5">
-        <div className="flex gap-8 items-center">
+      {/* TOP UTILITY BAR - Solid for readability */}
+      <div className={`hidden lg:flex py-2 px-8 justify-between items-center border-b transition-colors duration-300 ${
+        isScrolled ? 'bg-black border-white/10' : 'bg-[#1a1a1a]/90 border-white/5'
+      }`}>
+        <div className="flex gap-8 items-center text-white/70">
           {phones.map((p) => (
-            <a key={p.number} href={`tel:${p.number}`} className="text-[10px] font-bold tracking-[0.1em] hover:text-[#c73e1d] transition-colors flex items-center gap-2">
-              <span className="w-1.5 h-1.5 bg-[#c73e1d] rounded-full"></span> {p.label}
+            <a key={p.number} href={`tel:${p.number}`} className="text-[10px] font-bold tracking-widest hover:text-[#c73e1d] transition-colors flex items-center gap-2">
+              <i className="fas fa-phone-alt text-[9px] text-[#c73e1d]"></i> {p.label}
             </a>
           ))}
-          <a href="mailto:contact@dukainteriors.com" className="text-[10px] font-bold tracking-[0.1em] hover:text-[#c73e1d] transition-colors">
-            CONTACT@DUKAINTERIORS.COM
+          <a href="mailto:contact@dukainteriors.com" className="text-[10px] font-bold tracking-widest hover:text-[#c73e1d] transition-colors uppercase">
+            contact@dukainteriors.com
           </a>
         </div>
-        <div className="flex gap-4">
+        <div className="flex gap-5">
           {socialLinks.map((s) => (
-            <a key={s.name} href={s.href} target="_blank" className="text-xs hover:text-[#c73e1d] transition-colors">
+            <a key={s.name} href={s.href} target="_blank" className="text-white/60 hover:text-[#c73e1d] transition-colors text-xs">
               <i className={s.icon}></i>
             </a>
           ))}
         </div>
       </div>
 
-      {/* MAIN NAVIGATION - Solid White with Industrial Feel */}
-      <div className={`bg-white transition-all duration-300 border-b-2 ${isScrolled ? 'py-3 border-[#c73e1d]' : 'py-5 border-black'}`}>
-        <div className="max-w-[1800px] mx-auto px-6 lg:px-8 flex items-center justify-between">
+      {/* MAIN NAV - 40% Transparent when at top */}
+      <div className={`transition-all duration-500 border-b ${
+        isScrolled 
+          ? 'bg-white py-3 border-gray-200 shadow-sm' 
+          : 'bg-white/40 backdrop-blur-md py-6 border-white/20'
+      }`}>
+        <div className="max-w-[1800px] mx-auto px-6 lg:px-10 flex items-center justify-between">
           
-          {/* Logo */}
           <Link href="/" className="relative z-[110]">
             <Image
               src="/images/icons-duka-interiors/logo-duka-interiors-big.svg"
@@ -85,14 +90,15 @@ export default function NavBar() {
               width={160}
               height={50}
               priority
-              className="h-9 w-auto"
+              className={`h-10 w-auto transition-all ${!isScrolled ? 'brightness-0' : ''}`}
             />
           </Link>
 
-          {/* Desktop Nav Items */}
-          <nav className="hidden lg:flex items-center h-full">
+          <nav className="hidden lg:flex items-center">
             {navItems.map((item) => {
               const isActive = pathname === item.href;
+              const linkColor = isScrolled ? 'text-black' : 'text-black font-medium';
+              
               return (
                 <div 
                   key={item.name} 
@@ -102,18 +108,20 @@ export default function NavBar() {
                 >
                   <Link 
                     href={item.href} 
-                    className={`text-[12px] font-black tracking-[0.2em] transition-colors flex items-center gap-1 ${isActive ? 'text-[#c73e1d]' : 'text-black hover:text-[#c73e1d]'}`}
+                    className={`text-[12px] font-bold tracking-[0.15em] transition-colors flex items-center gap-1.5 ${
+                      isActive ? 'text-[#c73e1d]' : `${linkColor} hover:text-[#c73e1d]`
+                    }`}
                   >
                     {item.name}
-                    {item.hasDropdown && <i className="fas fa-plus text-[8px] opacity-50"></i>}
-                    {item.comingSoon && <span className="text-[7px] bg-black text-white px-1 ml-1 font-bold">SOON</span>}
+                    {item.hasDropdown && <i className={`fas fa-chevron-down text-[8px] opacity-40 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`}></i>}
+                    {item.comingSoon && <span className="text-[7px] bg-red-600 text-white px-1.5 py-0.5 rounded-sm font-black ml-1">SOON</span>}
                   </Link>
 
-                  {/* Dropdown Menu - Industrial Block Style */}
+                  {/* FLAT DROPDOWN */}
                   {item.hasDropdown && (
-                    <div className={`absolute top-full left-0 w-64 bg-white border-2 border-black mt-[22px] shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 ${isDropdownOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}`}>
+                    <div className={`absolute top-full left-0 w-60 bg-white border border-gray-100 shadow-xl mt-[24px] transition-all duration-200 ${isDropdownOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'}`}>
                       {item.subItems?.map((sub) => (
-                        <Link key={sub.name} href={sub.href} className="block p-4 text-[10px] font-black tracking-widest text-black hover:bg-[#c73e1d] hover:text-white border-b last:border-0 border-black transition-colors">
+                        <Link key={sub.name} href={sub.href} className="block px-6 py-4 text-[10px] font-bold tracking-widest text-gray-700 hover:bg-gray-50 hover:text-[#c73e1d] border-b border-gray-50 last:border-0 transition-all">
                           {sub.name}
                         </Link>
                       ))}
@@ -124,56 +132,53 @@ export default function NavBar() {
             })}
           </nav>
 
-          {/* CTA Section */}
           <div className="flex items-center gap-4">
             <Link 
               href="/contact" 
-              className="hidden md:block bg-black text-white px-8 py-3 text-[11px] font-black uppercase tracking-[0.2em] hover:bg-[#c73e1d] transition-all shadow-[4px_4px_0px_0px_rgba(199,62,29,1)]"
+              className="hidden md:block bg-[#c73e1d] text-white px-7 py-3 text-[11px] font-bold uppercase tracking-widest hover:bg-black transition-colors"
             >
-              Start Your Build
+              Start Project
             </Link>
 
-            {/* Mobile Toggle Button */}
+            {/* FLAT MOBILE TOGGLE */}
             <button 
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden w-12 h-12 flex flex-col items-center justify-center gap-1.5 border-2 border-black hover:bg-black hover:text-white transition-all"
+              className="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5"
             >
-              <span className={`h-[3px] bg-current transition-all ${isMenuOpen ? 'w-6 rotate-45 translate-y-2' : 'w-6'}`}></span>
-              <span className={`h-[3px] bg-current transition-all ${isMenuOpen ? 'opacity-0' : 'w-6'}`}></span>
-              <span className={`h-[3px] bg-current transition-all ${isMenuOpen ? 'w-6 -rotate-45 -translate-y-2' : 'w-6'}`}></span>
+              <span className={`h-0.5 w-6 bg-black transition-all ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
+              <span className={`h-0.5 w-6 bg-black transition-all ${isMenuOpen ? 'opacity-0' : ''}`}></span>
+              <span className={`h-0.5 w-6 bg-black transition-all ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
             </button>
           </div>
         </div>
       </div>
 
-      {/* IMPROVED MOBILE VERSION - Structured Sidebar */}
+      {/* MOBILE MENU - CLEAN & CONTENT-FIRST */}
       <div className={`fixed inset-0 z-[105] transition-all duration-500 ${isMenuOpen ? 'visible' : 'invisible'}`}>
-        {/* Backdrop */}
-        <div className={`absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-500 ${isMenuOpen ? 'opacity-100' : 'opacity-0'}`} onClick={() => setIsMenuOpen(false)}></div>
+        <div className={`absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-500 ${isMenuOpen ? 'opacity-100' : 'opacity-0'}`} onClick={() => setIsMenuOpen(false)}></div>
         
-        {/* Menu Panel */}
-        <div className={`absolute top-0 right-0 w-full max-w-md h-full bg-white border-l-4 border-[#c73e1d] shadow-2xl transition-transform duration-500 flex flex-col ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-          <div className="p-8 flex justify-between items-center border-b border-gray-100">
-            <p className="text-[10px] font-black tracking-[0.4em] text-gray-400">MENU</p>
-            <button onClick={() => setIsMenuOpen(false)} className="text-2xl font-light hover:text-[#c73e1d]">&times; CLOSE</button>
+        <div className={`absolute top-0 right-0 w-[85%] max-w-sm h-full bg-white shadow-2xl transition-transform duration-500 flex flex-col ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+          <div className="p-6 border-b flex justify-between items-center">
+            <Image src="/images/icons-duka-interiors/logo-duka-interiors-big.svg" alt="Duka" width={120} height={40} />
+            <button onClick={() => setIsMenuOpen(false)} className="text-3xl font-light">&times;</button>
           </div>
 
-          <nav className="flex flex-col p-8 overflow-y-auto flex-grow">
+          <nav className="flex-grow p-6 overflow-y-auto">
             {navItems.map((item, i) => (
-              <div key={item.name} className="py-3 border-b border-gray-50 last:border-0">
+              <div key={item.name} className="mb-6">
                 <Link 
                   href={item.href} 
                   onClick={() => setIsMenuOpen(false)}
-                  className="text-3xl font-black text-black uppercase tracking-tighter hover:text-[#c73e1d] transition-colors flex items-center justify-between group"
+                  className="text-2xl font-bold text-gray-900 uppercase tracking-tighter hover:text-[#c73e1d] flex justify-between items-center"
                 >
                   {item.name}
-                  <span className="text-[10px] font-bold text-gray-300 group-hover:text-[#c73e1d]">0{i+1}</span>
+                  <span className="text-[10px] text-gray-300">0{i+1}</span>
                 </Link>
                 {item.subItems && (
-                  <div className="mt-4 pl-4 space-y-2">
+                  <div className="mt-2 ml-2 border-l-2 border-gray-100 pl-4 space-y-3 pt-2">
                     {item.subItems.map(sub => (
-                      <Link key={sub.name} href={sub.href} onClick={() => setIsMenuOpen(false)} className="block text-xs font-bold text-gray-500 uppercase tracking-widest hover:text-black">
-                        → {sub.name}
+                      <Link key={sub.name} href={sub.href} onClick={() => setIsMenuOpen(false)} className="block text-[11px] font-bold text-gray-500 uppercase tracking-widest hover:text-[#c73e1d]">
+                        {sub.name}
                       </Link>
                     ))}
                   </div>
@@ -182,23 +187,21 @@ export default function NavBar() {
             ))}
           </nav>
 
-          {/* Mobile Footer Area - Restored Content */}
-          <div className="bg-black p-8 text-white space-y-6">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <p className="text-[9px] font-bold text-[#c73e1d] tracking-[0.2em] mb-2 uppercase">Office</p>
-                {phones.map(p => <a key={p.number} href={`tel:${p.number}`} className="block text-xs font-bold hover:text-[#c73e1d] mb-1">{p.label}</a>)}
-              </div>
-              <div className="flex flex-wrap gap-3 items-end justify-end">
-                {socialLinks.map(s => <a key={s.name} href={s.href} target="_blank" className="text-xl hover:text-[#c73e1d]"><i className={s.icon}></i></a>)}
-              </div>
+          {/* RETAINED MOBILE CONTENT */}
+          <div className="bg-gray-50 p-8 border-t">
+            <div className="mb-6">
+              <p className="text-[9px] font-black text-gray-400 tracking-widest uppercase mb-3">Reach Us</p>
+              {phones.map(p => <a key={p.number} href={`tel:${p.number}`} className="block text-sm font-bold text-gray-800 mb-2">{p.label}</a>)}
+            </div>
+            <div className="flex gap-4 mb-6">
+              {socialLinks.map(s => <a key={s.name} href={s.href} target="_blank" className="text-xl text-gray-400 hover:text-[#c73e1d]"><i className={s.icon}></i></a>)}
             </div>
             <Link 
               href="/contact" 
               onClick={() => setIsMenuOpen(false)}
-              className="block w-full bg-[#c73e1d] py-4 text-center text-xs font-black uppercase tracking-[0.2em] hover:bg-white hover:text-black transition-all"
+              className="block w-full bg-black text-white py-4 text-center text-[10px] font-bold uppercase tracking-widest hover:bg-[#c73e1d] transition-all"
             >
-              Start Your Project
+              Start Project
             </Link>
           </div>
         </div>
