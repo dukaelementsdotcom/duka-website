@@ -1,5 +1,3 @@
-// app/components/NavBar.tsx
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -13,44 +11,25 @@ export default function NavBar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  // Detect scroll
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Lock body scroll when mobile menu is open
   useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
+    document.body.style.overflow = isMenuOpen ? 'hidden' : 'unset';
+    return () => { document.body.style.overflow = 'unset'; };
   }, [isMenuOpen]);
 
-  // Close mobile menu on desktop resize
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 1024 && isMenuOpen) {
-        setIsMenuOpen(false);
-      }
+      if (window.innerWidth >= 1024 && isMenuOpen) setIsMenuOpen(false);
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, [isMenuOpen]);
 
-  // Header class based on scroll
-  const headerClasses = isScrolled
-    ? 'bg-white text-gray-800 border-b border-gray-200 shadow-md'
-    : 'bg-black/80 backdrop-blur-md text-white border-b border-gray-800';
-
-  // Navigation items
   const navItems = [
     { name: 'HOME', href: '/' },
     { name: 'SERVICES', href: '/services' },
@@ -66,22 +45,15 @@ export default function NavBar() {
         { name: 'Renovation FAQ', href: '/resources/faq' }
       ]
     },
-    {
-      name: 'PRODUCTS',
-      href: '/products',
-      comingSoon: true
-    },
+    { name: 'PRODUCTS', href: '/products', comingSoon: true },
     { name: 'CONTACT', href: '/contact' },
   ];
 
-  // Contact info
   const phones = [
     { number: '+251940607055', label: '+251 940 607 055' },
     { number: '+251929144290', label: '+251 929 144 290' },
   ];
   const email = 'contact@dukainteriors.com';
-
-  // Social links
   const socialLinks = [
     { name: 'WhatsApp', href: 'https://wa.me/251940607055', icon: 'fab fa-whatsapp' },
     { name: 'Telegram', href: 'https://t.me/dukainteriorsplc', icon: 'fab fa-telegram' },
@@ -92,222 +64,125 @@ export default function NavBar() {
   ];
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 py-3 transition-all duration-300 ${headerClasses}`}>
-      <div className="w-full max-w-screen-2xl mx-auto px-6">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-x-8">
-            <Link href="/" aria-label="Duka Interiors Home" className="transition-transform hover:scale-105">
-              <Image
-                src="/images/icons-duka-interiors/logo-duka-interiors-big.svg"
-                alt="Duka Interiors Logo"
-                width={180}
-                height={60}
-                priority
-                className="h-10 w-auto"
-              />
-            </Link>
-            <nav className="hidden lg:flex items-center gap-x-6">
-              {navItems.map((item) => {
-                const isActive = pathname === item.href;
-                const baseClass = "text-sm uppercase tracking-wide py-2 transition-all";
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      isScrolled 
+        ? 'bg-white/95 backdrop-blur-md py-3 shadow-[0_10px_30px_-15px_rgba(0,0,0,0.1)]' 
+        : 'bg-black/40 backdrop-blur-sm py-5 border-b border-white/10'
+    }`}>
+      <div className="max-w-[1800px] mx-auto px-6 lg:px-12 flex items-center justify-between">
+        
+        {/* LOGO AREA */}
+        <Link href="/" className="relative z-[60] transition-transform duration-300 hover:scale-[1.02] active:scale-95">
+          <Image
+            src="/images/icons-duka-interiors/logo-duka-interiors-big.svg"
+            alt="Duka Interiors"
+            width={160}
+            height={50}
+            priority
+            className={`h-9 w-auto transition-all duration-500 ${!isScrolled ? 'brightness-0 invert' : ''}`}
+          />
+        </Link>
 
-                if (item.comingSoon) {
-                  return (
-                    <div key={item.name} className="relative group">
-                      <Link href={item.href} className={`${isScrolled ? 'text-gray-800 hover:text-red-600' : 'text-white hover:text-red-500'} ${baseClass}`}>
-                        {item.name}
-                      </Link>
-                      <span className="absolute -top-1 -right-1 bg-red-600 text-white text-[8px] font-bold px-1.5 py-0.5 rounded-full leading-none">
-                        Soon
-                      </span>
-                    </div>
-                  );
-                }
-
-                if (item.hasDropdown) {
-                  return (
-                    <div 
-                      key={item.name} 
-                      className="relative group"
-                      onMouseEnter={() => setIsDropdownOpen(true)}
-                      onMouseLeave={() => setIsDropdownOpen(false)}
-                    >
-                      <Link href={item.href} className={`${baseClass} flex items-center gap-1 ${isActive ? 'text-red-600 font-semibold' : isScrolled ? 'text-gray-800 hover:text-red-600' : 'text-white hover:text-red-500'}`}>
-                        {item.name} <i className={`fas fa-chevron-down text-[10px] transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`}></i>
-                      </Link>
-                      
-                      <div className={`absolute top-full left-0 w-56 bg-white border border-gray-100 shadow-xl py-2 transition-all duration-300 ${isDropdownOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'}`}>
-                        {item.subItems?.map((sub) => (
-                          <Link 
-                            key={sub.name} 
-                            href={sub.href}
-                            className="block px-6 py-3 text-[11px] font-bold uppercase tracking-widest text-gray-800 hover:text-red-600 hover:bg-gray-50 transition-colors"
-                          >
-                            {sub.name}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  );
-                }
-
-                return (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className={`${baseClass} ${isActive ? 'text-red-600 font-semibold' : isScrolled ? 'text-gray-800 hover:text-red-600' : 'text-white hover:text-red-500'}`}
+        {/* DESKTOP NAV */}
+        <nav className="hidden lg:flex items-center gap-x-10">
+          {navItems.map((item) => {
+            const isActive = pathname === item.href;
+            const linkColor = isScrolled ? 'text-zinc-900' : 'text-white';
+            
+            return (
+              <div key={item.name} className="relative group pt-1">
+                {item.hasDropdown ? (
+                  <div 
+                    className="flex items-center gap-1 cursor-pointer"
+                    onMouseEnter={() => setIsDropdownOpen(true)}
+                    onMouseLeave={() => setIsDropdownOpen(false)}
                   >
-                    {item.name}
-                  </Link>
-                );
-              })}
-            </nav>
-          </div>
-
-          <div className="flex items-center gap-x-4">
-            <div className="hidden lg:flex items-center gap-x-3">
-              <div className="hidden xl:flex gap-x-2">
-                {phones.map((phone, idx) => (
-                  <a
-                    key={idx}
-                    href={`tel:${phone.number.replace(/\s+/g, '')}`}
-                    className={`w-36 py-1.5 rounded-full text-xs flex items-center justify-center gap-2 ${
-                      isScrolled
-                        ? 'border border-red-600 text-red-600 hover:bg-red-600 hover:text-white'
-                        : 'bg-red-600 text-white hover:bg-red-700'
-                    }`}
-                  >
-                    <i className="fas fa-phone text-xs"></i>
-                    <span>{phone.label}</span>
-                  </a>
-                ))}
-              </div>
-              <div className="flex gap-x-1.5">
-                {socialLinks.map((social) => (
-                  <a
-                    key={social.name}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`w-8 h-8 rounded-full flex items-center justify-center text-xs ${
-                      isScrolled
-                        ? 'bg-gray-200 text-gray-700 hover:bg-red-600 hover:text-white'
-                        : 'bg-gray-800 text-white hover:bg-red-600'
-                    }`}
-                  >
-                    <i className={social.icon}></i>
-                  </a>
-                ))}
-              </div>
-              <Link href="/contact" className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg text-sm uppercase">
-                CONTACT US
-              </Link>
-            </div>
-
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={`lg:hidden p-2 relative h-6 w-6 group ${isScrolled ? 'text-gray-800' : 'text-white'}`}
-              aria-label="Toggle menu"
-            >
-              <div className="flex flex-col justify-between h-full w-full">
-                <span className={`block h-0.5 w-full bg-current origin-left ${isMenuOpen ? 'rotate-45 translate-y-2.5' : '-rotate-12'} transition-all`}></span>
-                <span className={`block h-0.5 w-full bg-current ${isMenuOpen ? 'opacity-0' : 'opacity-100'} transition-all`}></span>
-                <span className={`block h-0.5 w-full bg-current origin-left ${isMenuOpen ? '-rotate-45 -translate-y-2.5' : 'rotate-12'} transition-all`}></span>
-              </div>
-            </button>
-          </div>
-        </div>
-
-        {isMenuOpen && (
-          <div className="fixed inset-0 lg:hidden bg-black/90 backdrop-blur-sm z-40 h-screen overflow-y-auto text-white">
-            <div className="flex flex-col h-full pt-16 pb-12 px-8">
-              <button
-                onClick={() => setIsMenuOpen(false)}
-                className="absolute top-3 right-6 p-2 text-white hover:text-red-600"
-                aria-label="Close menu"
-              >
-                <i className="fas fa-times text-2xl"></i>
-              </button>
-              <nav className="flex flex-col justify-center items-center flex-grow space-y-4 pt-4">
-                {navItems.map((item) => {
-                  const isActive = pathname === item.href;
-                  const linkClass = `text-4xl md:text-5xl font-extrabold uppercase border-b-2 border-transparent hover:border-red-500 transition-colors ${
-                    isActive ? 'text-red-500' : 'text-gray-200'
-                  }`;
-
-                  if (item.comingSoon) {
-                    return (
-                      <Link
-                        key={item.name}
-                        href={item.href}
-                        onClick={() => setIsMenuOpen(false)}
-                        className={`${linkClass} relative`}
-                      >
-                        {item.name}
-                        <span className="text-xs ml-2">(Soon)</span>
-                      </Link>
-                    );
-                  }
-
-                  return (
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      onClick={() => setIsMenuOpen(false)}
-                      className={linkClass}
-                    >
+                    <Link href={item.href} className={`text-[11px] font-black uppercase tracking-[0.2em] transition-colors ${isActive ? 'text-red-600' : `${linkColor} group-hover:text-red-600`}`}>
                       {item.name}
                     </Link>
-                  );
-                })}
-              </nav>
-              <div className="mt-auto space-y-2 text-gray-400 border-t border-gray-700 pt-4 text-center">
-                <Link
-                  href="/contact"
-                  className="w-full inline-flex items-center justify-center bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg text-lg"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <i className="fas fa-phone-volume mr-3"></i>
-                  Request a Call Back
-                </Link>
-                <p className="text-base uppercase tracking-wider mb-2 text-gray-500 font-semibold border-t border-gray-800 pt-4">
-                  Or Reach Us Directly
-                </p>
-                {phones.map((phone, idx) => (
-                  <a
-                    key={idx}
-                    href={`tel:${phone.number.replace(/\\s+/g, '')}`}
-                    className="block text-lg hover:text-red-600"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {phone.label}
-                  </a>
-                ))}
-                <a
-                  href={`mailto:${email}`}
-                  className="block text-lg hover:text-red-600"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {email}
-                </a>
-                <div className="pt-4 flex justify-center space-x-5">
-                  {socialLinks.map((social) => (
-                    <a
-                      key={social.name}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-2xl text-gray-400 hover:text-red-600"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      <i className={social.icon}></i>
-                    </a>
-                  ))}
-                </div>
+                    <i className={`fas fa-chevron-down text-[8px] transition-transform duration-300 ${linkColor} ${isDropdownOpen ? 'rotate-180 text-red-600' : ''}`}></i>
+                    
+                    {/* DROPDOWN MENU */}
+                    <div className={`absolute top-full -left-4 w-60 bg-white border border-zinc-100 shadow-2xl py-4 mt-2 transition-all duration-300 origin-top ${isDropdownOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}>
+                      {item.subItems?.map((sub) => (
+                        <Link key={sub.name} href={sub.href} className="block px-8 py-3 text-[10px] font-black uppercase tracking-widest text-zinc-800 hover:text-red-600 hover:bg-zinc-50 transition-all border-l-2 border-transparent hover:border-red-600">
+                          {sub.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <Link href={item.href} className={`relative text-[11px] font-black uppercase tracking-[0.2em] transition-colors ${isActive ? 'text-red-600' : `${linkColor} hover:text-red-600`}`}>
+                    {item.name}
+                    {item.comingSoon && <span className="absolute -top-3 -right-4 bg-red-600 text-[7px] px-1 py-0.5 rounded-sm text-white">SOON</span>}
+                    <span className={`absolute -bottom-1 left-0 h-[2px] bg-red-600 transition-all duration-300 ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
+                  </Link>
+                )}
               </div>
-            </div>
+            );
+          })}
+        </nav>
+
+        {/* CTA AREA */}
+        <div className="flex items-center gap-x-6">
+          <div className="hidden xl:flex items-center gap-x-4 border-l border-zinc-300/30 pl-6 ml-2">
+            {socialLinks.slice(0, 3).map((social) => (
+              <a key={social.name} href={social.href} target="_blank" className={`text-sm transition-colors ${isScrolled ? 'text-zinc-400 hover:text-red-600' : 'text-zinc-300 hover:text-white'}`}>
+                <i className={social.icon}></i>
+              </a>
+            ))}
           </div>
-        )}
+          
+          <Link href="/contact" className={`hidden md:block px-8 py-3 text-[11px] font-black uppercase tracking-[0.2em] transition-all duration-300 border-2 ${
+            isScrolled 
+              ? 'border-zinc-900 bg-zinc-900 text-white hover:bg-red-600 hover:border-red-600 shadow-lg' 
+              : 'border-white text-white hover:bg-white hover:text-zinc-900'
+          }`}>
+            Consultation
+          </Link>
+
+          {/* MOBILE TOGGLE */}
+          <button 
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="lg:hidden group flex flex-col items-end gap-1.5 p-2 relative z-[60]"
+          >
+            <span className={`h-[2px] bg-current transition-all duration-300 ${isMenuOpen ? 'w-8 rotate-45 translate-y-2 text-white' : 'w-8 text-current'}`}></span>
+            <span className={`h-[2px] bg-current transition-all duration-300 ${isMenuOpen ? 'opacity-0' : 'w-5 text-current'}`}></span>
+            <span className={`h-[2px] bg-current transition-all duration-300 ${isMenuOpen ? 'w-8 -rotate-45 -translate-y-2 text-white' : 'w-8 text-current'}`}></span>
+          </button>
+        </div>
+
+        {/* MOBILE OVERLAY */}
+        <div className={`fixed inset-0 z-[55] bg-zinc-950 transition-all duration-700 ease-in-out ${isMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'}`}>
+          <div className="flex flex-col h-full p-12 justify-center">
+             <nav className="flex flex-col space-y-6">
+                {navItems.map((item, i) => (
+                  <Link 
+                    key={item.name} 
+                    href={item.href} 
+                    onClick={() => setIsMenuOpen(false)}
+                    className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter hover:text-red-600 transition-colors flex items-baseline gap-4 group"
+                    style={{ transitionDelay: `${i * 50}ms` }}
+                  >
+                    <span className="text-sm font-light text-zinc-600 group-hover:text-red-600">0{i+1}</span>
+                    {item.name}
+                  </Link>
+                ))}
+             </nav>
+             <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 border-t border-zinc-800 pt-12">
+                <div>
+                  <p className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.3em] mb-4">Direct Line</p>
+                  {phones.map(p => <a key={p.number} href={`tel:${p.number}`} className="block text-xl text-white font-medium hover:text-red-600 mb-2">{p.label}</a>)}
+                </div>
+                <div>
+                  <p className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.3em] mb-4">Follow Us</p>
+                  <div className="flex gap-6">
+                    {socialLinks.map(s => <a key={s.name} href={s.href} className="text-2xl text-white hover:text-red-600"><i className={s.icon}></i></a>)}
+                  </div>
+                </div>
+             </div>
+          </div>
+        </div>
       </div>
     </header>
   );
