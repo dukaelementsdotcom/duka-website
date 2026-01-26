@@ -208,13 +208,13 @@ useEffect(() => {
       <Link href="/projects/modern-conference-room-and-lobby-design" className="block">
   <div className="relative min-h-[400px] overflow-hidden rounded-none border border-gray-200 group">
     <Image
-      // Changed 'duka-interiors-Projects' to 'duka-interiors-projects'
+      // Fixed: 'duka-interiors-projects' (lowercase 'p') 
       src="/images/duka-interiors-projects/habesha-breweries-duka-interiors/habesha-breweries-duka-interiors-3.webp"
       alt="Modern conference room and lobby design by Duka Interiors"
       fill
       className="object-cover"
       sizes="(max-width: 1024px) 100vw, 50vw"
-      priority={false}
+      priority={true} // Setting this to true since it's in the intro/top section
     />
     
     {/* Hover Overlay */}
