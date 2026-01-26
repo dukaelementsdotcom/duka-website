@@ -193,7 +193,7 @@ export default function ContactPage() {
         {/* --- MAP SECTION START --- */}
         <section className="w-full h-[450px] border-t border-gray-100">
           <iframe 
-            src="http://googleusercontent.com/maps.google.com/7" 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.612543948011!2d38.7845423!3d8.9912196!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b85002b65103d%3A0xe54955b259160533!2sWelela%20Building!5e0!3m2!1sen!2set!4v1715800000000!5m2!1sen!2set" 
             width="100%" 
             height="100%" 
             style={{ border: 0 }} 
