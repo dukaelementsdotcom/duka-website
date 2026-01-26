@@ -5,12 +5,8 @@ import NavBar from '@/app/components/NavBar';
 import Footer from '@/app/components/Footer';
 import Link from 'next/link';
 
-// ✅ Generate all service pages at build time for Vercel
-export async function generateStaticParams() {
-  return services.map((service) => ({
-    slug: service.slug,
-  }));
-}
+// ❌ REMOVED: generateStaticParams — we'll use on-demand routing for now
+// export async function generateStaticParams() { ... }
 
 export default function ServiceDetail({ params }: { params: { slug: string } }) {
   const { slug } = params;

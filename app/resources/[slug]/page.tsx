@@ -5,12 +5,8 @@ import NavBar from '@/app/components/NavBar';
 import Footer from '@/app/components/Footer';
 import Link from 'next/link';
 
-// ✅ Generate all blog/article pages at build time
-export async function generateStaticParams() {
-  return BLOG_POSTS.map((post) => ({
-    slug: post.slug,
-  }));
-}
+// ❌ REMOVED: generateStaticParams — we'll use on-demand routing for now
+// export async function generateStaticParams() { ... }
 
 export default function ArticlePage({ params }: { params: { slug: string } }) {
   const { slug } = params;
