@@ -12,27 +12,28 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// ORGANIC SEO METADATA - Focused on "Best in Addis" intent
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.dukainteriors.com"),
   title: {
     template: "%s | Duka Interiors Addis Ababa",
-    default: "Duka Interiors | Elite Interior Design & Build in Addis Ababa",
+    default: "The Best Interior Design Company in Addis Ababa | Duka Interiors",
   },
-  description: "Duka Interiors: Ethiopia's leading office interior design and construction firm. Specializing in modern fit-outs, technology integration, and furniture production in Addis Ababa.",
+  description: "Duka Interiors is the best interior design company in Addis Ababa, Ethiopia. Expert office partitioning, professional renovation, and interior decoration since 2015.",
   keywords: [
-    "Interior Design Addis Ababa", 
-    "Office Fit-out Ethiopia", 
-    "Office Furniture Addis Ababa", 
-    "Furniture Production Ethiopia", // Added
-    "Smart Office Technology Addis", // Added
-    "Duka Interiors"
+    "Best interior design company in Addis Ababa",
+    "Office partitioning Addis Ababa",
+    "Office renovation Ethiopia",
+    "Interior decoration Addis Ababa",
+    "Furniture production Ethiopia",
+    "Duka Interiors Ethiopia"
   ],
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "Duka Interiors | Elite Interior Design & Build",
-    description: "Premium interior design and turnkey construction services in Addis Ababa, Ethiopia.",
+    title: "The Best Interior Design Company in Addis Ababa | Duka Interiors",
+    description: "Ethiopia's leading firm for office partitioning, renovation, and professional interior decoration in Addis Ababa.",
     url: "https://www.dukainteriors.com",
     siteName: "Duka Interiors",
     images: [
@@ -40,22 +41,11 @@ export const metadata: Metadata = {
         url: "/og-image.jpg", 
         width: 1200,
         height: 630,
-        alt: "Duka Interiors Project Showcase",
+        alt: "Duka Interiors - Best Interiors in Addis Ababa",
       },
     ],
     locale: "en_US",
     type: "website",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
   },
 };
 
@@ -65,20 +55,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   
-  // UPDATED SCHEMA: Using your actual contact details for Google Indexing
+  // VERIFIED BUSINESS SCHEMA (Synced with your Google Business Link)
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "InteriorDesign",
     "name": "Duka Interiors P.L.C",
-    "alternateName": "Duka Interiors",
+    "alternateName": "The Best Interior Design Company in Addis Ababa",
     "image": "https://www.dukainteriors.com/logo.png", 
     "@id": "https://www.dukainteriors.com",
     "url": "https://www.dukainteriors.com",
-    "telephone": "+251940607055", // Updated
-    "priceRange": "$$$",
+    "telephone": "+251940607055",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Welelay Building, 5th Floor, Djibouti Street", // Updated
+      "streetAddress": "Welela Building, 5th Floor, Djibouti Street",
       "addressLocality": "Bole, Addis Ababa",
       "addressRegion": "Addis Ababa",
       "addressCountry": "ET"
@@ -86,27 +75,26 @@ export default function RootLayout({
     "geo": {
       "@type": "GeoCoordinates",
       "latitude": 9.00026,
-      "longitude": 38.78805
+      "longitude": 38.788051
     },
-    "hasMap": "https://www.google.com/maps?cid=YOUR_CID_HERE", 
+    "hasMap": "https://maps.google.com/?cid=11124327244819294980&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNl",
     "openingHoursSpecification": [
       {
         "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-        "opens": "08:30",
-        "closes": "18:00" // Updated to 6 PM
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        "opens": "08:00",
+        "closes": "17:00"
       }
     ],
     "sameAs": [
-      "https://t.me/dukainteriorsplc", // Updated
+      "https://t.me/dukainteriorsplc",
       "https://www.instagram.com/dukainteriors"
     ],
     "knowsAbout": [
-      "Office Interior Design",
-      "Commercial Fit-out",
-      "Custom Furniture Production", // Updated
-      "IT & Security Infrastructure", // Updated
-      "Project Management"
+      "Office Partitioning Addis Ababa",
+      "Office Renovation Ethiopia",
+      "Interior Decoration",
+      "Custom Furniture Production"
     ]
   };
 
