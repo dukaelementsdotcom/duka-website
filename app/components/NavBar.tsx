@@ -1,5 +1,3 @@
-// app/components/NavBar.tsx
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -171,6 +169,8 @@ export default function NavBar() {
                   <a
                     key={idx}
                     href={`tel:${phone.number.replace(/\s+/g, '')}`}
+                    aria-label={`Call Duka Interiors at ${phone.label}`}
+                    title={`Call ${phone.label}`}
                     className={`w-36 py-1.5 rounded-full text-xs flex items-center justify-center gap-2 ${
                       isScrolled
                         ? 'border border-red-600 text-red-600 hover:bg-red-600 hover:text-white'
@@ -189,6 +189,8 @@ export default function NavBar() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label={`Visit our ${social.name} page`}
+                    title={social.name}
                     className={`w-8 h-8 rounded-full flex items-center justify-center text-xs ${
                       isScrolled
                         ? 'bg-gray-200 text-gray-700 hover:bg-red-600 hover:text-white'
@@ -207,7 +209,7 @@ export default function NavBar() {
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className={`lg:hidden p-2 relative h-6 w-6 group ${isScrolled ? 'text-gray-800' : 'text-white'}`}
-              aria-label="Toggle menu"
+              aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
             >
               <div className="flex flex-col justify-between h-full w-full">
                 <span className={`block h-0.5 w-full bg-current origin-left ${isMenuOpen ? 'rotate-45 translate-y-2.5' : '-rotate-12'} transition-all`}></span>
@@ -224,7 +226,7 @@ export default function NavBar() {
               <button
                 onClick={() => setIsMenuOpen(false)}
                 className="absolute top-3 right-6 p-2 text-white hover:text-red-600"
-                aria-label="Close menu"
+                aria-label="Close navigation menu"
               >
                 <i className="fas fa-times text-2xl"></i>
               </button>
@@ -276,7 +278,8 @@ export default function NavBar() {
                 {phones.map((phone, idx) => (
                   <a
                     key={idx}
-                    href={`tel:${phone.number.replace(/\\s+/g, '')}`}
+                    href={`tel:${phone.number.replace(/\s+/g, '')}`}
+                    aria-label={`Call us at ${phone.label}`}
                     className="block text-lg hover:text-red-600"
                     onClick={() => setIsMenuOpen(false)}
                   >
@@ -285,6 +288,7 @@ export default function NavBar() {
                 ))}
                 <a
                   href={`mailto:${email}`}
+                  aria-label={`Email us at ${email}`}
                   className="block text-lg hover:text-red-600"
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -297,6 +301,8 @@ export default function NavBar() {
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label={`Visit our ${social.name} page`}
+                      title={social.name}
                       className="text-2xl text-gray-400 hover:text-red-600"
                       onClick={() => setIsMenuOpen(false)}
                     >
