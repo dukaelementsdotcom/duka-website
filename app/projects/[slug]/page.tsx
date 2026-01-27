@@ -3,22 +3,31 @@ import fs from 'fs';
 import path from 'path';
 import { notFound } from 'next/navigation';
 import ProjectClient from './ProjectClient';
+import { Metadata } from 'next';
 
-/**
- * HELPER: Reads the JSON file and strips hidden BOM characters 
- * to prevent the "Unexpected token" error.
- */
 function getProjectsData() {
   const filePath = path.join(process.cwd(), 'public/data/projects.json');
   const fileContent = fs.readFileSync(filePath, 'utf8');
-  // The .replace(/^\uFEFF/, '') is critical for fixing your JSON error
   return JSON.parse(fileContent.replace(/^\uFEFF/, ''));
 }
 
-/**
- * 1. PRE-RENDER: This tells Next.js exactly which projects exist 
- * so it can build them at once and prevent 404s.
- */
+// DYNAMIC SEO GENERATOR
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const projects = getProjectsData();
+  const project = projects.find((p: any) => p.slug === slug);
+
+  if (!project) return { title: 'Project Not Found' };
+
+  return {
+    title: `${project.title} | Interior Design Project in ${project.location}`,
+    description: `Case study for ${project.title}. A professional ${project.type} interior design and build project by Duka Interiors in Addis Ababa, Ethiopia.`,
+    openGraph: {
+      images: [project.image],
+    },
+  };
+}
+
 export async function generateStaticParams() {
   const projects = getProjectsData();
   return projects.map((project: any) => ({
@@ -26,21 +35,28 @@ export async function generateStaticParams() {
   }));
 }
 
-/**
- * 2. MAIN PAGE COMPONENT: A Server Component that loads 
- * the data instantly for SEO and AI crawlers.
- */
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  
   const allProjects = getProjectsData();
   const project = allProjects.find((p: any) => p.slug === slug);
 
-  // If the URL slug doesn't match any project in your JSON, show the 404 page
-  if (!project) {
-    notFound();
-  }
+  if (!project) notFound();
 
-  // Pass the data to your Client Component (ProjectClient) for the design/UI
-  return <ProjectClient project={project} allProjects={allProjects} slug={slug} />;
+  // SCHEMA FOR SINGLE PROJECT
+  const projectSchema = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": project.title,
+    "creator": { "@type": "Organization", "name": "Duka Interiors" },
+    "locationCreated": { "@type": "Place", "name": project.location },
+    "image": project.image,
+    "description": `A ${project.type} project delivered in Addis Ababa.`
+  };
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }} />
+      <ProjectClient project={project} allProjects={allProjects} slug={slug} />
+    </>
+  );
 }
