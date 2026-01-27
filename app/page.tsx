@@ -92,12 +92,14 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4">
             <button
               onClick={scrollToConsultation}
+              aria-label="Request a free consultation with Duka Interiors"
               className="bg-red-600 hover:bg-white hover:text-black text-white font-black py-4 px-10 text-[11px] uppercase tracking-widest transition-all duration-500 shadow-xl"
             >
               Free Consultation
             </button>
             <Link
               href="/projects"
+              aria-label="View our portfolio of interior design projects"
               className="bg-transparent border border-white hover:bg-white hover:text-black text-white font-black py-4 px-10 text-[11px] uppercase tracking-widest transition-all duration-500"
             >
               Our Portfolio
@@ -126,14 +128,14 @@ export default function Home() {
                 </div>
 
                 <div className="pt-4">
-                  <Link href="/about" className="group flex items-center gap-4 font-black uppercase tracking-widest text-[10px] text-black">
+                  <Link href="/about" aria-label="Learn more about our design and build process" className="group flex items-center gap-4 font-black uppercase tracking-widest text-[10px] text-black">
                     More About Our Process <span className="group-hover:translate-x-2 transition-transform text-red-600 text-xl">→</span>
                   </Link>
                 </div>
               </div>
 
               <div className="lg:col-span-5">
-                <Link href="/projects/modern-conference-room-and-lobby-design" className="block">
+                <Link href="/projects/modern-conference-room-and-lobby-design" aria-label="View modern conference room project" className="block">
                   <div className="relative aspect-square overflow-hidden group border border-gray-200">
                     <Image
                       src="/images/duka-interiors-portfolio/modern-conference-room-and-lobby-design/modern-conference-room-addis-ababa.webp"
@@ -158,24 +160,24 @@ export default function Home() {
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-12">
               <div className="space-y-1">
                 <div className="text-5xl font-black tracking-tighter flex items-center">
-                    <AnimatedStat target={150} /><span className="text-red-600">+</span>
+                    <AnimatedStat target={150} /><span className="text-red-500 drop-shadow-[0_1px_2px_rgba(255,255,255,0.3)]">+</span>
                 </div>
-                <div className="text-[10px] font-black uppercase tracking-widest text-gray-500">Projects Complete</div>
+                <div className="text-[10px] font-black uppercase tracking-widest text-gray-300 drop-shadow-[0_1px_2px_rgba(255,255,255,0.3)]">Projects Complete</div>
               </div>
               <div className="space-y-1">
                 <div className="text-5xl font-black tracking-tighter flex items-center">
-                    <AnimatedStat target={50} /><span className="text-red-600">+</span>
+                    <AnimatedStat target={50} /><span className="text-red-500 drop-shadow-[0_1px_2px_rgba(255,255,255,0.3)]">+</span>
                 </div>
-                <div className="text-[10px] font-black uppercase tracking-widest text-gray-500">Corporate Clients</div>
+                <div className="text-[10px] font-black uppercase tracking-widest text-gray-300 drop-shadow-[0_1px_2px_rgba(255,255,255,0.3)]">Corporate Clients</div>
               </div>
               <div className="space-y-1">
                 <div className="text-5xl font-black tracking-tighter flex items-center">
-                    <AnimatedStat target={10} /><span className="text-red-600">+</span>
+                    <AnimatedStat target={10} /><span className="text-red-500 drop-shadow-[0_1px_2px_rgba(255,255,255,0.3)]">+</span>
                 </div>
-                <div className="text-[10px] font-black uppercase tracking-widest text-gray-500">Years Mastery</div>
+                <div className="text-[10px] font-black uppercase tracking-widest text-gray-300 drop-shadow-[0_1px_2px_rgba(255,255,255,0.3)]">Years Mastery</div>
               </div>
               <div className="flex items-center justify-end">
-                  <Link href="/contact" className="border border-white/20 px-8 py-4 text-[10px] font-black uppercase tracking-widest hover:bg-white hover:text-black transition-all">
+                  <Link href="/contact" aria-label="Start your interior design project" className="border border-white/20 px-8 py-4 text-[10px] font-black uppercase tracking-widest hover:bg-white hover:text-black transition-all">
                     Start Project
                   </Link>
               </div>
@@ -194,14 +196,15 @@ export default function Home() {
               {services.map((service, index) => (
                 <div key={index} className="bg-white p-12 space-y-6 group hover:bg-black transition-colors duration-500">
                   <div className="w-12 h-[2px] bg-red-600 group-hover:w-full transition-all duration-500"></div>
-                  <h4 className="text-2xl font-black uppercase tracking-tighter group-hover:text-white transition-colors">
+                  <h3 className="text-2xl font-black uppercase tracking-tighter group-hover:text-white transition-colors">
                     {service.title}
-                  </h4>
+                  </h3>
                   <p className="text-gray-500 group-hover:text-gray-400 transition-colors text-sm leading-relaxed">
                     {service.shortDesc}
                   </p>
                   <Link 
                     href={`/services/${service.slug}`}
+                    aria-label={`View ${service.title} specialty`}
                     className="inline-block pt-4 text-[10px] font-black uppercase tracking-widest group-hover:text-red-600 transition-colors"
                   >
                     View Specialty +

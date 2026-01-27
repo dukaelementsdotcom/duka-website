@@ -51,19 +51,19 @@ export default function PremiumTestimonialCharcoal() {
     >
       {/* Subtle Background Quote Icon */}
       <div className="absolute top-0 left-10 opacity-5 pointer-events-none select-none">
-        <span className="text-[20rem] font-serif text-white">“</span>
+        <span className="text-[20rem] font-serif text-white">"</span>
       </div>
 
       <div className="max-w-[90vw] mx-auto relative z-10">
         <blockquote className="text-center max-w-4xl mx-auto min-h-[280px] flex flex-col justify-center">
           <p className="text-xl md:text-2xl lg:text-3xl font-light text-white leading-relaxed italic mb-10 px-6 md:px-12">
-            “{currentTestimonial.quote}”
+            "{currentTestimonial.quote}"
           </p>
           <div className="space-y-2">
             <footer className="font-bold text-white text-lg uppercase tracking-widest">
               {currentTestimonial.author}
             </footer>
-            <div className="text-sm text-red-600 font-black uppercase tracking-tighter">
+            <div className="text-sm text-red-500 font-black uppercase tracking-tighter drop-shadow-[0_1px_2px_rgba(255,255,255,0.3)]">
               {currentTestimonial.role}
             </div>
           </div>
@@ -73,6 +73,7 @@ export default function PremiumTestimonialCharcoal() {
         <div className="flex justify-center mt-12 space-x-8">
           <button
             onClick={prev}
+            aria-label="Previous testimonial"
             className="w-12 h-12 border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-red-600 hover:border-red-600 transition-all group"
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
@@ -81,6 +82,7 @@ export default function PremiumTestimonialCharcoal() {
           </button>
           <button
             onClick={next}
+            aria-label="Next testimonial"
             className="w-12 h-12 border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-red-600 hover:border-red-600 transition-all group"
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
@@ -90,11 +92,14 @@ export default function PremiumTestimonialCharcoal() {
         </div>
 
         {/* Minimal Progress Bar Indicators */}
-        <div className="flex justify-center mt-10 space-x-3">
+        <div className="flex justify-center mt-10 space-x-3" role="tablist" aria-label="Testimonial navigation">
           {testimonials.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrent(index)}
+              aria-label={`Go to testimonial ${index + 1} of ${testimonials.length}`}
+              aria-selected={index === current}
+              role="tab"
               className={`h-1 transition-all duration-500 rounded-full ${
                 index === current ? 'bg-red-600 w-10' : 'bg-gray-700 w-4'
               }`}
