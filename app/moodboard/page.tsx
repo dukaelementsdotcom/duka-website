@@ -10,13 +10,10 @@ export default function MoodboardPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // 1. Fetch all projects
     fetch('/data/projects.json')
       .then(res => res.json())
       .then(allData => {
-        // 2. Get the saved IDs from the user's browser
         const savedSlugs = JSON.parse(localStorage.getItem('duka_moodboard') || '[]');
-        // 3. Filter only the ones the user liked
         const filtered = allData.filter(p => savedSlugs.includes(p.slug));
         setFavoriteProjects(filtered);
         setLoading(false);
@@ -30,7 +27,6 @@ export default function MoodboardPage() {
     localStorage.setItem('duka_moodboard', JSON.stringify(updatedSlugs));
   };
 
-  // This creates the text that will be sent to your Telegram
   const telegramMessage = encodeURIComponent(
     `Hi Duka Interiors! I have created a moodboard on your website. I am interested in these styles: ${favoriteProjects.map(p => p.title).join(', ')}`
   );
@@ -40,11 +36,11 @@ export default function MoodboardPage() {
   return (
     <div className="min-h-screen flex flex-col bg-white selection:bg-red-600">
       <NavBar />
-      <main className="flex-grow pt-32 md:pt-48 px-6 md:px-20 pb-20">
+      <main className="flex-grow pt-32 md:pt-48 px-4 md:px-20 pb-20">
         <div className="max-w-[1600px] mx-auto">
-          <div className="mb-16">
+          <div className="mb-12 md:mb-16">
             <span className="text-red-600 font-black text-[10px] tracking-[0.5em] uppercase mb-4 block">Personal Curation</span>
-            <h1 className="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-none text-gray-950">My Moodboard</h1>
+            <h1 className="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-none text-gray-950">My Moodboard</h1>
           </div>
 
           {favoriteProjects.length === 0 ? (
@@ -54,15 +50,15 @@ export default function MoodboardPage() {
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                 {favoriteProjects.map((project) => (
                   <div key={project.slug} className="relative group aspect-square bg-gray-50 overflow-hidden">
-                    <Image src={project.image} alt={project.title} fill className="object-cover" />
-                    <div className="absolute inset-0 bg-black/60 flex flex-col justify-end p-8 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all">
-                      <h3 className="text-white text-xl font-black uppercase tracking-tighter mb-4">{project.title}</h3>
+                    <Image src={project.image} alt={project.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6 md:p-8 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all">
+                      <h3 className="text-white text-lg md:text-xl font-black uppercase tracking-tighter mb-4">{project.title}</h3>
                       <button 
                         onClick={() => removeItem(project.slug)}
-                        className="text-red-500 text-[9px] font-black uppercase tracking-widest self-start border-b border-red-500"
+                        className="text-red-500 text-[9px] font-black uppercase tracking-widest self-start border-b border-red-500 pb-1"
                       >
                         Remove from board
                       </button>
@@ -71,15 +67,16 @@ export default function MoodboardPage() {
                 ))}
               </div>
 
-              <div className="mt-20 p-10 bg-gray-950 text-center rounded-sm">
-                <h2 className="text-white text-3xl font-black uppercase tracking-tighter mb-4">Ready to build your vision?</h2>
-                <p className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-10">Send this curated list to our team for a free consultation.</p>
+              <div className="mt-12 md:mt-20 p-8 md:p-16 bg-gray-950 text-center rounded-none shadow-2xl">
+                <h2 className="text-white text-3xl md:text-4xl font-black uppercase tracking-tighter mb-4 italic">Build your vision</h2>
+                <p className="text-gray-400 text-[10px] font-bold uppercase tracking-[0.2em] mb-10 max-w-md mx-auto">Send this curated list to our design team in Addis Ababa for a free consultation.</p>
                 <a 
                   href={`https://t.me/dukainteriorsplc?text=${telegramMessage}`}
                   target="_blank"
-                  className="inline-block bg-red-600 text-white px-12 py-6 font-black tracking-[0.3em] uppercase text-[10px] hover:bg-white hover:text-black transition-all"
+                  rel="noopener noreferrer"
+                  className="inline-block bg-red-600 text-white px-8 md:px-12 py-5 md:py-6 font-black tracking-[0.3em] uppercase text-[10px] hover:bg-white hover:text-black transition-all"
                 >
-                  Send Moodboard to Telegram →
+                  Send to Telegram →
                 </a>
               </div>
             </>
