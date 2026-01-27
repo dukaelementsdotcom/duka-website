@@ -604,7 +604,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: 'The Strategic Spectrum: Mastering Office Color Psychology in 2026',
     date: 'Feb 02, 2026',
     image: '/images/duka-interiors-portfolio/modern-office-finishing-work-bole.webp',
-    excerpt: 'Discover how specific color wavelengths trigger productivity and why the "safe" grey offices of Addis Ababa might be killing your team\'s focus.',
+excerpt: 'Discover how specific color wavelengths trigger productivity and why the "safe" grey offices of Addis Ababa might be killing your team\'s focus.',
     content: `
       <section class="mb-16 md:mb-24">
         <h1 class="text-3xl md:text-6xl font-black tracking-tighter text-gray-900 mb-10 uppercase leading-none">
