@@ -22,22 +22,33 @@ export default function ShareButton({ title }: { title: string }) {
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
-      {/* Trigger Button */}
-      <div className={`w-10 h-10 flex items-center justify-center transition-all duration-300 border shadow-lg rounded-full cursor-pointer ${isOpen ? 'bg-red-600 border-red-600 text-white' : 'bg-white/95 border-gray-200 text-gray-950'}`}>
-        <i className="fas fa-share-alt text-xs"></i>
-      </div>
-
-      {/* Dropdown Menu - Opens DOWNWARD with a bridge to prevent hover loss */}
-      <div className={`absolute top-full pt-2 flex flex-col gap-2 transition-all duration-300 ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'}`}>
+      {/* Menu - Now opens UPWARD (bottom-full) and has mb-2 for spacing */}
+      <div className={`
+        absolute bottom-full mb-2 flex flex-col gap-2 transition-all duration-300 ease-out
+        ${isOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-95 pointer-events-none'}
+      `}>
         {shareLinks.map((link) => (
           <button
             key={link.name}
-            onClick={(e) => { e.stopPropagation(); link.action ? link.action() : window.open(link.url, '_blank'); }}
-            className="w-10 h-10 bg-white flex items-center justify-center text-gray-900 border border-gray-100 hover:text-red-600 transition-all shadow-xl rounded-full"
+            onClick={(e) => {
+                e.stopPropagation();
+                link.action ? link.action() : window.open(link.url, '_blank');
+            }}
+            className="w-10 h-10 bg-white flex items-center justify-center text-gray-900 border border-gray-100 hover:text-red-600 transition-all shadow-2xl rounded-full"
           >
             <i className={link.icon}></i>
           </button>
         ))}
+        {/* Invisible Bridge - This prevents the menu from closing when moving mouse */}
+        <div className="h-4 w-full absolute -bottom-4 left-0" />
+      </div>
+
+      {/* Trigger Button */}
+      <div className={`
+        w-10 h-10 flex items-center justify-center transition-all duration-300 border shadow-lg rounded-full cursor-pointer
+        ${isOpen ? 'bg-red-600 border-red-600 text-white' : 'bg-white/95 backdrop-blur-md border-gray-200 text-gray-950'}
+      `}>
+        <i className="fas fa-share-alt text-xs"></i>
       </div>
     </div>
   );
