@@ -20,15 +20,18 @@ export default function ShareButton({ title }) {
 
   return (
     <div 
-      className="relative flex flex-col items-end z-50"
+      className="relative flex flex-col items-end z-[100]"
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
-      onClick={() => setIsOpen(!isOpen)} // Added for mobile tap support
+      onClick={(e) => {
+        e.stopPropagation();
+        setIsOpen(!isOpen);
+      }}
     >
-      {/* Selection Menu */}
+      {/* Selection Menu - Fixed to grow DOWN/SIDE on mobile to prevent collision */}
       <div className={`
-        absolute bottom-full mb-2 flex flex-col gap-1 transition-all duration-300 ease-out
-        ${isOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-2 scale-95 pointer-events-none'}
+        absolute bottom-12 right-0 flex flex-col gap-2 transition-all duration-300 ease-out
+        ${isOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-90 pointer-events-none'}
       `}>
         {shareLinks.map((link) => (
           <button
@@ -37,7 +40,7 @@ export default function ShareButton({ title }) {
                 e.stopPropagation();
                 link.action ? link.action() : window.open(link.url, '_blank');
             }}
-            className="w-10 h-10 bg-white flex items-center justify-center text-gray-500 hover:text-red-600 border border-gray-100 hover:border-red-600 transition-all shadow-xl rounded-full"
+            className="w-10 h-10 bg-white flex items-center justify-center text-gray-900 border border-gray-100 hover:border-red-600 transition-all shadow-2xl rounded-full"
           >
             <i className={`${link.icon} text-sm`}></i>
           </button>

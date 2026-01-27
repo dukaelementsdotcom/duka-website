@@ -50,15 +50,21 @@ export default function MoodboardPage() {
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {favoriteProjects.map((project) => (
-                  <div key={project.slug} className="relative group aspect-square bg-gray-50 overflow-hidden">
-                    <Image src={project.image} alt={project.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6 md:p-8 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all">
-                      <h3 className="text-white text-lg md:text-xl font-black uppercase tracking-tighter mb-4">{project.title}</h3>
+                  <div key={project.slug} className="relative group aspect-square bg-gray-100 overflow-hidden shadow-sm">
+                    <Image 
+                      src={project.image} 
+                      alt={project.title} 
+                      fill 
+                      className="object-cover transition-transform duration-700 group-hover:scale-105" 
+                    />
+                    {/* Overlay: Always visible on mobile, hover on desktop */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-6 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300">
+                      <h3 className="text-white text-lg md:text-xl font-black uppercase tracking-tighter mb-2">{project.title}</h3>
                       <button 
                         onClick={() => removeItem(project.slug)}
-                        className="text-red-500 text-[9px] font-black uppercase tracking-widest self-start border-b border-red-500 pb-1"
+                        className="text-red-500 text-[10px] font-black uppercase tracking-widest self-start border-b border-red-500 pb-1 hover:text-white hover:border-white transition-colors"
                       >
                         Remove from board
                       </button>
@@ -67,14 +73,16 @@ export default function MoodboardPage() {
                 ))}
               </div>
 
-              <div className="mt-12 md:mt-20 p-8 md:p-16 bg-gray-950 text-center rounded-none shadow-2xl">
-                <h2 className="text-white text-3xl md:text-4xl font-black uppercase tracking-tighter mb-4 italic">Build your vision</h2>
-                <p className="text-gray-400 text-[10px] font-bold uppercase tracking-[0.2em] mb-10 max-w-md mx-auto">Send this curated list to our design team in Addis Ababa for a free consultation.</p>
+              <div className="mt-12 md:mt-24 p-8 md:p-16 bg-gray-950 text-center">
+                <h2 className="text-white text-3xl md:text-5xl font-black uppercase tracking-tighter mb-4 italic">Build your vision</h2>
+                <p className="text-gray-400 text-[10px] font-bold uppercase tracking-[0.2em] mb-10 max-w-md mx-auto leading-relaxed">
+                  Send this curated list to our design team in Addis Ababa for a free consultation.
+                </p>
                 <a 
                   href={`https://t.me/dukainteriorsplc?text=${telegramMessage}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block bg-red-600 text-white px-8 md:px-12 py-5 md:py-6 font-black tracking-[0.3em] uppercase text-[10px] hover:bg-white hover:text-black transition-all"
+                  className="inline-block bg-red-600 text-white px-8 md:px-12 py-5 md:py-6 font-black tracking-[0.3em] uppercase text-[10px] hover:bg-white hover:text-black transition-all shadow-xl"
                 >
                   Send to Telegram →
                 </a>
