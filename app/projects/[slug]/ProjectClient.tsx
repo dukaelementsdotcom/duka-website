@@ -15,12 +15,15 @@ export default function ProjectClient({ project, slug }: any) {
     if (saved) setFavorites(JSON.parse(saved));
   }, []);
 
+  // ✅ FIXED: Functional state update to prevent stale array issues
   const toggleFavorite = () => {
-    const updated = favorites.includes(slug) 
-      ? favorites.filter(id => id !== slug) 
-      : [...favorites, slug];
-    setFavorites(updated);
-    localStorage.setItem('duka_moodboard', JSON.stringify(updated));
+    setFavorites(prev => {
+      const updated = prev.includes(slug) 
+        ? prev.filter(id => id !== slug) 
+        : [...prev, slug];
+      localStorage.setItem('duka_moodboard', JSON.stringify(updated));
+      return updated;
+    });
   };
 
   const images = project.images || [project.image];
@@ -114,18 +117,24 @@ export default function ProjectClient({ project, slug }: any) {
             </p>
           </div>
         </div>
-
-        {/* FLOATING MOODBOARD BAR - FIXED POSITIONED */}
-        {favorites.length > 0 && (
-          <div className="fixed bottom-10 left-0 right-0 z-[100] flex justify-center pointer-events-none px-4">
-            <Link href="/moodboard" className="pointer-events-auto bg-black text-white px-8 py-5 rounded-full flex items-center gap-6 shadow-2xl hover:scale-105 transition-all">
-              <span className="text-[10px] font-black uppercase tracking-[0.3em]">Open My Moodboard</span>
-              <span className="bg-red-600 text-white w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-black">{favorites.length}</span>
-            </Link>
-          </div>
-        )}
       </main>
+      
       <Footer />
+      
+      {/* ✅ FIXED: MOVED OUTSIDE <main> AND AFTER FOOTER - TRUE FIXED POSITIONING */}
+      {favorites.length > 0 && (
+        <div className="fixed bottom-6 left-0 right-0 z-[1000] flex justify-center pointer-events-none px-4">
+          <Link 
+            href="/moodboard" 
+            className="pointer-events-auto bg-black text-white px-8 py-4 rounded-full flex items-center gap-4 shadow-2xl hover:scale-105 transition-all"
+          >
+            <span className="text-[10px] font-black uppercase tracking-[0.3em]">Open My Moodboard</span>
+            <span className="bg-red-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-black">
+              {favorites.length}
+            </span>
+          </Link>
+        </div>
+      )}
     </div>
   );
 }

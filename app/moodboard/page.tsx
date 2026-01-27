@@ -18,17 +18,25 @@ export default function MoodboardPage() {
         const filtered = allData.filter(p => savedSlugs.includes(p.slug));
         setFavoriteProjects(filtered);
         setLoading(false);
-      });
+      })
+      .catch(() => setLoading(false));
   }, []);
 
-  const removeItem = (slug) => {
-    const updated = favoriteProjects.filter(p => p.slug !== slug);
-    setFavoriteProjects(updated);
-    const updatedSlugs = updated.map(p => p.slug);
-    localStorage.setItem('duka_moodboard', JSON.stringify(updatedSlugs));
+  // ✅ FIXED: Functional state update to prevent stale array issues
+  const removeItem = (slug: string) => {
+    setFavoriteProjects(prev => {
+      const updated = prev.filter(p => p.slug !== slug);
+      const updatedSlugs = updated.map(p => p.slug);
+      localStorage.setItem('duka_moodboard', JSON.stringify(updatedSlugs));
+      return updated;
+    });
   };
 
-  if (loading) return <div className="min-h-screen bg-white flex items-center justify-center font-black text-[10px] uppercase">Loading...</div>;
+  if (loading) return (
+    <div className="min-h-screen bg-white flex items-center justify-center font-black text-[10px] uppercase">
+      Loading Moodboard...
+    </div>
+  );
 
   return (
     <div className="min-h-screen flex flex-col bg-white selection:bg-red-600">
@@ -36,7 +44,9 @@ export default function MoodboardPage() {
       <main className="flex-grow pt-32 md:pt-48 px-4 md:px-20 pb-20">
         <div className="max-w-[1600px] mx-auto">
           <div className="mb-12">
-            <h1 className="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-none text-gray-950">My Moodboard</h1>
+            <h1 className="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-none text-gray-950">
+              My Moodboard
+            </h1>
           </div>
 
           {favoriteProjects.length === 0 ? (
@@ -47,7 +57,12 @@ export default function MoodboardPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {favoriteProjects.map((project) => (
                 <div key={project.slug} className="relative group aspect-square bg-gray-50 overflow-hidden">
-                  <Image src={project.image} alt={project.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <Image 
+                    src={project.image} 
+                    alt={project.title} 
+                    fill 
+                    className="object-cover transition-transform duration-700 group-hover:scale-105" 
+                  />
                   
                   <div className="absolute top-4 right-4 z-20">
                     <div className="w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center shadow-lg">
@@ -60,8 +75,15 @@ export default function MoodboardPage() {
                   </div>
 
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-6 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300">
-                    <h3 className="text-white text-lg font-black uppercase tracking-tighter mb-2">{project.title}</h3>
-                    <button onClick={() => removeItem(project.slug)} className="text-red-500 text-[10px] font-black uppercase tracking-widest self-start border-b border-red-500 pb-1">Remove Item</button>
+                    <h3 className="text-white text-lg font-black uppercase tracking-tighter mb-2">
+                      {project.title}
+                    </h3>
+                    <button 
+                      onClick={() => removeItem(project.slug)} 
+                      className="text-red-500 text-[10px] font-black uppercase tracking-widest self-start border-b border-red-500 pb-1 hover:text-red-600 transition-colors"
+                    >
+                      Remove Item
+                    </button>
                   </div>
                 </div>
               ))}
