@@ -14,7 +14,7 @@ export default function AboutPage() {
 
   // ✅ ADD THIS: Client-side title update (proper method for Client Components)
   useEffect(() => {
-    document.title = "About Duka Interiors: Office Design Experts Addis Ababa Since 2015 | Duka Interiors";
+    document.title = "About Duka Interiors: Office Design Experts Addis Ababa Since 2015";
     return () => {
       document.title = "Duka Interiors"; // Cleanup on unmount
     };
