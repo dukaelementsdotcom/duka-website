@@ -15,24 +15,35 @@ export default function AboutPage() {
     fetch('/data/projects.json')
       .then(res => res.json())
       .then(data => {
+        // Take the first 3 for the Featured section
         setFeaturedProjects(data.slice(0, 3));
       })
       .catch(err => console.error("Failed to load featured projects", err));
   }, []);
 
-  // SYNCED TEAM DATA FROM YOUR JSON
+  // SYNCED TEAM DATA WITH YOUR JSON AND CORRECTED LINKEDIN LINKS
   const team = [
-    { name: 'Dagmawi Tilahun', title: 'CEO — CO-FOUNDER / ARCHITECT', img: '/images/team-duka-interiors/dagmawi-tilahun-duka-interiors.webp' },
-    { name: 'Henok Teshome', title: 'COO — CO-FOUNDER / ARCHITECT', img: '/images/team-duka-interiors/henok-teshome-duka-interiors.webp' },
-    { name: 'Beyene Tilahun', title: 'IMPORT & SOURCING MANAGER', img: '/images/team-duka-interiors/asefa-gebre-duka-interiors.webp' },
-    { name: 'Yeabsera Kebede', title: 'PRODUCT DESIGNER', img: '/images/team-duka-interiors/melat-kibru-duka-interiors.webp' },
-    { name: 'Masho Mengistu', title: 'FINANCE MANAGER', img: '/images/team-duka-interiors/martha-hailu-duka-interiors.webp' },
-    { name: 'Mesay Eshete', title: 'CONSTRUCTION HEAD', img: '/images/team-duka-interiors/elias-denberu-duka-interiors.webp' },
-    { name: 'Layne Terefe', title: 'PROCUREMENT MANAGER', img: '/images/team-duka-interiors/tenbit-tesfaye-duka-interiors.webp' },
-    { name: 'Tomas Ashenafi', title: 'SITE MANAGER', img: '/images/team-duka-interiors/tomas-ashenafi-duka-interiors.webp' },
+    { 
+      name: 'Dagmawi Tilahun', 
+      title: 'CEO — CO-FOUNDER / ARCHITECT', 
+      img: '/images/team-duka-interiors/dagmawi-tilahun-duka-interiors.webp',
+      linkedin: 'https://www.linkedin.com/in/dagmawi-tilahun' 
+    },
+    { 
+      name: 'Henok Teshome', 
+      title: 'COO — CO-FOUNDER / ARCHITECT', 
+      img: '/images/team-duka-interiors/henok-teshome-duka-interiors.webp',
+      linkedin: 'https://www.linkedin.com/in/henok-teshome-a3852b56' 
+    },
+    { name: 'Beyene Tilahun', title: 'IMPORT & SOURCING MANAGER', img: '/images/team-duka-interiors/asefa-gebre-duka-interiors.webp', linkedin: '#' },
+    { name: 'Yeabsera Kebede', title: 'PRODUCT DESIGNER', img: '/images/team-duka-interiors/melat-kibru-duka-interiors.webp', linkedin: '#' },
+    { name: 'Masho Mengistu', title: 'FINANCE MANAGER', img: '/images/team-duka-interiors/martha-hailu-duka-interiors.webp', linkedin: '#' },
+    { name: 'Mesay Eshete', title: 'CONSTRUCTION HEAD', img: '/images/team-duka-interiors/elias-denberu-duka-interiors.webp', linkedin: '#' },
+    { name: 'Layne Terefe', title: 'PROCUREMENT MANAGER', img: '/images/team-duka-interiors/tenbit-tesfaye-duka-interiors.webp', linkedin: '#' },
+    { name: 'Tomas Ashenafi', title: 'SITE MANAGER', img: '/images/team-duka-interiors/tomas-ashenafi-duka-interiors.webp', linkedin: '#' },
   ];
 
-  // AI & SEARCH SCHEMA (EEAT)
+  // AI & SEARCH SCHEMA (EEAT) - Verified Entities
   const aboutSchema = {
     "@context": "https://schema.org",
     "@type": "AboutPage",
@@ -41,10 +52,20 @@ export default function AboutPage() {
       "name": "Duka Interiors P.L.C",
       "foundingDate": "2015",
       "founder": [
-        { "@type": "Person", "name": "Dagmawi Tilahun", "jobTitle": "Architect" },
-        { "@type": "Person", "name": "Henok Teshome", "jobTitle": "Architect" }
+        { 
+          "@type": "Person", 
+          "name": "Dagmawi Tilahun", 
+          "jobTitle": "Architect",
+          "sameAs": "https://www.linkedin.com/in/dagmawi-tilahun"
+        },
+        { 
+          "@type": "Person", 
+          "name": "Henok Teshome", 
+          "jobTitle": "Architect",
+          "sameAs": "https://www.linkedin.com/in/henok-teshome-a3852b56"
+        }
       ],
-      "description": "A leading force in commercial interior design and office partitioning in Addis Ababa, Ethiopia since 2015."
+      "description": "The leading force in commercial interior design and office partitioning in Addis Ababa, Ethiopia since 2015."
     }
   };
 
@@ -62,7 +83,7 @@ export default function AboutPage() {
           <div className="border-l-4 border-red-600 pl-6 mb-8">
             <h1 className="text-3xl md:text-5xl font-black text-gray-900 uppercase tracking-tighter leading-tight">
               About Duka Interiors: <br />
-              <span className="text-gray-500">The Best Office Design & Build Firm in Addis Ababa Since 2015</span>
+              <span className="text-gray-500">A Decade of Visionary Office Design & Build in Addis Ababa</span>
             </h1>
           </div>
           
@@ -71,7 +92,7 @@ export default function AboutPage() {
               <div className="overflow-hidden shadow-2xl bg-gray-100 aspect-[16/10] relative">
                 <Image 
                   src="/images/duka-interiors-portfolio/dereja-office-interior-partition-work/small-office-space-optimization-ideas.webp" 
-                  alt="Best interior design company in Addis Ababa - Duka Interiors" 
+                  alt="Duka Interiors Workspace" 
                   fill
                   className="object-cover grayscale hover:grayscale-0 transition-all duration-1000"
                 />
@@ -79,44 +100,50 @@ export default function AboutPage() {
             </div>
             <div className="lg:col-span-5 space-y-6">
               <p className="text-lg text-gray-700 leading-relaxed font-medium italic">
-                Established in 2015 by visionary architects Dagmawi Tilahun and Henok Teshome, Duka Interiors has spent a decade becoming the top choice for office renovation in Addis Ababa and throughout Ethiopia.
+                Established in 2015 by two visionary professional architects, Dagmawi Tilahun and Henok Teshome, Duka Interiors has evolved over a decade into a leading force in commercial interior design across Addis Ababa and throughout Ethiopia.
               </p>
               <p className="text-gray-600 leading-relaxed">
-                With 10 years of experience delivering high-impact projects, our mission is to craft exceptional office interiors and execute turnkey solutions delivered on time, within budget, and to the highest standards of quality in the Ethiopian market.
+                With 10 years of experience successfully delivering several impactful projects, our mission is clear: to craft exceptional office interiors and execute turnkey solutions that are delivered on time, within budget, and to the highest standards of quality.
               </p>
               <div className="pt-4 border-t border-gray-100">
-                <p className="text-[10px] font-black text-red-600 uppercase tracking-widest">Turnkey Solutions / Office Partitioning / Professional Renovation</p>
+                <p className="text-[10px] font-black text-red-600 uppercase tracking-widest">Turnkey Solutions / Spatial Strategy / Custom Build</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* --- CORE VALUES --- */}
-      <section className="py-20 bg-gray-50 px-4 md:px-12 border-y border-gray-100">
+      {/* --- CORE VALUES & COLLABORATIVE APPROACH --- */}
+      <section className="py-20 bg-gray-50 px-4 md:px-12">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start mb-16">
             <div className="lg:col-span-4 bg-red-600 p-12 text-white shadow-xl">
               <h2 className="text-4xl font-black uppercase tracking-tighter leading-none mb-6">
-                Our Collaborative Interior Design Approach
+                Our Core Values & Collaborative Approach
               </h2>
               <div className="h-1 w-12 bg-black"></div>
             </div>
             <div className="lg:col-span-8 text-gray-700 space-y-6 leading-relaxed text-lg">
               <p>
-                At the heart of Duka Interiors lies a commitment to client success. Our values of honesty, integrity, and respect underpin every office partitioning and renovation project we undertake in Addis Ababa.
+                At the heart of Duka Interiors lies a steadfast commitment to our clients. Our core values of client focus, honesty, integrity, respect, and loyalty underpin everything we do.
               </p>
               <p>
-                We believe in a collaborative process, ensuring each workspace solution is tailored to reflect your brand identity, operational efficiency, and the long-term strategic goals of your business in Ethiopia.
+                We believe in a truly collaborative process, ensuring each workspace solution is meticulously tailored to reflect your brand identity, operational efficiency, and long-term strategic goals.
+              </p>
+              <p>
+                Our dedicated team, driven by a passion for delivering excellence, operates with the highest levels of professionalism, from initial concept to seamless completion.
+              </p>
+              <p>
+                We pride ourselves on fostering accountability and encouraging fresh thinking to consistently set new benchmarks in Ethiopian office design.
               </p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { num: '01.', title: 'Professionalism', desc: 'Expert architectural oversight from initial concept to seamless completion across all fit-out stages.' },
-              { num: '02.', title: 'Local Innovation', desc: 'Embracing modern global trends while optimizing for the unique commercial landscape of Addis Ababa.' },
-              { num: '03.', title: 'Total Accountability', desc: 'Fostering fresh thinking to consistently set new benchmarks in the Ethiopian interior design industry.' }
+              { num: '01.', title: 'Professionalism', desc: 'Highest levels of professionalism from initial concept to seamless completion across all fit-out stages.' },
+              { num: '02.', title: 'Innovation', desc: 'Constantly embracing innovative approaches to create inspiring and energizing environments for modern businesses.' },
+              { num: '03.', title: 'Accountability', desc: 'Fostering accountability and fresh thinking to consistently set new benchmarks in the Ethiopian industry.' }
             ].map((item, i) => (
               <div key={i} className="p-8 bg-white border-t-4 border-black shadow-sm group hover:border-red-600 transition-colors">
                 <span className="text-red-600 font-black text-2xl group-hover:text-black transition-colors">{item.num}</span>
@@ -128,22 +155,22 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* --- EXPERTISE --- */}
+      {/* --- UNRIVALED EXPERTISE & LOCAL INSIGHT --- */}
       <section className="py-24 px-4 md:px-12 bg-white">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="order-2 lg:order-1 space-y-6">
             <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tighter text-gray-900 border-b-4 border-red-600 inline-block pb-2">
-              Unrivaled Office Design Insight
+              Unrivaled Expertise & Local Insight
             </h2>
             <div className="space-y-4 text-gray-600 leading-relaxed">
               <p>
-                As pioneers in the Addis Ababa office design landscape, we create inspiring environments that drive productivity.
+                As pioneers in the Addis Ababa office design landscape, we constantly embrace innovative approaches to create inspiring and energizing environments. 
               </p>
               <p>
-                Our expertise in office space planning and custom furniture production means we bring unparalleled insight to every commercial project in Ethiopia.
+                Our extensive local expertise in office space planning, combined with comprehensive service offerings—from bespoke office furniture and custom built-ins to full office construction and fit-outs—means we bring unparalleled insight to every project.
               </p>
               <p className="font-medium text-gray-900 italic bg-gray-50 p-4 border-l-4 border-black">
-                We understand the nuances of the local market, ensuring designs are not only beautiful but compliant with all Ethiopian building standards.
+                We understand the nuances of the local market, ensuring designs are not only aesthetically pleasing but also highly functional, compliant, and perfectly suited to the unique demands of businesses in Ethiopia.
               </p>
             </div>
           </div>
@@ -151,7 +178,7 @@ export default function AboutPage() {
             <div className="aspect-video overflow-hidden shadow-xl border-8 border-gray-50 group relative">
               <Image 
                 src="/images/duka-interiors-portfolio/modern-office-finishing-work-bole.webp" 
-                alt="Expertise in Office Partitioning Addis Ababa" 
+                alt="Expertise in Addis Ababa Office Design" 
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-700"
               />
@@ -205,12 +232,13 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* --- OUR TEAM --- */}
+      {/* --- OUR TEAM: FULL GRID --- */}
       <section className="py-24 px-4 md:px-12 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 relative">
-            <h2 className="text-3xl font-black uppercase tracking-[0.2em] text-gray-900">The Experts Behind Duka</h2>
+            <h2 className="text-3xl font-black uppercase tracking-[0.2em] text-gray-900">Our Team</h2>
             <div className="w-16 h-1 bg-red-600 mx-auto mt-4"></div>
+            <div className="absolute top-1/2 left-0 w-full h-px bg-gray-100 -z-10 hidden md:block"></div>
           </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10">
@@ -219,7 +247,7 @@ export default function AboutPage() {
                 <div className="relative aspect-[3/4] overflow-hidden mb-6 bg-gray-50 border border-gray-100 p-2 group-hover:border-red-600 transition-colors duration-300">
                   <Image
                     src={member.img}
-                    alt={`${member.name} - ${member.title} at Duka Interiors`}
+                    alt={member.name}
                     fill
                     className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
                   />
@@ -231,7 +259,7 @@ export default function AboutPage() {
                   {member.title}
                 </p>
                 <div className="mt-3 flex justify-center gap-4 opacity-40 group-hover:opacity-100 transition-opacity">
-                   <a href="#" className="hover:text-blue-700"><Linkedin size={16} /></a>
+                   <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-blue-700"><Linkedin size={16} /></a>
                 </div>
               </div>
             ))}
@@ -239,15 +267,16 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* --- DARK CTA --- */}
+      {/* --- THE DARK CTA STRIP --- */}
       <section className="bg-[#1A1A1A] py-16 px-4 md:px-12 mb-[-1px]">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10">
           <div className="text-center md:text-left text-white">
             <p className="text-gray-500 text-[10px] uppercase tracking-[0.4em] mb-3 font-black italic">Next Step</p>
             <h2 className="text-2xl md:text-4xl font-bold leading-tight uppercase tracking-tighter">
               Discuss your <span className="italic text-red-600 underline underline-offset-8">Office Project</span> <br />
-              with the best in Addis.
+              with our experts.
             </h2>
+            <p className="text-gray-400 font-bold mt-4 uppercase text-[10px] tracking-widest">Reach out for a no-obligation discussion</p>
           </div>
           <a
             href="https://t.me/dukainteriorsplc"
