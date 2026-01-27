@@ -12,7 +12,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// ORGANIC SEO METADATA - Focused on "Best in Addis" intent
+// UPDATED METADATA WITH CORRECT LOGO PATH
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.dukainteriors.com"),
   title: {
@@ -20,16 +20,20 @@ export const metadata: Metadata = {
     default: "The Best Interior Design Company in Addis Ababa | Duka Interiors",
   },
   description: "Duka Interiors is the best interior design company in Addis Ababa, Ethiopia. Expert office partitioning, professional renovation, and interior decoration since 2015.",
+  icons: {
+    icon: "/images/icons-duka-interiors/logo-duka-interiors-big.svg",
+    apple: "/images/icons-duka-interiors/logo-duka-interiors-big.svg",
+  },
   keywords: [
     "Best interior design company in Addis Ababa",
     "Office partitioning Addis Ababa",
     "Office renovation Ethiopia",
     "Interior decoration Addis Ababa",
-    "Furniture production Ethiopia",
-    "Duka Interiors Ethiopia"
+    "Best interior designers in Ethiopia",
+    "Duka Interiors"
   ],
   alternates: {
-    canonical: "/",
+    canonical: "https://www.dukainteriors.com",
   },
   openGraph: {
     title: "The Best Interior Design Company in Addis Ababa | Duka Interiors",
@@ -41,7 +45,7 @@ export const metadata: Metadata = {
         url: "/og-image.jpg", 
         width: 1200,
         height: 630,
-        alt: "Duka Interiors - Best Interiors in Addis Ababa",
+        alt: "Duka Interiors - Best Interior Design in Addis Ababa",
       },
     ],
     locale: "en_US",
@@ -55,19 +59,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   
-  // VERIFIED BUSINESS SCHEMA (Synced with your Google Business Link)
+  // CORRECTED LOGO PATH FOR BROWSER/AI CRAWLERS
+  const logoPath = "/images/icons-duka-interiors/logo-duka-interiors-big.svg";
+  const fullLogoUrl = `https://www.dukainteriors.com${logoPath}`;
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "InteriorDesign",
     "name": "Duka Interiors P.L.C",
     "alternateName": "The Best Interior Design Company in Addis Ababa",
-    "image": "https://www.dukainteriors.com/logo.png", 
+    "logo": {
+      "@type": "ImageObject",
+      "url": fullLogoUrl
+    },
+    "image": fullLogoUrl, 
     "@id": "https://www.dukainteriors.com",
     "url": "https://www.dukainteriors.com",
     "telephone": "+251940607055",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Welela Building, 5th Floor, Djibouti Street",
+      "streetAddress": "Welelay Building, 5th Floor, Djibouti Street",
       "addressLocality": "Bole, Addis Ababa",
       "addressRegion": "Addis Ababa",
       "addressCountry": "ET"
@@ -75,36 +86,57 @@ export default function RootLayout({
     "geo": {
       "@type": "GeoCoordinates",
       "latitude": 9.00026,
-      "longitude": 38.788051
+      "longitude": 38.78805
     },
-    "hasMap": "https://maps.google.com/?cid=11124327244819294980&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNl",
+    "hasMap": "http://googleusercontent.com/maps.google.com/9", 
     "openingHoursSpecification": [
       {
         "@type": "OpeningHoursSpecification",
         "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-        "opens": "08:00",
-        "closes": "17:00"
+        "opens": "08:30",
+        "closes": "18:00"
       }
     ],
     "sameAs": [
       "https://t.me/dukainteriorsplc",
-      "https://www.instagram.com/dukainteriors"
+      "https://www.instagram.com/dukainteriors",
+      "https://www.linkedin.com/company/duka-interiors"
     ],
     "knowsAbout": [
       "Office Partitioning Addis Ababa",
       "Office Renovation Ethiopia",
-      "Interior Decoration",
+      "Interior Decoration in Addis Ababa",
       "Custom Furniture Production"
     ]
+  };
+
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1,
+      "name": "The Best Interior Design Company in Addis Ababa",
+      "item": "https://www.dukainteriors.com"
+    }]
   };
 
   return (
     <html lang="en">
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://maps.googleapis.com" />
+        <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+        />
+        
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
