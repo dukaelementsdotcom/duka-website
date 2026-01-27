@@ -5,6 +5,8 @@ import Link from 'next/link';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import ShareButton from '../components/ShareButton';
+// IMPORT THE PROTECTED COMPONENT YOU CREATED
+import ProtectedImage from '../components/ProtectedImage';
 
 export default function ProjectsPage() {
   const [filter, setFilter] = useState('all');
@@ -147,13 +149,10 @@ export default function ProjectsPage() {
             {filteredProjects.map((project: any, idx: number) => (
               <div key={project.slug} className="group relative aspect-[4/3] bg-gray-100 overflow-hidden">
                 <Link href={`/projects/${project.slug}`} className="block w-full h-full">
-                  <Image
+                  {/* REPLACED Standard Image with ProtectedImage Logic */}
+                  <ProtectedImage
                     src={project.image}
                     alt={`${project.title} - ${project.type} interior design in ${project.location}`}
-                    fill
-                    priority={idx < 6}
-                    className="object-cover transition-all duration-700 group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 md:group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end">
                     <span className="text-red-500 text-[9px] font-black uppercase tracking-[0.2em] mb-2">{project.type}</span>
