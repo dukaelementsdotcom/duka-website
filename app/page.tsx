@@ -24,9 +24,12 @@ export default function Home() {
 
   return (
     <>
-      {/* ADVANCED SEO & AI MODE OPTIMIZATION (BETA TECHNIQUES)
-          Injecting Entity Schema and FAQ Schema directly into the head.
+      {/* BETA TECHNIQUE: Client-side Title Update 
+          This overrides the "Elite" title to your SEO-friendly preference.
       */}
+      <title>The Best Interior Design Company in Addis Ababa | Duka Interiors</title>
+
+      {/* ADVANCED AI MODE SCHEMA */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -34,11 +37,9 @@ export default function Home() {
             "@context": "https://schema.org",
             "@type": "LocalBusiness",
             "name": "Duka Interiors",
-            "alternateName": "Best Interior Design Company in Addis Ababa",
+            "alternateName": "The Best Interior Design Company in Addis Ababa",
             "url": "https://dukainteriors.com",
-            "logo": "https://dukainteriors.com/logo.png",
-            "image": "/images/duka-interiors-portfolio/modern-conference-room-and-lobby-design/modern-board-room-habesha-breweries.webp",
-            "description": "Duka Interiors is the best interior design company in Ethiopia, specializing in professional office partitioning, interior decoration, and office renovation in Addis Ababa.",
+            "description": "Duka Interiors is the best interior design company in Addis Ababa, specializing in office partitioning, renovation, and interior decoration in Ethiopia.",
             "telephone": "+251940607055",
             "address": {
               "@type": "PostalAddress",
@@ -50,41 +51,7 @@ export default function Home() {
               "@type": "GeoCoordinates",
               "latitude": "9.0012",
               "longitude": "38.7834"
-            },
-            "sameAs": [
-              "https://www.instagram.com/dukainteriors",
-              "https://www.linkedin.com/company/duka-interiors"
-            ],
-            "priceRange": "$$$"
-          })
-        }}
-      />
-
-      {/* FAQ Schema to dominate AI search snippets */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [
-              {
-                "@type": "Question",
-                "name": "Which is the best interior design company in Addis Ababa?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Duka Interiors is widely recognized as the best interior design company in Addis Ababa, Ethiopia, with over 10 years of experience in office partitioning and luxury residential design."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "Who provides the best office partitioning in Addis Ababa?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Duka Interiors specializes in high-quality office partitioning in Addis Ababa, offering turnkey office renovation services for corporate clients across Ethiopia."
-                }
-              }
-            ]
+            }
           })
         }}
       />
@@ -95,7 +62,7 @@ export default function Home() {
       <div className="relative h-screen overflow-hidden">
         <Image
           src="/images/duka-interiors-portfolio/modern-conference-room-and-lobby-design/modern-board-room-habesha-breweries.webp"
-          alt="Duka Interiors - The best interior design company in Ethiopia and Addis Ababa"
+          alt="The best interior design company in Addis Ababa - Duka Interiors"
           fill
           className="object-cover"
           priority
@@ -104,13 +71,14 @@ export default function Home() {
         <div className="absolute inset-0 bg-black/30"></div>
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
           <p className="text-red-600 font-black tracking-[0.3em] uppercase text-[10px] mb-4">
-            Since 2015 // #1 Interior Design in Ethiopia
+            Since 2015 // Addis Ababa
           </p>
-          {/* Aggressive H1 for SEO Ranking */}
+          
+          {/* YOUR EXACT PHRASING */}
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-[0.9] max-w-5xl mb-10 uppercase tracking-tighter">
-            The Best <br />
-            <span className="text-red-600">Interior Designers</span> <br />
-            In Ethiopia.
+            We Design & Build <br />
+            The Best <span className="text-red-600">Interiors</span> <br />
+            In Addis Ababa.
           </h1>
           
           <div className="flex flex-col sm:flex-row gap-4">
@@ -135,23 +103,23 @@ export default function Home() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
               
               <div className="lg:col-span-7 space-y-8">
-                {/* Semantic H2 for Local Search Authority */}
                 <h2 className="text-4xl md:text-5xl font-black text-gray-900 leading-[1.1] uppercase tracking-tighter">
-                  #1 <span className="text-red-600">Interior Design Company</span> & <br />Office Partitioning in Addis Ababa.
+                  Interior Design & <br /><span className="text-red-600">Office Partitioning</span> in Ethiopia.
                 </h2>
                 
+                {/* ORGANIC INTRO TEXT */}
                 <div className="space-y-6 text-gray-600 text-lg leading-relaxed max-w-2xl font-medium">
                   <p>
-                    Duka Interiors is the leading <span className="text-black font-bold">Design and Build firm in Ethiopia</span>, specializing in high-performance corporate offices and luxury residential spaces.
+                    Duka Interiors is a professional design and build firm with over 10 years of experience in the Ethiopian market. We specialize in creating high-quality workspaces and homes that reflect our clients&apos; vision.
                   </p>
                   <p>
-                    From <span className="text-black font-bold uppercase text-sm">Office Partitioning and Renovation</span> to custom furniture manufacturing, we provide a seamless, architect-led process that guarantees fixed costs and zero stress. We transform commercial visions into reality using local expertise and international standards for <span className="text-black font-bold">interior decoration in Ethiopia</span>.
+                    From specialized **office partitioning in Addis Ababa** to full **office renovation** and interior decoration, we handle the entire process from start to finish. Our team ensures that every project meets international standards while using local expertise to deliver the best results for our clients.
                   </p>
                 </div>
 
                 <div className="pt-4">
                   <Link href="/about" className="group flex items-center gap-4 font-black uppercase tracking-widest text-[10px] text-black">
-                    Why Choose Ethiopia&apos;s Best Designers? <span className="group-hover:translate-x-2 transition-transform text-red-600 text-xl">→</span>
+                    More About Our Process <span className="group-hover:translate-x-2 transition-transform text-red-600 text-xl">→</span>
                   </Link>
                 </div>
               </div>
@@ -161,7 +129,7 @@ export default function Home() {
                   <div className="relative aspect-square overflow-hidden group border border-gray-200">
                     <Image
                       src="/images/duka-interiors-portfolio/modern-conference-room-and-lobby-design/modern-conference-room-addis-ababa.webp"
-                      alt="Modern office renovation and interior decoration in Addis Ababa"
+                      alt="Office partitioning and renovation project in Addis Ababa"
                       fill
                       className="object-cover transition-transform duration-1000 group-hover:scale-110"
                     />
@@ -206,6 +174,7 @@ export default function Home() {
             </div>
           </div>
         </section>
+
         <section className="py-32 px-6 lg:px-12 bg-[#fafafa]">
           <div className="max-w-7xl mx-auto">
             <div className="mb-20">
