@@ -6,49 +6,6 @@ import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import ShareButton from '../components/ShareButton';
 
-// ✅ ADD METADATA FOR SEO (Next.js 13+)
-export const metadata = {
-  title: 'Our Projects Portfolio | Interior Design Work by Duka Interiors',
-  description: 'Explore Duka Interiors\' award-winning portfolio featuring luxury apartments, commercial offices, hospitality venues, and healthcare facilities across Ethiopia. Quality design and build since 2015.',
-  keywords: [
-    'interior design portfolio Ethiopia',
-    'apartment design Addis Ababa',
-    'office interior projects',
-    'hospitality design portfolio',
-    'commercial interior design Ethiopia',
-    'residential interior design Addis'
-  ],
-  openGraph: {
-    title: 'Our Projects Portfolio | Duka Interiors',
-    description: 'Explore our award-winning interior design portfolio across Ethiopia',
-    url: 'https://dukainteriors.com/projects',
-    siteName: 'Duka Interiors',
-    images: [
-      {
-        url: '/og-image-projects.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Duka Interiors Projects Portfolio',
-      },
-    ],
-    locale: 'en_ET',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Our Projects Portfolio | Duka Interiors',
-    description: 'Quality interior design projects in Ethiopia',
-    images: ['/og-image-projects.jpg'],
-  },
-  alternates: {
-    canonical: 'https://dukainteriors.com/projects',
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
-
 export default function ProjectsPage() {
   const [filter, setFilter] = useState('all');
   const [search, setSearch] = useState('');
