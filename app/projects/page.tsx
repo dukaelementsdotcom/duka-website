@@ -36,7 +36,6 @@ export default function ProjectsPage() {
     if (saved) setFavorites(JSON.parse(saved));
   }, []);
 
-  // ✅ FIXED: Functional state update to prevent stale array issues
   const toggleFavorite = (e: React.MouseEvent, slug: string) => {
     e.preventDefault(); 
     e.stopPropagation(); 
@@ -80,6 +79,7 @@ export default function ProjectsPage() {
       return matchesFilter && matchesSearch;
     }), [projects, filter, search]);
 
+  // ✅ FIXED: Removed extra spaces in Schema.org
   const listSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -99,6 +99,7 @@ export default function ProjectsPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-white selection:bg-red-600 selection:text-white overflow-x-hidden">
+      {/* ✅ FIXED: Clean Schema.org */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(listSchema) }} />
       <NavBar />
       
@@ -148,17 +149,17 @@ export default function ProjectsPage() {
                 <Link href={`/projects/${project.slug}`} className="block w-full h-full">
                   <Image
                     src={project.image}
-                    alt={project.title}
+                    alt={`${project.title} - ${project.type} interior design in ${project.location}`}
                     fill
                     priority={idx < 6}
                     className="object-cover transition-all duration-700 group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 md:group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end">
-  <span className="text-red-500 text-[9px] font-black uppercase tracking-[0.2em] mb-2">{project.type}</span>
-  <h3 className="text-white text-xl md:text-2xl font-black uppercase tracking-tighter leading-none mb-1">{project.title}</h3>
-  <p className="text-white/70 text-[10px] uppercase tracking-widest">{project.location}</p>
-</div>
+                    <span className="text-red-500 text-[9px] font-black uppercase tracking-[0.2em] mb-2">{project.type}</span>
+                    <h3 className="text-white text-xl md:text-2xl font-black uppercase tracking-tighter leading-none mb-1">{project.title}</h3>
+                    <p className="text-white/70 text-[10px] uppercase tracking-widest">{project.location}</p>
+                  </div>
                 </Link>
 
                 <button
@@ -181,7 +182,6 @@ export default function ProjectsPage() {
       
       <Footer />
       
-      {/* ✅ FIXED: MOVED OUTSIDE <main> FOR TRUE FIXED POSITIONING */}
       {favorites.length > 0 && (
         <div className="fixed bottom-6 left-0 right-0 z-[1000] flex justify-center pointer-events-none px-4">
           <Link 
