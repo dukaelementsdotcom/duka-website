@@ -22,7 +22,7 @@ export default function ShareButton({ title }: { title: string }) {
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
-      {/* Menu - Now opens UPWARD (bottom-full) and has mb-2 for spacing */}
+      {/* Menu - Opens UPWARD */}
       <div className={`
         absolute bottom-full mb-2 flex flex-col gap-2 transition-all duration-300 ease-out
         ${isOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-95 pointer-events-none'}
@@ -39,8 +39,8 @@ export default function ShareButton({ title }: { title: string }) {
             <i className={link.icon}></i>
           </button>
         ))}
-        {/* Invisible Bridge - This prevents the menu from closing when moving mouse */}
-        <div className="h-4 w-full absolute -bottom-4 left-0" />
+        {/* INVISIBLE BRIDGE: Prevents the menu from closing when moving mouse between buttons */}
+        <div className="absolute -bottom-4 h-4 w-full cursor-default" />
       </div>
 
       {/* Trigger Button */}
