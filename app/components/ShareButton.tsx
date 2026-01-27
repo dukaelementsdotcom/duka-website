@@ -20,7 +20,7 @@ export default function ShareButton({ title }) {
 
   return (
     <div 
-      className="relative flex flex-col items-end z-[100]"
+      className="relative flex flex-col items-end z-50"
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
       onClick={(e) => {
@@ -28,10 +28,10 @@ export default function ShareButton({ title }) {
         setIsOpen(!isOpen);
       }}
     >
-      {/* Selection Menu - Fixed to grow DOWN/SIDE on mobile to prevent collision */}
+      {/* Selection Menu - Opens UPWARDS */}
       <div className={`
-        absolute bottom-12 right-0 flex flex-col gap-2 transition-all duration-300 ease-out
-        ${isOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-90 pointer-events-none'}
+        absolute bottom-full mb-3 flex flex-col gap-2 transition-all duration-300 ease-out
+        ${isOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-95 pointer-events-none'}
       `}>
         {shareLinks.map((link) => (
           <button
@@ -40,7 +40,7 @@ export default function ShareButton({ title }) {
                 e.stopPropagation();
                 link.action ? link.action() : window.open(link.url, '_blank');
             }}
-            className="w-10 h-10 bg-white flex items-center justify-center text-gray-900 border border-gray-100 hover:border-red-600 transition-all shadow-2xl rounded-full"
+            className="w-10 h-10 bg-white flex items-center justify-center text-gray-900 border border-gray-100 hover:border-red-600 transition-all shadow-xl rounded-full"
           >
             <i className={`${link.icon} text-sm`}></i>
           </button>
@@ -48,12 +48,12 @@ export default function ShareButton({ title }) {
       </div>
 
       {/* Persistent Trigger */}
-      <div className={`
+      <button className={`
         w-10 h-10 flex items-center justify-center transition-all duration-300 border shadow-lg rounded-full
         ${isOpen ? 'bg-red-600 border-red-600 text-white' : 'bg-white/90 backdrop-blur-md border-gray-100 text-gray-950'}
       `}>
         <i className="fas fa-share-alt text-xs"></i>
-      </div>
+      </button>
     </div>
   );
 }
