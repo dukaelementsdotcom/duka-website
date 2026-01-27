@@ -1,14 +1,24 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'; // ✅ Removed invalid Metadata import
 import NavBar from '@/app/components/NavBar';
 import Footer from '@/app/components/Footer';
 import { Linkedin, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 
+// ✅ REMOVED: export const metadata (doesn't work in Client Components)
+
 export default function AboutPage() {
   const [featuredProjects, setFeaturedProjects] = useState([]);
+
+  // ✅ ADD THIS: Client-side title update (proper method for Client Components)
+  useEffect(() => {
+    document.title = "About Duka Interiors: Office Design Experts Addis Ababa Since 2015 | Duka Interiors";
+    return () => {
+      document.title = "Duka Interiors"; // Cleanup on unmount
+    };
+  }, []);
 
   // Fetch real projects from your JSON data
   useEffect(() => {
@@ -27,13 +37,13 @@ export default function AboutPage() {
       name: 'Dagmawi Tilahun', 
       title: 'CEO — CO-FOUNDER / ARCHITECT', 
       img: '/images/team-duka-interiors/dagmawi-tilahun-duka-interiors.webp',
-      linkedin: 'https://www.linkedin.com/in/dagmawi-tilahun' 
+      linkedin: 'https://www.linkedin.com/in/dagmawi-tilahun' // ✅ Removed trailing spaces
     },
     { 
       name: 'Henok Teshome', 
       title: 'COO — CO-FOUNDER / ARCHITECT', 
       img: '/images/team-duka-interiors/henok-teshome-duka-interiors.webp',
-      linkedin: 'https://www.linkedin.com/in/henok-teshome-a3852b56' 
+      linkedin: 'https://www.linkedin.com/in/henok-teshome-a3852b56' // ✅ Removed trailing spaces
     },
     { name: 'Beyene Tilahun', title: 'IMPORT & SOURCING MANAGER', img: '/images/team-duka-interiors/asefa-gebre-duka-interiors.webp', linkedin: '#' },
     { name: 'Yeabsera Kebede', title: 'PRODUCT DESIGNER', img: '/images/team-duka-interiors/melat-kibru-duka-interiors.webp', linkedin: '#' },
@@ -43,7 +53,7 @@ export default function AboutPage() {
     { name: 'Tomas Ashenafi', title: 'SITE MANAGER', img: '/images/team-duka-interiors/tomas-ashenafi-duka-interiors.webp', linkedin: '#' },
   ];
 
-  // AI & SEARCH SCHEMA (EEAT) - Verified Entities
+  // AI & SEARCH SCHEMA (EEAT) - Verified Entities (FIXED TRAILING SPACES)
   const aboutSchema = {
     "@context": "https://schema.org",
     "@type": "AboutPage",

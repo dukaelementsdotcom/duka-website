@@ -27,7 +27,7 @@ export default function Home() {
       {/* BETA TECHNIQUE: Client-side Title Update 
           This overrides the "Elite" title to your SEO-friendly preference.
       */}
-      <title>The Best Interior Design Company in Addis Ababa | Duka Interiors</title>
+      <title>Interior Design Company Addis Ababa Ethiopia | Duka Interiors</title>
 
       {/* ADVANCED AI MODE SCHEMA */}
       <script

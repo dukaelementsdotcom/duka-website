@@ -1,13 +1,21 @@
 'use client';
-import React from 'react';
+
+import { useEffect } from 'react'; // ✅ Replaced generic React import with specific hook
 import Image from 'next/image';
 import Link from 'next/link';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
-// Remove the 's' and the '.ts' extension
-import { BLOG_POSTS } from './post.data';
+import { BLOG_POSTS } from './post.data'; // ✅ Clean import (no .ts extension needed)
 
 export default function ResourcesPage() {
+  // ✅ CLIENT-SIDE TITLE UPDATE (PROPER METHOD FOR CLIENT COMPONENTS)
+  useEffect(() => {
+    document.title = "Office Interior Design Resources & Guides in Ethiopia ";
+    return () => {
+      document.title = "Duka Interiors"; // Cleanup on unmount
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-white">
       <NavBar />

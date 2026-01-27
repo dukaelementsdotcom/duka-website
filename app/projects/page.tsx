@@ -7,6 +7,12 @@ import Footer from '../components/Footer';
 import ShareButton from '../components/ShareButton';
 // IMPORT THE PROTECTED COMPONENT YOU CREATED
 import ProtectedImage from '../components/ProtectedImage';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "View Our Interior Design Projects in Addis Ababa | Duka Interiors",
+  description: "Explore Duka Interiors' portfolio of office, apartment, and commercial interior design projects across Addis Ababa and Ethiopia.",
+};
 
 export default function ProjectsPage() {
   const [filter, setFilter] = useState('all');

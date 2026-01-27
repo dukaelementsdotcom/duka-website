@@ -1,12 +1,20 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react'; // ✅ Added useEffect import
 import Navbar from '@/app/components/NavBar';
 import Footer from '@/app/components/Footer';
 
 export default function ContactPage() {
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
+
+  // ✅ CLIENT-SIDE TITLE UPDATE (PROPER METHOD FOR CLIENT COMPONENTS)
+  useEffect(() => {
+    document.title = "Contact Duka Interior Designers in Addis Ababa";
+    return () => {
+      document.title = "Duka Interiors"; // Cleanup on unmount
+    };
+  }, []);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -75,7 +83,7 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              {/* FIXED STUDIO SECTION - ONLY ADDRESS CLICKABLE */}
+              {/* ✅ FIXED STUDIO LINK - REMOVED TRAILING SPACES */}
               <div>
                 <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 mb-6">Visit Our Studio</h3>
                 <a 
@@ -90,10 +98,24 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* Social Icons Sidebar Style */}
+            {/* ✅ SOCIAL ICONS - USING FONTAWESOME REACT (MATCHES NAVBAR/FOOTER) */}
             <div className="flex gap-6 pt-12">
-              {['fab fa-whatsapp', 'fab fa-telegram', 'fab fa-instagram', 'fab fa-linkedin'].map((icon) => (
-                <i key={icon} className={`${icon} text-xl text-gray-300 hover:text-black transition-colors cursor-pointer`}></i>
+              {[
+                { icon: 'fab fa-whatsapp', href: 'https://wa.me/251940607055' },
+                { icon: 'fab fa-telegram', href: 'https://t.me/dukainteriorsplc' },
+                { icon: 'fab fa-instagram', href: 'https://www.instagram.com/dukainteriors' },
+                { icon: 'fab fa-linkedin', href: 'https://www.linkedin.com/company/duka-interiors' }
+              ].map((social) => (
+                <a 
+                  key={social.icon} 
+                  href={social.href} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-xl text-gray-300 hover:text-black transition-colors"
+                  aria-label={`Contact us on ${social.icon.split(' ')[1]}`}
+                >
+                  <i className={social.icon}></i>
+                </a>
               ))}
             </div>
           </div>
@@ -196,7 +218,7 @@ export default function ContactPage() {
           </div>
         </section>
 
-        {/* --- MAP SECTION START (FIXED) --- */}
+        {/* ✅ FIXED MAP URL - REMOVED SPACE AFTER pb= */}
         <section className="w-full h-[450px] border-t border-gray-100">
           <iframe 
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.694146403223!2d38.783185449027535!3d9.00026526647423!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b853122071a1d%3A0x9a618cb0a0a76b04!2sDuka%20Interiors%20P.L.C!5e0!3m2!1sen!2set!4v1769465498662!5m2!1sen!2set" 
@@ -208,8 +230,6 @@ export default function ContactPage() {
             referrerPolicy="no-referrer-when-downgrade"
           ></iframe>
         </section>
-        {/* --- MAP SECTION END --- */}
-
       </main>
 
       <Footer />
