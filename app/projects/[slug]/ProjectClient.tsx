@@ -16,7 +16,9 @@ export default function ProjectClient({ project, slug }: any) {
   }, []);
 
   const toggleFavorite = () => {
-    const updated = favorites.includes(slug) ? favorites.filter(id => id !== slug) : [...favorites, slug];
+    const updated = favorites.includes(slug) 
+      ? favorites.filter(id => id !== slug) 
+      : [...favorites, slug];
     setFavorites(updated);
     localStorage.setItem('duka_moodboard', JSON.stringify(updated));
   };
@@ -28,16 +30,18 @@ export default function ProjectClient({ project, slug }: any) {
       <NavBar />
       <main className="pt-28 md:pt-40 px-4 md:px-10 max-w-[1600px] mx-auto">
         
-        {/* 1. NAVIGATION HEADER (PREVENTS OVERLAP) */}
+        {/* TOP HEADER NAVIGATION - NO OVERLAP */}
         <div className="flex flex-row justify-between items-center gap-4 mb-8">
-          <Link href="/projects" className="bg-white border border-gray-200 px-4 py-3 text-[10px] font-black tracking-widest uppercase hover:bg-black hover:text-white transition-all shadow-sm shrink-0">
+          <Link href="/projects" className="bg-white border border-gray-200 px-4 py-3 md:px-8 text-[9px] md:text-[10px] font-black tracking-widest uppercase hover:bg-black hover:text-white transition-all shadow-sm shrink-0">
             ← ALL PROJECTS
           </Link>
           
           <button 
             onClick={toggleFavorite}
-            className={`flex items-center gap-3 px-6 py-3 rounded-full border font-black text-[10px] tracking-widest uppercase transition-all shrink-0 ${
-              favorites.includes(slug) ? 'bg-red-600 border-red-600 text-white' : 'bg-gray-50 border-gray-100 text-gray-950 hover:bg-black hover:text-white'
+            className={`flex items-center gap-2 md:gap-3 px-5 py-3 md:px-8 rounded-full border font-black text-[9px] md:text-[10px] tracking-widest uppercase transition-all shrink-0 ${
+              favorites.includes(slug) 
+                ? 'bg-red-600 border-red-600 text-white' 
+                : 'bg-gray-50 border-gray-100 text-gray-950 hover:bg-black hover:text-white'
             }`}
           >
             <i className={`fas fa-heart ${favorites.includes(slug) ? 'text-white' : 'text-red-600'}`}></i>
@@ -45,9 +49,15 @@ export default function ProjectClient({ project, slug }: any) {
           </button>
         </div>
 
-        {/* 2. MAIN IMAGE CONTAINER */}
-        <div className="relative w-full aspect-[4/3] md:aspect-video lg:max-h-[70vh] bg-gray-50 shadow-2xl overflow-hidden group">
-          <Image src={images[mainImageIndex]} alt={project.title} fill className="object-cover" priority />
+        {/* MAIN IMAGE CONTAINER */}
+        <div className="relative w-full aspect-[4/3] md:aspect-video lg:max-h-[75vh] bg-gray-50 shadow-2xl overflow-hidden group">
+          <Image 
+            src={images[mainImageIndex]} 
+            alt={project.title} 
+            fill 
+            className="object-cover transition-transform duration-700" 
+            priority 
+          />
           
           {/* SHARE BUTTON: BOTTOM RIGHT */}
           <div className="absolute bottom-6 right-6 z-40">
@@ -55,11 +65,39 @@ export default function ProjectClient({ project, slug }: any) {
           </div>
         </div>
 
-        {/* 3. DESCRIPTION SECTION */}
+        {/* PROJECT DETAILS BAR - RESTORED */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-10 border-b border-gray-100">
+          <div>
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Location</p>
+            <p className="text-sm font-bold uppercase text-gray-950">{project.location || 'Addis Ababa'}</p>
+          </div>
+          <div>
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Client</p>
+            <p className="text-sm font-bold uppercase text-gray-950">{project.client || 'Private Client'}</p>
+          </div>
+          <div>
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Category</p>
+            <p className="text-sm font-bold uppercase text-gray-950">{project.type}</p>
+          </div>
+          <div>
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Year</p>
+            <p className="text-sm font-bold uppercase text-gray-950">{project.year || '2024'}</p>
+          </div>
+        </div>
+
+        {/* DESCRIPTION SECTION */}
         <div className="py-12 md:py-20">
-          <span className="text-red-600 font-black text-[10px] tracking-[0.4em] uppercase mb-4 block">{project.type}</span>
-          <h1 className="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-[0.85] text-gray-950 mb-8">{project.title}</h1>
-          <p className="text-gray-500 text-sm md:text-base max-w-3xl leading-relaxed">{project.description}</p>
+          <h1 className="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-[0.85] text-gray-950 mb-10">
+            {project.title}
+          </h1>
+          <div className="max-w-4xl">
+            <p className="text-gray-500 text-lg md:text-xl leading-relaxed italic border-l-4 border-red-600 pl-6 mb-8">
+              Transforming spaces into functional works of art.
+            </p>
+            <p className="text-gray-600 text-base md:text-lg leading-relaxed whitespace-pre-line">
+              {project.description}
+            </p>
+          </div>
         </div>
       </main>
       <Footer />
