@@ -14,14 +14,9 @@ export default function ProjectsPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // ✅ OPTIMIZED DATA FETCHING WITH ERROR HANDLING
-    const fetchData = async () => {
-      try {
-        const res = await fetch('/data/projects.json', { 
-          cache: 'force-cache' // Use Next.js cache
-        });
-        const data = await res.json();
-        
+    fetch('/data/projects.json')
+      .then(res => res.json())
+      .then(data => {
         const corrected = data.map((p: any) => {
           if ([
             'luxury-three-bedroom-apartment-bole',
@@ -34,18 +29,14 @@ export default function ProjectsPage() {
         });
         setProjects(corrected);
         setLoading(false);
-      } catch (error) {
-        console.error('Error loading projects:', error);
-        setLoading(false);
-      }
-    };
-
-    fetchData();
+      })
+      .catch(() => setLoading(false));
     
     const saved = localStorage.getItem('duka_moodboard');
     if (saved) setFavorites(JSON.parse(saved));
   }, []);
 
+  // ✅ FIXED: Functional state update to prevent stale array issues
   const toggleFavorite = (e: React.MouseEvent, slug: string) => {
     e.preventDefault(); 
     e.stopPropagation(); 
@@ -89,40 +80,15 @@ export default function ProjectsPage() {
       return matchesFilter && matchesSearch;
     }), [projects, filter, search]);
 
-  // ✅ FIXED SCHEMA.ORG (removed extra spaces)
   const listSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    "name": "Duka Interiors Projects Portfolio",
-    "description": "Interior design and build projects by Duka Interiors in Addis Ababa, Ethiopia",
     "itemListElement": filteredProjects.slice(0, 10).map((p: any, i) => ({
       "@type": "ListItem",
       "position": i + 1,
       "url": `https://dukainteriors.com/projects/${p.slug}`,
-      "name": p.title,
-      "image": p.image,
-    })),
-    "numberOfItems": projects.length,
-  };
-
-  // ✅ BREADCRUMB SCHEMA
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://dukainteriors.com"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Projects",
-        "item": "https://dukainteriors.com/projects"
-      }
-    ]
+      "name": p.title
+    }))
   };
 
   if (loading) return (
@@ -133,10 +99,7 @@ export default function ProjectsPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-white selection:bg-red-600 selection:text-white overflow-x-hidden">
-      {/* ✅ SCHEMA.ORG JSON-LD */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(listSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      
       <NavBar />
       
       <main className="flex-grow pt-[80px]">
@@ -185,17 +148,17 @@ export default function ProjectsPage() {
                 <Link href={`/projects/${project.slug}`} className="block w-full h-full">
                   <Image
                     src={project.image}
-                    alt={`${project.title} - ${project.type} interior design project in ${project.location} | Duka Interiors`}
+                    alt={project.title}
                     fill
                     priority={idx < 6}
                     className="object-cover transition-all duration-700 group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 md:group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end">
-                    <span className="text-red-500 text-[9px] font-black uppercase tracking-[0.2em] mb-2">{project.type}</span>
-                    <h3 className="text-white text-xl md:text-2xl font-black uppercase tracking-tighter leading-none mb-1">{project.title}</h3>
-                    <p className="text-white/70 text-[10px] uppercase tracking-widest">{project.location}</p>
-                  </div>
+  <span className="text-red-500 text-[9px] font-black uppercase tracking-[0.2em] mb-2">{project.type}</span>
+  <h3 className="text-white text-xl md:text-2xl font-black uppercase tracking-tighter leading-none mb-1">{project.title}</h3>
+  <p className="text-white/70 text-[10px] uppercase tracking-widest">{project.location}</p>
+</div>
                 </Link>
 
                 <button
@@ -218,6 +181,7 @@ export default function ProjectsPage() {
       
       <Footer />
       
+      {/* ✅ FIXED: MOVED OUTSIDE <main> FOR TRUE FIXED POSITIONING */}
       {favorites.length > 0 && (
         <div className="fixed bottom-6 left-0 right-0 z-[1000] flex justify-center pointer-events-none px-4">
           <Link 
