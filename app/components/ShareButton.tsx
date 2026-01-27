@@ -1,12 +1,12 @@
 'use client';
 import { useState, useEffect } from 'react';
 
-export default function ShareButton({ title }) {
+export default function ShareButton({ title }: { title: string }) {
   const [isOpen, setIsOpen] = useState(false);
   const [url, setUrl] = useState('');
 
   useEffect(() => {
-    setUrl(window.location.href);
+    setUrl(typeof window !== 'undefined' ? window.location.href : '');
   }, []);
 
   const text = `Discover this project by Duka Interiors: ${title}`;
@@ -23,14 +23,10 @@ export default function ShareButton({ title }) {
       className="relative flex flex-col items-end z-[100]"
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
-      onClick={(e) => {
-        e.stopPropagation();
-        setIsOpen(!isOpen);
-      }}
     >
-      {/* Selection Menu - ALWAYS OPENS UPWARDS */}
+      {/* The Menu: Added 'pb-4' to create a hit-box bridge so it doesn't close when moving mouse */}
       <div className={`
-        absolute bottom-full mb-3 flex flex-col gap-2 transition-all duration-300 ease-out
+        absolute bottom-full pb-2 flex flex-col gap-2 transition-all duration-300 ease-out
         ${isOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-95 pointer-events-none'}
       `}>
         {shareLinks.map((link) => (
@@ -40,19 +36,19 @@ export default function ShareButton({ title }) {
                 e.stopPropagation();
                 link.action ? link.action() : window.open(link.url, '_blank');
             }}
-            className="w-10 h-10 bg-white flex items-center justify-center text-gray-900 border border-gray-200 hover:border-red-600 transition-all shadow-2xl rounded-full"
+            className="w-10 h-10 bg-white flex items-center justify-center text-gray-900 border border-gray-100 hover:border-red-600 hover:text-red-600 transition-all shadow-2xl rounded-full"
           >
-            <i className={`${link.icon} text-sm`}></i>
+            <i className={link.icon}></i>
           </button>
         ))}
       </div>
 
-      {/* Persistent Trigger */}
+      {/* Trigger */}
       <div className={`
-        w-10 h-10 flex items-center justify-center transition-all duration-300 border shadow-lg rounded-full
+        w-10 h-10 flex items-center justify-center transition-all duration-300 border shadow-lg rounded-full cursor-pointer
         ${isOpen ? 'bg-red-600 border-red-600 text-white' : 'bg-white/95 backdrop-blur-md border-gray-200 text-gray-950'}
       `}>
-        <i className="fas fa-share-alt text-xs"></i>
+        <i className="fas fa-share-alt"></i>
       </div>
     </div>
   );
