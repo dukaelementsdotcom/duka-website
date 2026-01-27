@@ -7,7 +7,7 @@ import Footer from '@/app/components/Footer';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Explore Our Interior Design Services in Addis Ababa | Duka Interiors",
+  title: "Explore Our Interior Design Services in Addis Ababa",
   description: "Expert office partitioning, office renovation, and interior decoration services in Addis Ababa, Ethiopia. Professional design and construction for commercial spaces.",
   keywords: [
     "interior design Addis Ababa",

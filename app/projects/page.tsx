@@ -1,18 +1,12 @@
 'use client';
+
 import { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import ShareButton from '../components/ShareButton';
-// IMPORT THE PROTECTED COMPONENT YOU CREATED
 import ProtectedImage from '../components/ProtectedImage';
-
-// ✅ ADD THIS USEEFFECT FOR CLIENT-SIDE TITLE
-useEffect(() => {
-  document.title = "Our Interior Design Projects in Addis Ababa | Duka Interiors";
-  return () => { document.title = "Duka Interiors"; };
-}, []);
 
 export default function ProjectsPage() {
   const [filter, setFilter] = useState('all');
@@ -20,6 +14,12 @@ export default function ProjectsPage() {
   const [projects, setProjects] = useState([]);
   const [favorites, setFavorites] = useState<string[]>([]); 
   const [loading, setLoading] = useState(true);
+
+  // ✅ MOVED INSIDE COMPONENT: Client-side title update
+  useEffect(() => {
+    document.title = "Explore Our Interior Design and Build Projects in Addis Ababa";
+    return () => { document.title = "Duka Interiors"; };
+  }, []);
 
   useEffect(() => {
     fetch('/data/projects.json')
