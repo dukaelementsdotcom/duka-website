@@ -1,28 +1,79 @@
 // app/services/page.tsx
 
-
-
 import Link from 'next/link';
 import { services } from '@/lib/servicesData';
 import NavBar from '@/app/components/NavBar';
 import Footer from '@/app/components/Footer';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "The Best Interior Design Services in Addis Ababa",
+  description: "Specialized office partitioning, professional office renovation, and high-end interior decoration in Addis Ababa, Ethiopia by Duka Interiors.",
+};
 
 export default function ServicesPage() {
+  // SCHEMA: Telling AI models exactly what you offer in Addis
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": "Interior Design and Build",
+    "provider": {
+      "@type": "LocalBusiness",
+      "name": "Duka Interiors"
+    },
+    "areaServed": {
+      "@type": "City",
+      "name": "Addis Ababa"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Interior Design Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Office Partitioning Addis Ababa"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Office Renovation Ethiopia"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Interior Decoration"
+          }
+        }
+      ]
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
       <NavBar />
 
       {/* Hero Section */}
       <section className="py-20 px-4 md:px-8 lg:px-12 bg-gray-50">
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-block px-5 py-2 bg-red-600 text-white rounded-none text-xs font-bold uppercase tracking-wider mb-6">
-            Our Services
+            Our Expertise
           </div>
+          {/* Aggressive SEO Title */}
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-6">
-            Interior Design & Build in Addis Ababa — From Vision to Reality.
+            The Best Interior Design & Build <br className="hidden md:block" /> Services in Addis Ababa.
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Single-point responsibility. Transparent pricing. Exceptional spaces.
+            Providing professional **office partitioning**, **office renovation**, and high-quality **interior decoration in Ethiopia** for over 10 years.
           </p>
         </div>
       </section>
@@ -39,7 +90,6 @@ export default function ServicesPage() {
               >
                 <div className="relative bg-white border border-gray-200 rounded-none h-full transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 overflow-hidden">
                   <div className="p-6 pt-8 flex flex-col h-full">
-                    {/* Icon Placeholder (you can add real icons later) */}
                     <div className="flex items-center justify-center mb-4 w-12 h-12 bg-red-50 rounded-full text-red-600 group-hover:bg-red-600 group-hover:text-white transition-colors">
                       <span className="font-bold text-lg">★</span>
                     </div>
@@ -51,7 +101,7 @@ export default function ServicesPage() {
                     </p>
                     <div className="text-center">
                       <span className="inline-block text-red-600 font-bold text-xs uppercase tracking-wide group-hover:underline">
-                        Learn more →
+                        Explore Specialty →
                       </span>
                     </div>
                   </div>
