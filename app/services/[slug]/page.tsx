@@ -1,8 +1,11 @@
+// app/services/[slug]/page.tsx
+
 import { services } from '@/lib/servicesData';
 import NavBar from '@/app/components/NavBar';
 import Footer from '@/app/components/Footer';
 import Link from 'next/link';
 import React, { use } from 'react';
+import type { Metadata } from 'next';
 
 // 1. Tell Next.js which paths to pre-render at build time
 export async function generateStaticParams() {
@@ -11,8 +14,23 @@ export async function generateStaticParams() {
   }));
 }
 
-// 2. IMPORTANT: Force a 404 for any slug NOT in the list above 
-// instead of letting it try to resolve dynamically (which causes the home redirect)
+// 2. DYNAMIC METADATA: Each service gets a targeted title for Google
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const resolvedParams = await params;
+  const service = services.find((s) => s.slug === resolvedParams.slug);
+  
+  if (!service) return { title: "Service Not Found" };
+
+  return {
+    title: `${service.title} in Addis Ababa | Duka Interiors`,
+    description: `${service.shortDesc} Expert solutions for office renovation and interior design in Ethiopia by Duka Interiors P.L.C.`,
+    alternates: {
+      canonical: `https://www.dukainteriors.com/services/${resolvedParams.slug}`,
+    },
+  };
+}
+
+// IMPORTANT: Force a 404 for any slug NOT in the list
 export const dynamicParams = false;
 
 interface PageProps {
@@ -20,7 +38,6 @@ interface PageProps {
 }
 
 export default function ServiceDetail({ params }: PageProps) {
-  // 3. Unwrap the params promise using 'use' (Next.js 15 standard)
   const resolvedParams = use(params);
   const { slug } = resolvedParams;
   
@@ -45,8 +62,38 @@ export default function ServiceDetail({ params }: PageProps) {
     );
   }
 
+  // DYNAMIC SERVICE SCHEMA for AI Search Models
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": `${service.title} in Addis Ababa`,
+    "description": service.shortDesc,
+    "provider": {
+      "@type": "LocalBusiness",
+      "name": "Duka Interiors P.L.C"
+    },
+    "areaServed": "Addis Ababa, Ethiopia",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": service.title,
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": `Professional ${service.title}`
+          }
+        }
+      ]
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white selection:bg-red-600 selection:text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
       <NavBar />
 
       <main className="pt-24 md:pt-32">

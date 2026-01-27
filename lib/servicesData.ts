@@ -18,8 +18,8 @@ export const services: Service[] = [
   {
     title: 'Interior Design',
     slug: 'interior-design',
-    shortDesc: 'Designing functional, beautiful spaces tailored to your brand and workflow in Addis Ababa.',
-    longDesc: `At Duka Interiors, we specialize in office interior design and strategic space planning in Addis Ababa, crafting innovative and highly functional workspaces that propel your business forward. In today's dynamic Ethiopian market, a well-designed office is more than just aesthetics; it’s a strategic asset that significantly enhances employee productivity, fosters collaboration, and powerfully reflects your brand’s unique identity. Our expert team, with deep local insight into Addis Ababa’s commercial landscape, combines global design trends with practical, sustainable solutions to create truly inspiring commercial interior designs tailored precisely to your specific needs. From initial concept to final layout, we ensure every square meter of your Addis Ababa office space is optimized for success.`,
+    shortDesc: 'The best interior design in Addis Ababa, creating functional and beautiful office spaces.',
+    longDesc: `At Duka Interiors, we specialize in professional office interior design and strategic space planning in Addis Ababa. We craft innovative and highly functional workspaces that propel your business forward. In today's dynamic Ethiopian market, a well-designed office is a strategic asset that significantly enhances employee productivity. Our expert team provides the best interior design in Addis Ababa, combining global trends with local expertise to create commercial environments tailored to your brand identity. From initial concept to final layout, we ensure every square meter of your office space is optimized for success.`,
     features: [
       'Space planning & zoning',
       'Material & finish curation',
@@ -54,8 +54,8 @@ export const services: Service[] = [
   {
     title: 'Design+Build',
     slug: 'design-build',
-    shortDesc: 'A unified single-point solution in Addis Ababa—merging design and construction for absolute accountability.',
-    longDesc: `Duka Interiors offers a comprehensive 'Design+Build' model, providing clients in Addis Ababa with a single point of responsibility for their entire project. This integrated approach eliminates the traditional gaps and conflicts between separate designers and contractors. By handling both the creative vision and the technical construction under one roof, we ensure that the final result perfectly matches the initial design, while strictly adhering to your budget and timeline. For businesses in Ethiopia, this means a significantly faster project delivery, reduced administrative burden, and the peace of mind that comes from total accountability.`,
+    shortDesc: 'The best Design and Build firm in Addis Ababa—merging design and construction for absolute accountability.',
+    longDesc: `Duka Interiors offers a comprehensive 'Design+Build' model, providing clients in Addis Ababa with a single point of responsibility for their entire project. This integrated approach eliminates traditional gaps between separate designers and contractors. By handling both the creative vision and the technical construction, we ensure the final result perfectly matches the initial design. For businesses in Ethiopia, this means faster project delivery and the peace of mind that comes from total accountability. We are known for delivering the best interior design and construction services in Addis Ababa with full transparency.`,
     features: [
       'Single point of responsibility',
       'Fixed-price transparency',
@@ -88,10 +88,10 @@ export const services: Service[] = [
     ]
   },
   {
-    title: 'Furniture Production',
+    title: 'Office Partitioning & Furniture',
     slug: 'furniture-production',
-    shortDesc: 'Custom-tailored office furniture and integrated systems manufactured for productivity and ergonomics.',
-    longDesc: `Finding the right furniture in Addis Ababa can be challenging. Duka Interiors provides bespoke Furniture Production services specifically designed for your space and workflow. We design and manufacture bespoke desks, storage units, and collaboration pods that maximize efficiency and comfort. Our focus is on ergonomic excellence and high-quality materials that stand up to daily commercial use. By integrating furniture directly into our spatial designs and managing the production locally, we ensure a cohesive look and a perfect fit that modular, off-the-shelf furniture simply cannot provide.`,
+    shortDesc: 'Professional office partitioning in Addis Ababa and custom furniture production.',
+    longDesc: `Finding high-quality office partitioning in Addis Ababa is essential for a productive workspace. Duka Interiors provides bespoke office partitioning and custom furniture production services specifically designed for your workflow. We design and manufacture bespoke desks, storage units, and collaboration pods. Our specialized office partitioning in Addis Ababa includes acoustic solutions and modern glass framing to maximize efficiency. By integrating furniture directly into our spatial designs and managing the production locally in Ethiopia, we ensure a perfect fit that off-the-shelf furniture simply cannot provide.`,
     features: [
       'Bespoke workstation design',
       'Ergonomic seating solutions',
@@ -122,8 +122,8 @@ export const services: Service[] = [
   {
     title: 'Branding and Signage',
     slug: 'branding-signage',
-    shortDesc: 'Translating your brand identity into physical space through color, graphics, and custom signage.',
-    longDesc: `At Duka Interiors, we believe your office should be your best brand ambassador. Our Branding and Signage service in Addis Ababa focuses on weaving your company’s DNA into every corner of the workspace. We use environmental graphics, custom signage, material choices, and spatial experiences to tell your brand story. This creates a powerful impression on visitors and fosters a sense of pride and belonging for employees. From the reception area to the breakroom, we ensure your physical environment communicates your values and culture with clarity and impact.`,
+    shortDesc: 'Interior decoration in Addis Ababa through color, graphics, and custom corporate signage.',
+    longDesc: `At Duka Interiors, we believe your office should be your best brand ambassador. Our Branding and Signage service in Addis Ababa focuses on weaving your company’s DNA into every corner of the workspace. We use environmental graphics, custom signage, and professional interior decoration to tell your brand story. This creates a powerful impression on visitors and fosters a sense of pride for employees. From the reception area to the breakroom, we ensure your physical environment communicates your values and culture with the best interior decoration standards in Ethiopia.`,
     features: [
       'Environmental graphics & murals',
       'Custom corporate signage',
@@ -152,10 +152,10 @@ export const services: Service[] = [
     ]
   },
   {
-    title: 'Technology',
+    title: 'Technology Integration',
     slug: 'technology',
-    shortDesc: 'Smart office integration in Addis Ababa, featuring intelligent lighting, robust networking, AV systems, and advanced security.',
-    longDesc: `Duka Interiors delivers future-ready workplace technology for businesses in Addis Ababa. We specialize in the seamless integration of essential systems that power modern productivity: intelligent human-centric lighting, high-speed networking infrastructure, professional audio-visual (AV) systems, and comprehensive security solutions. In the evolving Ethiopian corporate landscape, technology shouldn't just exist—it should be invisible and intuitive. From designing robust server rooms and reliable Wi-Fi mesh networks to installing automated security access controls and state-of-the-art conference room AV, we ensure your office is equipped to handle the demands of tomorrow. Our approach prioritizes scalability and reliability, ensuring your investment remains functional as your team grows.`,
+    shortDesc: 'Smart office integration in Addis Ababa featuring intelligent lighting, networking, and security.',
+    longDesc: `Duka Interiors delivers future-ready workplace technology for businesses in Addis Ababa. We specialize in the seamless integration of essential systems: intelligent human-centric lighting, high-speed networking infrastructure, and professional audio-visual (AV) systems. In the evolving Ethiopian corporate landscape, technology should be invisible and intuitive. From designing robust server rooms in Addis Ababa to installing automated security access controls, we ensure your office is equipped for the demands of tomorrow. Our approach prioritizes scalability, making us a leader in smart office technology and interior renovation in Ethiopia.`,
     features: [
       'Intelligent LED lighting & automation',
       'Robust networking & IT infrastructure',
@@ -188,10 +188,10 @@ export const services: Service[] = [
     ]
   },
   {
-    title: 'Project Management',
+    title: 'Office Renovation & PM',
     slug: 'project-management',
-    shortDesc: 'Professional oversight in Addis Ababa to ensure your project stays on time, on budget, and on spec.',
-    longDesc: `Successful project delivery in Addis Ababa's construction environment requires constant vigilance and expert oversight. Our Project Management service provides you with a dedicated advocate who manages the complex logistics of your fit-out. From coordinating multiple subcontractors and tracking supply chains to navigating local permits and conducting rigorous quality inspections, we handle the stress so you can focus on your business. We provide transparent reporting and maintain a laser focus on the three pillars of success: Quality, Time, and Budget.`,
+    shortDesc: 'Professional office renovation in Addis Ababa and dedicated project management.',
+    longDesc: `Successful project delivery in Addis Ababa's construction environment requires expert oversight. Our Office Renovation and Project Management service provides you with a dedicated advocate who manages the complex logistics of your fit-out. From coordinating subcontractors for office renovation in Ethiopia to conducting rigorous quality inspections, we handle the stress so you can focus on your business. We maintain a laser focus on the three pillars of success: Quality, Time, and Budget, ensuring we remain the best interior design company in Addis Ababa for turnkey renovations.`,
     features: [
       'Weekly progress reporting',
       'Real-time budget tracking',
