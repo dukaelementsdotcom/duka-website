@@ -100,7 +100,6 @@ export default function ProjectsPage() {
       <NavBar />
       
       <main className="flex-grow pt-[80px]">
-        {/* Hero */}
         <section className="pb-8 px-4 md:px-6 mt-12">
           <div className="max-w-4xl mx-auto text-center mb-8">
             <h1 className="text-4xl md:text-6xl font-black text-gray-900 mb-4 uppercase tracking-tighter">
@@ -111,7 +110,6 @@ export default function ProjectsPage() {
             </p>
           </div>
 
-          {/* Sticky Filter Bar */}
           <div className="sticky top-[80px] z-40 bg-white border-b border-gray-100 py-4 px-4">
             <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div className="flex items-center overflow-x-auto pb-2 md:pb-0 space-x-2 scrollbar-hide">
@@ -140,7 +138,6 @@ export default function ProjectsPage() {
           </div>
         </section>
 
-        {/* Gallery */}
         <section className="px-1 md:px-2 pb-20">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
             {filteredProjects.map((project: any, idx: number) => (
@@ -154,7 +151,6 @@ export default function ProjectsPage() {
                     className="object-cover transition-all duration-700 group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
-                  {/* Overlay Info */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end">
                     <span className="text-red-500 text-[9px] font-black uppercase tracking-[0.2em] mb-2">{project.type}</span>
                     <h3 className="text-white text-xl md:text-2xl font-black uppercase tracking-tighter leading-none mb-1">{project.title}</h3>
@@ -162,7 +158,6 @@ export default function ProjectsPage() {
                   </div>
                 </Link>
 
-                {/* Favorite Button (Top Left) */}
                 <button
                   onClick={(e) => toggleFavorite(e, project.slug)}
                   className="absolute top-4 left-4 w-10 h-10 flex items-center justify-center bg-black/20 backdrop-blur-md rounded-full text-white z-20 hover:bg-red-600 transition-colors"
@@ -172,7 +167,6 @@ export default function ProjectsPage() {
                   </svg>
                 </button>
 
-                {/* SHARE BUTTON (Bottom Right) */}
                 <div className="absolute bottom-4 right-4 z-30 pointer-events-auto">
                   <ShareButton title={project.title} />
                 </div>
@@ -181,7 +175,6 @@ export default function ProjectsPage() {
           </div>
         </section>
         
-        {/* Floating Moodboard Bar */}
         {favorites.length > 0 && (
           <div className="fixed bottom-10 left-0 right-0 z-50 flex justify-center pointer-events-none px-4">
             <Link href="/moodboard" className="pointer-events-auto bg-black text-white px-8 py-5 rounded-full flex items-center gap-6 shadow-2xl hover:scale-105 transition-all">

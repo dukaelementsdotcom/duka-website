@@ -28,10 +28,6 @@ export default function MoodboardPage() {
     localStorage.setItem('duka_moodboard', JSON.stringify(updatedSlugs));
   };
 
-  const telegramMessage = encodeURIComponent(
-    `Hi Duka Interiors! I have created a moodboard on your website. I am interested in these styles: ${favoriteProjects.map(p => p.title).join(', ')}`
-  );
-
   if (loading) return <div className="min-h-screen bg-white flex items-center justify-center font-black text-[10px] uppercase">Loading...</div>;
 
   return (
@@ -53,19 +49,16 @@ export default function MoodboardPage() {
                 <div key={project.slug} className="relative group aspect-square bg-gray-50 overflow-hidden">
                   <Image src={project.image} alt={project.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
                   
-                  {/* TOP RIGHT LOVE ICON */}
                   <div className="absolute top-4 right-4 z-20">
                     <div className="w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center shadow-lg">
                       <i className="fas fa-heart text-xs"></i>
                     </div>
                   </div>
 
-                  {/* BOTTOM RIGHT SHARE BUTTON */}
                   <div className="absolute bottom-4 right-4 z-30">
                     <ShareButton title={project.title} />
                   </div>
 
-                  {/* BOTTOM LEFT REMOVE INFO */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-6 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300">
                     <h3 className="text-white text-lg font-black uppercase tracking-tighter mb-2">{project.title}</h3>
                     <button onClick={() => removeItem(project.slug)} className="text-red-500 text-[10px] font-black uppercase tracking-widest self-start border-b border-red-500 pb-1">Remove Item</button>
