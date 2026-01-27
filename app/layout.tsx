@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+// IMPORT THE PROTECTOR
+import GlobalProtection from "./components/GlobalProtection";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -142,23 +144,10 @@ export default function RootLayout({
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         />
       </head>
-      <body 
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        onContextMenu={(e) => {
-          // Check if the user is right-clicking an image
-          const target = e.target as HTMLElement;
-          if (target.tagName === 'IMG' || target.closest('.protected-image')) {
-            e.preventDefault();
-          }
-        }}
-        onDragStart={(e) => {
-          // Prevent dragging images to desktop
-          const target = e.target as HTMLElement;
-          if (target.tagName === 'IMG') {
-            e.preventDefault();
-          }
-        }}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        {/* THIS COMPONENT PROTECTS ALL IMAGES WITHOUT BREAKING THE BUILD */}
+        <GlobalProtection />
+        
         {children}
       </body>
     </html>
