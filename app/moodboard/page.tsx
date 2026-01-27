@@ -5,6 +5,8 @@ import Link from 'next/link';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import ShareButton from '../components/ShareButton';
+// IMPORT THE PROTECTED COMPONENT
+import ProtectedImage from '../components/ProtectedImage';
 
 export default function MoodboardPage() {
   const [favoriteProjects, setFavoriteProjects] = useState([]);
@@ -76,13 +78,12 @@ export default function MoodboardPage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {favoriteProjects.map((project) => (
+              {favoriteProjects.map((project: any) => (
                 <div key={project.slug} className="relative group aspect-square bg-gray-50 overflow-hidden">
-                  <Image 
+                  {/* REPLACED Standard Image with ProtectedImage Logic */}
+                  <ProtectedImage 
                     src={project.image} 
                     alt={project.title} 
-                    fill 
-                    className="object-cover transition-transform duration-700 group-hover:scale-105" 
                   />
                   
                   {/* ✅ HEART TOGGLE BUTTON - CONSISTENT WITH PROJECTS PAGE */}
