@@ -4,6 +4,21 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { 
+  faChevronDown, 
+  faPhone, 
+  faTimes, 
+  faPhoneVolume 
+} from '@fortawesome/free-solid-svg-icons';
+import { 
+  faWhatsapp, 
+  faTelegram, 
+  faFacebookF, 
+  faInstagram, 
+  faLinkedinIn, 
+  faTiktok 
+} from '@fortawesome/free-brands-svg-icons';
 
 export default function NavBar() {
   const pathname = usePathname();
@@ -81,12 +96,12 @@ export default function NavBar() {
 
   // Social links
   const socialLinks = [
-    { name: 'WhatsApp', href: 'https://wa.me/251940607055', icon: 'fab fa-whatsapp' },
-    { name: 'Telegram', href: 'https://t.me/dukainteriorsplc', icon: 'fab fa-telegram' },
-    { name: 'Facebook', href: 'https://www.facebook.com/dukainteriors', icon: 'fab fa-facebook-f' },
-    { name: 'Instagram', href: 'https://www.instagram.com/dukainteriors', icon: 'fab fa-instagram' },
-    { name: 'LinkedIn', href: 'https://www.linkedin.com/company/duka-interiors', icon: 'fab fa-linkedin-in' },
-    { name: 'TikTok', href: 'https://www.tiktok.com/@duka.interiors.plc', icon: 'fab fa-tiktok' },
+    { name: 'WhatsApp', href: 'https://wa.me/251940607055', icon: faWhatsapp },
+    { name: 'Telegram', href: 'https://t.me/dukainteriorsplc', icon: faTelegram },
+    { name: 'Facebook', href: 'https://www.facebook.com/dukainteriors', icon: faFacebookF },
+    { name: 'Instagram', href: 'https://www.instagram.com/dukainteriors', icon: faInstagram },
+    { name: 'LinkedIn', href: 'https://www.linkedin.com/company/duka-interiors', icon: faLinkedinIn },
+    { name: 'TikTok', href: 'https://www.tiktok.com/@duka.interiors.plc', icon: faTiktok },
   ];
 
   return (
@@ -131,7 +146,7 @@ export default function NavBar() {
                       onMouseLeave={() => setIsDropdownOpen(false)}
                     >
                       <Link href={item.href} className={`${baseClass} flex items-center gap-1 ${isActive ? 'text-red-600 font-semibold' : isScrolled ? 'text-gray-800 hover:text-red-600' : 'text-white hover:text-red-500'}`}>
-                        {item.name} <i className={`fas fa-chevron-down text-[10px] transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`}></i>
+                        {item.name} <FontAwesomeIcon icon={faChevronDown} className={`text-[10px] transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
                       </Link>
                       
                       <div className={`absolute top-full left-0 w-56 bg-white border border-gray-100 shadow-xl py-2 transition-all duration-300 ${isDropdownOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'}`}>
@@ -177,7 +192,7 @@ export default function NavBar() {
                         : 'bg-red-600 text-white hover:bg-red-700'
                     }`}
                   >
-                    <i className="fas fa-phone text-xs"></i>
+                    <FontAwesomeIcon icon={faPhone} className="text-xs" />
                     <span>{phone.label}</span>
                   </a>
                 ))}
@@ -197,7 +212,7 @@ export default function NavBar() {
                         : 'bg-gray-800 text-white hover:bg-red-600'
                     }`}
                   >
-                    <i className={social.icon}></i>
+                    <FontAwesomeIcon icon={social.icon} />
                   </a>
                 ))}
               </div>
@@ -228,7 +243,7 @@ export default function NavBar() {
                 className="absolute top-3 right-6 p-2 text-white hover:text-red-600"
                 aria-label="Close navigation menu"
               >
-                <i className="fas fa-times text-2xl"></i>
+                <FontAwesomeIcon icon={faTimes} className="text-2xl" />
               </button>
               <nav className="flex flex-col justify-center items-center flex-grow space-y-4 pt-4">
                 {navItems.map((item) => {
@@ -269,7 +284,7 @@ export default function NavBar() {
                   className="w-full inline-flex items-center justify-center bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg text-lg"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  <i className="fas fa-phone-volume mr-3"></i>
+                  <FontAwesomeIcon icon={faPhoneVolume} className="mr-3" />
                   Request a Call Back
                 </Link>
                 <p className="text-base uppercase tracking-wider mb-2 text-gray-500 font-semibold border-t border-gray-800 pt-4">
@@ -306,7 +321,7 @@ export default function NavBar() {
                       className="text-2xl text-gray-400 hover:text-red-600"
                       onClick={() => setIsMenuOpen(false)}
                     >
-                      <i className={social.icon}></i>
+                      <FontAwesomeIcon icon={social.icon} />
                     </a>
                   ))}
                 </div>

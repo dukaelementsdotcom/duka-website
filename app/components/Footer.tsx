@@ -1,17 +1,31 @@
 'use client';
 
 import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { 
+  faLocationDot, 
+  faPhone, 
+  faEnvelope 
+} from '@fortawesome/free-solid-svg-icons';
+import { 
+  faWhatsapp, 
+  faTelegram, 
+  faFacebookF, 
+  faInstagram, 
+  faLinkedinIn, 
+  faTiktok 
+} from '@fortawesome/free-brands-svg-icons';
 // IMPORT the same data source your service page uses
 import { services } from '@/lib/servicesData'; 
 
 export default function Footer() {
   const socialLinks = [
-    { name: 'WhatsApp', href: 'https://wa.me/251940607055', icon: 'fab fa-whatsapp' },
-    { name: 'Telegram', href: 'https://t.me/dukainteriorsplc', icon: 'fab fa-telegram' },
-    { name: 'Facebook', href: 'https://www.facebook.com/dukainteriors', icon: 'fab fa-facebook-f' },
-    { name: 'Instagram', href: 'https://www.instagram.com/dukainteriors', icon: 'fab fa-instagram' },
-    { name: 'LinkedIn', href: 'https://www.linkedin.com/company/duka-interiors', icon: 'fab fa-linkedin-in' },
-    { name: 'TikTok', href: 'https://www.tiktok.com/@duka.interiors.plc', icon: 'fab fa-tiktok' },
+    { name: 'WhatsApp', href: 'https://wa.me/251940607055', icon: faWhatsapp },
+    { name: 'Telegram', href: 'https://t.me/dukainteriorsplc', icon: faTelegram },
+    { name: 'Facebook', href: 'https://www.facebook.com/dukainteriors', icon: faFacebookF },
+    { name: 'Instagram', href: 'https://www.instagram.com/dukainteriors', icon: faInstagram },
+    { name: 'LinkedIn', href: 'https://www.linkedin.com/company/duka-interiors', icon: faLinkedinIn },
+    { name: 'TikTok', href: 'https://www.tiktok.com/@duka.interiors.plc', icon: faTiktok },
   ];
 
   return (
@@ -24,6 +38,8 @@ export default function Footer() {
               <img
                 src="/images/icons-duka-interiors/logo-duka-interiors-big.svg"
                 alt="Duka Interiors Logo"
+                width="180"
+                height="60"
                 className="h-12 w-auto"
               />
             </div>
@@ -42,7 +58,7 @@ export default function Footer() {
                   title={social.name}
                   className="w-10 h-10 rounded-full border border-[#d6d2cd] text-[#4a4a4a] flex items-center justify-center hover:border-[#c73e1d] hover:text-[#c73e1d] transition-all"
                 >
-                  <i className={`${social.icon} text-sm`}></i>
+                  <FontAwesomeIcon icon={social.icon} className="text-sm" />
                 </a>
               ))}
             </div>
@@ -84,20 +100,20 @@ export default function Footer() {
             <h3 className="text-lg font-semibold text-[#0a0a0a] mb-6 tracking-wide">CONTACT US</h3>
             <div className="space-y-4">
               <div className="flex items-start gap-3">
-                <div className="mt-1 text-[#c73e1d]"><i className="fas fa-map-marker-alt"></i></div>
+                <div className="mt-1 text-[#c73e1d]"><FontAwesomeIcon icon={faLocationDot} /></div>
                 <p className="text-[#4a4a4a] text-sm">
                   Djibouti street, Welela building, 5th floor, suite 507,<br />Addis Ababa, Ethiopia
                 </p>
               </div>
               <div className="flex items-start gap-3">
-                <div className="mt-1 text-[#c73e1d]"><i className="fas fa-phone-alt"></i></div>
+                <div className="mt-1 text-[#c73e1d]"><FontAwesomeIcon icon={faPhone} /></div>
                 <div className="text-[#4a4a4a] text-sm space-y-1">
                   <a href="tel:+251940607055" aria-label="Call Duka Interiors at +251 940 607 055" className="block hover:text-[#c73e1d]">+251 940 607 055</a>
                   <a href="tel:+251929144290" aria-label="Call Duka Interiors at +251 929 144 290" className="block hover:text-[#c73e1d]">+251 929 144 290</a>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <div className="mt-1 text-[#c73e1d]"><i className="fas fa-envelope"></i></div>
+                <div className="mt-1 text-[#c73e1d]"><FontAwesomeIcon icon={faEnvelope} /></div>
                 <a href="mailto:contact@dukainteriors.com" aria-label="Email Duka Interiors" className="text-[#4a4a4a] text-sm hover:text-[#c73e1d]">contact@dukainteriors.com</a>
               </div>
             </div>

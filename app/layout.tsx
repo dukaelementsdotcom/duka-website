@@ -4,17 +4,22 @@ import "./globals.css";
 // IMPORT THE PROTECTOR
 import GlobalProtection from "./components/GlobalProtection";
 
+// OPTIMIZED FONT IMPORTS WITH font-display: swap
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: 'swap', // Ensures text is visible during font load
+  weight: ['400', '500', '600', '700', '800', '900'], // Only load needed weights
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: 'swap', // Ensures text is visible during font load
+  weight: ['400', '500', '600'], // Only load needed weights
 });
 
-// UPDATED METADATA WITH CORRECT LOGO PATH
+// UPDATED METADATA WITH CORRECT LOGO PATH (FIXED TRAILING SPACES)
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.dukainteriors.com"),
   title: {
@@ -61,7 +66,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   
-  // CORRECTED LOGO PATH FOR BROWSER/AI CRAWLERS
+  // CORRECTED LOGO PATH FOR BROWSER/AI CRAWLERS (FIXED TRAILING SPACES)
   const logoPath = "/images/icons-duka-interiors/logo-duka-interiors-big.svg";
   const fullLogoUrl = `https://www.dukainteriors.com${logoPath}`;
 
@@ -126,12 +131,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* CRITICAL PERFORMANCE OPTIMIZATION */}
+        {/* CRITICAL PERFORMANCE OPTIMIZATION - PRECONNECT */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://maps.googleapis.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://maps.googleapis.com" />
         <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
 
+        {/* REMOVED FONTAWESOME CDN - NOW USING TREE-SHAKEN ICONS */}
+        
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -139,11 +147,6 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
-        />
-        
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
