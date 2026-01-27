@@ -224,20 +224,20 @@ export const BLOG_POSTS: BlogPost[] = [
       </section>
 
       <section class="mt-20 p-16 border-4 border-black text-center rounded-sm bg-white">
-        <h3 class="text-3xl md:text-5xl font-black text-gray-900 mb-6 uppercase tracking-tighter">Download the Full Technical Pack</h3>
-        <p class="text-gray-600 mb-10 max-w-2xl mx-auto text-lg">
-          Our 2026 Technical Pack includes CAD blocks, material load-bearing specs (HDF vs. MDF), and the Ethiopian fire compliance checklist used by Duka Interiors on every project.
-        </p>
-        <div class="flex flex-col sm:flex-row justify-center gap-4">
-          href="https://t.me/dukainteriorsplc" class="bg-black text-white px-12 py-5 font-black uppercase tracking-widest text-sm hover:bg-red-600 transition-colors">
-            Get The Blueprint →
-          </a>
-          <div class="px-8 py-5 border-2 border-black font-black uppercase text-sm">
-            47 Projects Analyzed
-          </div>
-        </div>
-        <p class="text-xs text-gray-400 mt-8">Free for Business Owners, Project Managers, and Architects in the East African Region.</p>
-      </section>
+  <h3 class="text-3xl md:text-5xl font-black text-gray-900 mb-6 uppercase tracking-tighter">Download the Full Technical Pack</h3>
+  <p class="text-gray-600 mb-10 max-w-2xl mx-auto text-lg">
+    Our 2026 Technical Pack includes a standard checklist used by Duka Interiors on every project.
+  </p>
+  <div class="flex flex-col sm:flex-row justify-center gap-4">
+    href="https://t.me/dukainteriorsplc  " class="bg-black text-white px-12 py-5 font-black uppercase tracking-widest text-sm hover:bg-red-600 transition-colors">
+      Get The Blueprint →
+    </a>
+    <div class="px-8 py-5 border-2 border-black font-black uppercase text-sm">
+      47 Projects Analyzed
+    </div>
+  </div>
+  <p class="text-xs text-gray-400 mt-8">Free for Business Owners, Project Managers, and Architects in the East African Region.</p>
+</section>
     `
   },
   {
