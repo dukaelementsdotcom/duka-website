@@ -118,7 +118,8 @@ export const services: Service[] = [
       }
     ],
     whyChooseUs: [
-      'Custom designs you won't find anywhere else',
+      // Option 1: Escape the apostrophe (recommended for consistency)
+'Custom designs you won\'t find anywhere else',
       'Focus on long-term ergonomic health',
       'Perfect integration with electrical and data systems'
     ]
