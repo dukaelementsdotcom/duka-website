@@ -126,7 +126,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* CRITICAL PERFORMANCE OPTIMIZATION */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://maps.googleapis.com" />
         <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
 

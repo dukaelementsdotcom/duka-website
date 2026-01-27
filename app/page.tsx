@@ -39,6 +39,7 @@ export default function Home() {
             "name": "Duka Interiors",
             "alternateName": "The Best Interior Design Company in Addis Ababa",
             "url": "https://dukainteriors.com",
+            "logo": "https://dukainteriors.com/images/icons-duka-interiors/logo-duka-interiors-big.svg",
             "description": "Duka Interiors is the best interior design company in Addis Ababa, specializing in office partitioning, renovation, and interior decoration in Ethiopia.",
             "telephone": "+251940607055",
             "address": {
@@ -46,6 +47,11 @@ export default function Home() {
               "streetAddress": "Bole, Djibouti Street, Welela Building, 5th Floor",
               "addressLocality": "Addis Ababa",
               "addressCountry": "ET"
+            },
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+251940607055",
+              "contactType": "customer service"
             },
             "geo": {
               "@type": "GeoCoordinates",
@@ -66,6 +72,8 @@ export default function Home() {
           fill
           className="object-cover"
           priority
+          fetchPriority="high"
+          quality={85}
           sizes="100vw"
         />
         <div className="absolute inset-0 bg-black/30"></div>
@@ -150,26 +158,26 @@ export default function Home() {
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-12">
               <div className="space-y-1">
                 <div className="text-5xl font-black tracking-tighter flex items-center">
-                   <AnimatedStat target={150} /><span className="text-red-600">+</span>
+                    <AnimatedStat target={150} /><span className="text-red-600">+</span>
                 </div>
                 <div className="text-[10px] font-black uppercase tracking-widest text-gray-500">Projects Complete</div>
               </div>
               <div className="space-y-1">
                 <div className="text-5xl font-black tracking-tighter flex items-center">
-                   <AnimatedStat target={50} /><span className="text-red-600">+</span>
+                    <AnimatedStat target={50} /><span className="text-red-600">+</span>
                 </div>
                 <div className="text-[10px] font-black uppercase tracking-widest text-gray-500">Corporate Clients</div>
               </div>
               <div className="space-y-1">
                 <div className="text-5xl font-black tracking-tighter flex items-center">
-                   <AnimatedStat target={10} /><span className="text-red-600">+</span>
+                    <AnimatedStat target={10} /><span className="text-red-600">+</span>
                 </div>
                 <div className="text-[10px] font-black uppercase tracking-widest text-gray-500">Years Mastery</div>
               </div>
               <div className="flex items-center justify-end">
-                 <Link href="/contact" className="border border-white/20 px-8 py-4 text-[10px] font-black uppercase tracking-widest hover:bg-white hover:text-black transition-all">
+                  <Link href="/contact" className="border border-white/20 px-8 py-4 text-[10px] font-black uppercase tracking-widest hover:bg-white hover:text-black transition-all">
                     Start Project
-                 </Link>
+                  </Link>
               </div>
             </div>
           </div>
