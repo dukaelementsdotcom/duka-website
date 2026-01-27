@@ -27,8 +27,9 @@ export default function Footer() {
                 className="h-12 w-auto"
               />
             </div>
+            {/* UPDATED SEO-FRIENDLY PARAGRAPH */}
             <p className="text-[#4a4a4a] text-sm leading-relaxed mb-6">
-              Elite interior design and construction company in Addis Ababa, Ethiopia. We provide single-point Design + Build solutions with transparent fixed costs.
+              Duka Interiors is the leading interior design company in Addis Ababa, Ethiopia, specializing in premium office partitioning, professional renovation, and custom furniture production. We provide comprehensive Design + Build solutions with expert craftsmanship and transparent fixed costs across East Africa.
             </p>
             <div className="flex space-x-4">
               {socialLinks.map((social) => (
@@ -37,6 +38,8 @@ export default function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={`Follow Duka Interiors on ${social.name}`}
+                  title={social.name}
                   className="w-10 h-10 rounded-full border border-[#d6d2cd] text-[#4a4a4a] flex items-center justify-center hover:border-[#c73e1d] hover:text-[#c73e1d] transition-all"
                 >
                   <i className={`${social.icon} text-sm`}></i>
@@ -89,13 +92,13 @@ export default function Footer() {
               <div className="flex items-start gap-3">
                 <div className="mt-1 text-[#c73e1d]"><i className="fas fa-phone-alt"></i></div>
                 <div className="text-[#4a4a4a] text-sm space-y-1">
-                  <a href="tel:+251940607055" className="block hover:text-[#c73e1d]">+251 940 607 055</a>
-                  <a href="tel:+251929144290" className="block hover:text-[#c73e1d]">+251 929 144 290</a>
+                  <a href="tel:+251940607055" aria-label="Call Duka Interiors at +251 940 607 055" className="block hover:text-[#c73e1d]">+251 940 607 055</a>
+                  <a href="tel:+251929144290" aria-label="Call Duka Interiors at +251 929 144 290" className="block hover:text-[#c73e1d]">+251 929 144 290</a>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <div className="mt-1 text-[#c73e1d]"><i className="fas fa-envelope"></i></div>
-                <a href="mailto:contact@dukainteriors.com" className="text-[#4a4a4a] text-sm hover:text-[#c73e1d]">contact@dukainteriors.com</a>
+                <a href="mailto:contact@dukainteriors.com" aria-label="Email Duka Interiors" className="text-[#4a4a4a] text-sm hover:text-[#c73e1d]">contact@dukainteriors.com</a>
               </div>
             </div>
           </div>
