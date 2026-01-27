@@ -14,16 +14,26 @@ export async function generateStaticParams() {
   }));
 }
 
-// 2. DYNAMIC METADATA: Each service gets a targeted title for Google
+// 2. DYNAMIC METADATA: Each service gets unique, natural title and description
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const resolvedParams = await params;
   const service = services.find((s) => s.slug === resolvedParams.slug);
   
   if (!service) return { title: "Service Not Found" };
 
+  // Create unique meta description from service data
+  const metaDescription = `${service.shortDesc} ${service.title} services by Duka Interiors in Addis Ababa, Ethiopia. Professional solutions for your commercial space.`;
+
   return {
-    title: `${service.title} in Addis Ababa | Duka Interiors`,
-    description: `${service.shortDesc} Expert solutions for office renovation and interior design in Ethiopia by Duka Interiors P.L.C.`,
+    title: `${service.title} Services in Addis Ababa | Duka Interiors`,
+    description: metaDescription,
+    keywords: [
+      `${service.title.toLowerCase()} Addis Ababa`,
+      `${service.title.toLowerCase()} Ethiopia`,
+      `interior design Addis Ababa`,
+      `office renovation Ethiopia`,
+      `Duka Interiors ${service.slug}`
+    ],
     alternates: {
       canonical: `https://www.dukainteriors.com/services/${resolvedParams.slug}`,
     },
@@ -53,6 +63,7 @@ export default function ServiceDetail({ params }: PageProps) {
           </p>
           <Link
             href="/services"
+            aria-label="Back to all services"
             className="bg-black text-white px-8 py-3 font-black uppercase text-xs tracking-widest hover:bg-red-600 transition-colors"
           >
             ← Back to Services
@@ -62,31 +73,34 @@ export default function ServiceDetail({ params }: PageProps) {
     );
   }
 
-  // DYNAMIC SERVICE SCHEMA for AI Search Models
+  // DYNAMIC SERVICE SCHEMA for AI Search Models (FIXED TRAILING SPACES)
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
-    "name": `${service.title} in Addis Ababa`,
-    "description": service.shortDesc,
+    "name": `${service.title} Services in Addis Ababa`,
+    "description": service.longDesc,
     "provider": {
       "@type": "LocalBusiness",
-      "name": "Duka Interiors P.L.C"
+      "name": "Duka Interiors P.L.C",
+      "url": "https://www.dukainteriors.com"
     },
-    "areaServed": "Addis Ababa, Ethiopia",
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": service.title,
-      "itemListElement": [
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": `Professional ${service.title}`
-          }
-        }
-      ]
+    "areaServed": {
+      "@type": "City",
+      "name": "Addis Ababa"
+    },
+    "serviceType": service.title,
+    "offers": {
+      "@type": "Offer",
+      "businessFunction": "ProvideService",
+      "areaServed": "ET"
     }
   };
+
+  // Format breadcrumb text naturally
+  const breadcrumbText = service.title
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ');
 
   return (
     <div className="min-h-screen bg-white selection:bg-red-600 selection:text-white">
@@ -101,7 +115,7 @@ export default function ServiceDetail({ params }: PageProps) {
         <section className="py-12 px-4 md:px-12 bg-gray-50 border-b border-gray-100">
           <div className="max-w-5xl mx-auto">
             <div className="inline-block px-5 py-2 bg-red-600 text-white text-[10px] font-black uppercase tracking-[0.2em] mb-6">
-              Expertise / {service.slug.replace(/-/g, ' ')}
+              Services / {breadcrumbText}
             </div>
             <h1 className="text-4xl md:text-7xl font-black text-gray-900 leading-[0.85] tracking-tighter uppercase mb-8">
               {service.title}
@@ -154,7 +168,7 @@ export default function ServiceDetail({ params }: PageProps) {
                       key={i}
                       className="flex items-start gap-4 text-gray-900 font-black uppercase text-[10px] tracking-widest bg-gray-50 p-6 border border-gray-100 hover:border-red-600 transition-colors group"
                     >
-                      <span className="w-2 h-2 bg-red-600 mt-0.5 group-hover:scale-150 transition-transform"></span>
+                      <span className="w-2 h-2 bg-red-600 mt-0.5 group-hover:scale-150 transition-transform" aria-hidden="true"></span>
                       {reason}
                     </li>
                   ))}
@@ -176,12 +190,14 @@ export default function ServiceDetail({ params }: PageProps) {
             <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
               <Link
                 href="/contact"
+                aria-label="Schedule a free consultation for your project"
                 className="inline-block bg-red-600 hover:bg-black text-white font-black py-5 px-10 rounded-none text-[10px] uppercase tracking-[0.3em] transition-all text-center shadow-xl hover:-translate-y-1"
               >
                 Get a Free Consultation
               </Link>
               <Link
                 href="/projects"
+                aria-label="View our portfolio of completed projects"
                 className="inline-block border-2 border-black text-black font-black py-5 px-10 rounded-none text-[10px] uppercase tracking-[0.3em] hover:bg-black hover:text-white transition-all text-center"
               >
                 View Our Projects
@@ -205,7 +221,7 @@ function ProcessStep({
 }) {
   return (
     <div className="group flex items-start gap-8 p-8 bg-white border border-gray-100 hover:shadow-2xl hover:border-red-600/20 transition-all duration-500">
-      <div className="flex-shrink-0 w-16 h-16 bg-black text-white flex items-center justify-center text-xl font-black group-hover:bg-red-600 transition-colors duration-500">
+      <div className="flex-shrink-0 w-16 h-16 bg-black text-white flex items-center justify-center text-xl font-black group-hover:bg-red-600 transition-colors duration-500" aria-hidden="true">
         {index < 10 ? `0${index}` : index}
       </div>
 
