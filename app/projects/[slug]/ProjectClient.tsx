@@ -5,6 +5,8 @@ import Link from 'next/link';
 import NavBar from '@/app/components/NavBar';
 import Footer from '@/app/components/Footer';
 import ShareButton from '@/app/components/ShareButton';
+// IMPORT THE PROTECTED COMPONENT
+import ProtectedImage from '@/app/components/ProtectedImage';
 
 export default function ProjectClient({ project, slug }: any) {
   const [mainImageIndex, setMainImageIndex] = useState(0);
@@ -51,13 +53,11 @@ export default function ProjectClient({ project, slug }: any) {
           </button>
         </div>
 
+        {/* MAIN IMAGE CONTAINER - PROTECTED */}
         <div className="relative w-full aspect-[4/3] md:aspect-video lg:max-h-[75vh] bg-gray-50 shadow-2xl overflow-hidden group">
-          <Image 
+          <ProtectedImage 
             src={images[mainImageIndex]} 
             alt={project.title} 
-            fill 
-            className="object-cover transition-transform duration-700" 
-            priority 
           />
           
           {images.length > 1 && (
@@ -72,6 +72,7 @@ export default function ProjectClient({ project, slug }: any) {
           </div>
         </div>
 
+        {/* THUMBNAIL TRACK - PROTECTED */}
         {images.length > 1 && (
           <div className="flex gap-2 mt-4 overflow-x-auto pb-4 scrollbar-hide">
             {images.map((img: string, idx: number) => (
@@ -82,7 +83,7 @@ export default function ProjectClient({ project, slug }: any) {
                   idx === mainImageIndex ? 'border-red-600 opacity-100' : 'border-transparent opacity-40 hover:opacity-100'
                 }`}
               >
-                <Image src={img} alt="thumbnail" fill className="object-cover" />
+                <ProtectedImage src={img} alt="thumbnail" />
               </button>
             ))}
           </div>
