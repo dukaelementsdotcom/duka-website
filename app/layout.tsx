@@ -153,6 +153,18 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <GlobalProtection />
         {children}
+{/* ✅ UNREGISTER OLD SERVICE WORKER (fixes "old site on first load") */}
+<script dangerouslySetInnerHTML={{
+  __html: `
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(registrations => {
+        registrations.forEach(registration => {
+          registration.unregister();
+        });
+      });
+    }
+  `
+}} />
       </body>
     </html>
   );
