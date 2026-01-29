@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
   weight: ['400', '500', '600'],
 });
 
-// ✅ FIXED: Removed ALL trailing spaces in metadata URLs
-export const meta Metadata = {
+// ✅ FIXED SYNTAX: export const metadata: Metadata (NOT "meta Metadata")
+export const metadata: Metadata = {
   metadataBase: new URL("https://www.dukainteriors.com"),
   title: {
     template: "%s | Duka Interiors Addis Ababa",
@@ -37,9 +37,6 @@ export const meta Metadata = {
     "design build Addis Ababa",
     "Duka Interiors"
   ],
-  // ✅ CRITICAL FIX: REMOVED alternates.canonical from RootLayout!
-  // Why: RootLayout canonical breaks ALL child pages (causes duplicate canonicals)
-  // Homepage canonical is now handled by homepage page.tsx metadata
   openGraph: {
     title: "The Best Interior Design Company in Addis Ababa Ethiopia | Duka Interiors",
     description: "Ethiopia's leading firm for office partitioning, renovation, and professional interior decoration in Addis Ababa since 2015.",
@@ -63,11 +60,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // ✅ FIXED: Clean logo URL (no trailing spaces)
   const logoPath = "/images/icons-duka-interiors/logo-duka-interiors-big.svg";
   const fullLogoUrl = `https://www.dukainteriors.com${logoPath}`;
 
-  // ✅ GMB RANKING BOOST: Complete LocalBusiness Schema (Ethical & Visible)
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
@@ -126,7 +121,6 @@ export default function RootLayout({
     ]
   };
 
-  // ✅ FIXED: Clean Breadcrumb Schema (no trailing spaces)
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -141,14 +135,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* ✅ FIXED: Removed ALL trailing spaces in preconnect URLs */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://maps.googleapis.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://maps.googleapis.com" />
         <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
 
-        {/* ✅ GMB BOOST: Ethical LocalBusiness Schema (Visible to Google) */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
@@ -157,8 +149,6 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
         />
-        
-        {/* ✅ CRITICAL: NO CANONICAL TAG IN ROOT LAYOUT - Prevents duplicate canonicals */}
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <GlobalProtection />
