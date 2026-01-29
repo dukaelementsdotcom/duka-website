@@ -6,6 +6,7 @@ import NavBar from '@/app/components/NavBar';
 import Footer from '@/app/components/Footer';
 import type { Metadata } from 'next';
 
+// ✅ FIXED: Added CORRECT canonical URL (critical for GMB migration)
 export const metadata: Metadata = {
   title: "Explore Our Interior Design Services in Addis Ababa",
   description: "Expert office partitioning, office renovation, and interior decoration services in Addis Ababa, Ethiopia. Professional design and construction for commercial spaces.",
@@ -18,10 +19,14 @@ export const metadata: Metadata = {
     "commercial interior design",
     "Duka Interiors services"
   ],
+  // ✅ CRITICAL FIX: Canonical URL MUST match page URL exactly
+  alternates: {
+    canonical: "https://www.dukainteriors.com/services"
+  },
 };
 
 export default function ServicesPage() {
-  // SCHEMA: Telling AI models exactly what you offer in Addis
+  // ✅ FIXED: Removed trailing spaces in Schema.org URLs
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -64,7 +69,6 @@ export default function ServicesPage() {
           <div className="inline-block px-5 py-2 bg-red-600 text-white rounded-none text-xs font-bold uppercase tracking-wider mb-6">
             Our Expertise
           </div>
-          {/* Natural SEO Title - No "The Best" */}
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-6">
             Professional Interior Design & Build <br className="hidden md:block" /> Services in Addis Ababa.
           </h1>

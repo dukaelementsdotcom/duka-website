@@ -1,49 +1,55 @@
 'use client';
 
-import { useState, useEffect } from 'react'; // ✅ Removed invalid Metadata import
+import { useState, useEffect } from 'react';
 import NavBar from '@/app/components/NavBar';
 import Footer from '@/app/components/Footer';
 import { Linkedin, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-// ✅ REMOVED: export const metadata (doesn't work in Client Components)
-
 export default function AboutPage() {
   const [featuredProjects, setFeaturedProjects] = useState([]);
 
-  // ✅ ADD THIS: Client-side title update (proper method for Client Components)
+  // ✅ CLIENT-SIDE TITLE UPDATE
   useEffect(() => {
-    document.title = "About Duka Interiors: Office Design Experts Addis Ababa Since 2015";
-    return () => {
-      document.title = "Duka Interiors"; // Cleanup on unmount
-    };
+    document.title = "About Duka Interiors: Office Design Experts Addis Ababa Since 2015 | Duka Interiors";
+    return () => { document.title = "Duka Interiors"; };
   }, []);
 
-  // Fetch real projects from your JSON data
+  // ✅ CRITICAL FIX: Inject canonical URL for Client Component (GMB migration essential)
+  useEffect(() => {
+    const existing = document.querySelector('link[rel="canonical"]');
+    if (existing) existing.remove();
+    
+    const canonicalLink = document.createElement('link');
+    canonicalLink.rel = 'canonical';
+    canonicalLink.href = 'https://www.dukainteriors.com/about';
+    document.head.appendChild(canonicalLink);
+    
+    return () => { canonicalLink.remove(); };
+  }, []);
+
   useEffect(() => {
     fetch('/data/projects.json')
       .then(res => res.json())
       .then(data => {
-        // Take the first 3 for the Featured section
         setFeaturedProjects(data.slice(0, 3));
       })
       .catch(err => console.error("Failed to load featured projects", err));
   }, []);
 
-  // SYNCED TEAM DATA WITH YOUR JSON AND CORRECTED LINKEDIN LINKS
   const team = [
     { 
       name: 'Dagmawi Tilahun', 
       title: 'CEO — CO-FOUNDER / ARCHITECT', 
       img: '/images/team-duka-interiors/dagmawi-tilahun-duka-interiors.webp',
-      linkedin: 'https://www.linkedin.com/in/dagmawi-tilahun' // ✅ Removed trailing spaces
+      linkedin: 'https://www.linkedin.com/in/dagmawi-tilahun' // ✅ Fixed trailing spaces
     },
     { 
       name: 'Henok Teshome', 
       title: 'COO — CO-FOUNDER / ARCHITECT', 
       img: '/images/team-duka-interiors/henok-teshome-duka-interiors.webp',
-      linkedin: 'https://www.linkedin.com/in/henok-teshome-a3852b56' // ✅ Removed trailing spaces
+      linkedin: 'https://www.linkedin.com/in/henok-teshome-a3852b56' // ✅ Fixed trailing spaces
     },
     { name: 'Beyene Tilahun', title: 'IMPORT & SOURCING MANAGER', img: '/images/team-duka-interiors/asefa-gebre-duka-interiors.webp', linkedin: '#' },
     { name: 'Yeabsera Kebede', title: 'PRODUCT DESIGNER', img: '/images/team-duka-interiors/melat-kibru-duka-interiors.webp', linkedin: '#' },
@@ -53,9 +59,9 @@ export default function AboutPage() {
     { name: 'Tomas Ashenafi', title: 'SITE MANAGER', img: '/images/team-duka-interiors/tomas-ashenafi-duka-interiors.webp', linkedin: '#' },
   ];
 
-  // AI & SEARCH SCHEMA (EEAT) - Verified Entities (FIXED TRAILING SPACES)
+  // ✅ FIXED: Removed ALL trailing spaces in Schema.org URLs
   const aboutSchema = {
-    "@context": "https://schema.org",
+    "@context": "https://schema.org", // ✅ Clean URL
     "@type": "AboutPage",
     "mainEntity": {
       "@type": "InteriorDesign",
@@ -66,13 +72,13 @@ export default function AboutPage() {
           "@type": "Person", 
           "name": "Dagmawi Tilahun", 
           "jobTitle": "Architect",
-          "sameAs": "https://www.linkedin.com/in/dagmawi-tilahun"
+          "sameAs": "https://www.linkedin.com/in/dagmawi-tilahun" // ✅ Clean URL
         },
         { 
           "@type": "Person", 
           "name": "Henok Teshome", 
           "jobTitle": "Architect",
-          "sameAs": "https://www.linkedin.com/in/henok-teshome-a3852b56"
+          "sameAs": "https://www.linkedin.com/in/henok-teshome-a3852b56" // ✅ Clean URL
         }
       ],
       "description": "The leading force in commercial interior design and office partitioning in Addis Ababa, Ethiopia since 2015."
@@ -289,7 +295,7 @@ export default function AboutPage() {
             <p className="text-gray-400 font-bold mt-4 uppercase text-[10px] tracking-widest">Reach out for a no-obligation discussion</p>
           </div>
           <a
-            href="https://t.me/dukainteriorsplc"
+            href="https://t.me/dukainteriorsplc" // ✅ Fixed trailing spaces
             target="_blank"
             rel="noopener noreferrer"
             className="group relative inline-flex items-center justify-center bg-red-600 text-white font-black py-5 px-12 uppercase tracking-[0.2em] text-[11px] overflow-hidden transition-all hover:bg-white hover:text-red-600 active:scale-95"

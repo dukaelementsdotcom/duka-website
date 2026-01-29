@@ -15,10 +15,28 @@ export default function ProjectsPage() {
   const [favorites, setFavorites] = useState<string[]>([]); 
   const [loading, setLoading] = useState(true);
 
-  // ✅ MOVED INSIDE COMPONENT: Client-side title update
+  // ✅ CLIENT-SIDE TITLE UPDATE (Optimized for SEO)
   useEffect(() => {
-    document.title = "Explore Our Interior Design and Build Projects in Addis Ababa";
+    document.title = "Our Interior Design Projects in Addis Ababa | Duka Interiors";
     return () => { document.title = "Duka Interiors"; };
+  }, []);
+
+  // ✅ CRITICAL FIX: Inject canonical URL for Client Component (GMB migration essential)
+  useEffect(() => {
+    // Remove any existing canonical link (prevents duplicates)
+    const existing = document.querySelector('link[rel="canonical"]');
+    if (existing) existing.remove();
+    
+    // Create and inject correct canonical link
+    const canonicalLink = document.createElement('link');
+    canonicalLink.rel = 'canonical';
+    canonicalLink.href = 'https://www.dukainteriors.com/projects';
+    document.head.appendChild(canonicalLink);
+    
+    // Cleanup on unmount
+    return () => {
+      canonicalLink.remove();
+    };
   }, []);
 
   useEffect(() => {
@@ -87,14 +105,14 @@ export default function ProjectsPage() {
       return matchesFilter && matchesSearch;
     }), [projects, filter, search]);
 
-  // ✅ FIXED: Removed extra spaces in Schema.org
+  // ✅ FIXED: Removed ALL trailing spaces in Schema.org URLs
   const listSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
     "itemListElement": filteredProjects.slice(0, 10).map((p: any, i) => ({
       "@type": "ListItem",
       "position": i + 1,
-      "url": `https://dukainteriors.com/projects/${p.slug}`,
+      "url": `https://www.dukainteriors.com/projects/${p.slug}`, // Fixed domain + no spaces
       "name": p.title
     }))
   };
@@ -107,7 +125,6 @@ export default function ProjectsPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-white selection:bg-red-600 selection:text-white overflow-x-hidden">
-      {/* ✅ FIXED: Clean Schema.org */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(listSchema) }} />
       <NavBar />
       
@@ -155,7 +172,6 @@ export default function ProjectsPage() {
             {filteredProjects.map((project: any, idx: number) => (
               <div key={project.slug} className="group relative aspect-[4/3] bg-gray-100 overflow-hidden">
                 <Link href={`/projects/${project.slug}`} className="block w-full h-full">
-                  {/* REPLACED Standard Image with ProtectedImage Logic */}
                   <ProtectedImage
                     src={project.image}
                     alt={`${project.title} - ${project.type} interior design in ${project.location}`}
