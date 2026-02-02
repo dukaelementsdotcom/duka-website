@@ -1,25 +1,25 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 
-// ✅ CLEAN, RECOGNIZABLE SVG ICONS
+// ✅ MONOCHROME ICONS (all black/white - no colors)
 const Icons = {
   whatsapp: (
-    <svg viewBox="0 0 24 24" fill="#25D366" className="w-5 h-5">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.199.05-.372-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.372-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.226 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.491h.004c-2.255-.001-4.498-.646-6.466-1.928-2.116-1.378-3.62-3.398-4.248-5.702C.675 11.192.553 8.82.947 6.503 1.38 3.959 2.948 1.78 5.336.646 7.724-.489 10.453-.53 12.862.117c2.409.646 4.456 2.03 5.884 4.002 1.429 1.971 2.169 4.396 2.104 6.842-.005.188-.016.376-.033.563l.004-.002-.002.004-.001.001c-.099 1.315-.566 2.553-1.332 3.562-.78 1.026-1.826 1.783-2.999 2.234-1.304.5-2.733.73-4.13.694z" />
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5">
+      <path d="M20 2H4C2.9 2 2 2.9 2 4V20C2 21.1 2.9 22 4 22H20C21.1 22 22 21.1 22 20V4C22 2.9 21.1 2 20 2M14.7 15.5L13.5 16.5C13.1 16.9 12.4 16.9 12 16.5L9.5 14.1C9.1 13.7 9.1 13.1 9.5 12.7L10.5 11.5C10.9 11.1 11.5 11.1 11.9 11.5L14.3 13.9C14.7 14.3 14.7 14.9 14.3 15.3L14.7 15.5M15 8C15 9.1 14.1 10 13 10H11C9.9 10 9 9.1 9 8V6C9 4.9 9.9 4 11 4H13C14.1 4 15 4.9 15 6V8Z"/>
     </svg>
   ),
   telegram: (
-    <svg viewBox="0 0 24 24" fill="#0088CC" className="w-5 h-5">
-      <path d="M24 4.557a9.83 9.83 0 0 1-2.828.775 4.932 4.932 0 0 0 2.165-2.725 9.864 9.864 0 0 1-3.127 1.195 4.916 4.916 0 0 0-3.594-1.555c-3.18 0-5.515 2.966-4.797 6.045A13.978 13.978 0 0 1 1.671 3.154a4.93 4.93 0 0 0 1.524 6.574 4.902 4.902 0 0 1-2.23-.616c.31.99.792 1.887 1.524 2.619a4.93 4.93 0 0 1-2.224.086 4.929 4.929 0 0 0 4.6 3.42A9.906 9.906 0 0 1 0 19.54a13.94 13.94 0 0 0 7.548 2.212c9.142 0 14.307-7.72 13.995-14.646A10.025 10.025 0 0 0 24 4.557z" />
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5">
+      <path d="M22 2L11 13 2 9 22 2z"/>
     </svg>
   ),
   linkedin: (
-    <svg viewBox="0 0 24 24" fill="#0A66C2" className="w-5 h-5">
-      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5">
+      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
     </svg>
   ),
   copy: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 text-gray-600">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
       <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
       <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
     </svg>
@@ -45,7 +45,7 @@ export default function ShareButton({ title, url }: { title: string; url?: strin
     setCurrentUrl(url || (typeof window !== 'undefined' ? window.location.href : ''));
   }, [url]);
 
-  // ✅ FIXED HOVER: Seamless transition with delay buffer
+  // ✅ FIXED HOVER: Seamless transition with 200ms buffer
   const handleMouseEnter = () => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
@@ -57,7 +57,7 @@ export default function ShareButton({ title, url }: { title: string; url?: strin
   const handleMouseLeave = () => {
     timeoutRef.current = setTimeout(() => {
       setIsOpen(false);
-    }, 150); // 150ms buffer to move cursor to options
+    }, 200); // Increased to 200ms for smoother transition
   };
 
   const shareLinks = [
@@ -94,9 +94,9 @@ export default function ShareButton({ title, url }: { title: string; url?: strin
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Menu - Opens UPWARD with minimal gap (mb-1 not mb-2) */}
+      {/* Menu - Opens UPWARD with minimal gap (mb-0.5) */}
       <div className={`
-        absolute bottom-full mb-1 flex flex-col gap-2 transition-all duration-200 ease-out
+        absolute bottom-full mb-0.5 flex flex-col gap-2 transition-all duration-200 ease-out
         ${isOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-2 scale-95 pointer-events-none'}
       `}>
         {shareLinks.map((link) => (
