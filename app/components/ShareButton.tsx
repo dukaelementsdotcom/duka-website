@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 
-// ✅ INLINE SVG ICONS - No Font Awesome dependency
+// ✅ PROPER SVG ICONS - Recognizable and standard
 const Icons = {
   whatsapp: (
     <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
@@ -19,18 +19,18 @@ const Icons = {
     </svg>
   ),
   copy: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5">
-      <path d="M10 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" />
-      <path d="M14 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" />
-      <path d="M4 20h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2Z" />
-      <path d="M16 4h2a2 2 0 0 1 2 2v4M10 9h4" />
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
     </svg>
   ),
   share: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
-      <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
-      <path d="M16 6l-4-4-4 4" />
-      <path d="M12 2v13" />
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+      <circle cx="18" cy="5" r="3"></circle>
+      <circle cx="6" cy="12" r="3"></circle>
+      <circle cx="18" cy="19" r="3"></circle>
+      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+      <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
     </svg>
   )
 };
@@ -38,37 +38,32 @@ const Icons = {
 export default function ShareButton({ title, url }: { title: string; url?: string }) {
   const [isOpen, setIsOpen] = useState(false);
   const [currentUrl, setCurrentUrl] = useState('');
-  const menuRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setCurrentUrl(url || (typeof window !== 'undefined' ? window.location.href : ''));
   }, [url]);
 
-  // ✅ CLICK-OUTSIDE DETECTION FOR MOBILE
+  // ✅ FIXED: Click-outside detection that doesn't interfere with hover
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
         setIsOpen(false);
       }
     };
 
-    if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside);
-    }
-
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isOpen]);
+  }, []);
 
   const shareLinks = [
     { 
-      name: 'WhatsApp', 
-      icon: Icons.whatsapp,
-      color: 'text-green-500',
-      url: `https://wa.me/?text=${encodeURIComponent(title + ' ' + currentUrl)}` 
+      name: 'LinkedIn', 
+      icon: Icons.linkedin,
+      color: 'text-blue-700',
+      url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}` 
     },
     { 
       name: 'Telegram', 
@@ -77,10 +72,10 @@ export default function ShareButton({ title, url }: { title: string; url?: strin
       url: `https://t.me/share/url?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(title)}` 
     },
     { 
-      name: 'LinkedIn', 
-      icon: Icons.linkedin,
-      color: 'text-blue-700',
-      url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}` 
+      name: 'WhatsApp', 
+      icon: Icons.whatsapp,
+      color: 'text-green-500',
+      url: `https://wa.me/?text=${encodeURIComponent(title + ' ' + currentUrl)}` 
     },
     { 
       name: 'Copy', 
@@ -89,19 +84,15 @@ export default function ShareButton({ title, url }: { title: string; url?: strin
       action: () => { 
         navigator.clipboard.writeText(currentUrl); 
         alert('Link copied to clipboard!');
-        setIsOpen(false); // ✅ Auto-close after copy
+        setIsOpen(false);
       } 
     }
   ];
 
-  // ✅ TOGGLE FOR MOBILE TOUCH + HOVER FOR DESKTOP
-  const handleToggle = () => {
-    setIsOpen(prev => !prev);
-  };
-
+  // ✅ FIXED: Hover logic - menu stays open when moving from button to options
   return (
     <div 
-      ref={menuRef}
+      ref={containerRef}
       className="relative flex flex-col items-center z-[100]"
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
@@ -120,7 +111,6 @@ export default function ShareButton({ title, url }: { title: string; url?: strin
                 link.action();
               } else {
                 window.open(link.url, '_blank', 'noopener,noreferrer');
-                // ✅ Auto-close after opening external link
                 setTimeout(() => setIsOpen(false), 300);
               }
             }}
@@ -132,9 +122,9 @@ export default function ShareButton({ title, url }: { title: string; url?: strin
         ))}
       </div>
 
-      {/* Trigger Button - Tap to toggle on mobile */}
+      {/* Trigger Button - Original share icon restored */}
       <button
-        onClick={handleToggle}
+        onClick={() => setIsOpen(!isOpen)}
         className={`
           w-10 h-10 flex items-center justify-center transition-all duration-300 border shadow-lg rounded-full
           ${isOpen ? 'bg-red-600 border-red-600 text-white' : 'bg-white/95 backdrop-blur-md border-gray-200 text-gray-950 hover:bg-gray-100'}
