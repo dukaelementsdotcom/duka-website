@@ -1,16 +1,17 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 
-// ✅ UPDATED MONOCHROME ICONS
 const Icons = {
-  whatsapp: (
-    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-    </svg>
-  ),
+  // Official Monochrome Telegram Plane
   telegram: (
     <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-      <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161c-.18.717-.962 4.084-1.362 5.441-.168.57-.493 1.104-.812 1.288-.694.4-1.242-.143-1.848-.541-.476-.312-2.13-1.413-2.13-1.413-.418-.283-.146-.438.09-.686.236-.248 2.03-2.01 2.03-2.01.298-.298.05-.447-.298-.248L8.64 12.338c-.447.15-.844.223-1.241.223-.447 0-.744-.074-1.19-.223-.596-.198-1.042-.323-1.042-.323-.446-.15-.744-.447-.298-.694.223-.124 1.39-.62 3.52-1.513 2.13-.893 3.545-1.488 4.24-1.785.694-.298 1.439-.422 1.835-.422.099 0 .546.025.793.149.198.1.298.248.347.416.05.124.074.248.05.416z"/>
+      <path d="M11.944 0C5.347 0 0 5.347 0 11.944c0 6.595 5.347 11.944 11.944 11.944 6.596 0 11.944-5.349 11.944-11.944C23.888 5.347 18.54 0 11.944 0zm5.812 8.12l-1.97 9.28c-.148.65-.532.81-1.077.506l-3.002-2.21-1.448 1.393c-.16.16-.295.295-.605.295l.215-3.053 5.56-5.023c.24-.213-.054-.333-.373-.12l-6.87 4.326-2.96-.924c-.643-.204-.657-.643.135-.953l11.57-4.458c.536-.195 1.005.127.825.938z"/>
+    </svg>
+  ),
+  // Official Monochrome WhatsApp
+  whatsapp: (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+      <path d="M12.031 0C5.39 0 0 5.39 0 12.03c0 2.124.553 4.197 1.603 6.01L.203 24l6.126-1.61c1.777 1.037 3.817 1.583 5.902 1.583 6.44 0 12.03-5.39 12.03-12.03S18.47 0 12.03 0zm5.735 17.034c-.237.67-.1.352-1.576 1.15-.245.13-.513.193-.784.185-.457-.015-1.12-.24-2.384-.744-2.438-1.056-3.997-3.524-4.117-3.685-.12-.16-.974-1.292-.974-2.463 0-1.17.61-1.744.826-1.986.163-.194.332-.242.483-.242.152 0 .304.003.435.012.146.01.343-.057.537.408.2.48.683 1.66.743 1.78.06.12.1.26.02.42-.08.16-.12.26-.24.4-.12.14-.253.31-.36.417-.12.12-.246.253-.106.493.14.24.62 1.023 1.332 1.656.917.817 1.69 1.07 1.93 1.19.24.12.38.1.52-.06.14-.16.6-1.04.76-1.4.16-.36.32-.3.54-.22.22.08 1.41.66 1.65.78.24.12.4.18.46.28.06.1.06.58-.18 1.25z"/>
     </svg>
   ),
   linkedin: (
@@ -44,38 +45,23 @@ export default function ShareButton({ title, url }: { title: string; url?: strin
     setCurrentUrl(url || (typeof window !== 'undefined' ? window.location.href : ''));
   }, [url]);
 
-  const handleMouseEnter = () => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    setIsOpen(true);
-  };
+  const toggleMenu = () => setIsOpen(!isOpen);
 
-  const handleMouseLeave = () => {
-    timeoutRef.current = setTimeout(() => setIsOpen(false), 200);
+  const handleAction = (cb?: () => void) => {
+    if (cb) cb();
+    setIsOpen(false);
   };
 
   const shareLinks = [
-    { 
-      name: 'LinkedIn', 
-      icon: Icons.linkedin,
-      url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}` 
-    },
-    { 
-      name: 'Telegram', 
-      icon: Icons.telegram,
-      url: `https://t.me/share/url?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(title)}` 
-    },
-    { 
-      name: 'WhatsApp', 
-      icon: Icons.whatsapp,
-      url: `https://wa.me/?text=${encodeURIComponent(title + ' ' + currentUrl)}` 
-    },
+    { name: 'LinkedIn', icon: Icons.linkedin, url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}` },
+    { name: 'Telegram', icon: Icons.telegram, url: `https://t.me/share/url?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(title)}` },
+    { name: 'WhatsApp', icon: Icons.whatsapp, url: `https://wa.me/?text=${encodeURIComponent(title + ' ' + currentUrl)}` },
     { 
       name: 'Copy', 
-      icon: Icons.copy,
-      action: () => { 
-        navigator.clipboard.writeText(currentUrl); 
-        alert('Link copied to clipboard!');
-        setIsOpen(false);
+      icon: Icons.copy, 
+      action: () => {
+        navigator.clipboard.writeText(currentUrl);
+        alert('Copied link!');
       } 
     }
   ];
@@ -83,47 +69,40 @@ export default function ShareButton({ title, url }: { title: string; url?: strin
   return (
     <div 
       className="relative flex flex-col items-center z-[100]"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onMouseEnter={() => { if (window.innerWidth > 768) setIsOpen(true); }}
+      onMouseLeave={() => { if (window.innerWidth > 768) setIsOpen(false); }}
     >
+      {/* Social Links Menu */}
       <div className={`
-        absolute bottom-full mb-2 flex flex-col gap-3 transition-all duration-200 ease-out
-        ${isOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-2 scale-95 pointer-events-none'}
+        absolute bottom-full mb-3 flex flex-col gap-3 transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)]
+        ${isOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-75 pointer-events-none'}
       `}>
-        {shareLinks.map((link) => (
+        {shareLinks.map((link, i) => (
           <button
             key={link.name}
-            onClick={(e) => {
-              e.stopPropagation();
-              if (link.action) {
-                link.action();
-              } else {
-                window.open(link.url, '_blank', 'noopener,noreferrer');
-                setIsOpen(false);
-              }
-            }}
-            className="w-11 h-11 bg-white flex items-center justify-center border border-gray-200 text-gray-700 hover:text-black hover:border-black hover:scale-110 transition-all shadow-xl rounded-full"
-            aria-label={`Share on ${link.name}`}
+            onClick={() => handleAction(() => {
+              if (link.url) window.open(link.url, '_blank');
+              else if (link.action) link.action();
+            })}
+            style={{ transitionDelay: isOpen ? `${i * 40}ms` : '0ms' }}
+            className="w-12 h-12 bg-white flex items-center justify-center border border-gray-100 text-gray-800 hover:text-black hover:border-black hover:scale-110 transition-all shadow-xl rounded-full active:scale-95"
           >
             {link.icon}
           </button>
         ))}
       </div>
 
+      {/* Main Trigger Button */}
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={toggleMenu}
         className={`
-          w-12 h-12 flex items-center justify-center transition-all duration-300 border shadow-lg rounded-full
-          ${isOpen ? 'bg-black border-black text-white' : 'bg-white border-gray-200 text-gray-950 hover:bg-gray-50'}
+          w-12 h-12 flex items-center justify-center transition-all duration-300 border shadow-md rounded-full
+          ${isOpen ? 'bg-black border-black text-white' : 'bg-white border-gray-200 text-gray-900 hover:shadow-lg'}
         `}
-        aria-label="Share"
       >
-        {/* Toggle icon between Share and Close */}
-        {isOpen ? (
-           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-5 h-5">
-             <path d="M18 6L6 18M6 6l12 12" />
-           </svg>
-        ) : Icons.share}
+        <div className={`transition-transform duration-300 ${isOpen ? 'rotate-45 scale-110' : 'rotate-0'}`}>
+          {Icons.share}
+        </div>
       </button>
     </div>
   );
