@@ -33,9 +33,9 @@ export default function ProjectView({ project }) {
             </div>
           </div>
           <ShareButton 
-            title={project.title} 
-            url={currentUrl}
-          />
+  title={project.title} 
+  url={currentUrl}
+/>
         </div>
       </main>
     </div>
