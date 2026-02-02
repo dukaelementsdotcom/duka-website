@@ -123,7 +123,7 @@ export default function Home() {
                     Duka Interiors is a professional design and build firm with over 10 years of experience in the Ethiopian market. We specialize in creating high-quality workspaces and homes that reflect our clients&apos; vision.
                   </p>
                   <p>
-                    From specialized **office partitioning in Addis Ababa** to full **office renovation** and interior decoration, we handle the entire process from start to finish. Our team ensures that every project meets international standards while using local expertise to deliver the best results for our clients.
+                    From specialized office partitioning in Addis Ababa to full **office renovation and interior decoration, we handle the entire process from start to finish. Our team ensures that every project meets international standards while using local expertise to deliver the best results for our clients.
                   </p>
                 </div>
 
