@@ -1,10 +1,16 @@
 // app/components/ProjectView.tsx
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import ShareButton from './ShareButton';
 
 export default function ProjectView({ project }) {
+  const [currentUrl, setCurrentUrl] = useState('');
+
+  useEffect(() => {
+    setCurrentUrl(`https://www.dukainteriors.com/projects/${project.slug}`);
+  }, [project.slug]);
+
   return (
     <div className="min-h-screen flex flex-col">
       <main className="flex-grow py-24 px-6 bg-white">
@@ -26,7 +32,10 @@ export default function ProjectView({ project }) {
               />
             </div>
           </div>
-          <ShareButton title={project.title} />
+          <ShareButton 
+            title={project.title} 
+            url={currentUrl}
+          />
         </div>
       </main>
     </div>

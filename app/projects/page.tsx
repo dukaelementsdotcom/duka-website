@@ -112,7 +112,7 @@ export default function ProjectsPage() {
     "itemListElement": filteredProjects.slice(0, 10).map((p: any, i) => ({
       "@type": "ListItem",
       "position": i + 1,
-      "url": `https://www.dukainteriors.com/projects/${p.slug}`, // Fixed domain + no spaces
+      "url": `https://www.dukainteriors.com/projects/${p.slug}`,
       "name": p.title
     }))
   };
@@ -193,7 +193,10 @@ export default function ProjectsPage() {
                 </button>
 
                 <div className="absolute bottom-4 right-4 z-30 pointer-events-auto">
-                  <ShareButton title={project.title} />
+                  <ShareButton 
+                    title={project.title} 
+                    url={`https://www.dukainteriors.com/projects/${project.slug}`} 
+                  />
                 </div>
               </div>
             ))}
