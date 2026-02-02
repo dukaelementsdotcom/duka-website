@@ -90,13 +90,13 @@ export default function Home() {
           </h1>
           
           <div className="flex flex-col sm:flex-row gap-4">
-            <button
-              onClick={scrollToConsultation}
+            <Link
+              href="/contact"
               aria-label="Request a free consultation with Duka Interiors"
               className="bg-red-600 hover:bg-white hover:text-black text-white font-black py-4 px-10 text-[11px] uppercase tracking-widest transition-all duration-500 shadow-xl"
             >
               Free Consultation
-            </button>
+            </Link>
             <Link
               href="/projects"
               aria-label="View our portfolio of interior design projects"
