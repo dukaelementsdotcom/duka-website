@@ -3,11 +3,14 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import GlobalProtection from "./components/GlobalProtection";
 
+// Optimize fonts with next/font
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
   display: 'swap',
   weight: ['400', '500', '600', '700', '800', '900'],
+  preload: true, // Enable preload
+  fallback: ['system-ui', 'arial'], // Fallback fonts
 });
 
 const geistMono = Geist_Mono({
@@ -15,6 +18,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
   display: 'swap',
   weight: ['400', '500', '600'],
+  preload: false, // Disable preload for secondary font
 });
 
 // ✅ FIXED SYNTAX: export const metadata: Metadata (NOT "meta Metadata")
@@ -133,38 +137,89 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Preconnect to critical origins */}
+        <link rel="preconnect" href="https://www.dukainteriors.com" />
         <link rel="preconnect" href="https://maps.googleapis.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://maps.googleapis.com" />
+        
+        {/* DNS prefetch for other domains */}
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
         <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
 
+        {/* Preload critical resources */}
+        <link 
+          rel="preload" 
+          href={logoPath} 
+          as="image" 
+          type="image/svg+xml"
+          crossOrigin="anonymous"
+        />
+        
+        {/* Inline critical CSS for above-the-fold content */}
+        <style dangerouslySetInnerHTML={{
+          __html: `
+            /* Critical CSS - ensures above-the-fold content renders quickly */
+            html { scroll-behavior: smooth; }
+            body { margin: 0; font-family: ${geistSans.style.fontFamily}, system-ui, -apple-system, sans-serif; }
+            /* Prevent layout shifts */
+            img { max-width: 100%; height: auto; }
+            /* Hide scrollbar during load */
+            html.loading { overflow: hidden; }
+          `
+        }} />
+
+        {/* Structured Data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+          defer // Use defer to not block rendering
         />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+          defer
         />
+
+        {/* Viewport settings for better mobile performance */}
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" />
+        
+        {/* Theme color for better PWA experience */}
+        <meta name="theme-color" content="#000000" />
+        <meta name="color-scheme" content="light dark" />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-white text-gray-900`}>
+        {/* Loading state handler */}
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            document.addEventListener('DOMContentLoaded', function() {
+              document.documentElement.classList.remove('loading');
+            });
+            document.documentElement.classList.add('loading');
+          `
+        }} />
+        
         <GlobalProtection />
         {children}
-{/* ✅ UNREGISTER OLD SERVICE WORKER (fixes "old site on first load") */}
-<script dangerouslySetInnerHTML={{
-  __html: `
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.getRegistrations().then(registrations => {
-        registrations.forEach(registration => {
-          registration.unregister();
-        });
-      });
-    }
-  `
-}} />
+        
+        {/* ✅ UNREGISTER OLD SERVICE WORKER */}
+        <script defer dangerouslySetInnerHTML={{
+          __html: `
+            if ('serviceWorker' in navigator) {
+              window.addEventListener('load', function() {
+                navigator.serviceWorker.getRegistrations().then(registrations => {
+                  registrations.forEach(registration => {
+                    registration.unregister();
+                  });
+                });
+              });
+            }
+          `
+        }} />
+        
+        {/* Load non-critical scripts after page load */}
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
       </body>
     </html>
   );
