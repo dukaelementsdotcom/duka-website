@@ -9,6 +9,7 @@ import {
   faChevronDown, 
   faPhone, 
   faTimes, 
+  faPhoneVolume,
   faCalculator,
   faBars,
   faFolderOpen,
@@ -81,31 +82,45 @@ export default function NavBar() {
       icon: faTools,
       title: 'SERVICES',
       mainLink: '/services',
-      hasDropdown: false, // Changed to false
-      items: []
+      items: [
+        { name: 'All Services', href: '/services', isMain: true },
+        // PLEASE UPDATE THESE URLs WITH YOUR ACTUAL SERVICE PAGES:
+        { name: 'Office Design', href: '/services/interior-design' },
+        { name: 'Partitioning', href: '/services/office-partitioning' },
+        { name: 'Technology Integration', href: '/services/technology-integration' },
+        { name: 'Branding & Signage', href: '/services/branding-and-signage' },
+        { name: 'Full Renovation', href: '/services/office-renovation' },
+        { name: 'Design+Build', href: '/services/design-build' },
+      ]
     },
     
     portfolio: {
       icon: faFolderOpen,
       title: 'PORTFOLIO',
       mainLink: '/projects',
-      hasDropdown: false, // Changed to false
-      items: []
+      items: [
+        { name: 'All Projects', href: '/projects', isMain: true },
+        { name: 'Office Designs', href: '/projects?category=office' },
+        { name: 'Partitioning', href: '/projects?category=partitioning' },
+        { name: 'Renovations', href: '/projects?category=renovation' },
+      ]
     },
     
     company: {
       icon: null,
       title: 'COMPANY',
       mainLink: '/about',
-      hasDropdown: false, // Changed to false
-      items: []
+      items: [
+        { name: 'About Us', href: '/about' },
+        { name: 'Our Process', href: '/about#process' },
+        { name: 'Our Team', href: '/about#team' },
+      ]
     },
     
     resources: {
       icon: faLightbulb,
       title: 'RESOURCES',
       mainLink: '/resources',
-      hasDropdown: true, // Keep true
       items: [
         { name: 'Insights & Blog', href: '/resources' },
         { name: 'Material Guides', href: '/resources/materials' },
@@ -119,7 +134,6 @@ export default function NavBar() {
       title: 'PRODUCTS',
       mainLink: '/products',
       comingSoon: true,
-      hasDropdown: true, // Keep true
       items: [
         { name: 'Product Catalog', href: '/products' },
         { name: 'Custom Furniture', href: '/products/furniture' },
@@ -128,21 +142,21 @@ export default function NavBar() {
     }
   };
 
-  // Contact info - SIMPLIFIED: Just numbers with better icons
+  // Contact info - BOTH NUMBERS RESTORED
   const phones = [
-    { number: '+251940607055', label: '+251 940 607 055' },
-    { number: '+251929144290', label: '+251 929 144 290' },
+    { number: '+251940607055', label: '+251 940 607 055', isPrimary: true },
+    { number: '+251929144290', label: '+251 929 144 290', isPrimary: false },
   ];
   const email = 'contact@dukainteriors.com';
 
-  // Social links - WITH TIKTOK
+  // Social links
   const socialLinks = [
     { name: 'WhatsApp', href: 'https://wa.me/251940607055', icon: faWhatsapp, color: 'hover:bg-green-500' },
     { name: 'Telegram', href: 'https://t.me/dukainteriorsplc', icon: faTelegram, color: 'hover:bg-blue-400' },
     { name: 'Facebook', href: 'https://www.facebook.com/dukainteriors', icon: faFacebookF, color: 'hover:bg-blue-600' },
     { name: 'Instagram', href: 'https://www.instagram.com/dukainteriors', icon: faInstagram, color: 'hover:bg-pink-600' },
-    { name: 'TikTok', href: 'https://www.tiktok.com/@duka.interiors.plc', icon: faTiktok, color: 'hover:bg-black' },
     { name: 'LinkedIn', href: 'https://www.linkedin.com/company/duka-interiors', icon: faLinkedinIn, color: 'hover:bg-blue-700' },
+    { name: 'TikTok', href: 'https://www.tiktok.com/@duka.interiors.plc', icon: faTiktok, color: 'hover:bg-black' },
   ];
 
   // Toggle mobile section
@@ -170,45 +184,41 @@ export default function NavBar() {
 
             {/* Desktop: Contact & Social Row */}
             <div className="hidden lg:flex items-center gap-x-6">
-              {/* Phone Numbers - SIMPLIFIED */}
+              {/* Phone Numbers */}
               <div className="flex items-center gap-x-4">
                 {phones.map((phone, idx) => (
-                  <a
-                    key={idx}
-                    href={`tel:${phone.number.replace(/\s+/g, '')}`}
-                    className={`flex items-center gap-x-2 group transition-all ${
-                      isScrolled ? 'text-gray-800 hover:text-red-600' : 'text-white hover:text-red-300'
-                    }`}
-                  >
-                    <div className={`w-7 h-7 rounded-full flex items-center justify-center transition-all ${
-                      isScrolled 
-                        ? 'bg-red-100 text-red-600 group-hover:bg-red-600 group-hover:text-white' 
-                        : 'bg-white/20 text-white group-hover:bg-red-600'
-                    }`}>
+                  <div key={idx} className="flex items-center gap-x-2">
+                    <div className={`w-7 h-7 rounded-full flex items-center justify-center ${isScrolled ? 'bg-red-100 text-red-600' : 'bg-red-600/20 text-white'}`}>
                       <FontAwesomeIcon icon={faPhone} className="text-xs" />
                     </div>
-                    <span className="text-sm font-bold">{phone.label}</span>
-                  </a>
+                    <div>
+                      <a
+                        href={`tel:${phone.number.replace(/\s+/g, '')}`}
+                        className={`text-sm font-bold transition-colors ${isScrolled ? 'text-gray-800 hover:text-red-600' : 'text-white hover:text-red-300'}`}
+                      >
+                        {phone.label}
+                      </a>
+                      {phone.isPrimary && (
+                        <div className={`text-xs ${isScrolled ? 'text-gray-500' : 'text-gray-300'}`}>Primary</div>
+                      )}
+                    </div>
+                  </div>
                 ))}
               </div>
 
               {/* Divider */}
               <div className={`w-px h-6 ${isScrolled ? 'bg-gray-300' : 'bg-white/30'}`}></div>
 
-              {/* Social Icons - WITH TIKTOK */}
+              {/* Social Icons */}
               <div className="flex items-center gap-x-1">
-                {socialLinks.slice(0, 5).map((social) => ( // Show 5 including TikTok
+                {socialLinks.slice(0, 4).map((social) => (
                   <a
                     key={social.name}
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Visit our ${social.name} page`}
-                    className={`w-7 h-7 rounded-full flex items-center justify-center text-xs transition-all ${
-                      isScrolled 
-                        ? 'bg-gray-100 text-gray-700 hover:bg-red-600 hover:text-white' 
-                        : 'bg-white/10 text-white hover:bg-red-600'
-                    } ${social.color}`}
+                    className={`w-7 h-7 rounded-full flex items-center justify-center text-xs transition-all ${isScrolled ? 'bg-gray-100 text-gray-700 hover:bg-red-600 hover:text-white' : 'bg-white/10 text-white hover:bg-red-600'} ${social.color}`}
                   >
                     <FontAwesomeIcon icon={social.icon} />
                   </a>
@@ -221,10 +231,9 @@ export default function NavBar() {
               {/* Calculator Button */}
               <Link
                 href="/estimate-cost"
-                className={`group flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all ${
-                  isScrolled 
-                    ? 'bg-gradient-to-r from-red-600 to-red-700 text-white hover:shadow-lg hover:scale-105' 
-                    : 'bg-white/10 text-white hover:bg-red-600 backdrop-blur-sm'
+                className={`group flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all ${isScrolled 
+                  ? 'bg-gradient-to-r from-red-600 to-red-700 text-white hover:shadow-lg hover:scale-105' 
+                  : 'bg-white/10 text-white hover:bg-red-600 backdrop-blur-sm'
                 }`}
               >
                 <FontAwesomeIcon icon={faCalculator} className="text-xs" />
@@ -262,89 +271,68 @@ export default function NavBar() {
                 HOME
               </Link>
 
-              {/* Navigation Items - Only Resources & Products have dropdowns */}
-              {Object.entries(navStructure).map(([key, section]) => {
-                if (section.hasDropdown) {
-                  // Resources & Products (with dropdown)
-                  return (
-                    <div
-                      key={key}
-                      className="relative group"
-                      onMouseEnter={() => setOpenDropdown(key)}
-                      onMouseLeave={() => setOpenDropdown(null)}
-                    >
-                      <Link
-                        href={section.mainLink}
-                        className={`flex items-center gap-2 px-4 py-2 text-xs uppercase tracking-wider font-bold transition-colors rounded-lg ${
-                          pathname.startsWith(section.mainLink)
-                            ? (isScrolled ? 'text-red-600 bg-red-50' : 'text-red-400 bg-white/10')
-                            : (isScrolled ? 'text-gray-700 hover:text-red-600 hover:bg-gray-50' : 'text-gray-300 hover:text-white hover:bg-white/10')
-                        }`}
-                      >
-                        {section.icon && <FontAwesomeIcon icon={section.icon} className="text-[10px]" />}
-                        <span>{section.title}</span>
-                        {section.comingSoon && (
-                          <span className={`text-[8px] px-1.5 py-0.5 rounded-full ${isScrolled ? 'bg-gray-100 text-gray-600' : 'bg-white/20 text-white'}`}>SOON</span>
-                        )}
-                        <FontAwesomeIcon 
-                          icon={faChevronDown} 
-                          className={`text-[9px] transition-transform ${openDropdown === key ? 'rotate-180' : ''}`} 
-                        />
-                      </Link>
+              {/* Grouped Navigation Items */}
+              {Object.entries(navStructure).map(([key, section]) => (
+                <div
+                  key={key}
+                  className="relative group"
+                  onMouseEnter={() => setOpenDropdown(key)}
+                  onMouseLeave={() => setOpenDropdown(null)}
+                >
+                  <Link
+                    href={section.mainLink}
+                    className={`flex items-center gap-2 px-4 py-2 text-xs uppercase tracking-wider font-bold transition-colors rounded-lg ${
+                      pathname.startsWith(section.mainLink)
+                        ? (isScrolled ? 'text-red-600 bg-red-50' : 'text-red-400 bg-white/10')
+                        : (isScrolled ? 'text-gray-700 hover:text-red-600 hover:bg-gray-50' : 'text-gray-300 hover:text-white hover:bg-white/10')
+                    }`}
+                  >
+                    {section.icon && <FontAwesomeIcon icon={section.icon} className="text-[10px]" />}
+                    <span>{section.title}</span>
+                    {section.comingSoon && (
+                      <span className={`text-[8px] px-1.5 py-0.5 rounded-full ${isScrolled ? 'bg-gray-100 text-gray-600' : 'bg-white/20 text-white'}`}>SOON</span>
+                    )}
+                    <FontAwesomeIcon 
+                      icon={faChevronDown} 
+                      className={`text-[9px] transition-transform ${openDropdown === key ? 'rotate-180' : ''}`} 
+                    />
+                  </Link>
 
-                      {/* Dropdown */}
-                      <div
-                        className={`absolute top-full left-0 w-64 bg-white border border-gray-100 shadow-2xl py-3 rounded-xl transition-all duration-200 z-50 ${
-                          openDropdown === key
-                            ? 'opacity-100 translate-y-0 visible'
-                            : 'opacity-0 translate-y-2 invisible pointer-events-none'
+                  {/* Dropdown */}
+                  <div
+                    className={`absolute top-full left-0 w-64 bg-white border border-gray-100 shadow-2xl py-3 rounded-xl transition-all duration-200 z-50 ${
+                      openDropdown === key
+                        ? 'opacity-100 translate-y-0 visible'
+                        : 'opacity-0 translate-y-2 invisible pointer-events-none'
+                    }`}
+                  >
+                    <div className="px-4 pb-2 mb-2 border-b border-gray-100">
+                      <span className="text-xs font-bold text-gray-500 uppercase tracking-widest">{section.title}</span>
+                    </div>
+                    {section.items.map((item, idx) => (
+                      <Link
+                        key={idx}
+                        href={item.href}
+                        className={`flex items-center justify-between group/item px-5 py-2.5 text-sm transition-all ${
+                          item.isMain
+                            ? 'text-red-600 font-bold bg-red-50'
+                            : item.isHighlighted
+                            ? 'text-green-600 font-bold bg-green-50'
+                            : 'text-gray-700 hover:text-red-600 hover:bg-gray-50'
                         }`}
                       >
-                        <div className="px-4 pb-2 mb-2 border-b border-gray-100">
-                          <span className="text-xs font-bold text-gray-500 uppercase tracking-widest">{section.title}</span>
-                        </div>
-                        {section.items.map((item, idx) => (
-                          <Link
-                            key={idx}
-                            href={item.href}
-                            className={`flex items-center justify-between group/item px-5 py-2.5 text-sm transition-all ${
-                              item.isMain
-                                ? 'text-red-600 font-bold bg-red-50'
-                                : item.isHighlighted
-                                ? 'text-green-600 font-bold bg-green-50'
-                                : 'text-gray-700 hover:text-red-600 hover:bg-gray-50'
-                            }`}
-                          >
-                            <span>{item.name}</span>
-                            {(item.isMain || item.isHighlighted) && (
-                              <FontAwesomeIcon 
-                                icon={faArrowRight} 
-                                className="text-xs opacity-0 group-hover/item:opacity-100 transition-opacity" 
-                              />
-                            )}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  );
-                } else {
-                  // Services, Portfolio, Company (direct links)
-                  return (
-                    <Link
-                      key={key}
-                      href={section.mainLink}
-                      className={`flex items-center gap-2 px-4 py-2 text-xs uppercase tracking-wider font-bold transition-colors rounded-lg ${
-                        pathname.startsWith(section.mainLink)
-                          ? (isScrolled ? 'text-red-600 bg-red-50' : 'text-red-400 bg-white/10')
-                          : (isScrolled ? 'text-gray-700 hover:text-red-600 hover:bg-gray-50' : 'text-gray-300 hover:text-white hover:bg-white/10')
-                      }`}
-                    >
-                      {section.icon && <FontAwesomeIcon icon={section.icon} className="text-[10px]" />}
-                      <span>{section.title}</span>
-                    </Link>
-                  );
-                }
-              })}
+                        <span>{item.name}</span>
+                        {(item.isMain || item.isHighlighted) && (
+                          <FontAwesomeIcon 
+                            icon={faArrowRight} 
+                            className="text-xs opacity-0 group-hover/item:opacity-100 transition-opacity" 
+                          />
+                        )}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))}
 
               {/* Contact Link */}
               <Link
@@ -401,19 +389,17 @@ export default function NavBar() {
           </div>
 
           <div className="flex flex-col h-full px-6 pb-12 pt-4">
-            {/* Quick Contact Actions - SIMPLIFIED */}
+            {/* Quick Contact Actions */}
             <div className="grid grid-cols-2 gap-3 mb-6">
               {phones.map((phone, idx) => (
                 <a
                   key={idx}
                   href={`tel:${phone.number.replace(/\s+/g, '')}`}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`flex items-center justify-center gap-2 py-3 rounded-xl font-bold transition-all ${
-                    idx === 0 ? 'bg-red-600 text-white hover:bg-red-700' : 'bg-gray-800 text-white hover:bg-gray-700'
-                  }`}
+                  className={`flex items-center justify-center gap-2 py-3 rounded-xl font-bold ${idx === 0 ? 'bg-red-600 text-white' : 'bg-gray-800 text-white'}`}
                 >
                   <FontAwesomeIcon icon={faPhone} />
-                  <span className="text-sm">{phone.label}</span>
+                  <span className="text-sm">{phone.label.replace('+251 ', '')}</span>
                 </a>
               ))}
             </div>
@@ -424,7 +410,7 @@ export default function NavBar() {
               <Link
                 href="/"
                 onClick={() => setIsMenuOpen(false)}
-                className={`block py-3 px-4 text-base font-bold rounded-lg transition-all ${
+                className={`block py-3 px-4 text-base font-bold rounded-lg ${
                   pathname === '/' 
                     ? 'bg-red-600 text-white' 
                     : 'bg-white/10 text-white hover:bg-white/20'
@@ -433,85 +419,61 @@ export default function NavBar() {
                 HOME
               </Link>
 
-              {/* Grouped Sections - Only Resources & Products expand */}
-              {Object.entries(navStructure).map(([key, section]) => {
-                if (section.hasDropdown) {
-                  // Resources & Products (expandable)
-                  return (
-                    <div key={key} className="bg-white/10 rounded-lg overflow-hidden">
-                      <button
-                        onClick={() => toggleMobileSection(key)}
-                        className={`w-full flex items-center justify-between py-3 px-4 text-base font-bold transition-all ${
-                          openMobileSection === key ? 'text-red-400' : 'text-white hover:text-red-300'
+              {/* Grouped Sections */}
+              {Object.entries(navStructure).map(([key, section]) => (
+                <div key={key} className="bg-white/10 rounded-lg overflow-hidden">
+                  <button
+                    onClick={() => toggleMobileSection(key)}
+                    className={`w-full flex items-center justify-between py-3 px-4 text-base font-bold ${
+                      openMobileSection === key ? 'text-red-400' : 'text-white'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      {section.icon && <FontAwesomeIcon icon={section.icon} className="text-sm" />}
+                      <span>{section.title}</span>
+                      {section.comingSoon && (
+                        <span className="text-xs bg-white/20 text-white px-2 py-0.5 rounded-full">SOON</span>
+                      )}
+                    </div>
+                    <FontAwesomeIcon 
+                      icon={faChevronDown} 
+                      className={`transition-transform text-sm ${openMobileSection === key ? 'rotate-180' : ''}`} 
+                    />
+                  </button>
+                  
+                  <div className={`${openMobileSection === key ? 'block' : 'hidden'} bg-black/30`}>
+                    {section.items.map((item, idx) => (
+                      <Link
+                        key={idx}
+                        href={item.href}
+                        onClick={() => setIsMenuOpen(false)}
+                        className={`flex items-center justify-between py-2.5 px-8 text-sm transition-colors ${
+                          item.isMain || item.isHighlighted
+                            ? 'text-red-400 font-bold bg-black/30'
+                            : 'text-gray-300 hover:text-white hover:bg-black/20'
                         }`}
                       >
-                        <div className="flex items-center gap-3">
-                          {section.icon && <FontAwesomeIcon icon={section.icon} className="text-sm" />}
-                          <span>{section.title}</span>
-                          {section.comingSoon && (
-                            <span className="text-xs bg-white/20 text-white px-2 py-0.5 rounded-full">SOON</span>
-                          )}
-                        </div>
-                        <FontAwesomeIcon 
-                          icon={faChevronDown} 
-                          className={`transition-transform text-sm ${openMobileSection === key ? 'rotate-180' : ''}`} 
-                        />
-                      </button>
-                      
-                      <div className={`${openMobileSection === key ? 'block' : 'hidden'} bg-black/30`}>
-                        {section.items.map((item, idx) => (
-                          <Link
-                            key={idx}
-                            href={item.href}
-                            onClick={() => setIsMenuOpen(false)}
-                            className={`flex items-center justify-between py-2.5 px-8 text-sm transition-colors ${
-                              item.isMain || item.isHighlighted
-                                ? 'text-red-400 font-bold bg-black/30'
-                                : 'text-gray-300 hover:text-white hover:bg-black/20'
-                            }`}
-                          >
-                            <span>{item.name}</span>
-                            {(item.isMain || item.isHighlighted) && (
-                              <FontAwesomeIcon icon={faArrowRight} className="text-xs" />
-                            )}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  );
-                } else {
-                  // Services, Portfolio, Company (direct links)
-                  return (
-                    <Link
-                      key={key}
-                      href={section.mainLink}
-                      onClick={() => setIsMenuOpen(false)}
-                      className={`block py-3 px-4 text-base font-bold rounded-lg transition-all ${
-                        pathname.startsWith(section.mainLink)
-                          ? 'bg-red-600 text-white'
-                          : 'bg-white/10 text-white hover:bg-white/20'
-                      }`}
-                    >
-                      <div className="flex items-center gap-3">
-                        {section.icon && <FontAwesomeIcon icon={section.icon} className="text-sm" />}
-                        <span>{section.title}</span>
-                      </div>
-                    </Link>
-                  );
-                }
-              })}
+                        <span>{item.name}</span>
+                        {(item.isMain || item.isHighlighted) && (
+                          <FontAwesomeIcon icon={faArrowRight} className="text-xs" />
+                        )}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))}
 
               {/* Contact */}
               <Link
                 href="/contact"
                 onClick={() => setIsMenuOpen(false)}
-                className="block py-3 px-4 bg-red-600 text-white text-base font-bold rounded-lg hover:bg-red-700 transition-all"
+                className="block py-3 px-4 bg-red-600 text-white text-base font-bold rounded-lg hover:bg-red-700"
               >
                 CONTACT US
               </Link>
             </nav>
 
-            {/* Social & Contact Footer - WITH TIKTOK */}
+            {/* Social & Contact Footer */}
             <div className="mt-8 pt-6 border-t border-white/20">
               <div className="mb-4">
                 <h4 className="text-white text-sm font-bold mb-3">Follow Us</h4>
@@ -535,7 +497,7 @@ export default function NavBar() {
               <div className="space-y-3">
                 <a
                   href={`mailto:${email}`}
-                  className="flex items-center gap-3 text-white/80 hover:text-red-400 transition-colors"
+                  className="flex items-center gap-3 text-white/80 hover:text-red-400"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <FontAwesomeIcon icon={faEnvelope} className="w-4" />

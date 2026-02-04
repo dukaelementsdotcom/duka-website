@@ -5,24 +5,14 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-// Add this interface at the top
-interface Project {
-  slug: string;
-  title: string;
-  image: string;
-  type: string;
-  location?: string;
-  // Add other properties that might exist in your projects.json
-}
-
 export default function Gallery() {
-  const [projects, setProjects] = useState<Project[]>([]); // Add type here
+  const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch('/data/projects.json')
       .then(res => res.json())
-      .then((data: Project[]) => { // Add type here
+      .then(data => {
         // Take first 6 projects
         setProjects(data.slice(0, 6));
         setLoading(false);
@@ -61,7 +51,7 @@ export default function Gallery() {
 
         {/* 3x2 Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-          {projects.map((project: Project) => ( // Add type here
+          {projects.map((project) => (
             <div
               key={project.slug}
               className="group relative aspect-[4/3] overflow-hidden"
