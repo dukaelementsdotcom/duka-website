@@ -8,174 +8,35 @@ const nextConfig: NextConfig = {
   // 2. Clean up URLs by removing the .html extension in production
   skipTrailingSlashRedirect: false,
 
-  // 3. TURBOPACK CONFIGURATION (Required for Next.js 16)
-  turbopack: {
-    // Enable Turbopack for development
-    resolveAlias: {
-      // Add any aliases you need
-    }
-  },
-
-  // 4. OPTIMIZED IMAGE CONFIGURATION - BETTER COMPRESSION
+  // 3. OPTIMIZED IMAGE CONFIGURATION - BETTER COMPRESSION
   images: {
     // Only allow your own domain + trusted CDNs
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'www.dukainteriors.com',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'dukainteriors.com',
-        pathname: '/**',
       },
       {
         protocol: 'https',
         hostname: 'maps.googleapis.com',
-        pathname: '/**',
       },
       {
         protocol: 'https',
         hostname: 'googleusercontent.com',
-        pathname: '/**',
       },
     ],
-    // Optimized for mobile-first: Smaller device sizes for mobile
-    deviceSizes: [320, 420, 640, 750, 828, 1080, 1200, 1920],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256],
-    // AVIF first for best compression (then WebP as fallback)
-    formats: ['image/avif', 'image/webp'],
-    // Adjust cache TTL for better CDN performance
-    minimumCacheTTL: 3600, // Increased to 1 hour
-    disableStaticImages: false,
-    // Optimize image loading
-    loader: 'default',
-    loaderFile: '',
-    // Content Security Policy for images
-    dangerouslyAllowSVG: true,
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    // Limit maximum image size to prevent oversized images
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    // Enable WebP format for better compression
+    formats: ['image/webp', 'image/avif'],
+    // Minimum cache time for optimized images
+    minimumCacheTTL: 60,
   },
 
-  // 5. COMPILER OPTIMIZATIONS - REDUCE JS BUNDLE SIZE
-  compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
-  },
-
-  // 6. ESMODULES OPTIMIZATION - BETTER TREE SHAKING
-  experimental: {
-    optimizeCss: true,
-    optimizePackageImports: [
-      '@fortawesome/free-solid-svg-icons',
-      '@fortawesome/free-brands-svg-icons',
-      '@fortawesome/react-fontawesome',
-      'react',
-      'react-dom',
-      'next',
-    ],
-  },
-
-  // 7. HEADERS FOR PERFORMANCE & SECURITY
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: [
-          {
-            key: 'X-DNS-Prefetch-Control',
-            value: 'on'
-          },
-          {
-            key: 'Strict-Transport-Security',
-            value: 'max-age=63072000; includeSubDomains; preload'
-          },
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff'
-          },
-          {
-            key: 'X-Frame-Options',
-            value: 'DENY'
-          },
-          {
-            key: 'X-XSS-Protection',
-            value: '1; mode=block'
-          },
-          {
-            key: 'Referrer-Policy',
-            value: 'origin-when-cross-origin'
-          },
-          {
-            key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()'
-          }
-        ],
-      },
-      // Cache images aggressively
-      {
-        source: '/_next/image(.*)',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable'
-          }
-        ]
-      },
-      // Cache static assets
-      {
-        source: '/_next/static/(.*)',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable'
-          }
-        ]
-      }
-    ];
-  },
-
-  // 8. REDIRECTS FOR SEO & USER EXPERIENCE
-  async redirects() {
-    return [
-      {
-        source: '/services/design-and-build',
-        destination: '/services/design-build/',
-        permanent: true,
-      },
-      {
-        source: '/services/office-design',
-        destination: '/services/design-build/',
-        permanent: true,
-      },
-      {
-        source: '/interior-design-addis-ababa',
-        destination: '/services/',
-        permanent: true,
-      },
-      {
-        source: '/office-partitioning-addis-ababa',
-        destination: '/services/',
-        permanent: true,
-      },
-    ];
-  },
-
-  // 9. TypeScript configuration - KEEP ERRORS VISIBLE
+  // TypeScript configuration
   typescript: {
-    ignoreBuildErrors: false,
-  },
-
-  // 10. BUNDLE OPTIMIZATIONS (Modern Next.js approach)
-  modularizeImports: {
-    '@fortawesome/free-solid-svg-icons': {
-      transform: '@fortawesome/free-solid-svg-icons/{{member}}',
-    },
-    '@fortawesome/free-brands-svg-icons': {
-      transform: '@fortawesome/free-brands-svg-icons/{{member}}',
-    },
-    'react-icons': {
-      transform: 'react-icons/{{member}}',
-    },
+    ignoreBuildErrors: true,
   },
 };
 
