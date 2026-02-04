@@ -2,13 +2,15 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   // 1. THE FIX: Ensures /services/design-and-build/ always works
+  // and matches the production server's folder structure.
   trailingSlash: true,
   
-  // 2. Clean up URLs
+  // 2. Clean up URLs by removing the .html extension in production
   skipTrailingSlashRedirect: false,
   
   // 3. OPTIMIZED IMAGE CONFIGURATION - BETTER COMPRESSION
   images: {
+    // Only allow your own domain + trusted CDNs
     remotePatterns: [
       {
         protocol: 'https',
@@ -23,40 +25,19 @@ const nextConfig: NextConfig = {
         hostname: 'googleusercontent.com',
       },
     ],
+    // Limit maximum image size to prevent oversized images
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    // Enable WebP format for better compression
     formats: ['image/webp', 'image/avif'],
-    // ✅ FIXED: Added quality optimization (saves 72KB desktop, 19KB mobile)
-    quality: 75,
+    // Minimum cache time for optimized images
     minimumCacheTTL: 60,
   },
   
-  // ✅ FIXED: Compiler optimizations to remove unused JavaScript
-  compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
-  },
-  
-  // ✅ FIXED: Webpack optimization to eliminate legacy polyfills
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        fs: false,
-      };
-    }
-    return config;
-  },
-  
-  // ✅ FIXED: TypeScript configuration
+  // TypeScript configuration
   typescript: {
     ignoreBuildErrors: true,
   },
-  
-  // ✅ FIXED: Enable SWC minification for faster builds and smaller bundles
-  swcMinify: true,
-  
-  // ✅ FIXED: Output configuration for better caching
-  output: 'export',
 };
 
 export default nextConfig;
