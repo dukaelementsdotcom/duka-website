@@ -8,7 +8,15 @@ const nextConfig: NextConfig = {
   // 2. Clean up URLs by removing the .html extension in production
   skipTrailingSlashRedirect: false,
 
-  // 3. OPTIMIZED IMAGE CONFIGURATION - BETTER COMPRESSION
+  // 3. TURBOPACK CONFIGURATION (Required for Next.js 16)
+  turbopack: {
+    // Enable Turbopack for development
+    resolveAlias: {
+      // Add any aliases you need
+    }
+  },
+
+  // 4. OPTIMIZED IMAGE CONFIGURATION - BETTER COMPRESSION
   images: {
     // Only allow your own domain + trusted CDNs
     remotePatterns: [
@@ -49,13 +57,12 @@ const nextConfig: NextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 
-  // 4. SWC COMPILER OPTIMIZATIONS - REDUCE JS BUNDLE SIZE
-  swcMinify: true,
+  // 5. COMPILER OPTIMIZATIONS - REDUCE JS BUNDLE SIZE
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
 
-  // 5. ESMODULES OPTIMIZATION - BETTER TREE SHAKING
+  // 6. ESMODULES OPTIMIZATION - BETTER TREE SHAKING
   experimental: {
     optimizeCss: true,
     optimizePackageImports: [
@@ -68,7 +75,7 @@ const nextConfig: NextConfig = {
     ],
   },
 
-  // 6. HEADERS FOR PERFORMANCE & SECURITY
+  // 7. HEADERS FOR PERFORMANCE & SECURITY
   async headers() {
     return [
       {
@@ -127,7 +134,7 @@ const nextConfig: NextConfig = {
     ];
   },
 
-  // 7. REDIRECTS FOR SEO & USER EXPERIENCE
+  // 8. REDIRECTS FOR SEO & USER EXPERIENCE
   async redirects() {
     return [
       {
@@ -153,45 +160,22 @@ const nextConfig: NextConfig = {
     ];
   },
 
-  // TypeScript configuration
+  // 9. TypeScript configuration - KEEP ERRORS VISIBLE
   typescript: {
-    ignoreBuildErrors: false, // Changed to false to catch errors
+    ignoreBuildErrors: false,
   },
 
-  // 8. WEBPACK OPTIMIZATIONS
-  webpack: (config, { isServer }) => {
-    // Optimize bundle splitting
-    if (!isServer) {
-      config.optimization.splitChunks = {
-        chunks: 'all',
-        maxInitialRequests: 25,
-        minSize: 20000,
-        cacheGroups: {
-          default: false,
-          vendors: false,
-          framework: {
-            name: 'framework',
-            test: /[\\/]node_modules[\\/](react|react-dom|next)[\\/]/,
-            priority: 40,
-            enforce: true,
-          },
-          lib: {
-            test: /[\\/]node_modules[\\/]/,
-            name(module) {
-              const match = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/);
-              if (!match) return 'vendor';
-              const packageName = match[1];
-              return `npm.${packageName.replace('@', '')}`;
-            },
-            priority: 30,
-            minChunks: 1,
-            reuseExistingChunk: true,
-          },
-        },
-      };
-    }
-
-    return config;
+  // 10. BUNDLE OPTIMIZATIONS (Modern Next.js approach)
+  modularizeImports: {
+    '@fortawesome/free-solid-svg-icons': {
+      transform: '@fortawesome/free-solid-svg-icons/{{member}}',
+    },
+    '@fortawesome/free-brands-svg-icons': {
+      transform: '@fortawesome/free-brands-svg-icons/{{member}}',
+    },
+    'react-icons': {
+      transform: 'react-icons/{{member}}',
+    },
   },
 };
 
