@@ -31,13 +31,12 @@ export default function MoodboardPage() {
     loadFavorites();
   }, []);
 
-  // ✅ Undo removal functionality
   const undoRemove = (slug: string) => {
     const savedSlugs = JSON.parse(localStorage.getItem('duka_moodboard') || '[]');
     if (!savedSlugs.includes(slug)) {
       const updatedSlugs = [...savedSlugs, slug];
       localStorage.setItem('duka_moodboard', JSON.stringify(updatedSlugs));
-      loadFavorites(); // Reload to reflect the undo
+      loadFavorites();
     }
     setShowSuccess(false);
   };
@@ -56,11 +55,9 @@ export default function MoodboardPage() {
     localStorage.setItem('duka_moodboard', JSON.stringify(updatedSlugs));
     setFavoriteProjects((prev) => prev.filter((p) => p.slug !== slug));
 
-    // Show success message with undo option
     setShowSuccess(true);
     setTimeout(() => setShowSuccess(false), 5000);
 
-    // Visual feedback
     if (e?.currentTarget) {
       const button = e.currentTarget as HTMLElement;
       button.classList.add('animate-pulse');
@@ -76,7 +73,6 @@ export default function MoodboardPage() {
       localStorage.removeItem('duka_moodboard');
       setFavoriteProjects([]);
       
-      // Show toast for clearing all
       if (document) {
         const toast = document.createElement('div');
         toast.className = 'fixed top-6 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white px-6 py-3 rounded-lg shadow-xl z-[9999] flex items-center gap-3 animate-fade-in';
@@ -90,7 +86,6 @@ export default function MoodboardPage() {
     }
   };
 
-  // ✅ Send moodboard via WhatsApp with official icon
   const sendMoodboardViaWhatsApp = () => {
     if (favoriteProjects.length === 0) return;
 
@@ -106,7 +101,6 @@ export default function MoodboardPage() {
     const whatsappUrl = `https://wa.me/251940607055?text=${message}`;
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
     
-    // Track WhatsApp CTA click
     if (window.gtag) {
       window.gtag('event', 'whatsapp_cta_click', {
         event_category: 'Moodboard',
@@ -116,21 +110,16 @@ export default function MoodboardPage() {
     }
   };
 
-  // ✅ Download moodboard as image (creative feature)
   const downloadMoodboardImage = async () => {
-    // This would require html2canvas library
-    // For now, we'll show a message about the feature
     alert('Coming soon! This feature will allow you to download your moodboard as a beautiful collage image.');
   };
 
-  // ✅ Share moodboard link (creative feature)
   const shareMoodboardLink = () => {
     const moodboardData = {
       projects: favoriteProjects.map(p => p.slug),
       timestamp: new Date().toISOString()
     };
     
-    // Create a shareable link (in production, this would be a server endpoint)
     const encoded = btoa(JSON.stringify(moodboardData));
     const shareUrl = `${window.location.origin}/share/moodboard?data=${encoded}`;
     
@@ -157,13 +146,10 @@ export default function MoodboardPage() {
     );
   }
 
-  const origin = typeof window !== 'undefined' ? window.location.origin : 'https://dukainteriors.com';
-
   return (
     <div className="min-h-screen flex flex-col bg-white selection:bg-red-600">
       <NavBar />
       
-      {/* ✅ Success Toast */}
       {showSuccess && (
         <div className="fixed top-6 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white px-6 py-3 rounded-lg shadow-xl z-[9999] flex items-center gap-4 animate-fade-in">
           <span>✓ Removed "{removedProject}"</span>
@@ -204,7 +190,6 @@ export default function MoodboardPage() {
                 </div>
               </div>
               
-              {/* Quick Stats */}
               {favoriteProjects.length > 0 && (
                 <div className="flex flex-wrap gap-4 mt-6">
                   <div className="px-3 py-1.5 bg-red-50 text-red-700 rounded-full text-xs font-bold uppercase tracking-widest">
@@ -219,7 +204,6 @@ export default function MoodboardPage() {
               )}
             </div>
 
-            {/* Action Buttons */}
             <div className="flex flex-wrap gap-3">
               {favoriteProjects.length > 0 && (
                 <>
@@ -323,14 +307,12 @@ export default function MoodboardPage() {
                         className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700"
                       />
 
-                      {/* Floating Badge */}
                       <div className="absolute top-4 left-4 z-10">
                         <div className="px-3 py-1.5 bg-black/80 backdrop-blur-sm text-white text-[9px] font-black uppercase tracking-widest rounded-full">
                           #{index + 1}
                         </div>
                       </div>
 
-                      {/* Remove Button */}
                       <button
                         onClick={(e) => toggleFavorite(project.slug, e)}
                         className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center bg-white/90 backdrop-blur-sm rounded-full text-gray-900 hover:bg-red-600 hover:text-white transition-all duration-300 z-20 shadow-lg hover:scale-110"
@@ -341,7 +323,6 @@ export default function MoodboardPage() {
                         </svg>
                       </button>
 
-                      {/* Hover Overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-8">
                         <h3 className="text-white text-2xl font-black uppercase tracking-tighter mb-2">
                           {project.title}
@@ -358,14 +339,13 @@ export default function MoodboardPage() {
                           <div className="flex items-center gap-3">
                             <ShareButton
                               title={project.title}
-                              url={`${origin}/projects/${project.slug}`}
+                              url={`${window.location.origin}/projects/${project.slug}`}
                             />
                           </div>
                         </div>
                       </div>
                     </div>
 
-                    {/* Quick Info */}
                     <div className="p-6">
                       <div className="flex items-start justify-between mb-3">
                         <div>
@@ -399,79 +379,136 @@ export default function MoodboardPage() {
                 ))}
               </div>
 
-              {/* ✅ CTA SECTION WITH OFFICIAL WHATSAPP ICON */}
-              <div className="mt-20 p-10 md:p-14 bg-gradient-to-br from-red-600 to-red-700 rounded-3xl text-center text-white shadow-2xl relative overflow-hidden">
-                {/* Background Pattern */}
-                <div className="absolute inset-0 opacity-10">
-                  <div className="absolute inset-0" style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-                    backgroundSize: '60px 60px'
-                  }}></div>
-                </div>
-                
-                <div className="relative z-10">
-                  {/* Official WhatsApp Icon */}
-                  <div className="inline-flex items-center justify-center w-24 h-24 bg-white/10 backdrop-blur-sm rounded-2xl mb-8 border-2 border-white/20">
-                    <svg className="w-14 h-14" viewBox="0 0 24 24" fill="white">
-                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.199.05-.372-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.372-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.226 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.491h.004c-2.255-.001-4.498-.646-6.466-1.928-2.116-1.378-3.62-3.398-4.248-5.702C.675 11.192.553 8.82.947 6.503 1.38 3.959 2.948 1.78 5.336.646 7.724-.489 10.453-.53 12.862.117c2.409.646 4.456 2.03 5.884 4.002 1.429 1.971 2.169 4.396 2.104 6.842-.005.188-.016.376-.033.563l.004-.002-.002.004-.001.001c-.099 1.315-.566 2.553-1.332 3.562-.78 1.026-1.826 1.783-2.999 2.234-1.304.5-2.733.73-4.13.694z"/>
-                    </svg>
-                  </div>
-                  
-                  <h3 className="text-3xl md:text-4xl font-black uppercase tracking-tighter mb-6">
-                    Ready to Bring Your Vision to Life?
-                  </h3>
-                  
-                  <p className="text-white/90 max-w-2xl mx-auto mb-10 text-lg leading-relaxed">
-                    Send your curated collection of {favoriteProjects.length} project{favoriteProjects.length === 1 ? '' : 's'} directly to our design team. 
-                    We'll review your inspiration and craft a personalized proposal just for you.
-                  </p>
-                  
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                    <button
-                      onClick={sendMoodboardViaWhatsApp}
-                      className="group inline-flex items-center justify-center gap-4 bg-white text-red-600 px-12 py-6 rounded-full font-black text-[13px] uppercase tracking-widest transition-all duration-300 shadow-2xl hover:shadow-3xl hover:scale-[1.02] active:scale-95"
-                    >
-                      <svg className="w-7 h-7" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.199.05-.372-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.372-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.226 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.491h.004c-2.255-.001-4.498-.646-6.466-1.928-2.116-1.378-3.62-3.398-4.248-5.702C.675 11.192.553 8.82.947 6.503 1.38 3.959 2.948 1.78 5.336.646 7.724-.489 10.453-.53 12.862.117c2.409.646 4.456 2.03 5.884 4.002 1.429 1.971 2.169 4.396 2.104 6.842-.005.188-.016.376-.033.563l.004-.002-.002.004-.001.001c-.099 1.315-.566 2.553-1.332 3.562-.78 1.026-1.826 1.783-2.999 2.234-1.304.5-2.733.73-4.13.694z"/>
-                      </svg>
-                      <span className="group-hover:translate-x-1 transition-transform">
-                        Send to Design Team via WhatsApp
-                      </span>
-                      <svg className="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                      </svg>
-                    </button>
-                    
-                    <button
-                      onClick={downloadMoodboardImage}
-                      className="inline-flex items-center justify-center gap-3 bg-transparent border-2 border-white/30 text-white px-10 py-5 rounded-full font-black text-[11px] uppercase tracking-widest hover:bg-white/10 hover:border-white/50 transition-all"
-                    >
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                      </svg>
-                      Download Moodboard
-                    </button>
-                  </div>
-                  
-                  <div className="mt-10 pt-8 border-t border-white/20">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-                      <div className="flex flex-col items-center">
-                        <div className="w-12 h-12 mb-4 bg-white/10 rounded-full flex items-center justify-center">
-                          <span className="text-white text-xl font-black">✓</span>
+              {/* ✅ REDESIGNED CTA SECTION - Full Bleed & Sophisticated */}
+              <div className="mt-24 -mx-4 md:-mx-20 px-4 md:px-20 py-20 bg-gradient-to-b from-white via-gray-50 to-white border-t border-b border-gray-100">
+                <div className="max-w-6xl mx-auto">
+                  <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+                    {/* Left Column - Visual */}
+                    <div className="lg:w-2/5 relative">
+                      <div className="relative">
+                        {/* Decorative Elements */}
+                        <div className="absolute -top-6 -left-6 w-24 h-24 bg-gradient-to-br from-red-50 to-red-100 rounded-2xl rotate-12"></div>
+                        <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl -rotate-12"></div>
+                        
+                        {/* Main WhatsApp Icon Card */}
+                        <div className="relative bg-white p-10 rounded-3xl shadow-xl border border-gray-100 backdrop-blur-sm">
+                          <div className="w-32 h-32 mx-auto mb-8 bg-gradient-to-br from-green-50 to-green-100 rounded-3xl flex items-center justify-center">
+                            <svg className="w-20 h-20" viewBox="0 0 24 24" fill="#25D366">
+                              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.199.05-.372-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.372-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.226 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.491h.004c-2.255-.001-4.498-.646-6.466-1.928-2.116-1.378-3.62-3.398-4.248-5.702C.675 11.192.553 8.82.947 6.503 1.38 3.959 2.948 1.78 5.336.646 7.724-.489 10.453-.53 12.862.117c2.409.646 4.456 2.03 5.884 4.002 1.429 1.971 2.169 4.396 2.104 6.842-.005.188-.016.376-.033.563l.004-.002-.002.004-.001.001c-.099 1.315-.566 2.553-1.332 3.562-.78 1.026-1.826 1.783-2.999 2.234-1.304.5-2.733.73-4.13.694z"/>
+                            </svg>
+                          </div>
+                          <div className="text-center">
+                            <div className="inline-flex items-center gap-2 bg-gray-50 px-4 py-2 rounded-full mb-4">
+                              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                              <span className="text-gray-700 text-xs font-bold uppercase tracking-widest">Instant Connection</span>
+                            </div>
+                            <p className="text-gray-600 text-sm">
+                              Direct line to our senior designers
+                            </p>
+                          </div>
                         </div>
-                        <p className="text-sm font-bold">24-Hour Response</p>
                       </div>
-                      <div className="flex flex-col items-center">
-                        <div className="w-12 h-12 mb-4 bg-white/10 rounded-full flex items-center justify-center">
-                          <span className="text-white text-xl font-black">✓</span>
-                        </div>
-                        <p className="text-sm font-bold">Free Consultation</p>
+                    </div>
+
+                    {/* Right Column - Content */}
+                    <div className="lg:w-3/5 text-center lg:text-left">
+                      <div className="mb-8">
+                        <span className="inline-block px-4 py-2 bg-red-50 text-red-700 rounded-full text-xs font-bold uppercase tracking-widest mb-6">
+                          Next Step
+                        </span>
+                        <h3 className="text-3xl md:text-4xl font-black uppercase tracking-tighter text-gray-900 mb-6">
+                          Transform Inspiration into Reality
+                        </h3>
+                        <p className="text-gray-600 text-lg leading-relaxed mb-8">
+                          You've curated {favoriteProjects.length} beautiful inspiration{favoriteProjects.length === 1 ? '' : 's'}. 
+                          Now let our design team create a personalized concept that brings your vision to life.
+                        </p>
                       </div>
-                      <div className="flex flex-col items-center">
-                        <div className="w-12 h-12 mb-4 bg-white/10 rounded-full flex items-center justify-center">
-                          <span className="text-white text-xl font-black">✓</span>
+
+                      <div className="space-y-8">
+                        {/* WhatsApp CTA Button */}
+                        <button
+                          onClick={sendMoodboardViaWhatsApp}
+                          className="group w-full max-w-md mx-auto lg:mx-0 flex items-center justify-center gap-4 bg-gradient-to-r from-gray-900 to-black text-white px-10 py-6 rounded-2xl font-black text-[13px] uppercase tracking-widest transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-[1.02] active:scale-95 border border-gray-800"
+                        >
+                          <div className="flex items-center gap-4">
+                            <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                              <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.199.05-.372-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.372-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.226 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.491h.004c-2.255-.001-4.498-.646-6.466-1.928-2.116-1.378-3.62-3.398-4.248-5.702C.675 11.192.553 8.82.947 6.503 1.38 3.959 2.948 1.78 5.336.646 7.724-.489 10.453-.53 12.862.117c2.409.646 4.456 2.03 5.884 4.002 1.429 1.971 2.169 4.396 2.104 6.842-.005.188-.016.376-.033.563l.004-.002-.002.004-.001.001c-.099 1.315-.566 2.553-1.332 3.562-.78 1.026-1.826 1.783-2.999 2.234-1.304.5-2.733.73-4.13.694z"/>
+                              </svg>
+                            </div>
+                            <div className="text-left">
+                              <div className="text-[11px] text-gray-300 font-medium uppercase tracking-widest">
+                                Connect via WhatsApp
+                              </div>
+                              <div className="text-lg font-bold">
+                                Send Moodboard to Design Team
+                              </div>
+                            </div>
+                          </div>
+                          <svg className="w-5 h-5 ml-4 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                          </svg>
+                        </button>
+
+                        {/* Additional Options */}
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                          <button
+                            onClick={downloadMoodboardImage}
+                            className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-white border-2 border-gray-200 text-gray-700 rounded-2xl font-black text-[11px] uppercase tracking-widest hover:bg-gray-50 hover:border-gray-300 transition-all"
+                          >
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg>
+                            Export Moodboard
+                          </button>
+                          
+                          <Link
+                            href="/projects"
+                            className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-gray-100 text-gray-700 rounded-2xl font-black text-[11px] uppercase tracking-widest hover:bg-gray-200 transition-all"
+                          >
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                            </svg>
+                            Add More Projects
+                          </Link>
                         </div>
-                        <p className="text-sm font-bold">Personalized Quote</p>
+                      </div>
+
+                      {/* Benefits */}
+                      <div className="mt-12 pt-8 border-t border-gray-200">
+                        <h4 className="text-gray-700 text-sm font-bold uppercase tracking-widest mb-6 text-center lg:text-left">
+                          What Happens Next
+                        </h4>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                          <div className="flex items-start gap-4 p-4 bg-white rounded-xl border border-gray-100 shadow-sm">
+                            <div className="w-10 h-10 bg-red-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                              <span className="text-red-600 font-black">1</span>
+                            </div>
+                            <div>
+                              <h5 className="font-bold text-gray-900 mb-1">24-Hour Review</h5>
+                              <p className="text-gray-600 text-sm">Our senior designers analyze your selections</p>
+                            </div>
+                          </div>
+                          <div className="flex items-start gap-4 p-4 bg-white rounded-xl border border-gray-100 shadow-sm">
+                            <div className="w-10 h-10 bg-red-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                              <span className="text-red-600 font-black">2</span>
+                            </div>
+                            <div>
+                              <h5 className="font-bold text-gray-900 mb-1">Free Consultation</h5>
+                              <p className="text-gray-600 text-sm">Personalized video call to discuss your vision</p>
+                            </div>
+                          </div>
+                          <div className="flex items-start gap-4 p-4 bg-white rounded-xl border border-gray-100 shadow-sm">
+                            <div className="w-10 h-10 bg-red-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                              <span className="text-red-600 font-black">3</span>
+                            </div>
+                            <div>
+                              <h5 className="font-bold text-gray-900 mb-1">Custom Proposal</h5>
+                              <p className="text-gray-600 text-sm">Tailored design concept & transparent quote</p>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
