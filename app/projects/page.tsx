@@ -1,4 +1,5 @@
 'use client';
+
 import { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -11,7 +12,7 @@ export default function ProjectsPage() {
   const [filter, setFilter] = useState('all');
   const [search, setSearch] = useState('');
   const [projects, setProjects] = useState([]);
-  const [favorites, setFavorites] = useState<string[]>([]);
+  const [favorites, setFavorites] = useState<string[]>([]); 
   const [loading, setLoading] = useState(true);
 
   // ✅ CLIENT-SIDE TITLE UPDATE (Optimized for SEO)
@@ -25,12 +26,13 @@ export default function ProjectsPage() {
     // Remove any existing canonical link (prevents duplicates)
     const existing = document.querySelector('link[rel="canonical"]');
     if (existing) existing.remove();
+    
     // Create and inject correct canonical link
     const canonicalLink = document.createElement('link');
     canonicalLink.rel = 'canonical';
     canonicalLink.href = 'https://www.dukainteriors.com/projects';
     document.head.appendChild(canonicalLink);
-
+    
     // Cleanup on unmount
     return () => {
       canonicalLink.remove();
@@ -61,11 +63,11 @@ export default function ProjectsPage() {
   }, []);
 
   const toggleFavorite = (e: React.MouseEvent, slug: string) => {
-    e.preventDefault();
-    e.stopPropagation();
+    e.preventDefault(); 
+    e.stopPropagation(); 
     setFavorites(prev => {
-      const updated = prev.includes(slug)
-        ? prev.filter(id => id !== slug)
+      const updated = prev.includes(slug) 
+        ? prev.filter(id => id !== slug) 
         : [...prev, slug];
       localStorage.setItem('duka_moodboard', JSON.stringify(updated));
       return updated;
@@ -94,11 +96,11 @@ export default function ProjectsPage() {
     Gymnasium: projects.filter((p: any) => p.type === 'Gymnasium').length,
   }), [projects]);
 
-  const filteredProjects = useMemo(() =>
+  const filteredProjects = useMemo(() => 
     projects.filter((p: any) => {
       const matchesFilter = filter === 'all' || p.type === filter;
-      const matchesSearch = !search ||
-        p.title.toLowerCase().includes(search.toLowerCase()) ||
+      const matchesSearch = !search || 
+        p.title.toLowerCase().includes(search.toLowerCase()) || 
         p.location.toLowerCase().includes(search.toLowerCase());
       return matchesFilter && matchesSearch;
     }), [projects, filter, search]);
@@ -116,14 +118,15 @@ export default function ProjectsPage() {
   };
 
   if (loading) return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
+    <div className="min-h-screen bg-white flex items-center justify-center font-black tracking-widest text-[10px] uppercase">
+      Loading Projects Portfolio...
     </div>
   );
 
   return (
-    <div>
+    <div className="min-h-screen flex flex-col bg-white selection:bg-red-600 selection:text-white overflow-x-hidden">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(listSchema) }} />
+      <NavBar />
       
       <main className="flex-grow pt-[80px]">
         <section className="pb-8 px-4 md:px-6 mt-12">
@@ -146,7 +149,7 @@ export default function ProjectsPage() {
                     className={`px-4 py-2 text-[10px] font-bold uppercase tracking-wide rounded-full whitespace-nowrap transition-colors
                       ${filter === cat.id ? 'bg-black text-white' : 'text-gray-500 hover:text-gray-900 bg-gray-50'}`}
                   >
-                    {cat.label} <span className="ml-1 text-gray-500">({counts[cat.id as keyof typeof counts] || 0})</span>
+                    {cat.label} <span className="ml-1 opacity-75">({counts[cat.id as keyof typeof counts] || 0})</span>
                   </button>
                 ))}
               </div>
@@ -157,7 +160,6 @@ export default function ProjectsPage() {
                   placeholder="Search projects..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  aria-label="Search projects by title or location"
                   className="w-full pl-4 pr-4 py-2 text-[11px] border border-gray-200 rounded-full focus:ring-1 focus:ring-red-600 outline-none"
                 />
               </div>
@@ -166,15 +168,10 @@ export default function ProjectsPage() {
         </section>
 
         <section className="px-1 md:px-2 pb-20">
-          {/* ✅ FIXED: Added min-h to prevent CLS */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 min-h-[1200px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
             {filteredProjects.map((project: any, idx: number) => (
               <div key={project.slug} className="group relative aspect-[4/3] bg-gray-100 overflow-hidden">
-                <Link 
-                  href={`/projects/${project.slug}`} 
-                  aria-label={`View ${project.title} project - ${project.type} interior design in ${project.location}`}
-                  className="block w-full h-full"
-                >
+                <Link href={`/projects/${project.slug}`} className="block w-full h-full">
                   <ProtectedImage
                     src={project.image}
                     alt={`${project.title} - ${project.type} interior design in ${project.location}`}
@@ -188,7 +185,6 @@ export default function ProjectsPage() {
 
                 <button
                   onClick={(e) => toggleFavorite(e, project.slug)}
-                  aria-label={favorites.includes(project.slug) ? `Remove ${project.title} from favorites` : `Add ${project.title} to favorites`}
                   className="absolute top-4 left-4 w-10 h-10 flex items-center justify-center bg-black/20 backdrop-blur-md rounded-full text-white z-20 hover:bg-red-600 transition-colors"
                 >
                   <svg className={`w-4 h-4 ${favorites.includes(project.slug) ? 'fill-current' : 'fill-none'}`} viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
@@ -214,7 +210,6 @@ export default function ProjectsPage() {
         <div className="fixed bottom-6 left-0 right-0 z-[1000] flex justify-center pointer-events-none px-4">
           <Link 
             href="/moodboard" 
-            aria-label={`Open your moodboard with ${favorites.length} saved projects`}
             className="pointer-events-auto bg-black text-white px-8 py-4 rounded-full flex items-center gap-4 shadow-2xl hover:scale-105 transition-all"
           >
             <span className="text-[10px] font-black uppercase tracking-[0.3em]">Open My Moodboard</span>
