@@ -9,7 +9,8 @@ import {
   faChevronDown, 
   faPhone, 
   faTimes, 
-  faPhoneVolume 
+  faPhoneVolume,
+  faCalculator // ADDED: Calculator icon
 } from '@fortawesome/free-solid-svg-icons';
 import { 
   faWhatsapp, 
@@ -63,7 +64,7 @@ export default function NavBar() {
     ? 'bg-white text-gray-800 border-b border-gray-200 shadow-md'
     : 'bg-black/80 backdrop-blur-md text-white border-b border-gray-800';
 
-  // Navigation items
+  // Navigation items - ADDED "COST CALCULATOR"
   const navItems = [
     { name: 'HOME', href: '/' },
     { name: 'SERVICES', href: '/services' },
@@ -78,6 +79,13 @@ export default function NavBar() {
         { name: 'Material Guides', href: '/resources/materials' },
         { name: 'Renovation FAQ', href: '/resources/faq' }
       ]
+    },
+    // === ADDED: COST CALCULATOR LINK ===
+    { 
+      name: 'COST CALCULATOR', 
+      href: '/estimate-cost',
+      isNew: true, // This adds the "New" badge
+      icon: faCalculator // Optional icon for mobile
     },
     {
       name: 'PRODUCTS',
@@ -132,6 +140,21 @@ export default function NavBar() {
                       </Link>
                       <span className="absolute -top-1 -right-1 bg-red-600 text-white text-[8px] font-bold px-1.5 py-0.5 rounded-full leading-none">
                         Soon
+                      </span>
+                    </div>
+                  );
+                }
+
+                // === ADDED: Handle Cost Calculator with "New" badge ===
+                if (item.isNew) {
+                  return (
+                    <div key={item.name} className="relative group">
+                      <Link href={item.href} className={`${isActive ? 'text-red-600 font-semibold' : isScrolled ? 'text-gray-800 hover:text-red-600' : 'text-white hover:text-red-500'} ${baseClass} flex items-center gap-1`}>
+                        <FontAwesomeIcon icon={item.icon} className="text-[10px] mr-1" />
+                        {item.name}
+                      </Link>
+                      <span className="absolute -top-2 -right-2 bg-green-600 text-white text-[7px] font-bold px-1.5 py-0.5 rounded-full leading-none">
+                        New
                       </span>
                     </div>
                   );
@@ -262,6 +285,22 @@ export default function NavBar() {
                       >
                         {item.name}
                         <span className="text-xs ml-2">(Soon)</span>
+                      </Link>
+                    );
+                  }
+
+                  // === ADDED: Mobile view for Cost Calculator ===
+                  if (item.isNew) {
+                    return (
+                      <Link
+                        key={item.name}
+                        href={item.href}
+                        onClick={() => setIsMenuOpen(false)}
+                        className={`${linkClass} flex items-center gap-3`}
+                      >
+                        <FontAwesomeIcon icon={item.icon} className="text-2xl" />
+                        {item.name}
+                        <span className="text-xs bg-green-600 text-white px-2 py-0.5 rounded-full">New</span>
                       </Link>
                     );
                   }
