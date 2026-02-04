@@ -32,7 +32,7 @@ export default function CalculatorForm() {
   const calculate = () => {
     const result = calculateEstimate(formData);
     setEstimate(result);
-    setStep(5); // Go to results step
+    setStep(5);
   };
 
   const resetCalculator = () => {
