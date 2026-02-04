@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { calculateEstimate, formatCurrency } from '@/lib/data/pricingData';
+// Note: QuickEstimate doesn't need calculatorConfig, so no change needed here
 
 export default function QuickEstimate() {
   const [inputs, setInputs] = useState({
