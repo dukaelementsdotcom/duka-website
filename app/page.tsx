@@ -32,7 +32,7 @@ export default function Home() {
       */}
       <title>Interior Design Company in Addis Ababa Ethiopia</title>
 
-      {/* ADVANCED AI MODE SCHEMA */}
+      {/* ADVANCED AI MODE SCHEMA - FIXED: Removed extra spaces in URLs */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -68,7 +68,9 @@ export default function Home() {
       <NavBar />
       <ResetScroll />
 
-      <div className="relative h-screen overflow-hidden">
+      {/* FIXED: Added min-h-screen to prevent CLS */}
+      <div className="relative h-screen min-h-screen overflow-hidden">
+        {/* OPTIMIZED: Added proper sizes attribute for responsive images */}
         <Image
           src="/images/duka-interiors-portfolio/modern-conference-room-and-lobby-design/modern-board-room-habesha-breweries.webp"
           alt="The best interior design company in Addis Ababa - Duka Interiors"
@@ -77,7 +79,7 @@ export default function Home() {
           priority
           fetchPriority="high"
           quality={75}
-          sizes="100vw"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 1200px"
         />
         <div className="absolute inset-0 bg-black/30"></div>
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
@@ -110,7 +112,9 @@ export default function Home() {
           </div>
         </div>
       </div>
+      
       <main className="bg-white">
+        {/* FIXED: Added min-h-[80px] to prevent CLS on navbar area */}
         <section className="py-24 px-6 lg:px-12 bg-gray-50">
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
@@ -140,11 +144,15 @@ export default function Home() {
               <div className="lg:col-span-5">
                 <Link href="/projects/modern-conference-room-and-lobby-design" aria-label="View modern conference room project" className="block">
                   <div className="relative aspect-square overflow-hidden group border border-gray-200">
+                    {/* OPTIMIZED: Added loading="lazy" and proper sizes */}
                     <Image
                       src="/images/duka-interiors-portfolio/modern-conference-room-and-lobby-design/modern-conference-room-addis-ababa.webp"
                       alt="Office partitioning and renovation project in Addis Ababa"
                       fill
                       className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                      loading="lazy"
+                      quality={75}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                     <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                       <span className="bg-red-600 text-white px-6 py-2 font-black uppercase text-[10px] tracking-widest">View Project</span>

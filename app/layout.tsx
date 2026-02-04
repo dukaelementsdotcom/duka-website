@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
   weight: ['400', '500', '600'],
 });
 
-// ✅ FIXED SYNTAX: export const metadata: Metadata (NOT "meta Metadata")
+// ✅ FIXED SYNTAX: export const metadata: Metadata (NOT "me ta Metadata")
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.dukainteriors.com"),
   title: {
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   keywords: [
     "office partitioning Addis Ababa",
     "office renovation Ethiopia",
-    "interior design Addis Ababa",
+    "interior design Addis Ababa", 
     "custom furniture Ethiopia",
     "design build Addis Ababa",
     "Duka Interiors"
@@ -53,13 +53,19 @@ export const metadata: Metadata = {
     locale: "en_ET",
     type: "website",
   },
+  // ✅ FIXED: Added viewport configuration for better accessibility
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
+  },
+  // ✅ FIXED: Added theme color for better mobile experience
+  themeColor: '#ffffff',
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   const logoPath = "/images/icons-duka-interiors/logo-duka-interiors-big.svg";
   const fullLogoUrl = `https://www.dukainteriors.com${logoPath}`;
 
@@ -133,38 +139,44 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en">
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <head>
+        {/* ✅ FIXED: Preconnect to own domain for faster DNS lookup */}
+        <link rel="preconnect" href="https://www.dukainteriors.com" />
+        
+        {/* ✅ FIXED: Preconnect to Google Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://maps.googleapis.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://maps.googleapis.com" />
-        <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
-
+        
+        {/* ✅ FIXED: Preload critical fonts */}
+        <link 
+          rel="preload" 
+          href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&display=swap" 
+          as="style" 
+        />
+        <link 
+          rel="preload" 
+          href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&display=swap" 
+          as="style" 
+        />
+        
+        {/* ✅ FIXED: Schema markup with proper URLs (no extra spaces) */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(localBusinessSchema)
+          }}
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(breadcrumbSchema)
+          }}
         />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body>
         <GlobalProtection />
         {children}
-{/* ✅ UNREGISTER OLD SERVICE WORKER (fixes "old site on first load") */}
-<script dangerouslySetInnerHTML={{
-  __html: `
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.getRegistrations().then(registrations => {
-        registrations.forEach(registration => {
-          registration.unregister();
-        });
-      });
-    }
-  `
-}} />
       </body>
     </html>
   );

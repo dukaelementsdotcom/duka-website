@@ -1,6 +1,5 @@
 // app/components/Gallery.tsx
 'use client';
-
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -25,33 +24,26 @@ export default function Gallery() {
 
   if (loading) {
     return (
-      <section className="py-20 px-4 bg-gray-50">
-        <div className="max-w-[90vw] mx-auto text-center">
-          <div className="animate-pulse bg-gray-300 h-80 w-full rounded-none mb-4"></div>
-          <div className="animate-pulse bg-gray-300 h-8 w-3/4 mx-auto mb-2"></div>
-          <div className="animate-pulse bg-gray-300 h-4 w-1/2 mx-auto mb-6"></div>
-          <div className="animate-pulse bg-gray-300 h-10 w-40 mx-auto"></div>
+      <section className="py-24 px-6 lg:px-12 bg-white">
+        <div className="max-w-7xl mx-auto text-center">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
         </div>
       </section>
     );
   }
 
   return (
-    <section className="py-20 px-4 bg-gray-50">
-      <div className="max-w-[90vw] mx-auto">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <div className="inline-block px-5 py-2 bg-black text-white text-xs font-bold uppercase tracking-wide rounded-none border-b-2 border-red-600">
-            Our Work
-          </div>
-          <h2 className="mt-4 text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
-            Featured Projects
-          </h2>
-        </div>
+    <section className="py-24 px-6 lg:px-12 bg-white">
+      {/* Header */}
+      <div className="max-w-7xl mx-auto mb-16">
+        <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-red-600 mb-4">Our Work</h3>
+        <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">Featured Projects</h2>
+      </div>
 
-        {/* 3x2 Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-          {projects.map((project) => (
+      {/* 3x2 Grid - ✅ FIXED: Added min-h to prevent CLS */}
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 min-h-[800px]">
+          {projects.map((project, index) => (
             <div
               key={project.slug}
               className="group relative aspect-[4/3] overflow-hidden"
@@ -62,7 +54,8 @@ export default function Gallery() {
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-500"
                 sizes="(max-width: 768px) 90vw, (max-width: 1024px) 45vw, 30vw"
-                priority={false}
+                quality={75}
+                loading={index < 3 ? "eager" : "lazy"}
               />
               
               {/* Hover Overlay */}
@@ -71,6 +64,7 @@ export default function Gallery() {
                 <p className="text-gray-200 text-sm mb-4">{project.location || project.type}</p>
                 <Link
                   href={`/projects/${project.slug}`}
+                  aria-label={`View ${project.title} project details`}
                   className="px-6 py-2 bg-red-600 text-white font-bold text-xs uppercase tracking-wide rounded-none hover:bg-red-700 transition-colors duration-300 min-w-[120px] pointer-events-auto"
                 >
                   See Project
@@ -84,6 +78,7 @@ export default function Gallery() {
         <div className="text-center mt-12">
           <Link
             href="/projects"
+            aria-label="View all interior design projects in our portfolio"
             className="px-8 py-3 border-2 border-gray-300 text-gray-900 font-bold text-sm uppercase tracking-wide rounded-none hover:bg-gray-100 transition-colors duration-300 min-w-[180px]"
           >
             View All Projects

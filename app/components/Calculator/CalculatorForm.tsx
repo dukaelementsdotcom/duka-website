@@ -1,5 +1,4 @@
 'use client';
-
 import { useState } from 'react';
 import { calculatorConfig } from '@/lib/data/calculatorConfig';
 import { calculateEstimate, formatCurrency } from '@/lib/data/pricingData';
@@ -15,8 +14,7 @@ export default function CalculatorForm() {
     location: 'addis-ababa',
     extras: [] as string[]
   });
-
-  const [estimate, setEstimate] = useState<any>(null);
+  const [estimate, setEstimate] = useState(null);
 
   const handleInputChange = (field: string, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -60,27 +58,25 @@ export default function CalculatorForm() {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+    <div className="max-w-4xl mx-auto">
       {/* Progress Bar */}
-      <div className="px-8 pt-8">
-        <div className="flex justify-between mb-8">
-          {steps.map((s) => (
-            <div key={s.number} className="flex flex-col items-center">
-              <div className={`
-                w-10 h-10 rounded-full flex items-center justify-center mb-2
-                ${step >= s.number ? 'bg-red-600 text-white' : 'bg-gray-200 text-gray-500'}
-                ${step === s.number ? 'ring-4 ring-red-100' : ''}
-              `}>
-                {s.number}
-              </div>
-              <span className="text-xs font-medium text-gray-600">{s.title}</span>
+      <div className="flex justify-between mb-8">
+        {steps.map((s) => (
+          <div key={s.number} className="flex flex-col items-center">
+            <div
+              className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 ${
+                step >= s.number ? 'bg-red-600 text-white' : 'bg-gray-200 text-gray-500'
+              } ${step === s.number ? 'ring-4 ring-red-100' : ''}`}
+            >
+              {s.number}
             </div>
-          ))}
-        </div>
+            <span className="text-xs text-gray-500">{s.title}</span>
+          </div>
+        ))}
       </div>
 
       {/* Step Content */}
-      <div className="px-8 pb-8">
+      <div className="px-8 pb-8 bg-white rounded-2xl shadow-lg">
         {step === 1 && (
           <div className="animate-fade-in">
             <h3 className="text-2xl font-black uppercase tracking-tighter mb-6">Select Project Type</h3>
@@ -110,19 +106,21 @@ export default function CalculatorForm() {
           <div className="animate-fade-in">
             <h3 className="text-2xl font-black uppercase tracking-tighter mb-6">Size & Quality Level</h3>
             
-            {/* Size Input */}
+            {/* Size Input - ✅ FIXED: Added proper label with htmlFor and id */}
             <div className="mb-8">
-              <label className="block text-gray-700 font-bold mb-4">
+              <label htmlFor="projectSize" className="block text-gray-700 font-bold mb-4">
                 Project Size: <span className="text-red-600">{formData.size} m²</span>
               </label>
               <input
+                id="projectSize"
                 type="range"
                 min="10"
                 max="1000"
                 step="10"
                 value={formData.size}
                 onChange={(e) => handleInputChange('size', parseInt(e.target.value))}
-                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                aria-label={`Select project size from 10 to 1000 square meters. Current value: ${formData.size} square meters`}
+                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:bg-red-600 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5"
               />
               <div className="flex justify-between text-sm text-gray-500 mt-2">
                 <span>10 m²</span>
@@ -210,8 +208,9 @@ export default function CalculatorForm() {
 
             {/* Location */}
             <div>
-              <label className="block text-gray-700 font-bold mb-4">Location</label>
+              <label htmlFor="projectLocation" className="block text-gray-700 font-bold mb-4">Location</label>
               <select
+                id="projectLocation"
                 value={formData.location}
                 onChange={(e) => handleInputChange('location', e.target.value)}
                 className="w-full p-4 border-2 border-gray-200 rounded-xl focus:border-red-600 focus:ring-red-600"
@@ -244,7 +243,7 @@ export default function CalculatorForm() {
                   onClick={() => handleExtraToggle(extra.id)}
                   className={`
                     p-4 rounded-xl border-2 cursor-pointer transition-all
-                    ${formData.extras.includes(extra.id)
+                    ${formData.extras.includes(extra.id) 
                       ? 'border-red-600 bg-red-50'
                       : 'border-gray-200 hover:border-gray-300'
                     }

@@ -1,14 +1,13 @@
 'use client';
-
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-  faChevronDown, 
-  faPhone, 
-  faTimes, 
+import {
+  faChevronDown,
+  faPhone,
+  faTimes,
   faCalculator,
   faBars,
   faFolderOpen,
@@ -18,13 +17,13 @@ import {
   faEnvelope,
   faArrowRight
 } from '@fortawesome/free-solid-svg-icons';
-import { 
-  faWhatsapp, 
-  faTelegram, 
-  faFacebookF, 
-  faInstagram, 
-  faLinkedinIn, 
-  faTiktok 
+import {
+  faWhatsapp,
+  faTelegram,
+  faFacebookF,
+  faInstagram,
+  faLinkedinIn,
+  faTiktok
 } from '@fortawesome/free-brands-svg-icons';
 
 export default function NavBar() {
@@ -70,10 +69,11 @@ export default function NavBar() {
   const topRowClasses = isScrolled
     ? 'bg-white border-b border-gray-200 shadow-sm'
     : 'bg-gradient-to-r from-black/95 to-gray-900/95 backdrop-blur-md';
-
+  
+  // ✅ FIXED: Added min-h-[80px] to prevent CLS
   const bottomRowClasses = isScrolled
-    ? 'bg-white/95 backdrop-blur-md border-t border-gray-100 shadow-sm'
-    : 'bg-gradient-to-r from-gray-900/90 to-black/90 backdrop-blur-md border-t border-white/10';
+    ? 'bg-white/95 backdrop-blur-md border-t border-gray-100 shadow-sm min-h-[80px]'
+    : 'bg-gradient-to-r from-gray-900/90 to-black/90 backdrop-blur-md border-t border-white/10 min-h-[80px]';
 
   // ========== NAVIGATION STRUCTURE ==========
   const navStructure = {
@@ -81,31 +81,28 @@ export default function NavBar() {
       icon: faTools,
       title: 'SERVICES',
       mainLink: '/services',
-      hasDropdown: false, // Changed to false
+      hasDropdown: false,
       items: []
     },
-    
     portfolio: {
       icon: faFolderOpen,
       title: 'PORTFOLIO',
       mainLink: '/projects',
-      hasDropdown: false, // Changed to false
+      hasDropdown: false,
       items: []
     },
-    
     company: {
       icon: null,
       title: 'COMPANY',
       mainLink: '/about',
-      hasDropdown: false, // Changed to false
+      hasDropdown: false,
       items: []
     },
-    
     resources: {
       icon: faLightbulb,
       title: 'RESOURCES',
       mainLink: '/resources',
-      hasDropdown: true, // Keep true
+      hasDropdown: true,
       items: [
         { name: 'Insights & Blog', href: '/resources' },
         { name: 'Material Guides', href: '/resources/materials' },
@@ -113,13 +110,12 @@ export default function NavBar() {
         { name: 'Cost Calculator', href: '/estimate-cost', isHighlighted: true },
       ]
     },
-    
     products: {
       icon: faStore,
       title: 'PRODUCTS',
       mainLink: '/products',
       comingSoon: true,
-      hasDropdown: true, // Keep true
+      hasDropdown: true,
       items: [
         { name: 'Product Catalog', href: '/products' },
         { name: 'Custom Furniture', href: '/products/furniture' },
@@ -128,14 +124,14 @@ export default function NavBar() {
     }
   };
 
-  // Contact info - SIMPLIFIED: Just numbers with better icons
+  // Contact info
   const phones = [
     { number: '+251940607055', label: '+251 940 607 055' },
     { number: '+251929144290', label: '+251 929 144 290' },
   ];
   const email = 'contact@dukainteriors.com';
 
-  // Social links - WITH TIKTOK
+  // Social links
   const socialLinks = [
     { name: 'WhatsApp', href: 'https://wa.me/251940607055', icon: faWhatsapp, color: 'hover:bg-green-500' },
     { name: 'Telegram', href: 'https://t.me/dukainteriorsplc', icon: faTelegram, color: 'hover:bg-blue-400' },
@@ -154,23 +150,21 @@ export default function NavBar() {
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'shadow-lg' : ''}`}>
       {/* ========== TOP ROW: Logo, Contact, Social, Calculator ========== */}
       <div className={`w-full transition-all duration-300 ${topRowClasses}`}>
-        <div className="w-full max-w-screen-2xl mx-auto px-4 lg:px-6">
-          <div className="flex items-center justify-between py-2">
+        <div className="max-w-screen-2xl mx-auto px-4 lg:px-6">
+          <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <Link href="/" aria-label="Duka Interiors Home" className="transition-transform hover:scale-105">
-              <Image
-                src="/images/icons-duka-interiors/logo-duka-interiors-big.svg"
-                alt="Duka Interiors Logo"
-                width={isScrolled ? 130 : 140}
-                height={isScrolled ? 40 : 45}
-                priority
-                className={`transition-all duration-300 ${isScrolled ? 'h-8' : 'h-9'}`}
-              />
-            </Link>
+            <Image
+              src="/images/icons-duka-interiors/logo-duka-interiors-big.svg"
+              alt="Duka Interiors Logo"
+              width={isScrolled ? 130 : 140}
+              height={isScrolled ? 40 : 45}
+              priority
+              className={`transition-all duration-300 ${isScrolled ? 'h-8' : 'h-9'}`}
+            />
 
             {/* Desktop: Contact & Social Row */}
             <div className="hidden lg:flex items-center gap-x-6">
-              {/* Phone Numbers - SIMPLIFIED */}
+              {/* Phone Numbers */}
               <div className="flex items-center gap-x-4">
                 {phones.map((phone, idx) => (
                   <a
@@ -195,9 +189,9 @@ export default function NavBar() {
               {/* Divider */}
               <div className={`w-px h-6 ${isScrolled ? 'bg-gray-300' : 'bg-white/30'}`}></div>
 
-              {/* Social Icons - WITH TIKTOK */}
+              {/* Social Icons */}
               <div className="flex items-center gap-x-1">
-                {socialLinks.slice(0, 5).map((social) => ( // Show 5 including TikTok
+                {socialLinks.slice(0, 5).map((social) => (
                   <a
                     key={social.name}
                     href={social.href}
@@ -262,7 +256,7 @@ export default function NavBar() {
                 HOME
               </Link>
 
-              {/* Navigation Items - Only Resources & Products have dropdowns */}
+              {/* Navigation Items */}
               {Object.entries(navStructure).map(([key, section]) => {
                 if (section.hasDropdown) {
                   // Resources & Products (with dropdown)
@@ -401,7 +395,7 @@ export default function NavBar() {
           </div>
 
           <div className="flex flex-col h-full px-6 pb-12 pt-4">
-            {/* Quick Contact Actions - SIMPLIFIED */}
+            {/* Quick Contact Actions */}
             <div className="grid grid-cols-2 gap-3 mb-6">
               {phones.map((phone, idx) => (
                 <a
@@ -433,7 +427,7 @@ export default function NavBar() {
                 HOME
               </Link>
 
-              {/* Grouped Sections - Only Resources & Products expand */}
+              {/* Grouped Sections */}
               {Object.entries(navStructure).map(([key, section]) => {
                 if (section.hasDropdown) {
                   // Resources & Products (expandable)
@@ -511,7 +505,7 @@ export default function NavBar() {
               </Link>
             </nav>
 
-            {/* Social & Contact Footer - WITH TIKTOK */}
+            {/* Social & Contact Footer */}
             <div className="mt-8 pt-6 border-t border-white/20">
               <div className="mb-4">
                 <h4 className="text-white text-sm font-bold mb-3">Follow Us</h4>
