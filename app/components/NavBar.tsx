@@ -16,7 +16,8 @@ import {
   faLightbulb,
   faTools,
   faStore,
-  faEnvelope
+  faEnvelope,
+  faArrowRight
 } from '@fortawesome/free-solid-svg-icons';
 import { 
   faWhatsapp, 
@@ -37,7 +38,7 @@ export default function NavBar() {
   // Detect scroll
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100);
+      setIsScrolled(window.scrollY > 50);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -67,9 +68,13 @@ export default function NavBar() {
   }, [isMenuOpen]);
 
   // Header class based on scroll
-  const headerClasses = isScrolled
-    ? 'bg-white text-gray-800 border-b border-gray-200 shadow-md'
-    : 'bg-black/95 backdrop-blur-md text-white border-b border-gray-800';
+  const topRowClasses = isScrolled
+    ? 'bg-white border-b border-gray-200 shadow-sm'
+    : 'bg-gradient-to-r from-black/95 to-gray-900/95 backdrop-blur-md';
+
+  const bottomRowClasses = isScrolled
+    ? 'bg-white/95 backdrop-blur-md border-t border-gray-100 shadow-sm'
+    : 'bg-gradient-to-r from-gray-900/90 to-black/90 backdrop-blur-md border-t border-white/10';
 
   // ========== NAVIGATION STRUCTURE ==========
   const navStructure = {
@@ -79,11 +84,13 @@ export default function NavBar() {
       mainLink: '/services',
       items: [
         { name: 'All Services', href: '/services', isMain: true },
-        { name: 'Office Design', href: '/services/office-design' },
+        // PLEASE UPDATE THESE URLs WITH YOUR ACTUAL SERVICE PAGES:
+        { name: 'Office Design', href: '/services/interior-design' },
         { name: 'Partitioning', href: '/services/office-partitioning' },
-        { name: 'Technology Integration', href: '/services/tech-integration' },
-        { name: 'Branding & Signage', href: '/services/branding-signage' },
-        { name: 'Full Renovation', href: '/services/full-renovation' },
+        { name: 'Technology Integration', href: '/services/technology-integration' },
+        { name: 'Branding & Signage', href: '/services/branding-and-signage' },
+        { name: 'Full Renovation', href: '/services/office-renovation' },
+        { name: 'Design+Build', href: '/services/design-build' },
       ]
     },
     
@@ -106,6 +113,7 @@ export default function NavBar() {
       items: [
         { name: 'About Us', href: '/about' },
         { name: 'Our Process', href: '/about#process' },
+        { name: 'Our Team', href: '/about#team' },
       ]
     },
     
@@ -117,7 +125,7 @@ export default function NavBar() {
         { name: 'Insights & Blog', href: '/resources' },
         { name: 'Material Guides', href: '/resources/materials' },
         { name: 'Renovation FAQ', href: '/resources/faq' },
-        { name: 'Design Tips', href: '/resources/tips' },
+        { name: 'Cost Calculator', href: '/estimate-cost', isHighlighted: true },
       ]
     },
     
@@ -134,9 +142,11 @@ export default function NavBar() {
     }
   };
 
-  // Contact info
-  const primaryPhone = '+251940607055';
-  const primaryPhoneLabel = '+251 940 607 055';
+  // Contact info - BOTH NUMBERS RESTORED
+  const phones = [
+    { number: '+251940607055', label: '+251 940 607 055', isPrimary: true },
+    { number: '+251929144290', label: '+251 929 144 290', isPrimary: false },
+  ];
   const email = 'contact@dukainteriors.com';
 
   // Social links
@@ -155,96 +165,107 @@ export default function NavBar() {
   };
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${headerClasses}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'shadow-lg' : ''}`}>
       {/* ========== TOP ROW: Logo, Contact, Social, Calculator ========== */}
-      <div className="w-full max-w-screen-2xl mx-auto px-4 lg:px-6">
-        <div className="flex items-center justify-between py-2">
-          {/* Logo */}
-          <Link href="/" aria-label="Duka Interiors Home" className="transition-transform hover:scale-105">
-            <Image
-              src="/images/icons-duka-interiors/logo-duka-interiors-big.svg"
-              alt="Duka Interiors Logo"
-              width={140}
-              height={45}
-              priority
-              className="h-9 w-auto"
-            />
-          </Link>
-
-          {/* Desktop: Contact & Social Row */}
-          <div className="hidden lg:flex items-center gap-x-4">
-            {/* Phone Number */}
-            <div className="flex items-center gap-x-2">
-              <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center">
-                <FontAwesomeIcon icon={faPhone} className="text-xs text-white" />
-              </div>
-              <div>
-                <a
-                  href={`tel:${primaryPhone.replace(/\s+/g, '')}`}
-                  className="text-sm font-bold hover:text-red-600 transition-colors"
-                >
-                  {primaryPhoneLabel}
-                </a>
-                <div className="text-xs text-gray-500">Call us anytime</div>
-              </div>
-            </div>
-
-            {/* Divider */}
-            <div className="w-px h-6 bg-gray-300"></div>
-
-            {/* Social Icons */}
-            <div className="flex items-center gap-x-1">
-              {socialLinks.slice(0, 4).map((social) => (
-                <a
-                  key={social.name}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Visit our ${social.name} page`}
-                  className={`w-7 h-7 rounded-full flex items-center justify-center text-xs bg-gray-100 text-gray-700 ${social.color} transition-colors`}
-                >
-                  <FontAwesomeIcon icon={social.icon} />
-                </a>
-              ))}
-            </div>
-
-            {/* Divider */}
-            <div className="w-px h-6 bg-gray-300"></div>
-
-            {/* Calculator Button */}
-            <Link
-              href="/estimate-cost"
-              className="group flex items-center gap-2 bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest hover:shadow-lg hover:scale-105 transition-all"
-            >
-              <FontAwesomeIcon icon={faCalculator} className="text-xs" />
-              <span>Cost Calculator</span>
-              <span className="text-[9px] bg-white/20 px-1.5 py-0.5 rounded-full">NEW</span>
+      <div className={`w-full transition-all duration-300 ${topRowClasses}`}>
+        <div className="w-full max-w-screen-2xl mx-auto px-4 lg:px-6">
+          <div className="flex items-center justify-between py-2">
+            {/* Logo */}
+            <Link href="/" aria-label="Duka Interiors Home" className="transition-transform hover:scale-105">
+              <Image
+                src="/images/icons-duka-interiors/logo-duka-interiors-big.svg"
+                alt="Duka Interiors Logo"
+                width={isScrolled ? 130 : 140}
+                height={isScrolled ? 40 : 45}
+                priority
+                className={`transition-all duration-300 ${isScrolled ? 'h-8' : 'h-9'}`}
+              />
             </Link>
-          </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className={`lg:hidden p-2 ${isScrolled ? 'text-gray-800' : 'text-white'}`}
-            aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
-          >
-            <FontAwesomeIcon icon={isMenuOpen ? faTimes : faBars} className="text-xl" />
-          </button>
+            {/* Desktop: Contact & Social Row */}
+            <div className="hidden lg:flex items-center gap-x-6">
+              {/* Phone Numbers */}
+              <div className="flex items-center gap-x-4">
+                {phones.map((phone, idx) => (
+                  <div key={idx} className="flex items-center gap-x-2">
+                    <div className={`w-7 h-7 rounded-full flex items-center justify-center ${isScrolled ? 'bg-red-100 text-red-600' : 'bg-red-600/20 text-white'}`}>
+                      <FontAwesomeIcon icon={faPhone} className="text-xs" />
+                    </div>
+                    <div>
+                      <a
+                        href={`tel:${phone.number.replace(/\s+/g, '')}`}
+                        className={`text-sm font-bold transition-colors ${isScrolled ? 'text-gray-800 hover:text-red-600' : 'text-white hover:text-red-300'}`}
+                      >
+                        {phone.label}
+                      </a>
+                      {phone.isPrimary && (
+                        <div className={`text-xs ${isScrolled ? 'text-gray-500' : 'text-gray-300'}`}>Primary</div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Divider */}
+              <div className={`w-px h-6 ${isScrolled ? 'bg-gray-300' : 'bg-white/30'}`}></div>
+
+              {/* Social Icons */}
+              <div className="flex items-center gap-x-1">
+                {socialLinks.slice(0, 4).map((social) => (
+                  <a
+                    key={social.name}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Visit our ${social.name} page`}
+                    className={`w-7 h-7 rounded-full flex items-center justify-center text-xs transition-all ${isScrolled ? 'bg-gray-100 text-gray-700 hover:bg-red-600 hover:text-white' : 'bg-white/10 text-white hover:bg-red-600'} ${social.color}`}
+                  >
+                    <FontAwesomeIcon icon={social.icon} />
+                  </a>
+                ))}
+              </div>
+
+              {/* Divider */}
+              <div className={`w-px h-6 ${isScrolled ? 'bg-gray-300' : 'bg-white/30'}`}></div>
+
+              {/* Calculator Button */}
+              <Link
+                href="/estimate-cost"
+                className={`group flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all ${isScrolled 
+                  ? 'bg-gradient-to-r from-red-600 to-red-700 text-white hover:shadow-lg hover:scale-105' 
+                  : 'bg-white/10 text-white hover:bg-red-600 backdrop-blur-sm'
+                }`}
+              >
+                <FontAwesomeIcon icon={faCalculator} className="text-xs" />
+                <span>Cost Calculator</span>
+                <span className={`text-[9px] px-1.5 py-0.5 rounded-full ${isScrolled ? 'bg-white/20' : 'bg-red-500'}`}>NEW</span>
+              </Link>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className={`lg:hidden p-2 transition-colors ${isScrolled ? 'text-gray-800 hover:text-red-600' : 'text-white hover:text-red-300'}`}
+              aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            >
+              <FontAwesomeIcon icon={isMenuOpen ? faTimes : faBars} className="text-xl" />
+            </button>
+          </div>
         </div>
       </div>
 
       {/* ========== BOTTOM ROW: Main Navigation ========== */}
-      <nav className="hidden lg:block border-t border-gray-200/20 bg-white/5">
+      <div className={`hidden lg:block transition-all duration-300 ${bottomRowClasses}`}>
         <div className="w-full max-w-screen-2xl mx-auto px-4 lg:px-6">
           <div className="flex items-center justify-center">
-            <div className="flex items-center gap-x-1 py-2">
+            <div className="flex items-center gap-x-1 py-2.5">
               {/* Home */}
               <Link
                 href="/"
-                className={`px-4 py-2 text-xs uppercase tracking-wider font-bold transition-colors ${
+                className={`px-4 py-2 text-xs uppercase tracking-wider font-bold transition-colors rounded-lg ${
                   pathname === '/' 
-                    ? 'text-red-600' 
-                    : isScrolled ? 'text-gray-700 hover:text-red-600' : 'text-gray-300 hover:text-white'
+                    ? (isScrolled ? 'text-red-600 bg-red-50' : 'text-red-400 bg-white/10') 
+                    : (isScrolled ? 'text-gray-700 hover:text-red-600 hover:bg-gray-50' : 'text-gray-300 hover:text-white hover:bg-white/10')
                 }`}
               >
                 HOME
@@ -260,16 +281,16 @@ export default function NavBar() {
                 >
                   <Link
                     href={section.mainLink}
-                    className={`flex items-center gap-2 px-4 py-2 text-xs uppercase tracking-wider font-bold transition-colors ${
+                    className={`flex items-center gap-2 px-4 py-2 text-xs uppercase tracking-wider font-bold transition-colors rounded-lg ${
                       pathname.startsWith(section.mainLink)
-                        ? 'text-red-600'
-                        : isScrolled ? 'text-gray-700 hover:text-red-600' : 'text-gray-300 hover:text-white'
+                        ? (isScrolled ? 'text-red-600 bg-red-50' : 'text-red-400 bg-white/10')
+                        : (isScrolled ? 'text-gray-700 hover:text-red-600 hover:bg-gray-50' : 'text-gray-300 hover:text-white hover:bg-white/10')
                     }`}
                   >
                     {section.icon && <FontAwesomeIcon icon={section.icon} className="text-[10px]" />}
                     <span>{section.title}</span>
                     {section.comingSoon && (
-                      <span className="text-[8px] bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded-full">SOON</span>
+                      <span className={`text-[8px] px-1.5 py-0.5 rounded-full ${isScrolled ? 'bg-gray-100 text-gray-600' : 'bg-white/20 text-white'}`}>SOON</span>
                     )}
                     <FontAwesomeIcon 
                       icon={faChevronDown} 
@@ -279,24 +300,34 @@ export default function NavBar() {
 
                   {/* Dropdown */}
                   <div
-                    className={`absolute top-full left-0 w-56 bg-white border border-gray-100 shadow-xl py-3 rounded-lg transition-all duration-200 z-50 ${
+                    className={`absolute top-full left-0 w-64 bg-white border border-gray-100 shadow-2xl py-3 rounded-xl transition-all duration-200 z-50 ${
                       openDropdown === key
                         ? 'opacity-100 translate-y-0 visible'
                         : 'opacity-0 translate-y-2 invisible pointer-events-none'
                     }`}
                   >
+                    <div className="px-4 pb-2 mb-2 border-b border-gray-100">
+                      <span className="text-xs font-bold text-gray-500 uppercase tracking-widest">{section.title}</span>
+                    </div>
                     {section.items.map((item, idx) => (
                       <Link
                         key={idx}
                         href={item.href}
-                        className={`block px-5 py-2.5 text-[11px] font-medium transition-colors ${
+                        className={`flex items-center justify-between group/item px-5 py-2.5 text-sm transition-all ${
                           item.isMain
                             ? 'text-red-600 font-bold bg-red-50'
+                            : item.isHighlighted
+                            ? 'text-green-600 font-bold bg-green-50'
                             : 'text-gray-700 hover:text-red-600 hover:bg-gray-50'
                         }`}
                       >
-                        {item.name}
-                        {item.isMain && ' →'}
+                        <span>{item.name}</span>
+                        {(item.isMain || item.isHighlighted) && (
+                          <FontAwesomeIcon 
+                            icon={faArrowRight} 
+                            className="text-xs opacity-0 group-hover/item:opacity-100 transition-opacity" 
+                          />
+                        )}
                       </Link>
                     ))}
                   </div>
@@ -306,10 +337,10 @@ export default function NavBar() {
               {/* Contact Link */}
               <Link
                 href="/contact"
-                className={`px-4 py-2 text-xs uppercase tracking-wider font-bold transition-colors ${
+                className={`px-4 py-2 text-xs uppercase tracking-wider font-bold transition-colors rounded-lg ${
                   pathname === '/contact'
-                    ? 'text-green-600'
-                    : isScrolled ? 'text-gray-700 hover:text-green-600' : 'text-gray-300 hover:text-green-400'
+                    ? (isScrolled ? 'text-white bg-red-600' : 'text-white bg-red-600')
+                    : (isScrolled ? 'text-gray-700 hover:text-white hover:bg-red-600' : 'text-gray-300 hover:text-white hover:bg-red-600/80')
                 }`}
               >
                 CONTACT
@@ -317,13 +348,13 @@ export default function NavBar() {
             </div>
           </div>
         </div>
-      </nav>
+      </div>
 
       {/* ========== MOBILE MENU OVERLAY ========== */}
       {isMenuOpen && (
-        <div className="fixed inset-0 lg:hidden bg-black/95 backdrop-blur-sm z-40 h-screen overflow-y-auto">
+        <div className="fixed inset-0 lg:hidden bg-gradient-to-b from-gray-900 to-black z-40 h-screen overflow-y-auto">
           {/* Mobile Header with Close Button */}
-          <div className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 bg-black/80 border-b border-white/10">
+          <div className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 bg-black/90 border-b border-white/10 backdrop-blur-md">
             <Link 
               href="/" 
               onClick={() => setIsMenuOpen(false)}
@@ -338,53 +369,39 @@ export default function NavBar() {
               />
             </Link>
             
-            <button
-              onClick={() => setIsMenuOpen(false)}
-              className="p-3 text-white hover:text-red-400 transition-colors"
-              aria-label="Close menu"
-            >
-              <FontAwesomeIcon icon={faTimes} className="text-2xl" />
-            </button>
+            <div className="flex items-center gap-4">
+              <Link
+                href="/estimate-cost"
+                onClick={() => setIsMenuOpen(false)}
+                className="flex items-center gap-2 bg-red-600 text-white px-3 py-2 rounded-lg text-xs font-bold uppercase"
+              >
+                <FontAwesomeIcon icon={faCalculator} className="text-xs" />
+                <span>Calculator</span>
+              </Link>
+              <button
+                onClick={() => setIsMenuOpen(false)}
+                className="p-3 text-white hover:text-red-400 transition-colors"
+                aria-label="Close menu"
+              >
+                <FontAwesomeIcon icon={faTimes} className="text-2xl" />
+              </button>
+            </div>
           </div>
 
           <div className="flex flex-col h-full px-6 pb-12 pt-4">
             {/* Quick Contact Actions */}
             <div className="grid grid-cols-2 gap-3 mb-6">
-              <a
-                href={`tel:${primaryPhone.replace(/\s+/g, '')}`}
-                onClick={() => setIsMenuOpen(false)}
-                className="flex items-center justify-center gap-2 bg-red-600 text-white py-3 rounded-xl font-bold"
-              >
-                <FontAwesomeIcon icon={faPhone} />
-                Call Now
-              </a>
-              <a
-                href={`mailto:${email}`}
-                onClick={() => setIsMenuOpen(false)}
-                className="flex items-center justify-center gap-2 bg-gray-800 text-white py-3 rounded-xl font-bold"
-              >
-                <FontAwesomeIcon icon={faEnvelope} />
-                Email
-              </a>
-            </div>
-
-            {/* Mobile Calculator CTA */}
-            <div className="mb-6 p-4 bg-gradient-to-r from-red-600 to-red-700 rounded-2xl text-center">
-              <div className="flex items-center justify-center gap-3 mb-2">
-                <FontAwesomeIcon icon={faCalculator} className="text-xl text-white" />
-                <h3 className="text-white font-bold text-lg">Cost Calculator</h3>
-                <span className="text-xs bg-white/30 text-white px-2 py-1 rounded-full">NEW</span>
-              </div>
-              <p className="text-white/80 text-sm mb-4">
-                Get instant estimates for your project
-              </p>
-              <Link
-                href="/estimate-cost"
-                onClick={() => setIsMenuOpen(false)}
-                className="inline-block w-full bg-white text-red-600 py-3 rounded-xl font-bold text-sm uppercase tracking-widest"
-              >
-                Try Calculator
-              </Link>
+              {phones.map((phone, idx) => (
+                <a
+                  key={idx}
+                  href={`tel:${phone.number.replace(/\s+/g, '')}`}
+                  onClick={() => setIsMenuOpen(false)}
+                  className={`flex items-center justify-center gap-2 py-3 rounded-xl font-bold ${idx === 0 ? 'bg-red-600 text-white' : 'bg-gray-800 text-white'}`}
+                >
+                  <FontAwesomeIcon icon={faPhone} />
+                  <span className="text-sm">{phone.label.replace('+251 ', '')}</span>
+                </a>
+              ))}
             </div>
 
             {/* Mobile Navigation */}
@@ -430,14 +447,16 @@ export default function NavBar() {
                         key={idx}
                         href={item.href}
                         onClick={() => setIsMenuOpen(false)}
-                        className={`block py-2.5 px-8 text-sm transition-colors ${
-                          item.isMain
+                        className={`flex items-center justify-between py-2.5 px-8 text-sm transition-colors ${
+                          item.isMain || item.isHighlighted
                             ? 'text-red-400 font-bold bg-black/30'
                             : 'text-gray-300 hover:text-white hover:bg-black/20'
                         }`}
                       >
-                        {item.isMain && '★ '}
-                        {item.name}
+                        <span>{item.name}</span>
+                        {(item.isMain || item.isHighlighted) && (
+                          <FontAwesomeIcon icon={faArrowRight} className="text-xs" />
+                        )}
                       </Link>
                     ))}
                   </div>
@@ -448,7 +467,7 @@ export default function NavBar() {
               <Link
                 href="/contact"
                 onClick={() => setIsMenuOpen(false)}
-                className="block py-3 px-4 bg-gray-800 text-white text-base font-bold rounded-lg hover:bg-gray-700"
+                className="block py-3 px-4 bg-red-600 text-white text-base font-bold rounded-lg hover:bg-red-700"
               >
                 CONTACT US
               </Link>
@@ -475,23 +494,18 @@ export default function NavBar() {
                 </div>
               </div>
               
-              <div className="space-y-2">
-                <a
-                  href={`tel:${primaryPhone.replace(/\s+/g, '')}`}
-                  className="flex items-center gap-3 text-white hover:text-red-400"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <FontAwesomeIcon icon={faPhone} className="w-4" />
-                  <span className="text-lg font-bold">{primaryPhoneLabel}</span>
-                </a>
+              <div className="space-y-3">
                 <a
                   href={`mailto:${email}`}
                   className="flex items-center gap-3 text-white/80 hover:text-red-400"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <FontAwesomeIcon icon={faEnvelope} className="w-4" />
-                  <span>{email}</span>
+                  <span className="text-sm">{email}</span>
                 </a>
+                <div className="text-xs text-gray-400 pt-2">
+                  Bole, Djibouti Street, Welela Building, 5th Floor, Addis Ababa
+                </div>
               </div>
             </div>
           </div>
