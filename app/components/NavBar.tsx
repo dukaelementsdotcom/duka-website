@@ -10,7 +10,12 @@ import {
   faPhone, 
   faTimes, 
   faPhoneVolume,
-  faCalculator // ADDED: Calculator icon
+  faCalculator,
+  faBars,
+  faFolderOpen,
+  faLightbulb,
+  faTools,
+  faStore
 } from '@fortawesome/free-solid-svg-icons';
 import { 
   faWhatsapp, 
@@ -25,7 +30,8 @@ export default function NavBar() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [openMobileSection, setOpenMobileSection] = useState<string | null>(null);
 
   // Detect scroll
   useEffect(() => {
@@ -62,38 +68,76 @@ export default function NavBar() {
   // Header class based on scroll
   const headerClasses = isScrolled
     ? 'bg-white text-gray-800 border-b border-gray-200 shadow-md'
-    : 'bg-black/80 backdrop-blur-md text-white border-b border-gray-800';
+    : 'bg-black/95 backdrop-blur-md text-white border-b border-gray-800';
 
-  // Navigation items - ADDED "COST CALCULATOR"
-  const navItems = [
-    { name: 'HOME', href: '/' },
-    { name: 'SERVICES', href: '/services' },
-    { name: 'PROJECTS', href: '/projects' },
-    { name: 'ABOUT', href: '/about' },
-    { 
-      name: 'RESOURCES', 
-      href: '/resources',
-      hasDropdown: true,
-      subItems: [
-        { name: 'Insights & Blog', href: '/resources' },
-        { name: 'Material Guides', href: '/resources/materials' },
-        { name: 'Renovation FAQ', href: '/resources/faq' }
+  // ========== REDESIGNED NAVIGATION STRUCTURE ==========
+  // Grouped logically for better organization
+  const navStructure = {
+    // Core Services (3 items)
+    services: {
+      icon: faTools,
+      title: 'SERVICES',
+      mainLink: '/services',
+      items: [
+        { name: 'All Services', href: '/services', isMain: true },
+        { name: 'Office Design', href: '/services/office-design' },
+        { name: 'Partitioning', href: '/services/office-partitioning' },
+        { name: 'Technology Integration', href: '/services/tech-integration' },
+        { name: 'Branding & Signage', href: '/services/branding-signage' },
+        { name: 'Full Renovation', href: '/services/full-renovation' },
       ]
     },
-    // === ADDED: COST CALCULATOR LINK ===
-    { 
-      name: 'COST CALCULATOR', 
-      href: '/estimate-cost',
-      isNew: true, // This adds the "New" badge
-      icon: faCalculator // Optional icon for mobile
+    
+    // Portfolio (1 item + gallery)
+    portfolio: {
+      icon: faFolderOpen,
+      title: 'PORTFOLIO',
+      mainLink: '/projects',
+      items: [
+        { name: 'All Projects', href: '/projects', isMain: true },
+        { name: 'Office Designs', href: '/projects?category=office' },
+        { name: 'Partitioning', href: '/projects?category=partitioning' },
+        { name: 'Renovations', href: '/projects?category=renovation' },
+      ]
     },
-    {
-      name: 'PRODUCTS',
-      href: '/products',
-      comingSoon: true
+    
+    // Company (2 items)
+    company: {
+      icon: null,
+      title: 'COMPANY',
+      mainLink: '/about',
+      items: [
+        { name: 'About Us', href: '/about' },
+        { name: 'Our Process', href: '/about#process' },
+      ]
     },
-    { name: 'CONTACT', href: '/contact' },
-  ];
+    
+    // Resources (Grouped section)
+    resources: {
+      icon: faLightbulb,
+      title: 'RESOURCES',
+      mainLink: '/resources',
+      items: [
+        { name: 'Insights & Blog', href: '/resources' },
+        { name: 'Material Guides', href: '/resources/materials' },
+        { name: 'Renovation FAQ', href: '/resources/faq' },
+        { name: 'Design Tips', href: '/resources/tips' },
+      ]
+    },
+    
+    // Products (Coming Soon - less prominent)
+    products: {
+      icon: faStore,
+      title: 'PRODUCTS',
+      mainLink: '/products',
+      comingSoon: true,
+      items: [
+        { name: 'Product Catalog', href: '/products' },
+        { name: 'Custom Furniture', href: '/products/furniture' },
+        { name: 'Office Partitions', href: '/products/partitions' },
+      ]
+    }
+  };
 
   // Contact info
   const phones = [
@@ -112,243 +156,235 @@ export default function NavBar() {
     { name: 'TikTok', href: 'https://www.tiktok.com/@duka.interiors.plc', icon: faTiktok },
   ];
 
+  // Toggle mobile section
+  const toggleMobileSection = (section: string) => {
+    setOpenMobileSection(openMobileSection === section ? null : section);
+  };
+
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 py-3 transition-all duration-300 ${headerClasses}`}>
-      <div className="w-full max-w-screen-2xl mx-auto px-6">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-x-8">
-            <Link href="/" aria-label="Duka Interiors Home" className="transition-transform hover:scale-105">
-              <Image
-                src="/images/icons-duka-interiors/logo-duka-interiors-big.svg"
-                alt="Duka Interiors Logo"
-                width={180}
-                height={60}
-                priority
-                className="h-10 w-auto"
-              />
-            </Link>
-            <nav className="hidden lg:flex items-center gap-x-6">
-              {navItems.map((item) => {
-                const isActive = pathname === item.href;
-                const baseClass = "text-sm uppercase tracking-wide py-2 transition-all";
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${headerClasses}`}>
+      <div className="w-full max-w-screen-2xl mx-auto">
+        {/* Top Bar - Logo, Calculator CTA, Mobile Menu */}
+        <div className="flex items-center justify-between px-6 py-3">
+          {/* Logo */}
+          <Link href="/" aria-label="Duka Interiors Home" className="transition-transform hover:scale-105">
+            <Image
+              src="/images/icons-duka-interiors/logo-duka-interiors-big.svg"
+              alt="Duka Interiors Logo"
+              width={160}
+              height={50}
+              priority
+              className="h-10 w-auto"
+            />
+          </Link>
 
-                if (item.comingSoon) {
-                  return (
-                    <div key={item.name} className="relative group">
-                      <Link href={item.href} className={`${isScrolled ? 'text-gray-800 hover:text-red-600' : 'text-white hover:text-red-500'} ${baseClass}`}>
-                        {item.name}
-                      </Link>
-                      <span className="absolute -top-1 -right-1 bg-red-600 text-white text-[8px] font-bold px-1.5 py-0.5 rounded-full leading-none">
-                        Soon
-                      </span>
-                    </div>
-                  );
-                }
-
-                // === ADDED: Handle Cost Calculator with "New" badge ===
-                if (item.isNew) {
-                  return (
-                    <div key={item.name} className="relative group">
-                      <Link href={item.href} className={`${isActive ? 'text-red-600 font-semibold' : isScrolled ? 'text-gray-800 hover:text-red-600' : 'text-white hover:text-red-500'} ${baseClass} flex items-center gap-1`}>
-                        <FontAwesomeIcon icon={item.icon} className="text-[10px] mr-1" />
-                        {item.name}
-                      </Link>
-                      <span className="absolute -top-2 -right-2 bg-green-600 text-white text-[7px] font-bold px-1.5 py-0.5 rounded-full leading-none">
-                        New
-                      </span>
-                    </div>
-                  );
-                }
-
-                if (item.hasDropdown) {
-                  return (
-                    <div 
-                      key={item.name} 
-                      className="relative group"
-                      onMouseEnter={() => setIsDropdownOpen(true)}
-                      onMouseLeave={() => setIsDropdownOpen(false)}
-                    >
-                      <Link href={item.href} className={`${baseClass} flex items-center gap-1 ${isActive ? 'text-red-600 font-semibold' : isScrolled ? 'text-gray-800 hover:text-red-600' : 'text-white hover:text-red-500'}`}>
-                        {item.name} <FontAwesomeIcon icon={faChevronDown} className={`text-[10px] transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
-                      </Link>
-                      
-                      <div className={`absolute top-full left-0 w-56 bg-white border border-gray-100 shadow-xl py-2 transition-all duration-300 ${isDropdownOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'}`}>
-                        {item.subItems?.map((sub) => (
-                          <Link 
-                            key={sub.name} 
-                            href={sub.href}
-                            className="block px-6 py-3 text-[11px] font-bold uppercase tracking-widest text-gray-800 hover:text-red-600 hover:bg-gray-50 transition-colors"
-                          >
-                            {sub.name}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  );
-                }
-
-                return (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className={`${baseClass} ${isActive ? 'text-red-600 font-semibold' : isScrolled ? 'text-gray-800 hover:text-red-600' : 'text-white hover:text-red-500'}`}
-                  >
-                    {item.name}
-                  </Link>
-                );
-              })}
-            </nav>
-          </div>
-
-          <div className="flex items-center gap-x-4">
-            <div className="hidden lg:flex items-center gap-x-3">
-              <div className="hidden xl:flex gap-x-2">
-                {phones.map((phone, idx) => (
-                  <a
-                    key={idx}
-                    href={`tel:${phone.number.replace(/\s+/g, '')}`}
-                    aria-label={`Call Duka Interiors at ${phone.label}`}
-                    title={`Call ${phone.label}`}
-                    className={`w-36 py-1.5 rounded-full text-xs flex items-center justify-center gap-2 ${
-                      isScrolled
-                        ? 'border border-red-600 text-red-600 hover:bg-red-600 hover:text-white'
-                        : 'bg-red-600 text-white hover:bg-red-700'
-                    }`}
-                  >
-                    <FontAwesomeIcon icon={faPhone} className="text-xs" />
-                    <span>{phone.label}</span>
-                  </a>
-                ))}
-              </div>
-              <div className="flex gap-x-1.5">
-                {socialLinks.map((social) => (
-                  <a
-                    key={social.name}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Visit our ${social.name} page`}
-                    title={social.name}
-                    className={`w-8 h-8 rounded-full flex items-center justify-center text-xs ${
-                      isScrolled
-                        ? 'bg-gray-200 text-gray-700 hover:bg-red-600 hover:text-white'
-                        : 'bg-gray-800 text-white hover:bg-red-600'
-                    }`}
-                  >
-                    <FontAwesomeIcon icon={social.icon} />
-                  </a>
-                ))}
-              </div>
-              <Link href="/contact" className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg text-sm uppercase">
-                CONTACT US
-              </Link>
-            </div>
-
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={`lg:hidden p-2 relative h-6 w-6 group ${isScrolled ? 'text-gray-800' : 'text-white'}`}
-              aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+          {/* Desktop: Calculator & Contact CTA */}
+          <div className="hidden lg:flex items-center gap-x-4">
+            {/* Calculator Button */}
+            <Link
+              href="/estimate-cost"
+              className="group flex items-center gap-2 bg-gradient-to-r from-red-600 to-red-700 text-white px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest hover:shadow-lg hover:scale-105 transition-all"
             >
-              <div className="flex flex-col justify-between h-full w-full">
-                <span className={`block h-0.5 w-full bg-current origin-left ${isMenuOpen ? 'rotate-45 translate-y-2.5' : '-rotate-12'} transition-all`}></span>
-                <span className={`block h-0.5 w-full bg-current ${isMenuOpen ? 'opacity-0' : 'opacity-100'} transition-all`}></span>
-                <span className={`block h-0.5 w-full bg-current origin-left ${isMenuOpen ? '-rotate-45 -translate-y-2.5' : 'rotate-12'} transition-all`}></span>
-              </div>
-            </button>
+              <FontAwesomeIcon icon={faCalculator} className="text-xs" />
+              <span>Cost Calculator</span>
+              <span className="text-[9px] bg-white/20 px-1.5 py-0.5 rounded-full">NEW</span>
+            </Link>
+
+            {/* Contact Button */}
+            <Link
+              href="/contact"
+              className="bg-black text-white px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-gray-900 transition-colors"
+            >
+              Contact
+            </Link>
           </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className={`lg:hidden p-2 ${isScrolled ? 'text-gray-800' : 'text-white'}`}
+            aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+          >
+            <FontAwesomeIcon icon={isMenuOpen ? faTimes : faBars} className="text-xl" />
+          </button>
         </div>
 
-        {isMenuOpen && (
-          <div className="fixed inset-0 lg:hidden bg-black/90 backdrop-blur-sm z-40 h-screen overflow-y-auto text-white">
-            <div className="flex flex-col h-full pt-16 pb-12 px-8">
-              <button
-                onClick={() => setIsMenuOpen(false)}
-                className="absolute top-3 right-6 p-2 text-white hover:text-red-600"
-                aria-label="Close navigation menu"
+        {/* Desktop Navigation Bar */}
+        <nav className="hidden lg:flex items-center justify-center border-t border-gray-200/20 py-2.5">
+          <div className="flex items-center gap-x-1">
+            {/* Home - Always visible */}
+            <Link
+              href="/"
+              className={`px-4 py-2 text-xs uppercase tracking-wider font-bold transition-colors ${
+                pathname === '/' 
+                  ? 'text-red-600' 
+                  : isScrolled ? 'text-gray-700 hover:text-red-600' : 'text-gray-300 hover:text-white'
+              }`}
+            >
+              HOME
+            </Link>
+
+            {/* Grouped Navigation Items */}
+            {Object.entries(navStructure).map(([key, section]) => (
+              <div
+                key={key}
+                className="relative group"
+                onMouseEnter={() => setOpenDropdown(key)}
+                onMouseLeave={() => setOpenDropdown(null)}
               >
-                <FontAwesomeIcon icon={faTimes} className="text-2xl" />
-              </button>
-              <nav className="flex flex-col justify-center items-center flex-grow space-y-4 pt-4">
-                {navItems.map((item) => {
-                  const isActive = pathname === item.href;
-                  const linkClass = `text-4xl md:text-5xl font-extrabold uppercase border-b-2 border-transparent hover:border-red-500 transition-colors ${
-                    isActive ? 'text-red-500' : 'text-gray-200'
-                  }`;
+                <Link
+                  href={section.mainLink}
+                  className={`flex items-center gap-2 px-4 py-2 text-xs uppercase tracking-wider font-bold transition-colors ${
+                    pathname.startsWith(section.mainLink)
+                      ? 'text-red-600'
+                      : isScrolled ? 'text-gray-700 hover:text-red-600' : 'text-gray-300 hover:text-white'
+                  }`}
+                >
+                  {section.icon && <FontAwesomeIcon icon={section.icon} className="text-[10px]" />}
+                  <span>{section.title}</span>
+                  {section.comingSoon && (
+                    <span className="text-[8px] bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded-full">SOON</span>
+                  )}
+                  <FontAwesomeIcon 
+                    icon={faChevronDown} 
+                    className={`text-[9px] transition-transform ${openDropdown === key ? 'rotate-180' : ''}`} 
+                  />
+                </Link>
 
-                  if (item.comingSoon) {
-                    return (
-                      <Link
-                        key={item.name}
-                        href={item.href}
-                        onClick={() => setIsMenuOpen(false)}
-                        className={`${linkClass} relative`}
-                      >
-                        {item.name}
-                        <span className="text-xs ml-2">(Soon)</span>
-                      </Link>
-                    );
-                  }
-
-                  // === ADDED: Mobile view for Cost Calculator ===
-                  if (item.isNew) {
-                    return (
-                      <Link
-                        key={item.name}
-                        href={item.href}
-                        onClick={() => setIsMenuOpen(false)}
-                        className={`${linkClass} flex items-center gap-3`}
-                      >
-                        <FontAwesomeIcon icon={item.icon} className="text-2xl" />
-                        {item.name}
-                        <span className="text-xs bg-green-600 text-white px-2 py-0.5 rounded-full">New</span>
-                      </Link>
-                    );
-                  }
-
-                  return (
+                {/* Dropdown */}
+                <div
+                  className={`absolute top-full left-0 w-56 bg-white border border-gray-100 shadow-xl py-3 rounded-lg transition-all duration-200 ${
+                    openDropdown === key
+                      ? 'opacity-100 translate-y-0 visible'
+                      : 'opacity-0 translate-y-2 invisible pointer-events-none'
+                  }`}
+                >
+                  {section.items.map((item, idx) => (
                     <Link
-                      key={item.name}
+                      key={idx}
                       href={item.href}
-                      onClick={() => setIsMenuOpen(false)}
-                      className={linkClass}
+                      className={`block px-5 py-2.5 text-[11px] font-medium transition-colors ${
+                        item.isMain
+                          ? 'text-red-600 font-bold bg-red-50'
+                          : 'text-gray-700 hover:text-red-600 hover:bg-gray-50'
+                      }`}
                     >
                       {item.name}
+                      {item.isMain && ' →'}
                     </Link>
-                  );
-                })}
-              </nav>
-              <div className="mt-auto space-y-2 text-gray-400 border-t border-gray-700 pt-4 text-center">
+                  ))}
+                </div>
+              </div>
+            ))}
+
+            {/* Calculator Link (in nav bar) */}
+            <Link
+              href="/estimate-cost"
+              className={`flex items-center gap-2 px-4 py-2 text-xs uppercase tracking-wider font-bold transition-colors ${
+                pathname === '/estimate-cost'
+                  ? 'text-green-600'
+                  : isScrolled ? 'text-gray-700 hover:text-green-600' : 'text-gray-300 hover:text-green-400'
+              }`}
+            >
+              <FontAwesomeIcon icon={faCalculator} className="text-[10px]" />
+              <span>Calculator</span>
+            </Link>
+          </div>
+        </nav>
+
+        {/* Mobile Menu Overlay */}
+        {isMenuOpen && (
+          <div className="fixed inset-0 lg:hidden bg-black/95 backdrop-blur-sm z-40 h-screen overflow-y-auto pt-20">
+            <div className="flex flex-col h-full px-6 pb-12">
+              {/* Mobile Calculator CTA */}
+              <div className="mb-8 p-4 bg-gradient-to-r from-red-600 to-red-700 rounded-2xl text-center">
+                <div className="flex items-center justify-center gap-3 mb-3">
+                  <FontAwesomeIcon icon={faCalculator} className="text-xl text-white" />
+                  <h3 className="text-white font-bold text-lg">Cost Calculator</h3>
+                  <span className="text-xs bg-white/30 text-white px-2 py-1 rounded-full">NEW</span>
+                </div>
+                <p className="text-white/80 text-sm mb-4">
+                  Get instant estimates for your project
+                </p>
+                <Link
+                  href="/estimate-cost"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="inline-block w-full bg-white text-red-600 py-3 rounded-xl font-bold text-sm uppercase tracking-widest"
+                >
+                  Try Calculator
+                </Link>
+              </div>
+
+              {/* Mobile Navigation */}
+              <nav className="space-y-2 flex-grow">
+                {/* Home */}
+                <Link
+                  href="/"
+                  onClick={() => setIsMenuOpen(false)}
+                  className={`block py-4 px-4 text-lg font-bold rounded-xl ${
+                    pathname === '/' 
+                      ? 'bg-red-600 text-white' 
+                      : 'bg-white/10 text-white hover:bg-white/20'
+                  }`}
+                >
+                  HOME
+                </Link>
+
+                {/* Grouped Sections */}
+                {Object.entries(navStructure).map(([key, section]) => (
+                  <div key={key} className="bg-white/10 rounded-xl overflow-hidden">
+                    <button
+                      onClick={() => toggleMobileSection(key)}
+                      className={`w-full flex items-center justify-between py-4 px-4 text-lg font-bold ${
+                        openMobileSection === key ? 'text-red-400' : 'text-white'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        {section.icon && <FontAwesomeIcon icon={section.icon} />}
+                        <span>{section.title}</span>
+                        {section.comingSoon && (
+                          <span className="text-xs bg-white/20 text-white px-2 py-1 rounded-full">COMING SOON</span>
+                        )}
+                      </div>
+                      <FontAwesomeIcon 
+                        icon={faChevronDown} 
+                        className={`transition-transform ${openMobileSection === key ? 'rotate-180' : ''}`} 
+                      />
+                    </button>
+                    
+                    <div className={`${openMobileSection === key ? 'block' : 'hidden'} bg-black/30`}>
+                      {section.items.map((item, idx) => (
+                        <Link
+                          key={idx}
+                          href={item.href}
+                          onClick={() => setIsMenuOpen(false)}
+                          className={`block py-3 px-8 text-sm transition-colors ${
+                            item.isMain
+                              ? 'text-red-400 font-bold bg-black/30'
+                              : 'text-gray-300 hover:text-white hover:bg-black/20'
+                          }`}
+                        >
+                          {item.isMain && '★ '}
+                          {item.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+
+                {/* Contact Button */}
                 <Link
                   href="/contact"
-                  className="w-full inline-flex items-center justify-center bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg text-lg"
                   onClick={() => setIsMenuOpen(false)}
+                  className="block py-4 px-4 bg-red-600 text-white text-lg font-bold rounded-xl text-center mt-6 hover:bg-red-700"
                 >
-                  <FontAwesomeIcon icon={faPhoneVolume} className="mr-3" />
-                  Request a Call Back
+                  CONTACT US
                 </Link>
-                <p className="text-base uppercase tracking-wider mb-2 text-gray-500 font-semibold border-t border-gray-800 pt-4">
-                  Or Reach Us Directly
-                </p>
-                {phones.map((phone, idx) => (
-                  <a
-                    key={idx}
-                    href={`tel:${phone.number.replace(/\s+/g, '')}`}
-                    aria-label={`Call us at ${phone.label}`}
-                    className="block text-lg hover:text-red-600"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {phone.label}
-                  </a>
-                ))}
-                <a
-                  href={`mailto:${email}`}
-                  aria-label={`Email us at ${email}`}
-                  className="block text-lg hover:text-red-600"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {email}
-                </a>
-                <div className="pt-4 flex justify-center space-x-5">
+              </nav>
+
+              {/* Contact Info */}
+              <div className="mt-8 pt-8 border-t border-white/20">
+                <div className="flex flex-wrap justify-center gap-4 mb-6">
                   {socialLinks.map((social) => (
                     <a
                       key={social.name}
@@ -356,13 +392,31 @@ export default function NavBar() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`Visit our ${social.name} page`}
-                      title={social.name}
-                      className="text-2xl text-gray-400 hover:text-red-600"
-                      onClick={() => setIsMenuOpen(false)}
+                      className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-red-600"
                     >
                       <FontAwesomeIcon icon={social.icon} />
                     </a>
                   ))}
+                </div>
+                
+                <div className="space-y-3 text-center">
+                  {phones.map((phone, idx) => (
+                    <a
+                      key={idx}
+                      href={`tel:${phone.number.replace(/\s+/g, '')}`}
+                      className="block text-white hover:text-red-400 text-lg"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {phone.label}
+                    </a>
+                  ))}
+                  <a
+                    href={`mailto:${email}`}
+                    className="block text-white/80 hover:text-red-400"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {email}
+                  </a>
                 </div>
               </div>
             </div>
