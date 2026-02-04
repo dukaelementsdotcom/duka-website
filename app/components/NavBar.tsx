@@ -1,516 +1,224 @@
-'use client';
+there is already a project filtering code inside the main projects page ...but under portfolio tab you created filtering which does not work so either remove that on the nav bar or corretc it to work with the existing filtering code in the main projects page ...here is the main projects page as a referecen for you not to touch it... and no1...you know i am using nextjs right ? 3 yes corrected social icons...'use client';
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-  faChevronDown, 
-  faPhone, 
-  faTimes, 
-  faPhoneVolume,
-  faCalculator,
-  faBars,
-  faFolderOpen,
-  faLightbulb,
-  faTools,
-  faStore,
-  faEnvelope,
-  faArrowRight
-} from '@fortawesome/free-solid-svg-icons';
-import { 
-  faWhatsapp, 
-  faTelegram, 
-  faFacebookF, 
-  faInstagram, 
-  faLinkedinIn, 
-  faTiktok 
-} from '@fortawesome/free-brands-svg-icons';
+import Link from 'next/link';
+import NavBar from '../components/NavBar';
+import Footer from '../components/Footer';
+import ShareButton from '../components/ShareButton';
+import ProtectedImage from '../components/ProtectedImage';
 
-export default function NavBar() {
-  const pathname = usePathname();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const [openMobileSection, setOpenMobileSection] = useState<string | null>(null);
+export default function ProjectsPage() {
+  const [filter, setFilter] = useState('all');
+  const [search, setSearch] = useState('');
+  const [projects, setProjects] = useState([]);
+  const [favorites, setFavorites] = useState<string[]>([]); 
+  const [loading, setLoading] = useState(true);
 
-  // Detect scroll
+  // ✅ CLIENT-SIDE TITLE UPDATE (Optimized for SEO)
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    document.title = "Our Interior Design Projects in Addis Ababa | Duka Interiors";
+    return () => { document.title = "Duka Interiors"; };
   }, []);
 
-  // Lock body scroll when mobile menu is open
+  // ✅ CRITICAL FIX: Inject canonical URL for Client Component (GMB migration essential)
   useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
+    // Remove any existing canonical link (prevents duplicates)
+    const existing = document.querySelector('link[rel="canonical"]');
+    if (existing) existing.remove();
+    
+    // Create and inject correct canonical link
+    const canonicalLink = document.createElement('link');
+    canonicalLink.rel = 'canonical';
+    canonicalLink.href = 'https://www.dukainteriors.com/projects';
+    document.head.appendChild(canonicalLink);
+    
+    // Cleanup on unmount
     return () => {
-      document.body.style.overflow = 'unset';
+      canonicalLink.remove();
     };
-  }, [isMenuOpen]);
+  }, []);
 
-  // Close mobile menu on desktop resize
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 1024 && isMenuOpen) {
-        setIsMenuOpen(false);
-      }
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [isMenuOpen]);
+    fetch('/data/projects.json')
+      .then(res => res.json())
+      .then(data => {
+        const corrected = data.map((p: any) => {
+          if ([
+            'luxury-three-bedroom-apartment-bole',
+            'minimalist-apartment-finishing-ethiopia',
+            'modern-studio-apartment-design-addis'
+          ].includes(p.slug)) {
+            return { ...p, type: 'Apartment' };
+          }
+          return p;
+        });
+        setProjects(corrected);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+    
+    const saved = localStorage.getItem('duka_moodboard');
+    if (saved) setFavorites(JSON.parse(saved));
+  }, []);
 
-  // Header class based on scroll
-  const topRowClasses = isScrolled
-    ? 'bg-white border-b border-gray-200 shadow-sm'
-    : 'bg-gradient-to-r from-black/95 to-gray-900/95 backdrop-blur-md';
-
-  const bottomRowClasses = isScrolled
-    ? 'bg-white/95 backdrop-blur-md border-t border-gray-100 shadow-sm'
-    : 'bg-gradient-to-r from-gray-900/90 to-black/90 backdrop-blur-md border-t border-white/10';
-
-  // ========== NAVIGATION STRUCTURE ==========
-  const navStructure = {
-    services: {
-      icon: faTools,
-      title: 'SERVICES',
-      mainLink: '/services',
-      items: [
-        { name: 'All Services', href: '/services', isMain: true },
-        // PLEASE UPDATE THESE URLs WITH YOUR ACTUAL SERVICE PAGES:
-        { name: 'Office Design', href: '/services/interior-design' },
-        { name: 'Partitioning', href: '/services/office-partitioning' },
-        { name: 'Technology Integration', href: '/services/technology-integration' },
-        { name: 'Branding & Signage', href: '/services/branding-and-signage' },
-        { name: 'Full Renovation', href: '/services/office-renovation' },
-        { name: 'Design+Build', href: '/services/design-build' },
-      ]
-    },
-    
-    portfolio: {
-      icon: faFolderOpen,
-      title: 'PORTFOLIO',
-      mainLink: '/projects',
-      items: [
-        { name: 'All Projects', href: '/projects', isMain: true },
-        { name: 'Office Designs', href: '/projects?category=office' },
-        { name: 'Partitioning', href: '/projects?category=partitioning' },
-        { name: 'Renovations', href: '/projects?category=renovation' },
-      ]
-    },
-    
-    company: {
-      icon: null,
-      title: 'COMPANY',
-      mainLink: '/about',
-      items: [
-        { name: 'About Us', href: '/about' },
-        { name: 'Our Process', href: '/about#process' },
-        { name: 'Our Team', href: '/about#team' },
-      ]
-    },
-    
-    resources: {
-      icon: faLightbulb,
-      title: 'RESOURCES',
-      mainLink: '/resources',
-      items: [
-        { name: 'Insights & Blog', href: '/resources' },
-        { name: 'Material Guides', href: '/resources/materials' },
-        { name: 'Renovation FAQ', href: '/resources/faq' },
-        { name: 'Cost Calculator', href: '/estimate-cost', isHighlighted: true },
-      ]
-    },
-    
-    products: {
-      icon: faStore,
-      title: 'PRODUCTS',
-      mainLink: '/products',
-      comingSoon: true,
-      items: [
-        { name: 'Product Catalog', href: '/products' },
-        { name: 'Custom Furniture', href: '/products/furniture' },
-        { name: 'Office Partitions', href: '/products/partitions' },
-      ]
-    }
+  const toggleFavorite = (e: React.MouseEvent, slug: string) => {
+    e.preventDefault(); 
+    e.stopPropagation(); 
+    setFavorites(prev => {
+      const updated = prev.includes(slug) 
+        ? prev.filter(id => id !== slug) 
+        : [...prev, slug];
+      localStorage.setItem('duka_moodboard', JSON.stringify(updated));
+      return updated;
+    });
   };
 
-  // Contact info - BOTH NUMBERS RESTORED
-  const phones = [
-    { number: '+251940607055', label: '+251 940 607 055', isPrimary: true },
-    { number: '+251929144290', label: '+251 929 144 290', isPrimary: false },
-  ];
-  const email = 'contact@dukainteriors.com';
-
-  // Social links
-  const socialLinks = [
-    { name: 'WhatsApp', href: 'https://wa.me/251940607055', icon: faWhatsapp, color: 'hover:bg-green-500' },
-    { name: 'Telegram', href: 'https://t.me/dukainteriorsplc', icon: faTelegram, color: 'hover:bg-blue-400' },
-    { name: 'Facebook', href: 'https://www.facebook.com/dukainteriors', icon: faFacebookF, color: 'hover:bg-blue-600' },
-    { name: 'Instagram', href: 'https://www.instagram.com/dukainteriors', icon: faInstagram, color: 'hover:bg-pink-600' },
-    { name: 'LinkedIn', href: 'https://www.linkedin.com/company/duka-interiors', icon: faLinkedinIn, color: 'hover:bg-blue-700' },
-    { name: 'TikTok', href: 'https://www.tiktok.com/@duka.interiors.plc', icon: faTiktok, color: 'hover:bg-black' },
+  const categories = [
+    { id: 'all', label: 'All Works' },
+    { id: 'Office', label: 'Office' },
+    { id: 'Apartment', label: 'Apartment' },
+    { id: 'Residential', label: 'Residential' },
+    { id: 'Hospitality', label: 'Hospitality' },
+    { id: 'Healthcare', label: 'Healthcare' },
+    { id: 'Retail', label: 'Retail' },
+    { id: 'Gymnasium', label: 'Gymnasium' },
   ];
 
-  // Toggle mobile section
-  const toggleMobileSection = (section: string) => {
-    setOpenMobileSection(openMobileSection === section ? null : section);
+  const counts = useMemo(() => ({
+    all: projects.length,
+    Office: projects.filter((p: any) => p.type === 'Office').length,
+    Apartment: projects.filter((p: any) => p.type === 'Apartment').length,
+    Residential: projects.filter((p: any) => p.type === 'Residential').length,
+    Hospitality: projects.filter((p: any) => p.type === 'Hospitality').length,
+    Healthcare: projects.filter((p: any) => p.type === 'Healthcare').length,
+    Retail: projects.filter((p: any) => p.type === 'Retail').length,
+    Gymnasium: projects.filter((p: any) => p.type === 'Gymnasium').length,
+  }), [projects]);
+
+  const filteredProjects = useMemo(() => 
+    projects.filter((p: any) => {
+      const matchesFilter = filter === 'all' || p.type === filter;
+      const matchesSearch = !search || 
+        p.title.toLowerCase().includes(search.toLowerCase()) || 
+        p.location.toLowerCase().includes(search.toLowerCase());
+      return matchesFilter && matchesSearch;
+    }), [projects, filter, search]);
+
+  // ✅ FIXED: Removed ALL trailing spaces in Schema.org URLs
+  const listSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": filteredProjects.slice(0, 10).map((p: any, i) => ({
+      "@type": "ListItem",
+      "position": i + 1,
+      "url": `https://www.dukainteriors.com/projects/${p.slug}`,
+      "name": p.title
+    }))
   };
+
+  if (loading) return (
+    <div className="min-h-screen bg-white flex items-center justify-center font-black tracking-widest text-[10px] uppercase">
+      Loading Projects Portfolio...
+    </div>
+  );
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'shadow-lg' : ''}`}>
-      {/* ========== TOP ROW: Logo, Contact, Social, Calculator ========== */}
-      <div className={`w-full transition-all duration-300 ${topRowClasses}`}>
-        <div className="w-full max-w-screen-2xl mx-auto px-4 lg:px-6">
-          <div className="flex items-center justify-between py-2">
-            {/* Logo */}
-            <Link href="/" aria-label="Duka Interiors Home" className="transition-transform hover:scale-105">
-              <Image
-                src="/images/icons-duka-interiors/logo-duka-interiors-big.svg"
-                alt="Duka Interiors Logo"
-                width={isScrolled ? 130 : 140}
-                height={isScrolled ? 40 : 45}
-                priority
-                className={`transition-all duration-300 ${isScrolled ? 'h-8' : 'h-9'}`}
-              />
-            </Link>
-
-            {/* Desktop: Contact & Social Row */}
-            <div className="hidden lg:flex items-center gap-x-6">
-              {/* Phone Numbers */}
-              <div className="flex items-center gap-x-4">
-                {phones.map((phone, idx) => (
-                  <div key={idx} className="flex items-center gap-x-2">
-                    <div className={`w-7 h-7 rounded-full flex items-center justify-center ${isScrolled ? 'bg-red-100 text-red-600' : 'bg-red-600/20 text-white'}`}>
-                      <FontAwesomeIcon icon={faPhone} className="text-xs" />
-                    </div>
-                    <div>
-                      <a
-                        href={`tel:${phone.number.replace(/\s+/g, '')}`}
-                        className={`text-sm font-bold transition-colors ${isScrolled ? 'text-gray-800 hover:text-red-600' : 'text-white hover:text-red-300'}`}
-                      >
-                        {phone.label}
-                      </a>
-                      {phone.isPrimary && (
-                        <div className={`text-xs ${isScrolled ? 'text-gray-500' : 'text-gray-300'}`}>Primary</div>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Divider */}
-              <div className={`w-px h-6 ${isScrolled ? 'bg-gray-300' : 'bg-white/30'}`}></div>
-
-              {/* Social Icons */}
-              <div className="flex items-center gap-x-1">
-                {socialLinks.slice(0, 4).map((social) => (
-                  <a
-                    key={social.name}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Visit our ${social.name} page`}
-                    className={`w-7 h-7 rounded-full flex items-center justify-center text-xs transition-all ${isScrolled ? 'bg-gray-100 text-gray-700 hover:bg-red-600 hover:text-white' : 'bg-white/10 text-white hover:bg-red-600'} ${social.color}`}
-                  >
-                    <FontAwesomeIcon icon={social.icon} />
-                  </a>
-                ))}
-              </div>
-
-              {/* Divider */}
-              <div className={`w-px h-6 ${isScrolled ? 'bg-gray-300' : 'bg-white/30'}`}></div>
-
-              {/* Calculator Button */}
-              <Link
-                href="/estimate-cost"
-                className={`group flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all ${isScrolled 
-                  ? 'bg-gradient-to-r from-red-600 to-red-700 text-white hover:shadow-lg hover:scale-105' 
-                  : 'bg-white/10 text-white hover:bg-red-600 backdrop-blur-sm'
-                }`}
-              >
-                <FontAwesomeIcon icon={faCalculator} className="text-xs" />
-                <span>Cost Calculator</span>
-                <span className={`text-[9px] px-1.5 py-0.5 rounded-full ${isScrolled ? 'bg-white/20' : 'bg-red-500'}`}>NEW</span>
-              </Link>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={`lg:hidden p-2 transition-colors ${isScrolled ? 'text-gray-800 hover:text-red-600' : 'text-white hover:text-red-300'}`}
-              aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
-            >
-              <FontAwesomeIcon icon={isMenuOpen ? faTimes : faBars} className="text-xl" />
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* ========== BOTTOM ROW: Main Navigation ========== */}
-      <div className={`hidden lg:block transition-all duration-300 ${bottomRowClasses}`}>
-        <div className="w-full max-w-screen-2xl mx-auto px-4 lg:px-6">
-          <div className="flex items-center justify-center">
-            <div className="flex items-center gap-x-1 py-2.5">
-              {/* Home */}
-              <Link
-                href="/"
-                className={`px-4 py-2 text-xs uppercase tracking-wider font-bold transition-colors rounded-lg ${
-                  pathname === '/' 
-                    ? (isScrolled ? 'text-red-600 bg-red-50' : 'text-red-400 bg-white/10') 
-                    : (isScrolled ? 'text-gray-700 hover:text-red-600 hover:bg-gray-50' : 'text-gray-300 hover:text-white hover:bg-white/10')
-                }`}
-              >
-                HOME
-              </Link>
-
-              {/* Grouped Navigation Items */}
-              {Object.entries(navStructure).map(([key, section]) => (
-                <div
-                  key={key}
-                  className="relative group"
-                  onMouseEnter={() => setOpenDropdown(key)}
-                  onMouseLeave={() => setOpenDropdown(null)}
-                >
-                  <Link
-                    href={section.mainLink}
-                    className={`flex items-center gap-2 px-4 py-2 text-xs uppercase tracking-wider font-bold transition-colors rounded-lg ${
-                      pathname.startsWith(section.mainLink)
-                        ? (isScrolled ? 'text-red-600 bg-red-50' : 'text-red-400 bg-white/10')
-                        : (isScrolled ? 'text-gray-700 hover:text-red-600 hover:bg-gray-50' : 'text-gray-300 hover:text-white hover:bg-white/10')
-                    }`}
-                  >
-                    {section.icon && <FontAwesomeIcon icon={section.icon} className="text-[10px]" />}
-                    <span>{section.title}</span>
-                    {section.comingSoon && (
-                      <span className={`text-[8px] px-1.5 py-0.5 rounded-full ${isScrolled ? 'bg-gray-100 text-gray-600' : 'bg-white/20 text-white'}`}>SOON</span>
-                    )}
-                    <FontAwesomeIcon 
-                      icon={faChevronDown} 
-                      className={`text-[9px] transition-transform ${openDropdown === key ? 'rotate-180' : ''}`} 
-                    />
-                  </Link>
-
-                  {/* Dropdown */}
-                  <div
-                    className={`absolute top-full left-0 w-64 bg-white border border-gray-100 shadow-2xl py-3 rounded-xl transition-all duration-200 z-50 ${
-                      openDropdown === key
-                        ? 'opacity-100 translate-y-0 visible'
-                        : 'opacity-0 translate-y-2 invisible pointer-events-none'
-                    }`}
-                  >
-                    <div className="px-4 pb-2 mb-2 border-b border-gray-100">
-                      <span className="text-xs font-bold text-gray-500 uppercase tracking-widest">{section.title}</span>
-                    </div>
-                    {section.items.map((item, idx) => (
-                      <Link
-                        key={idx}
-                        href={item.href}
-                        className={`flex items-center justify-between group/item px-5 py-2.5 text-sm transition-all ${
-                          item.isMain
-                            ? 'text-red-600 font-bold bg-red-50'
-                            : item.isHighlighted
-                            ? 'text-green-600 font-bold bg-green-50'
-                            : 'text-gray-700 hover:text-red-600 hover:bg-gray-50'
-                        }`}
-                      >
-                        <span>{item.name}</span>
-                        {(item.isMain || item.isHighlighted) && (
-                          <FontAwesomeIcon 
-                            icon={faArrowRight} 
-                            className="text-xs opacity-0 group-hover/item:opacity-100 transition-opacity" 
-                          />
-                        )}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              ))}
-
-              {/* Contact Link */}
-              <Link
-                href="/contact"
-                className={`px-4 py-2 text-xs uppercase tracking-wider font-bold transition-colors rounded-lg ${
-                  pathname === '/contact'
-                    ? (isScrolled ? 'text-white bg-red-600' : 'text-white bg-red-600')
-                    : (isScrolled ? 'text-gray-700 hover:text-white hover:bg-red-600' : 'text-gray-300 hover:text-white hover:bg-red-600/80')
-                }`}
-              >
-                CONTACT
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* ========== MOBILE MENU OVERLAY ========== */}
-      {isMenuOpen && (
-        <div className="fixed inset-0 lg:hidden bg-gradient-to-b from-gray-900 to-black z-40 h-screen overflow-y-auto">
-          {/* Mobile Header with Close Button */}
-          <div className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 bg-black/90 border-b border-white/10 backdrop-blur-md">
-            <Link 
-              href="/" 
-              onClick={() => setIsMenuOpen(false)}
-              className="transition-transform hover:scale-105"
-            >
-              <Image
-                src="/images/icons-duka-interiors/logo-duka-interiors-big.svg"
-                alt="Duka Interiors Logo"
-                width={120}
-                height={40}
-                className="h-8 w-auto"
-              />
-            </Link>
-            
-            <div className="flex items-center gap-4">
-              <Link
-                href="/estimate-cost"
-                onClick={() => setIsMenuOpen(false)}
-                className="flex items-center gap-2 bg-red-600 text-white px-3 py-2 rounded-lg text-xs font-bold uppercase"
-              >
-                <FontAwesomeIcon icon={faCalculator} className="text-xs" />
-                <span>Calculator</span>
-              </Link>
-              <button
-                onClick={() => setIsMenuOpen(false)}
-                className="p-3 text-white hover:text-red-400 transition-colors"
-                aria-label="Close menu"
-              >
-                <FontAwesomeIcon icon={faTimes} className="text-2xl" />
-              </button>
-            </div>
+    <div className="min-h-screen flex flex-col bg-white selection:bg-red-600 selection:text-white overflow-x-hidden">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(listSchema) }} />
+      <NavBar />
+      
+      <main className="flex-grow pt-[80px]">
+        <section className="pb-8 px-4 md:px-6 mt-12">
+          <div className="max-w-4xl mx-auto text-center mb-8">
+            <h1 className="text-4xl md:text-6xl font-black text-gray-900 mb-4 uppercase tracking-tighter">
+              Our Projects Portfolio
+            </h1>
+            <p className="text-gray-500 max-w-2xl mx-auto text-base uppercase tracking-widest font-bold">
+              We create workplaces that elevate your brand and inspire your people.
+            </p>
           </div>
 
-          <div className="flex flex-col h-full px-6 pb-12 pt-4">
-            {/* Quick Contact Actions */}
-            <div className="grid grid-cols-2 gap-3 mb-6">
-              {phones.map((phone, idx) => (
-                <a
-                  key={idx}
-                  href={`tel:${phone.number.replace(/\s+/g, '')}`}
-                  onClick={() => setIsMenuOpen(false)}
-                  className={`flex items-center justify-center gap-2 py-3 rounded-xl font-bold ${idx === 0 ? 'bg-red-600 text-white' : 'bg-gray-800 text-white'}`}
-                >
-                  <FontAwesomeIcon icon={faPhone} />
-                  <span className="text-sm">{phone.label.replace('+251 ', '')}</span>
-                </a>
-              ))}
-            </div>
-
-            {/* Mobile Navigation */}
-            <nav className="space-y-1 flex-grow">
-              {/* Home */}
-              <Link
-                href="/"
-                onClick={() => setIsMenuOpen(false)}
-                className={`block py-3 px-4 text-base font-bold rounded-lg ${
-                  pathname === '/' 
-                    ? 'bg-red-600 text-white' 
-                    : 'bg-white/10 text-white hover:bg-white/20'
-                }`}
-              >
-                HOME
-              </Link>
-
-              {/* Grouped Sections */}
-              {Object.entries(navStructure).map(([key, section]) => (
-                <div key={key} className="bg-white/10 rounded-lg overflow-hidden">
+          <div className="sticky top-[80px] z-40 bg-white border-b border-gray-100 py-4 px-4">
+            <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div className="flex items-center overflow-x-auto pb-2 md:pb-0 space-x-2 scrollbar-hide">
+                {categories.map(cat => (
                   <button
-                    onClick={() => toggleMobileSection(key)}
-                    className={`w-full flex items-center justify-between py-3 px-4 text-base font-bold ${
-                      openMobileSection === key ? 'text-red-400' : 'text-white'
-                    }`}
+                    key={cat.id}
+                    onClick={() => setFilter(cat.id)}
+                    className={`px-4 py-2 text-[10px] font-bold uppercase tracking-wide rounded-full whitespace-nowrap transition-colors
+                      ${filter === cat.id ? 'bg-black text-white' : 'text-gray-500 hover:text-gray-900 bg-gray-50'}`}
                   >
-                    <div className="flex items-center gap-3">
-                      {section.icon && <FontAwesomeIcon icon={section.icon} className="text-sm" />}
-                      <span>{section.title}</span>
-                      {section.comingSoon && (
-                        <span className="text-xs bg-white/20 text-white px-2 py-0.5 rounded-full">SOON</span>
-                      )}
-                    </div>
-                    <FontAwesomeIcon 
-                      icon={faChevronDown} 
-                      className={`transition-transform text-sm ${openMobileSection === key ? 'rotate-180' : ''}`} 
-                    />
+                    {cat.label} <span className="ml-1 opacity-75">({counts[cat.id as keyof typeof counts] || 0})</span>
                   </button>
-                  
-                  <div className={`${openMobileSection === key ? 'block' : 'hidden'} bg-black/30`}>
-                    {section.items.map((item, idx) => (
-                      <Link
-                        key={idx}
-                        href={item.href}
-                        onClick={() => setIsMenuOpen(false)}
-                        className={`flex items-center justify-between py-2.5 px-8 text-sm transition-colors ${
-                          item.isMain || item.isHighlighted
-                            ? 'text-red-400 font-bold bg-black/30'
-                            : 'text-gray-300 hover:text-white hover:bg-black/20'
-                        }`}
-                      >
-                        <span>{item.name}</span>
-                        {(item.isMain || item.isHighlighted) && (
-                          <FontAwesomeIcon icon={faArrowRight} className="text-xs" />
-                        )}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              ))}
-
-              {/* Contact */}
-              <Link
-                href="/contact"
-                onClick={() => setIsMenuOpen(false)}
-                className="block py-3 px-4 bg-red-600 text-white text-base font-bold rounded-lg hover:bg-red-700"
-              >
-                CONTACT US
-              </Link>
-            </nav>
-
-            {/* Social & Contact Footer */}
-            <div className="mt-8 pt-6 border-t border-white/20">
-              <div className="mb-4">
-                <h4 className="text-white text-sm font-bold mb-3">Follow Us</h4>
-                <div className="flex flex-wrap gap-2">
-                  {socialLinks.map((social) => (
-                    <a
-                      key={social.name}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`Visit our ${social.name} page`}
-                      className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-red-600 transition-colors"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      <FontAwesomeIcon icon={social.icon} />
-                    </a>
-                  ))}
-                </div>
+                ))}
               </div>
-              
-              <div className="space-y-3">
-                <a
-                  href={`mailto:${email}`}
-                  className="flex items-center gap-3 text-white/80 hover:text-red-400"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <FontAwesomeIcon icon={faEnvelope} className="w-4" />
-                  <span className="text-sm">{email}</span>
-                </a>
-                <div className="text-xs text-gray-400 pt-2">
-                  Bole, Djibouti Street, Welela Building, 5th Floor, Addis Ababa
-                </div>
+
+              <div className="relative w-full md:w-72">
+                <input
+                  type="text"
+                  placeholder="Search projects..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="w-full pl-4 pr-4 py-2 text-[11px] border border-gray-200 rounded-full focus:ring-1 focus:ring-red-600 outline-none"
+                />
               </div>
             </div>
           </div>
+        </section>
+
+        <section className="px-1 md:px-2 pb-20">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+            {filteredProjects.map((project: any, idx: number) => (
+              <div key={project.slug} className="group relative aspect-[4/3] bg-gray-100 overflow-hidden">
+                <Link href={`/projects/${project.slug}`} className="block w-full h-full">
+                  <ProtectedImage
+                    src={project.image}
+                    alt={`${project.title} - ${project.type} interior design in ${project.location}`}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 md:group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end">
+                    <span className="text-red-500 text-[9px] font-black uppercase tracking-[0.2em] mb-2">{project.type}</span>
+                    <h3 className="text-white text-xl md:text-2xl font-black uppercase tracking-tighter leading-none mb-1">{project.title}</h3>
+                    <p className="text-white/70 text-[10px] uppercase tracking-widest">{project.location}</p>
+                  </div>
+                </Link>
+
+                <button
+                  onClick={(e) => toggleFavorite(e, project.slug)}
+                  className="absolute top-4 left-4 w-10 h-10 flex items-center justify-center bg-black/20 backdrop-blur-md rounded-full text-white z-20 hover:bg-red-600 transition-colors"
+                >
+                  <svg className={`w-4 h-4 ${favorites.includes(project.slug) ? 'fill-current' : 'fill-none'}`} viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                  </svg>
+                </button>
+
+                <div className="absolute bottom-4 right-4 z-30 pointer-events-auto">
+                  <ShareButton 
+                    title={project.title} 
+                    url={`https://www.dukainteriors.com/projects/${project.slug}`} 
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      </main>
+      
+      <Footer />
+      
+      {favorites.length > 0 && (
+        <div className="fixed bottom-6 left-0 right-0 z-[1000] flex justify-center pointer-events-none px-4">
+          <Link 
+            href="/moodboard" 
+            className="pointer-events-auto bg-black text-white px-8 py-4 rounded-full flex items-center gap-4 shadow-2xl hover:scale-105 transition-all"
+          >
+            <span className="text-[10px] font-black uppercase tracking-[0.3em]">Open My Moodboard</span>
+            <span className="bg-red-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-black">
+              {favorites.length}
+            </span>
+          </Link>
         </div>
       )}
-    </header>
+    </div>
   );
 }
