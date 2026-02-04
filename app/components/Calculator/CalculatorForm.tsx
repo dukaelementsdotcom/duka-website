@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { calculatorConfig, calculateEstimate, formatCurrency } from '@/lib/data/pricingData';
+import { calculatorConfig } from '@/lib/data/calculatorConfig';
+import { calculateEstimate, formatCurrency } from '@/lib/data/pricingData';
 
 export default function CalculatorForm() {
   const [step, setStep] = useState(1);
