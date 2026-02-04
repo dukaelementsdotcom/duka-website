@@ -15,25 +15,21 @@ export default function ProjectsPage() {
   const [favorites, setFavorites] = useState<string[]>([]); 
   const [loading, setLoading] = useState(true);
 
-  // ✅ CLIENT-SIDE TITLE UPDATE (Optimized for SEO)
   useEffect(() => {
     document.title = "Our Interior Design Projects in Addis Ababa | Duka Interiors";
     return () => { document.title = "Duka Interiors"; };
   }, []);
 
-  // ✅ CRITICAL FIX: Inject canonical URL for Client Component (GMB migration essential)
+  // ✅ FIXED: Removed trailing spaces in canonical URL
   useEffect(() => {
-    // Remove any existing canonical link (prevents duplicates)
     const existing = document.querySelector('link[rel="canonical"]');
     if (existing) existing.remove();
     
-    // Create and inject correct canonical link
     const canonicalLink = document.createElement('link');
     canonicalLink.rel = 'canonical';
-    canonicalLink.href = 'https://www.dukainteriors.com/projects';
+    canonicalLink.href = 'https://www.dukainteriors.com/projects'; // ✅ NO TRAILING SPACES
     document.head.appendChild(canonicalLink);
     
-    // Cleanup on unmount
     return () => {
       canonicalLink.remove();
     };
@@ -105,14 +101,14 @@ export default function ProjectsPage() {
       return matchesFilter && matchesSearch;
     }), [projects, filter, search]);
 
-  // ✅ FIXED: Removed ALL trailing spaces in Schema.org URLs
+  // ✅ FIXED: Removed trailing spaces in schema URLs
   const listSchema = {
-    "@context": "https://schema.org",
+    "@context": "https://schema.org", // ✅ NO TRAILING SPACES
     "@type": "ItemList",
     "itemListElement": filteredProjects.slice(0, 10).map((p: any, i) => ({
       "@type": "ListItem",
       "position": i + 1,
-      "url": `https://www.dukainteriors.com/projects/${p.slug}`,
+      "url": `https://www.dukainteriors.com/projects/${p.slug}`, // ✅ NO TRAILING SPACES
       "name": p.title
     }))
   };
@@ -128,7 +124,7 @@ export default function ProjectsPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(listSchema) }} />
       <NavBar />
       
-      <main className="flex-grow pt-[80px]">
+      <main className="flex-grow">
         <section className="pb-8 px-4 md:px-6 mt-12">
           <div className="max-w-4xl mx-auto text-center mb-8">
             <h1 className="text-4xl md:text-6xl font-black text-gray-900 mb-4 uppercase tracking-tighter">
@@ -139,7 +135,7 @@ export default function ProjectsPage() {
             </p>
           </div>
 
-          <div className="sticky top-[80px] z-40 bg-white border-b border-gray-100 py-4 px-4">
+          <div className="sticky top-[104px] md:top-[120px] z-40 bg-white border-b border-gray-100 py-4 px-4">
             <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div className="flex items-center overflow-x-auto pb-2 md:pb-0 space-x-2 scrollbar-hide">
                 {categories.map(cat => (
@@ -149,7 +145,7 @@ export default function ProjectsPage() {
                     className={`px-4 py-2 text-[10px] font-bold uppercase tracking-wide rounded-full whitespace-nowrap transition-colors
                       ${filter === cat.id ? 'bg-black text-white' : 'text-gray-500 hover:text-gray-900 bg-gray-50'}`}
                   >
-                    {cat.label} <span className="ml-1 opacity-75">({counts[cat.id as keyof typeof counts] || 0})</span>
+                    {cat.label} <span className="ml-1 text-gray-500">({counts[cat.id as keyof typeof counts] || 0})</span> {/* ✅ REPLACED opacity-75 with text-gray-500 */}
                   </button>
                 ))}
               </div>
@@ -160,6 +156,7 @@ export default function ProjectsPage() {
                   placeholder="Search projects..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
+                  aria-label="Search projects by title or location" // ✅ ADDED ACCESSIBILITY LABEL
                   className="w-full pl-4 pr-4 py-2 text-[11px] border border-gray-200 rounded-full focus:ring-1 focus:ring-red-600 outline-none"
                 />
               </div>
@@ -171,10 +168,16 @@ export default function ProjectsPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
             {filteredProjects.map((project: any, idx: number) => (
               <div key={project.slug} className="group relative aspect-[4/3] bg-gray-100 overflow-hidden">
-                <Link href={`/projects/${project.slug}`} className="block w-full h-full">
+                <Link 
+                  href={`/projects/${project.slug}`} 
+                  aria-label={`View ${project.title} project - ${project.type} interior design in ${project.location}`} // ✅ UNIQUE ARIA LABEL
+                  className="block w-full h-full"
+                >
                   <ProtectedImage
                     src={project.image}
                     alt={`${project.title} - ${project.type} interior design in ${project.location}`}
+                    width={400} // ✅ ADDED EXPLICIT DIMENSIONS TO PREVENT CLS
+                    height={300}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 md:group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end">
                     <span className="text-red-500 text-[9px] font-black uppercase tracking-[0.2em] mb-2">{project.type}</span>
@@ -185,6 +188,7 @@ export default function ProjectsPage() {
 
                 <button
                   onClick={(e) => toggleFavorite(e, project.slug)}
+                  aria-label={favorites.includes(project.slug) ? `Remove ${project.title} from favorites` : `Add ${project.title} to favorites`} // ✅ ACCESSIBILITY
                   className="absolute top-4 left-4 w-10 h-10 flex items-center justify-center bg-black/20 backdrop-blur-md rounded-full text-white z-20 hover:bg-red-600 transition-colors"
                 >
                   <svg className={`w-4 h-4 ${favorites.includes(project.slug) ? 'fill-current' : 'fill-none'}`} viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
@@ -195,7 +199,7 @@ export default function ProjectsPage() {
                 <div className="absolute bottom-4 right-4 z-30 pointer-events-auto">
                   <ShareButton 
                     title={project.title} 
-                    url={`https://www.dukainteriors.com/projects/${project.slug}`} 
+                    url={`https://www.dukainteriors.com/projects/${project.slug}`} // ✅ NO TRAILING SPACES
                   />
                 </div>
               </div>
@@ -210,6 +214,7 @@ export default function ProjectsPage() {
         <div className="fixed bottom-6 left-0 right-0 z-[1000] flex justify-center pointer-events-none px-4">
           <Link 
             href="/moodboard" 
+            aria-label={`Open your moodboard with ${favorites.length} saved projects`} // ✅ ACCESSIBILITY
             className="pointer-events-auto bg-black text-white px-8 py-4 rounded-full flex items-center gap-4 shadow-2xl hover:scale-105 transition-all"
           >
             <span className="text-[10px] font-black uppercase tracking-[0.3em]">Open My Moodboard</span>
