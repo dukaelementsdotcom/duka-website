@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
@@ -34,7 +33,6 @@ export default function MoodboardPage() {
     localStorage.setItem('duka_moodboard', JSON.stringify(updatedSlugs));
     setFavoriteProjects((prev) => prev.filter((p) => p.slug !== slug));
 
-    // Optional visual feedback
     const button = document.activeElement as HTMLElement;
     if (button) {
       button.classList.add('animate-pulse');
@@ -47,6 +45,23 @@ export default function MoodboardPage() {
       localStorage.removeItem('duka_moodboard');
       setFavoriteProjects([]);
     }
+  };
+
+  // ✅ NEW: Send moodboard via WhatsApp
+  const sendMoodboardViaWhatsApp = () => {
+    if (favoriteProjects.length === 0) return;
+    
+    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://dukainteriors.com';
+    const projectLinks = favoriteProjects
+      .map((p) => `- ${p.title}: ${origin}/projects/${p.slug}`)
+      .join('\n');
+
+    const message = encodeURIComponent(
+      `Hi Duka Interiors,\n\nI’ve curated a moodboard of projects I love and would like to discuss a design inspired by these:\n\n${projectLinks}\n\nPlease contact me to start a conversation.`
+    );
+
+    const whatsappUrl = `https://wa.me/251940607055?text=${message}`;
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
   };
 
   if (loading) {
@@ -157,26 +172,28 @@ export default function MoodboardPage() {
                 </button>
               </div>
 
+              {/* Project Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {favoriteProjects.map((project: any) => (
-                  <Link
+                  <div
                     key={project.slug}
-                    href={`/projects/${project.slug}`}
-                    className="relative group bg-gray-50 overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 block"
+                    className="relative group bg-gray-50 overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300"
                   >
-                    {/* Image */}
-                    <div className="aspect-square relative overflow-hidden">
+                    {/* Clickable image area */}
+                    <div
+                      onClick={() => (window.location.href = `/projects/${project.slug}`)}
+                      className="aspect-square relative overflow-hidden cursor-pointer"
+                    >
                       <ProtectedImage
                         src={project.image}
                         alt={project.title}
                         className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
                       />
 
-                      {/* Top Controls: Remove + Share */}
+                      {/* Top Controls */}
                       <div className="absolute inset-0 p-4 flex justify-between items-start z-20 pointer-events-none">
                         <button
                           onClick={(e) => {
-                            e.preventDefault();
                             e.stopPropagation();
                             toggleFavorite(project.slug);
                           }}
@@ -196,7 +213,7 @@ export default function MoodboardPage() {
                         </div>
                       </div>
 
-                      {/* Hover Info Overlay */}
+                      {/* Hover Overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-6 pointer-events-none">
                         <h3 className="text-white text-xl font-black uppercase tracking-tighter mb-2">
                           {project.title}
@@ -212,7 +229,6 @@ export default function MoodboardPage() {
                           </span>
                           <button
                             onClick={(e) => {
-                              e.preventDefault();
                               e.stopPropagation();
                               toggleFavorite(project.slug);
                             }}
@@ -233,22 +249,44 @@ export default function MoodboardPage() {
                         <p className="text-gray-600 text-sm mt-1">{project.category}</p>
                       )}
                       <div className="flex items-center justify-between mt-4">
-                        <span className="text-gray-900 text-[10px] font-black uppercase tracking-widest">
-                          View Details
-                        </span>
                         <button
-                          onClick={(e) => {
-                            e.preventDefault();
-                            toggleFavorite(project.slug);
-                          }}
+                          onClick={() => (window.location.href = `/projects/${project.slug}`)}
+                          className="text-gray-900 text-[10px] font-black uppercase tracking-widest border-b border-gray-900 pb-1"
+                        >
+                          View Details
+                        </button>
+                        <button
+                          onClick={() => toggleFavorite(project.slug)}
                           className="text-red-500 text-[10px] font-black uppercase tracking-widest"
                         >
                           Remove
                         </button>
                       </div>
                     </div>
-                  </Link>
+                  </div>
                 ))}
+              </div>
+
+              {/* ✅ NEW CTA SECTION — Send Moodboard */}
+              <div className="mt-16 p-8 bg-gray-50 rounded-2xl border border-gray-200 text-center max-w-2xl mx-auto">
+                <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tighter text-gray-900 mb-4">
+                  Love what you see?
+                </h3>
+                <p className="text-gray-600 mb-6 max-w-md mx-auto">
+                  Send this moodboard directly to our team and let us create a space inspired by your selections.
+                </p>
+                <button
+                  onClick={sendMoodboardViaWhatsApp}
+                  className="inline-flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-full font-black text-[10px] uppercase tracking-widest transition-colors shadow-lg"
+                >
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.199.05-.372-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.372-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.226 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.491h.004c-2.255-.001-4.498-.646-6.466-1.928-2.116-1.378-3.62-3.398-4.248-5.702C.675 11.192.553 8.82.947 6.503 1.38 3.959 2.948 1.78 5.336.646 7.724-.489 10.453-.53 12.862.117c2.409.646 4.456 2.03 5.884 4.002 1.429 1.971 2.169 4.396 2.104 6.842-.005.188-.016.376-.033.563l.004-.002-.002.004-.001.001c-.099 1.315-.566 2.553-1.332 3.562-.78 1.026-1.826 1.783-2.999 2.234-1.304.5-2.733.73-4.13.694z"/>
+                  </svg>
+                  Send Moodboard via WhatsApp
+                </button>
+                <p className="mt-4 text-[10px] text-gray-500 uppercase tracking-widest">
+                  We’ll contact you within 24 hours
+                </p>
               </div>
             </>
           )}
