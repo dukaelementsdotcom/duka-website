@@ -12,12 +12,26 @@ export default function ShareButton({ title, url }: ShareButtonProps) {
   const [copied, setCopied] = useState(false);
   const [currentUrl, setCurrentUrl] = useState('');
   const containerRef = useRef<HTMLDivElement>(null);
+  const closeTimeout = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     setCurrentUrl(url || (typeof window !== 'undefined' ? window.location.href : ''));
   }, [url]);
 
-  // Handle click outside to close
+  // Handle Desktop Hover
+  const handleMouseEnter = () => {
+    if (closeTimeout.current) clearTimeout(closeTimeout.current);
+    setIsOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    // Small delay so the user can move mouse to the menu without it vanishing
+    closeTimeout.current = setTimeout(() => {
+      setIsOpen(false);
+    }, 300);
+  };
+
+  // Handle Click Outside (for Mobile)
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
@@ -32,7 +46,10 @@ export default function ShareButton({ title, url }: ShareButtonProps) {
     try {
       await navigator.clipboard.writeText(currentUrl);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      setTimeout(() => {
+        setCopied(false);
+        setIsOpen(false);
+      }, 1500);
     } catch (err) {
       console.error('Failed to copy:', err);
     }
@@ -72,15 +89,20 @@ export default function ShareButton({ title, url }: ShareButtonProps) {
   ];
 
   return (
-    <div ref={containerRef} className="relative inline-block">
+    <div 
+      ref={containerRef} 
+      className="relative inline-block"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       {/* Popover Menu */}
       <div
         className={`
-          absolute bottom-full left-1/2 -translate-x-1/2 mb-4
-          flex flex-col sm:flex-row items-center gap-2 p-2
-          bg-white rounded-2xl shadow-2xl border border-slate-100
+          absolute bottom-full left-1/2 -translate-x-1/2 mb-3
+          flex items-center gap-1 p-1.5
+          bg-white/80 backdrop-blur-xl rounded-full shadow-2xl border border-white/20
           transition-all duration-300 origin-bottom
-          ${isOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-90 translate-y-4 pointer-events-none'}
+          ${isOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-90 translate-y-2 pointer-events-none'}
         `}
       >
         {shareLinks.map((link) => (
@@ -90,66 +112,65 @@ export default function ShareButton({ title, url }: ShareButtonProps) {
             target="_blank"
             rel="noopener noreferrer"
             className={`
-              flex items-center justify-center w-11 h-11 rounded-xl
-              text-slate-600 transition-colors duration-200
+              flex items-center justify-center w-10 h-10 rounded-full
+              text-slate-600 transition-all duration-200
               ${link.color}
             `}
-            title={`Share on ${link.name}`}
           >
             {link.icon}
           </a>
         ))}
 
-        <div className="w-px h-6 bg-slate-200 hidden sm:block mx-1" />
+        <div className="w-[1px] h-4 bg-slate-300 mx-1" />
 
         <button
           onClick={copyToClipboard}
           className={`
-            flex items-center justify-center w-11 h-11 rounded-xl
+            flex items-center justify-center w-10 h-10 rounded-full
             transition-all duration-200
-            ${copied ? 'bg-green-100 text-green-600' : 'text-slate-600 hover:bg-slate-100'}
+            ${copied ? 'bg-green-500 text-white' : 'text-slate-600 hover:bg-slate-900 hover:text-white'}
           `}
-          title="Copy Link"
         >
           {copied ? (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="w-5 h-5">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="w-4 h-4">
               <polyline points="20 6 9 17 4 12"></polyline>
             </svg>
           ) : (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
-              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+               <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+               <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
             </svg>
           )}
         </button>
       </div>
 
-      {/* Main Trigger */}
+      {/* Main Trigger Button - Creative Standard Icon */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`
-          flex items-center gap-2 px-5 py-2.5 rounded-full font-medium
-          transition-all duration-200 active:scale-95
+          flex items-center justify-center w-12 h-12 rounded-full
+          transition-all duration-300 shadow-sm
           ${isOpen 
-            ? 'bg-slate-900 text-white shadow-lg' 
-            : 'bg-white text-slate-700 border border-slate-200 hover:border-slate-300 hover:bg-slate-50 shadow-sm'
+            ? 'bg-slate-900 text-white scale-110' 
+            : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
           }
         `}
+        aria-label="Share"
       >
         <svg 
           viewBox="0 0 24 24" 
           fill="none" 
           stroke="currentColor" 
           strokeWidth="2.5" 
-          className={`w-4 h-4 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+          strokeLinecap="round" 
+          strokeLinejoin="round"
+          className="w-5 h-5"
         >
-          {isOpen ? (
-             <path d="M18 6L6 18M6 6l12 12" />
-          ) : (
-            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8M16 6l-4-4-4 4M12 2v13" />
-          )}
+          {/* Creative Curved Arrow Icon */}
+          <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+          <polyline points="16 6 12 2 8 6" />
+          <line x1="12" y1="2" x2="12" y2="15" />
         </svg>
-        <span>{isOpen ? 'Close' : 'Share'}</span>
       </button>
     </div>
   );
