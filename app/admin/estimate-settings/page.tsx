@@ -1,4 +1,6 @@
 import AdminPanel from '@/app/components/Calculator/AdminPanel';
+import NavBar from '@/app/components/NavBar'; // ADD THIS
+import Footer from '@/app/components/Footer'; // ADD THIS
 
 export const metadata = {
   title: 'Admin Panel - Pricing Settings | Duka Interiors',
@@ -6,5 +8,11 @@ export const metadata = {
 };
 
 export default function AdminSettingsPage() {
-  return <AdminPanel />;
+  return (
+    <>
+      <NavBar />
+      <AdminPanel />
+      <Footer />
+    </>
+  );
 }
