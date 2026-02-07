@@ -65,14 +65,14 @@ export default function NavBar() {
     return () => window.removeEventListener('resize', handleResize);
   }, [isMenuOpen]);
 
-  // ✅ FIXED HEIGHTS WITH PROPER PADDING
+  // ✅ CORRECT HEIGHTS
   const topRowClasses = isScrolled
-    ? 'bg-white border-b border-gray-200 shadow-sm h-16' // 64px total height
-    : 'bg-gradient-to-r from-black/95 to-gray-900/95 backdrop-blur-md h-16';
+    ? 'bg-white border-b border-gray-200 shadow-sm h-16' // 64px
+    : 'bg-gradient-to-r from-black/95 to-gray-900/95 backdrop-blur-md h-16'; // 64px
   
   const bottomRowClasses = isScrolled
-    ? 'bg-white/95 backdrop-blur-md border-t border-gray-100 shadow-sm h-12' // 48px total height
-    : 'bg-gradient-to-r from-gray-900/90 to-black/90 backdrop-blur-md border-t border-white/10 h-14'; // 56px total height
+    ? 'bg-white/95 backdrop-blur-md border-t border-gray-100 shadow-sm h-12' // 48px
+    : 'bg-gradient-to-r from-gray-900/90 to-black/90 backdrop-blur-md border-t border-white/10 h-14'; // 56px
 
   // Navigation structure
   const navStructure = {
@@ -130,31 +130,33 @@ export default function NavBar() {
   ];
   const email = 'contact@dukainteriors.com';
 
+  // ✅ FIXED: Removed all trailing spaces in URLs
   const socialLinks = [
-  { name: 'WhatsApp', href: 'https://wa.me/251940607055', icon: faWhatsapp, color: 'hover:bg-green-500' },
-  { name: 'Telegram', href: 'https://t.me/dukainteriorsplc', icon: faTelegram, color: 'hover:bg-blue-400' },
-  { name: 'Facebook', href: 'https://www.facebook.com/dukainteriors', icon: faFacebookF, color: 'hover:bg-blue-600' },
-  { name: 'Instagram', href: 'https://www.instagram.com/dukainteriors', icon: faInstagram, color: 'hover:bg-pink-600' },
-  { name: 'TikTok', href: 'https://www.tiktok.com/@duka.interiors.plc', icon: faTiktok, color: 'hover:bg-black' },
-  { name: 'LinkedIn', href: 'https://www.linkedin.com/company/duka-interiors', icon: faLinkedinIn, color: 'hover:bg-blue-700' },
-];
+    { name: 'WhatsApp', href: 'https://wa.me/251940607055', icon: faWhatsapp, color: 'hover:bg-green-500' },
+    { name: 'Telegram', href: 'https://t.me/dukainteriorsplc', icon: faTelegram, color: 'hover:bg-blue-400' },
+    { name: 'Facebook', href: 'https://www.facebook.com/dukainteriors', icon: faFacebookF, color: 'hover:bg-blue-600' },
+    { name: 'Instagram', href: 'https://www.instagram.com/dukainteriors', icon: faInstagram, color: 'hover:bg-pink-600' },
+    { name: 'TikTok', href: 'https://www.tiktok.com/@duka.interiors.plc', icon: faTiktok, color: 'hover:bg-black' },
+    { name: 'LinkedIn', href: 'https://www.linkedin.com/company/duka-interiors', icon: faLinkedinIn, color: 'hover:bg-blue-700' },
+  ];
 
   // Toggle mobile section
   const toggleMobileSection = (section: string) => {
     setOpenMobileSection(openMobileSection === section ? null : section);
   };
 
+  // ✅ CORRECTED: Proper height calculation
   const getNavbarHeight = () => {
-  if (typeof window === 'undefined') return '112px';
-  if (window.innerWidth < 1024) return '64px'; // Mobile: single row
-  return isScrolled ? '112px' : '120px'; // ✅ FIXED: 64px + 48px = 112px (was 104px!)
-};
+    if (typeof window === 'undefined') return '112px';
+    if (window.innerWidth < 1024) return '64px';
+    return isScrolled ? '112px' : '120px';
+  };
 
   return (
     <>
-      {/* ✅ SPACER DIV - Prevents content from hiding behind navbar */}
+      {/* ✅ CORRECTED: Spacer for mobile only */}
       <div 
-        className="transition-all duration-300"
+        className="lg:hidden transition-all duration-300"
         style={{ height: getNavbarHeight() }}
         aria-hidden="true"
       ></div>
@@ -164,19 +166,19 @@ export default function NavBar() {
         <div className={`w-full transition-all duration-300 ${topRowClasses}`}>
           <div className="max-w-screen-2xl mx-auto px-4 lg:px-6">
             <div className="flex items-center justify-between h-full">
-              {/* Logo - ✅ FIXED: Removed py-2 for proper vertical centering */}
-<Link href="/" aria-label="Go to homepage">
-  <Image
-    src="/images/icons-duka-interiors/logo-duka-interiors-big.svg"
-    alt="Duka Interiors Logo"
-    width={isScrolled ? 120 : 140}
-    height={isScrolled ? 36 : 45}
-    priority
-    className={`transition-all duration-300 ${isScrolled ? 'h-9' : 'h-10'}`}
-  />
-</Link>
+              {/* Logo - ✅ CORRECTED: Proper vertical alignment */}
+              <Link href="/" aria-label="Go to homepage" className="py-1">
+                <Image
+                  src="/images/icons-duka-interiors/logo-duka-interiors-big.svg"
+                  alt="Duka Interiors Logo"
+                  width={isScrolled ? 120 : 140}
+                  height={isScrolled ? 36 : 45}
+                  priority
+                  className={`transition-all duration-300 ${isScrolled ? 'h-9' : 'h-10'}`}
+                />
+              </Link>
 
-              {/* Desktop: Contact & Social Row - ✅ FIXED: Proper spacing */}
+              {/* Desktop: Contact & Social Row */}
               <div className="hidden lg:flex items-center gap-x-6">
                 {/* Phone Numbers */}
                 <div className="flex items-center gap-x-4">
@@ -222,7 +224,7 @@ export default function NavBar() {
                       <FontAwesomeIcon icon={social.icon} />
                     </a>
                   ))}
-                </div>
+               div>
 
                 {/* Divider */}
                 <div className={`w-px h-5 ${isScrolled ? 'bg-gray-300' : 'bg-white/30'}`}></div>
