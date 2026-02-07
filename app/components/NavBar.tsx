@@ -130,27 +130,25 @@ export default function NavBar() {
   ];
   const email = 'contact@dukainteriors.com';
 
-  // ✅ RESTORED TIKTOK ICON + FIXED URL TRAILING SPACES
   const socialLinks = [
-    { name: 'WhatsApp', href: 'https://wa.me/251940607055', icon: faWhatsapp, color: 'hover:bg-green-500' },
-    { name: 'Telegram', href: 'https://t.me/dukainteriorsplc', icon: faTelegram, color: 'hover:bg-blue-400' },
-    { name: 'Facebook', href: 'https://www.facebook.com/dukainteriors', icon: faFacebookF, color: 'hover:bg-blue-600' },
-    { name: 'Instagram', href: 'https://www.instagram.com/dukainteriors', icon: faInstagram, color: 'hover:bg-pink-600' },
-    { name: 'TikTok', href: 'https://www.tiktok.com/@duka.interiors.plc', icon: faTiktok, color: 'hover:bg-black' }, // ✅ RESTORED
-    { name: 'LinkedIn', href: 'https://www.linkedin.com/company/duka-interiors', icon: faLinkedinIn, color: 'hover:bg-blue-700' },
-  ];
+  { name: 'WhatsApp', href: 'https://wa.me/251940607055', icon: faWhatsapp, color: 'hover:bg-green-500' },
+  { name: 'Telegram', href: 'https://t.me/dukainteriorsplc', icon: faTelegram, color: 'hover:bg-blue-400' },
+  { name: 'Facebook', href: 'https://www.facebook.com/dukainteriors', icon: faFacebookF, color: 'hover:bg-blue-600' },
+  { name: 'Instagram', href: 'https://www.instagram.com/dukainteriors', icon: faInstagram, color: 'hover:bg-pink-600' },
+  { name: 'TikTok', href: 'https://www.tiktok.com/@duka.interiors.plc', icon: faTiktok, color: 'hover:bg-black' },
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/company/duka-interiors', icon: faLinkedinIn, color: 'hover:bg-blue-700' },
+];
 
   // Toggle mobile section
   const toggleMobileSection = (section: string) => {
     setOpenMobileSection(openMobileSection === section ? null : section);
   };
 
-  // ✅ CRITICAL: Spacer to prevent content hiding
   const getNavbarHeight = () => {
-    if (typeof window === 'undefined') return '112px';
-    if (window.innerWidth < 1024) return '64px';
-    return isScrolled ? '104px' : '120px';
-  };
+  if (typeof window === 'undefined') return '112px';
+  if (window.innerWidth < 1024) return '64px'; // Mobile: single row
+  return isScrolled ? '112px' : '120px'; // ✅ FIXED: 64px + 48px = 112px (was 104px!)
+};
 
   return (
     <>
@@ -166,17 +164,17 @@ export default function NavBar() {
         <div className={`w-full transition-all duration-300 ${topRowClasses}`}>
           <div className="max-w-screen-2xl mx-auto px-4 lg:px-6">
             <div className="flex items-center justify-between h-full">
-              {/* Logo - ✅ FIXED: Added proper padding around logo */}
-              <Link href="/" aria-label="Go to homepage" className="py-2">
-                <Image
-                  src="/images/icons-duka-interiors/logo-duka-interiors-big.svg"
-                  alt="Duka Interiors Logo"
-                  width={isScrolled ? 120 : 140}
-                  height={isScrolled ? 36 : 45}
-                  priority
-                  className={`transition-all duration-300 ${isScrolled ? 'h-9' : 'h-10'}`}
-                />
-              </Link>
+              {/* Logo - ✅ FIXED: Removed py-2 for proper vertical centering */}
+<Link href="/" aria-label="Go to homepage">
+  <Image
+    src="/images/icons-duka-interiors/logo-duka-interiors-big.svg"
+    alt="Duka Interiors Logo"
+    width={isScrolled ? 120 : 140}
+    height={isScrolled ? 36 : 45}
+    priority
+    className={`transition-all duration-300 ${isScrolled ? 'h-9' : 'h-10'}`}
+  />
+</Link>
 
               {/* Desktop: Contact & Social Row - ✅ FIXED: Proper spacing */}
               <div className="hidden lg:flex items-center gap-x-6">
