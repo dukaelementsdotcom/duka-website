@@ -65,10 +65,10 @@ export default function NavBar() {
     return () => window.removeEventListener('resize', handleResize);
   }, [isMenuOpen]);
 
-  // ✅ CORRECT HEIGHTS
+  // ✅ PERFECT SPACING: Added vertical padding for breathing room
   const topRowClasses = isScrolled
-    ? 'bg-white border-b border-gray-200 shadow-sm h-16' // 64px
-    : 'bg-gradient-to-r from-black/95 to-gray-900/95 backdrop-blur-md h-16'; // 64px
+    ? 'bg-white border-b border-gray-200 shadow-sm py-3' // 24px total vertical padding (12px top/bottom)
+    : 'bg-gradient-to-r from-black/95 to-gray-900/95 backdrop-blur-md py-3';
   
   const bottomRowClasses = isScrolled
     ? 'bg-white/95 backdrop-blur-md border-t border-gray-100 shadow-sm h-12' // 48px
@@ -130,7 +130,7 @@ export default function NavBar() {
   ];
   const email = 'contact@dukainteriors.com';
 
-  // ✅ FIXED: Removed all trailing spaces in URLs
+  // ✅ FIXED: Removed ALL trailing spaces in URLs (critical for links to work)
   const socialLinks = [
     { name: 'WhatsApp', href: 'https://wa.me/251940607055', icon: faWhatsapp, color: 'hover:bg-green-500' },
     { name: 'Telegram', href: 'https://t.me/dukainteriorsplc', icon: faTelegram, color: 'hover:bg-blue-400' },
@@ -145,16 +145,16 @@ export default function NavBar() {
     setOpenMobileSection(openMobileSection === section ? null : section);
   };
 
-  // ✅ CORRECTED: Proper height calculation
+  // ✅ PERFECT HEIGHT CALCULATION (accounts for padding)
   const getNavbarHeight = () => {
-    if (typeof window === 'undefined') return '112px';
-    if (window.innerWidth < 1024) return '64px';
-    return isScrolled ? '112px' : '120px';
+    if (typeof window === 'undefined') return '128px'; // 24px padding + 64px content + 48px bottom row
+    if (window.innerWidth < 1024) return '80px'; // Mobile: single row with padding
+    return isScrolled ? '128px' : '144px'; // Desktop: top row (24px padding + 64px content) + bottom row (48px/56px)
   };
 
   return (
     <>
-      {/* ✅ CORRECTED: Spacer for mobile only */}
+      {/* ✅ PERFECT SPACER: Only on mobile to prevent content hiding */}
       <div 
         className="lg:hidden transition-all duration-300"
         style={{ height: getNavbarHeight() }}
@@ -165,16 +165,16 @@ export default function NavBar() {
         {/* ========== TOP ROW: Logo, Contact, Social, Calculator ========== */}
         <div className={`w-full transition-all duration-300 ${topRowClasses}`}>
           <div className="max-w-screen-2xl mx-auto px-4 lg:px-6">
-            <div className="flex items-center justify-between h-full">
-              {/* Logo - ✅ CORRECTED: Proper vertical alignment */}
-              <Link href="/" aria-label="Go to homepage" className="py-1">
+            <div className="flex items-center justify-between h-12"> {/* Fixed height for consistent alignment */}
+              {/* Logo - ✅ PERFECT ALIGNMENT */}
+              <Link href="/" aria-label="Go to homepage">
                 <Image
                   src="/images/icons-duka-interiors/logo-duka-interiors-big.svg"
                   alt="Duka Interiors Logo"
                   width={isScrolled ? 120 : 140}
-                  height={isScrolled ? 36 : 45}
+                  height={isScrolled ? 32 : 40}
                   priority
-                  className={`transition-all duration-300 ${isScrolled ? 'h-9' : 'h-10'}`}
+                  className={`transition-all duration-300 ${isScrolled ? 'h-8' : 'h-10'}`}
                 />
               </Link>
 
@@ -191,7 +191,7 @@ export default function NavBar() {
                         isScrolled ? 'text-gray-800 hover:text-red-600' : 'text-white hover:text-red-300'
                       }`}
                     >
-                      <div className={`w-7 h-7 rounded-full flex items-center justify-center transition-all ${
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
                         isScrolled 
                           ? 'bg-red-100 text-red-600 group-hover:bg-red-600 group-hover:text-white' 
                           : 'bg-white/20 text-white group-hover:bg-red-600'
@@ -204,10 +204,10 @@ export default function NavBar() {
                 </div>
 
                 {/* Divider */}
-                <div className={`w-px h-5 ${isScrolled ? 'bg-gray-300' : 'bg-white/30'}`}></div>
+                <div className={`w-px h-6 ${isScrolled ? 'bg-gray-300' : 'bg-white/30'}`}></div>
 
                 {/* Social Icons - ✅ INCLUDES TIKTOK */}
-                <div className="flex items-center gap-x-1.5">
+                <div className="flex items-center gap-x-2">
                   {socialLinks.slice(0, 5).map((social) => (
                     <a
                       key={social.name}
@@ -215,7 +215,7 @@ export default function NavBar() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`Visit our ${social.name} page`}
-                      className={`w-8 h-8 rounded-full flex items-center justify-center text-xs transition-all ${
+                      className={`w-9 h-9 rounded-full flex items-center justify-center text-xs transition-all ${
                         isScrolled 
                           ? 'bg-gray-100 text-gray-700 hover:bg-red-600 hover:text-white' 
                           : 'bg-white/10 text-white hover:bg-red-600'
@@ -224,10 +224,10 @@ export default function NavBar() {
                       <FontAwesomeIcon icon={social.icon} />
                     </a>
                   ))}
-               div>
+                </div>
 
                 {/* Divider */}
-                <div className={`w-px h-5 ${isScrolled ? 'bg-gray-300' : 'bg-white/30'}`}></div>
+                <div className={`w-px h-6 ${isScrolled ? 'bg-gray-300' : 'bg-white/30'}`}></div>
 
                 {/* Calculator Button */}
                 <Link
@@ -248,7 +248,7 @@ export default function NavBar() {
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className={`lg:hidden p-2 transition-colors ${isScrolled ? 'text-gray-800 hover:text-red-600' : 'text-white hover:text-red-300'}`}
+                className={`lg:hidden p-2.5 transition-colors ${isScrolled ? 'text-gray-800 hover:text-red-600' : 'text-white hover:text-red-300'}`}
                 aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
               >
                 <FontAwesomeIcon icon={isMenuOpen ? faTimes : faBars} className="text-xl" />
@@ -384,7 +384,7 @@ export default function NavBar() {
             aria-modal="true"
             aria-label="Main navigation menu"
           >
-            <div className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 bg-black/90 border-b border-white/10 backdrop-blur-md">
+            <div className="sticky top-0 z-50 flex items-center justify-between px-5 py-4 bg-black/90 border-b border-white/10 backdrop-blur-md">
               <Link 
                 href="/" 
                 onClick={() => setIsMenuOpen(false)}
@@ -394,25 +394,25 @@ export default function NavBar() {
                 <Image
                   src="/images/icons-duka-interiors/logo-duka-interiors-big.svg"
                   alt="Duka Interiors Logo"
-                  width={120}
-                  height={40}
+                  width={110}
+                  height={36}
                   className="h-8 w-auto"
                 />
               </Link>
               
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3">
                 <Link
                   href="/estimate-cost"
                   onClick={() => setIsMenuOpen(false)}
                   aria-label="Open cost calculator"
-                  className="flex items-center gap-2 bg-red-600 text-white px-3 py-2 rounded-lg text-xs font-bold uppercase"
+                  className="flex items-center gap-1.5 bg-red-600 text-white px-3 py-2 rounded-lg text-xs font-bold uppercase"
                 >
                   <FontAwesomeIcon icon={faCalculator} className="text-xs" />
-                  <span>Calculator</span>
+                  <span className="hidden sm:inline">Calculator</span>
                 </Link>
                 <button
                   onClick={() => setIsMenuOpen(false)}
-                  className="p-3 text-white hover:text-red-400 transition-colors"
+                  className="p-2.5 text-white hover:text-red-400 transition-colors"
                   aria-label="Close menu"
                 >
                   <FontAwesomeIcon icon={faTimes} className="text-2xl" />
@@ -420,7 +420,7 @@ export default function NavBar() {
               </div>
             </div>
 
-            <div className="flex flex-col h-full px-6 pb-12 pt-4">
+            <div className="flex flex-col h-full px-5 pb-12 pt-4">
               <div className="grid grid-cols-2 gap-3 mb-6">
                 {phones.map((phone, idx) => (
                   <a
@@ -432,7 +432,7 @@ export default function NavBar() {
                       idx === 0 ? 'bg-red-600 text-white hover:bg-red-700' : 'bg-gray-800 text-white hover:bg-gray-700'
                     }`}
                   >
-                    <FontAwesomeIcon icon={faPhone} />
+                    <FontAwesomeIcon icon={faPhone} className="text-sm" />
                     <span className="text-sm">{phone.label}</span>
                   </a>
                 ))}
@@ -486,7 +486,7 @@ export default function NavBar() {
                               key={idx}
                               href={item.href}
                               onClick={() => setIsMenuOpen(false)}
-                              className={`flex items-center justify-between py-2.5 px-8 text-sm transition-colors ${
+                              className={`flex items-center justify-between py-2.5 px-7 text-sm transition-colors ${
                                 item.isMain || item.isHighlighted
                                   ? 'text-red-400 font-bold bg-black/30'
                                   : 'text-gray-300 hover:text-white hover:bg-black/20'
@@ -532,7 +532,7 @@ export default function NavBar() {
                 </Link>
               </nav>
 
-              <div className="mt-8 pt-6 border-t border-white/20">
+              <div className="mt-7 pt-6 border-t border-white/20">
                 <div className="mb-4">
                   <h4 className="text-white text-sm font-bold mb-3">Follow Us</h4>
                   <div className="flex flex-wrap gap-2">
@@ -546,7 +546,7 @@ export default function NavBar() {
                         className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-red-600 transition-colors"
                         onClick={() => setIsMenuOpen(false)}
                       >
-                        <FontAwesomeIcon icon={social.icon} />
+                        <FontAwesomeIcon icon={social.icon} className="text-base" />
                       </a>
                     ))}
                   </div>
