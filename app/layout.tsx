@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import GlobalProtection from "./components/GlobalProtection";
+import FontOptimizer from "./components/FontOptimizer"; // We'll create this
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -52,11 +53,8 @@ export const metadata: Metadata = {
     locale: "en_ET",
     type: "website",
   },
-  // ❌ REMOVED: viewport and themeColor from metadata
-  // They now go in the separate viewport export below
 };
 
-// ✅ ADDED: Separate viewport export
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
@@ -142,45 +140,19 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <head>
-        {/* ✅ FIXED: Preconnect to own domain */}
+        {/* Preconnect links */}
         <link rel="preconnect" href="https://www.dukainteriors.com" />
-        
-        {/* ✅ FIXED: Preconnect to Google Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         
-        {/* ✅ FIXED: Preload critical fonts */}
-        <link 
-          rel="preload" 
-          href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&display=swap" 
-          as="style" 
-        />
-        <link 
-          rel="preload" 
-          href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&display=swap" 
-          as="style" 
-        />
-        
-        {/* ✅ FIXED: Load Google Fonts with better performance */}
+        {/* SIMPLIFIED: Use display=swap which is better for performance */}
         <link 
           href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&display=swap"
           rel="stylesheet"
-          media="print"
-          onLoad={(e) => {
-            const target = e.target as HTMLLinkElement;
-            target.onload = null;
-            target.media = "all";
-          }}
         />
         <link 
           href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&display=swap"
           rel="stylesheet"
-          media="print"
-          onLoad={(e) => {
-            const target = e.target as HTMLLinkElement;
-            target.onload = null;
-            target.media = "all";
-          }}
         />
         
         {/* Schema markup */}
@@ -199,6 +171,7 @@ export default function RootLayout({
       </head>
       <body>
         <GlobalProtection />
+        <FontOptimizer />
         {children}
       </body>
     </html>
