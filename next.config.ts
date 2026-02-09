@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
   // 2. Clean up URLs
   skipTrailingSlashRedirect: false,
   
-  // 3. BASIC IMAGE CONFIGURATION (SAFE)
+  // 3. BASIC IMAGE CONFIGURATION
   images: {
     remotePatterns: [
       {
@@ -23,7 +23,6 @@ const nextConfig: NextConfig = {
         hostname: 'googleusercontent.com',
       },
     ],
-    // Basic sizes - works with Next.js 16
     deviceSizes: [640, 750, 828, 1080, 1200],
     imageSizes: [16, 32, 64, 96, 128],
   },
@@ -31,10 +30,7 @@ const nextConfig: NextConfig = {
   // 4. Enable compression
   compress: true,
   
-  // 5. Ignore warnings during build
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+  // 5. REMOVED eslint config - it's causing warnings
   
   // TypeScript configuration
   typescript: {
