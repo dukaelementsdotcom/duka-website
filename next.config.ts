@@ -1,13 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // 1. THE FIX: Ensures /services/design-and-build/ always works
+  // 1. Ensures /services/design-and-build/ always works
   trailingSlash: true,
   
   // 2. Clean up URLs
   skipTrailingSlashRedirect: false,
   
-  // 3. OPTIMIZED IMAGE CONFIGURATION
+  // 3. OPTIMIZED IMAGE CONFIGURATION FOR WEBP
   images: {
     remotePatterns: [
       {
@@ -23,25 +23,20 @@ const nextConfig: NextConfig = {
         hostname: 'googleusercontent.com',
       },
     ],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    formats: ['image/webp', 'image/avif'],
-    minimumCacheTTL: 60,
+    // Optimized sizes for mobile
+    deviceSizes: [640, 750, 828, 1080, 1200],
+    imageSizes: [16, 32, 64, 96, 128],
+    // formats: ['image/webp'], // Remove this line in Next.js 16
+    // quality: 70, // Remove this line in Next.js 16
   },
+  
+  // 4. Enable compression - This is valid
+  compress: true,
   
   // TypeScript configuration
   typescript: {
     ignoreBuildErrors: true,
   },
-  
-  // ✅ FIXED: Add experimental optimizations to reduce legacy JS and unused JS
-  experimental: {
-    optimizePackageImports: [
-      'react',
-      'next',
-      '@fortawesome/react-fontawesome'
-    ]
-  }
 };
 
 export default nextConfig;
