@@ -32,6 +32,12 @@ export default function NavBar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [openMobileSection, setOpenMobileSection] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  // Prevent hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Detect scroll
   useEffect(() => {
@@ -145,18 +151,26 @@ export default function NavBar() {
     setOpenMobileSection(openMobileSection === section ? null : section);
   };
 
-  // ✅ PERFECT HEIGHT CALCULATION (accounts for padding)
+  // ✅ PERFECT HEIGHT CALCULATION (Fixes content hiding on Desktop & Mobile)
   const getNavbarHeight = () => {
-    if (typeof window === 'undefined') return '128px'; // 24px padding + 64px content + 48px bottom row
-    if (window.innerWidth < 1024) return '80px'; // Mobile: single row with padding
-    return isScrolled ? '128px' : '144px'; // Desktop: top row (24px padding + 64px content) + bottom row (48px/56px)
+    // Default fallback for server-side rendering
+    if (!mounted) return '144px'; 
+    
+    // Mobile height (Header row)
+    if (window.innerWidth < 1024) return '80px'; 
+    
+    // Desktop height (Top row + Bottom row)
+    return isScrolled ? '128px' : '144px'; 
   };
 
   return (
     <>
-      {/* ✅ PERFECT SPACER: Only on mobile to prevent content hiding */}
+      {/* ✅ SPACER COMPONENT: 
+        This pushes the main page content down so the fixed header doesn't cover it.
+        Now active on ALL screen sizes (removed lg:hidden).
+      */}
       <div 
-        className="lg:hidden transition-all duration-300"
+        className="transition-all duration-300 w-full"
         style={{ height: getNavbarHeight() }}
         aria-hidden="true"
       ></div>
@@ -379,7 +393,9 @@ export default function NavBar() {
         {/* ========== MOBILE MENU OVERLAY ========== */}
         {isMenuOpen && (
           <div 
-            className="fixed inset-0 lg:hidden bg-gradient-to-b from-gray-900 to-black z-40 h-screen overflow-y-auto"
+            // ✅ FIXED: Changed h-screen to h-[100dvh] for mobile browsers
+            // ✅ FIXED: Added overscroll-contain to manage swipe behaviors
+            className="fixed inset-0 lg:hidden bg-gradient-to-b from-gray-900 to-black z-40 h-[100dvh] overflow-y-auto overscroll-contain"
             role="dialog"
             aria-modal="true"
             aria-label="Main navigation menu"
@@ -420,7 +436,8 @@ export default function NavBar() {
               </div>
             </div>
 
-            <div className="flex flex-col h-full px-5 pb-12 pt-4">
+            {/* ✅ FIXED: Added pb-24 to ensure bottom content (email/address) is not cut off */}
+            <div className="flex flex-col min-h-0 px-5 pt-4 pb-24">
               <div className="grid grid-cols-2 gap-3 mb-6">
                 {phones.map((phone, idx) => (
                   <a
