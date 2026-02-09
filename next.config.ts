@@ -1,13 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // 1. Ensures /services/design-and-build/ always works
   trailingSlash: true,
-  
-  // 2. Clean up URLs
   skipTrailingSlashRedirect: false,
   
-  // 3. BASIC IMAGE CONFIGURATION
   images: {
     remotePatterns: [
       {
@@ -23,16 +19,10 @@ const nextConfig: NextConfig = {
         hostname: 'googleusercontent.com',
       },
     ],
-    deviceSizes: [640, 750, 828, 1080, 1200],
-    imageSizes: [16, 32, 64, 96, 128],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   
-  // 4. Enable compression
-  compress: true,
-  
-  // 5. REMOVED eslint config - it's causing warnings
-  
-  // TypeScript configuration
   typescript: {
     ignoreBuildErrors: true,
   },

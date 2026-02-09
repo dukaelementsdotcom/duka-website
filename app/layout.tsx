@@ -1,4 +1,4 @@
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import GlobalProtection from "./components/GlobalProtection";
@@ -52,12 +52,12 @@ export const metadata: Metadata = {
     locale: "en_ET",
     type: "website",
   },
-};
-
-export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  maximumScale: 5,
+  // KEEP viewport in metadata for Next.js 16 compatibility
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
+  },
   themeColor: '#ffffff',
 };
 
@@ -139,12 +139,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <head>
-        {/* Preconnect links - SIMPLE VERSION */}
+        {/* Keep original head content */}
         <link rel="preconnect" href="https://www.dukainteriors.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         
-        {/* Google Fonts - SIMPLE VERSION */}
+        {/* Simple font loading */}
         <link 
           href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&display=swap"
           rel="stylesheet"
