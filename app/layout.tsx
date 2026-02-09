@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import GlobalProtection from "./components/GlobalProtection";
-import FontOptimizer from "./components/FontOptimizer"; // We'll create this
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -140,12 +139,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <head>
-        {/* Preconnect links */}
+        {/* Preconnect links - SIMPLE VERSION */}
         <link rel="preconnect" href="https://www.dukainteriors.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         
-        {/* SIMPLIFIED: Use display=swap which is better for performance */}
+        {/* Google Fonts - SIMPLE VERSION */}
         <link 
           href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&display=swap"
           rel="stylesheet"
@@ -171,7 +170,6 @@ export default function RootLayout({
       </head>
       <body>
         <GlobalProtection />
-        <FontOptimizer />
         {children}
       </body>
     </html>

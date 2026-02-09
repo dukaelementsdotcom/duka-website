@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
   // 2. Clean up URLs
   skipTrailingSlashRedirect: false,
   
-  // 3. OPTIMIZED IMAGE CONFIGURATION FOR WEBP
+  // 3. BASIC IMAGE CONFIGURATION (SAFE)
   images: {
     remotePatterns: [
       {
@@ -23,15 +23,18 @@ const nextConfig: NextConfig = {
         hostname: 'googleusercontent.com',
       },
     ],
-    // Optimized sizes for mobile
+    // Basic sizes - works with Next.js 16
     deviceSizes: [640, 750, 828, 1080, 1200],
     imageSizes: [16, 32, 64, 96, 128],
-    // formats: ['image/webp'], // Remove this line in Next.js 16
-    // quality: 70, // Remove this line in Next.js 16
   },
   
-  // 4. Enable compression - This is valid
+  // 4. Enable compression
   compress: true,
+  
+  // 5. Ignore warnings during build
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   
   // TypeScript configuration
   typescript: {

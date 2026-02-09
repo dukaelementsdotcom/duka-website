@@ -77,3 +77,27 @@ img[src$=".svg"] {
     scroll-behavior: auto !important;
   }
 }
+/* Add at the TOP of globals.css */
+/* Critical above-the-fold styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* Critical image styles */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Critical layout prevention */
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.object-cover {
+  object-fit: cover;
+}
