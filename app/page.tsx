@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -16,12 +18,6 @@ const QuickEstimate = dynamic(() => import('./components/Calculator/QuickEstimat
 
 import { services } from '@/lib/servicesData';
 
-// Standard Metadata for better performance and SEO
-export const metadata = {
-  title: 'Interior Design Company in Addis Ababa Ethiopia',
-  description: 'Duka Interiors is the best interior design company in Addis Ababa, specializing in office partitioning, renovation, and interior decoration in Ethiopia.',
-};
-
 export default function Home() {
   const scrollToConsultation = () => {
     const section = document.getElementById('final-cta');
@@ -30,6 +26,9 @@ export default function Home() {
 
   return (
     <>
+      {/* Client-side Title Update */}
+      <title>Interior Design Company in Addis Ababa Ethiopia</title>
+
       {/* SCHEMA ORG - Structured Data */}
       <script
         type="application/ld+json"
@@ -73,12 +72,11 @@ export default function Home() {
           alt="The best interior design company in Addis Ababa - Duka Interiors"
           fill
           className="object-cover"
-          priority={true} // Priority loading for LCP
-          fetchPriority="high" // Critical for mobile speed
-          quality={85} // Slightly higher for better clarity on large screens
-          sizes="100vw" // Since it's a full-width hero
+          priority={true} 
+          fetchPriority="high" 
+          quality={85} 
+          sizes="100vw" 
         />
-        {/* Overlay with fixed opacity to prevent flicker shift */}
         <div className="absolute inset-0 bg-black/30" aria-hidden="true"></div>
         
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
