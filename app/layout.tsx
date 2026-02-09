@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import GlobalProtection from "./components/GlobalProtection";
@@ -17,7 +17,6 @@ const geistMono = Geist_Mono({
   weight: ['400', '500', '600'],
 });
 
-// ✅ FIXED SYNTAX: export const metadata: Metadata (NOT "me ta Metadata")
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.dukainteriors.com"),
   title: {
@@ -53,13 +52,15 @@ export const metadata: Metadata = {
     locale: "en_ET",
     type: "website",
   },
-  // ✅ FIXED: Added viewport configuration for better accessibility
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 5,
-  },
-  // ✅ FIXED: Added theme color for better mobile experience
+  // ❌ REMOVED: viewport and themeColor from metadata
+  // They now go in the separate viewport export below
+};
+
+// ✅ ADDED: Separate viewport export
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
   themeColor: '#ffffff',
 };
 
@@ -141,7 +142,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <head>
-        {/* ✅ FIXED: Preconnect to own domain for faster DNS lookup */}
+        {/* ✅ FIXED: Preconnect to own domain */}
         <link rel="preconnect" href="https://www.dukainteriors.com" />
         
         {/* ✅ FIXED: Preconnect to Google Fonts */}
@@ -160,7 +161,29 @@ export default function RootLayout({
           as="style" 
         />
         
-        {/* ✅ FIXED: Schema markup with proper URLs (no extra spaces) */}
+        {/* ✅ FIXED: Load Google Fonts with better performance */}
+        <link 
+          href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&display=swap"
+          rel="stylesheet"
+          media="print"
+          onLoad={(e) => {
+            const target = e.target as HTMLLinkElement;
+            target.onload = null;
+            target.media = "all";
+          }}
+        />
+        <link 
+          href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&display=swap"
+          rel="stylesheet"
+          media="print"
+          onLoad={(e) => {
+            const target = e.target as HTMLLinkElement;
+            target.onload = null;
+            target.media = "all";
+          }}
+        />
+        
+        {/* Schema markup */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
