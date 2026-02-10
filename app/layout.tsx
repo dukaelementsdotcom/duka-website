@@ -52,7 +52,6 @@ export const metadata: Metadata = {
     locale: "en_ET",
     type: "website",
   },
-  // KEEP viewport in metadata for Next.js 16 compatibility
   viewport: {
     width: 'device-width',
     initialScale: 1,
@@ -139,19 +138,23 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <head>
-        {/* Keep original head content */}
+        {/* ✅ FIXED: Preconnect to own domain - NO EXTRA SPACES */}
         <link rel="preconnect" href="https://www.dukainteriors.com" />
+        
+        {/* ✅ FIXED: Preconnect to Google Fonts - NO EXTRA SPACES */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         
-        {/* Simple font loading */}
+        {/* ✅ FIXED: Preload critical fonts - NO EXTRA SPACES */}
         <link 
-          href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&display=swap"
-          rel="stylesheet"
+          rel="preload" 
+          href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&display=swap" 
+          as="style" 
         />
         <link 
-          href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&display=swap"
-          rel="stylesheet"
+          rel="preload" 
+          href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&display=swap" 
+          as="style" 
         />
         
         {/* Schema markup */}
