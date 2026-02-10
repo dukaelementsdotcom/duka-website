@@ -223,7 +223,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ProjectScope Pro CTA */}
+        {/* ProjectScope Pro CTA - FIXED LINKS */}
         <section className="py-24 px-6 lg:px-12 bg-gradient-to-b from-white to-gray-50">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
@@ -244,7 +244,7 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               <Link
                 href="/estimate"
-                className="group bg-white border-2 border-gray-200 rounded-xl p-8 text-center hover:border-red-600 hover:shadow-2xl transition-all"
+                className="group bg-white border-2 border-gray-200 rounded-xl p-8 text-center hover:border-red-600 hover:shadow-2xl transition-all block"
               >
                 <div className="text-5xl mb-4">📐</div>
                 <h3 className="text-xl font-black mb-2">Space Planner</h3>
@@ -258,7 +258,7 @@ export default function Home() {
               
               <Link
                 href="/estimate"
-                className="group bg-white border-2 border-gray-200 rounded-xl p-8 text-center hover:border-red-600 hover:shadow-2xl transition-all"
+                className="group bg-white border-2 border-gray-200 rounded-xl p-8 text-center hover:border-red-600 hover:shadow-2xl transition-all block"
               >
                 <div className="text-5xl mb-4">💰</div>
                 <h3 className="text-xl font-black mb-2">Cost Estimator</h3>
