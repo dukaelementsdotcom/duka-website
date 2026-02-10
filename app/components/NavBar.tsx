@@ -8,7 +8,6 @@ import {
   faChevronDown,
   faPhone,
   faTimes,
-  faCalculator,
   faBars,
   faFolderOpen,
   faLightbulb,
@@ -112,7 +111,6 @@ export default function NavBar() {
         { name: 'Insights & Blog', href: '/resources' },
         { name: 'Material Guides', href: '/resources/materials' },
         { name: 'Renovation FAQ', href: '/resources/faq' },
-        { name: 'Cost Calculator', href: '/estimate-cost', isHighlighted: true },
       ]
     },
     products: {
@@ -228,21 +226,6 @@ export default function NavBar() {
                     </a>
                   ))}
                 </div>
-
-                <div className={`w-px h-6 ${isScrolled ? 'bg-gray-300' : 'bg-white/30'}`}></div>
-
-                <Link
-                  href="/estimate-cost"
-                  className={`group flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all ${
-                    isScrolled 
-                      ? 'bg-gradient-to-r from-red-600 to-red-700 text-white hover:shadow-lg hover:scale-105' 
-                      : 'bg-white/10 text-white hover:bg-red-600 backdrop-blur-sm'
-                  }`}
-                >
-                  <FontAwesomeIcon icon={faCalculator} className="text-xs" />
-                  <span className="hidden md:inline">Cost Calculator</span>
-                  <span className={`text-[9px] px-1.5 py-0.5 rounded-full ${isScrolled ? 'bg-white/20' : 'bg-red-500'}`}>NEW</span>
-                </Link>
               </div>
 
               {/* Mobile Menu Button */}
@@ -391,22 +374,12 @@ export default function NavBar() {
                 />
               </Link>
               
-              <div className="flex items-center gap-3">
-                <Link
-                  href="/estimate-cost"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="flex items-center gap-1.5 bg-red-600 text-white px-3 py-2 rounded-lg text-xs font-bold uppercase"
-                >
-                  <FontAwesomeIcon icon={faCalculator} className="text-xs" />
-                  <span className="hidden sm:inline">Calculator</span>
-                </Link>
-                <button
-                  onClick={() => setIsMenuOpen(false)}
-                  className="p-2.5 text-white hover:text-red-400 transition-colors"
-                >
-                  <FontAwesomeIcon icon={faTimes} className="text-2xl" />
-                </button>
-              </div>
+              <button
+                onClick={() => setIsMenuOpen(false)}
+                className="p-2.5 text-white hover:text-red-400 transition-colors"
+              >
+                <FontAwesomeIcon icon={faTimes} className="text-2xl" />
+              </button>
             </div>
 
             <div className="flex flex-col min-h-0 px-5 pt-4 pb-24">
