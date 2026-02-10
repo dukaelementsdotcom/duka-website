@@ -14,9 +14,6 @@ const FinalCTA = dynamic(() => import('./components/FinalCTA'));
 const ResetScroll = dynamic(() => import('./components/ResetScroll'));
 const NavBar = dynamic(() => import('./components/NavBar'));
 
-// ADD THIS LINE: Import the QuickEstimate widget
-const QuickEstimate = dynamic(() => import('./components/Calculator/QuickEstimate'), { ssr: false });
-
 import { services } from '@/lib/servicesData';
 
 export default function Home() {
@@ -130,7 +127,7 @@ export default function Home() {
                     Duka Interiors is a professional design and build firm with over 10 years of experience in the Ethiopian market. We specialize in creating high-quality workspaces and homes that reflect our clients&apos; vision.
                   </p>
                   <p>
-                    From specialized office partitioning in Addis Ababa to full **office renovation and interior decoration, we handle the entire process from start to finish. Our team ensures that every project meets international standards while using local expertise to deliver the best results for our clients.
+                    From specialized office partitioning in Addis Ababa to full office renovation and interior decoration, we handle the entire process from start to finish. Our team ensures that every project meets international standards while using local expertise to deliver the best results for our clients.
                   </p>
                 </div>
 
@@ -222,38 +219,6 @@ export default function Home() {
                   </Link>
                 </div>
               ))}
-            </div>
-          </div>
-        </section>
-
-        {/* === ADDED: QUICK ESTIMATE CALCULATOR SECTION === */}
-        <section className="py-24 px-6 lg:px-12 bg-gradient-to-b from-white to-gray-50">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-              <div className="inline-flex items-center gap-3 bg-red-50 text-red-700 px-6 py-3 rounded-full mb-6">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                </svg>
-                <span className="text-sm font-bold uppercase tracking-widest">Cost Calculator</span>
-              </div>
-              <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-gray-900 mb-6">
-                Get an Instant Project Estimate
-              </h2>
-              <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-                Answer 3 simple questions to get a ballpark figure for your office design or renovation project in Addis Ababa.
-              </p>
-            </div>
-            <QuickEstimate />
-            <div className="text-center mt-12">
-              <Link
-                href="/estimate-cost"
-                className="inline-flex items-center gap-3 text-gray-700 text-[10px] font-black uppercase tracking-widest border-b border-gray-700 pb-1 hover:text-red-600 hover:border-red-600 transition-colors"
-              >
-                Need a detailed breakdown? Use our full calculator
-                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </Link>
             </div>
           </div>
         </section>
