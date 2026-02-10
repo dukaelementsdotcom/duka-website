@@ -223,6 +223,68 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ProjectScope Pro CTA */}
+<section className="py-24 px-6 lg:px-12 bg-gradient-to-b from-white to-gray-50">
+  <div className="max-w-7xl mx-auto">
+    <div className="text-center mb-16">
+      <div className="inline-flex items-center gap-3 bg-red-50 text-red-700 px-6 py-3 rounded-full mb-6">
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+        </svg>
+        <span className="text-sm font-bold uppercase tracking-widest">New Tool</span>
+      </div>
+      <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-gray-900 mb-6">
+        Plan & Estimate Your Project
+      </h2>
+      <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+        Use our interactive tools to plan your office space and get instant cost estimates
+      </p>
+    </div>
+    
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      <Link
+        href="/estimate#space-planner"
+        className="group bg-white border-2 border-gray-200 rounded-xl p-8 text-center hover:border-red-600 hover:shadow-2xl transition-all"
+      >
+        <div className="text-5xl mb-4">📐</div>
+        <h3 className="text-xl font-black mb-2">Space Planner</h3>
+        <p className="text-gray-600 mb-4">
+          Calculate office area requirements based on headcount and layout preferences
+        </p>
+        <span className="text-red-600 font-black text-sm uppercase tracking-widest group-hover:underline">
+          Plan Your Space →
+        </span>
+      </Link>
+      
+      <Link
+        href="/estimate#cost-estimator"
+        className="group bg-white border-2 border-gray-200 rounded-xl p-8 text-center hover:border-red-600 hover:shadow-2xl transition-all"
+      >
+        <div className="text-5xl mb-4">💰</div>
+        <h3 className="text-xl font-black mb-2">Cost Estimator</h3>
+        <p className="text-gray-600 mb-4">
+          Get detailed cost breakdowns for design services and full build projects
+        </p>
+        <span className="text-red-600 font-black text-sm uppercase tracking-widest group-hover:underline">
+          Get Estimate →
+        </span>
+      </Link>
+    </div>
+    
+    <div className="text-center mt-12">
+      <Link
+        href="/estimate"
+        className="inline-flex items-center gap-3 bg-red-600 text-white px-8 py-4 rounded-lg font-black uppercase tracking-widest text-sm hover:bg-red-700 transition-colors"
+      >
+        Open Full Tool
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </Link>
+    </div>
+  </div>
+</section>
+
         <Gallery />
         <ClientLogosFinal />
         <Testimonials />
