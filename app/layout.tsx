@@ -17,7 +17,6 @@ const geistMono = Geist_Mono({
   weight: ['400', '500', '600'],
 });
 
-// ✅ FIXED SYNTAX: export const metadata: Metadata (NOT "me ta Metadata")
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.dukainteriors.com"),
   title: {
@@ -53,13 +52,11 @@ export const metadata: Metadata = {
     locale: "en_ET",
     type: "website",
   },
-  // ✅ FIXED: Added viewport configuration for better accessibility
   viewport: {
     width: 'device-width',
     initialScale: 1,
     maximumScale: 5,
   },
-  // ✅ FIXED: Added theme color for better mobile experience
   themeColor: '#ffffff',
 };
 
@@ -141,14 +138,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <head>
-        {/* ✅ FIXED: Preconnect to own domain for faster DNS lookup */}
-        <link rel="preconnect" href="https://www.dukainteriors.com" />
+       {/* ✅ FIXED: Preconnect to own domain - NO EXTRA SPACES */}
+<link rel="preconnect" href="https://www.dukainteriors.com" />
         
-        {/* ✅ FIXED: Preconnect to Google Fonts */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+{/* ✅ FIXED: Preconnect to Google Fonts - NO EXTRA SPACES */}
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         
-        {/* ✅ FIXED: Preload critical fonts */}
+        {/* ✅ FIXED: Preload critical fonts - NO EXTRA SPACES */}
         <link 
           rel="preload" 
           href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&display=swap" 
@@ -160,7 +157,7 @@ export default function RootLayout({
           as="style" 
         />
         
-        {/* ✅ FIXED: Schema markup with proper URLs (no extra spaces) */}
+        {/* Schema markup */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

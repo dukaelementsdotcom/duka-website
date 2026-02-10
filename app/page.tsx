@@ -14,9 +14,6 @@ const FinalCTA = dynamic(() => import('./components/FinalCTA'));
 const ResetScroll = dynamic(() => import('./components/ResetScroll'));
 const NavBar = dynamic(() => import('./components/NavBar'));
 
-// ADD THIS LINE: Import the QuickEstimate widget
-const QuickEstimate = dynamic(() => import('./components/Calculator/QuickEstimate'), { ssr: false });
-
 import { services } from '@/lib/servicesData';
 
 export default function Home() {
@@ -27,12 +24,8 @@ export default function Home() {
 
   return (
     <>
-      {/* BETA TECHNIQUE: Client-side Title Update 
-          This overrides the "Elite" title to your SEO-friendly preference.
-      */}
       <title>Interior Design Company in Addis Ababa Ethiopia</title>
 
-      {/* ADVANCED AI MODE SCHEMA - FIXED: Removed extra spaces in URLs */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -68,9 +61,7 @@ export default function Home() {
       <NavBar />
       <ResetScroll />
 
-      {/* FIXED: Added min-h-screen to prevent CLS */}
       <div className="relative h-screen min-h-screen overflow-hidden">
-        {/* OPTIMIZED: Added proper sizes attribute for responsive images */}
         <Image
           src="/images/duka-interiors-portfolio/modern-conference-room-and-lobby-design/modern-board-room-habesha-breweries.webp"
           alt="The best interior design company in Addis Ababa - Duka Interiors"
@@ -87,7 +78,6 @@ export default function Home() {
             Since 2015 // Addis Ababa
           </p>
           
-          {/* YOUR EXACT PHRASING */}
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-[0.9] max-w-5xl mb-10 uppercase tracking-tighter">
             We Design & Build <br />
             The Best <span className="text-red-600">Interiors</span> <br />
@@ -97,14 +87,12 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
               href="/contact"
-              aria-label="Request a free consultation with Duka Interiors"
               className="bg-red-600 hover:bg-white hover:text-black text-white font-black py-4 px-10 text-[11px] uppercase tracking-widest transition-all duration-500 shadow-xl"
             >
               Free Consultation
             </Link>
             <Link
               href="/projects"
-              aria-label="View our portfolio of interior design projects"
               className="bg-transparent border border-white hover:bg-white hover:text-black text-white font-black py-4 px-10 text-[11px] uppercase tracking-widest transition-all duration-500"
             >
               Our Portfolio
@@ -114,7 +102,6 @@ export default function Home() {
       </div>
       
       <main className="bg-white">
-        {/* FIXED: Added min-h-[80px] to prevent CLS on navbar area */}
         <section className="py-24 px-6 lg:px-12 bg-gray-50">
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
@@ -124,30 +111,28 @@ export default function Home() {
                   Interior Design & <br /><span className="text-red-600">Office Partitioning</span> in Ethiopia.
                 </h2>
                 
-                {/* ORGANIC INTRO TEXT */}
                 <div className="space-y-6 text-gray-600 text-lg leading-relaxed max-w-2xl font-medium">
                   <p>
-                    Duka Interiors is a professional design and build firm with over 10 years of experience in the Ethiopian market. We specialize in creating high-quality workspaces and homes that reflect our clients&apos; vision.
+                    Duka Interiors is a professional design and build firm with over 10 years of experience in the Ethiopian market.
                   </p>
                   <p>
-                    From specialized office partitioning in Addis Ababa to full **office renovation and interior decoration, we handle the entire process from start to finish. Our team ensures that every project meets international standards while using local expertise to deliver the best results for our clients.
+                    From specialized office partitioning in Addis Ababa to full office renovation and interior decoration, we handle the entire process from start to finish.
                   </p>
                 </div>
 
                 <div className="pt-4">
-                  <Link href="/about" aria-label="Learn more about our design and build process" className="group flex items-center gap-4 font-black uppercase tracking-widest text-[10px] text-black">
+                  <Link href="/about" className="group flex items-center gap-4 font-black uppercase tracking-widest text-[10px] text-black">
                     More About Our Process <span className="group-hover:translate-x-2 transition-transform text-red-600 text-xl">→</span>
                   </Link>
                 </div>
               </div>
 
               <div className="lg:col-span-5">
-                <Link href="/projects/modern-conference-room-and-lobby-design" aria-label="View modern conference room project" className="block">
+                <Link href="/projects/modern-conference-room-and-lobby-design" className="block">
                   <div className="relative aspect-square overflow-hidden group border border-gray-200">
-                    {/* OPTIMIZED: Added loading="lazy" and proper sizes */}
                     <Image
                       src="/images/duka-interiors-portfolio/modern-conference-room-and-lobby-design/modern-conference-room-addis-ababa.webp"
-                      alt="Office partitioning and renovation project in Addis Ababa"
+                      alt="Office partitioning project"
                       fill
                       className="object-cover transition-transform duration-1000 group-hover:scale-110"
                       loading="lazy"
@@ -171,24 +156,24 @@ export default function Home() {
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-12">
               <div className="space-y-1">
                 <div className="text-5xl font-black tracking-tighter flex items-center">
-                    <AnimatedStat target={150} /><span className="text-red-500 drop-shadow-[0_1px_2px_rgba(255,255,255,0.3)]">+</span>
+                    <AnimatedStat target={150} /><span className="text-red-500">+</span>
                 </div>
-                <div className="text-[10px] font-black uppercase tracking-widest text-gray-300 drop-shadow-[0_1px_2px_rgba(255,255,255,0.3)]">Projects Complete</div>
+                <div className="text-[10px] font-black uppercase tracking-widest text-gray-300">Projects Complete</div>
               </div>
               <div className="space-y-1">
                 <div className="text-5xl font-black tracking-tighter flex items-center">
-                    <AnimatedStat target={50} /><span className="text-red-500 drop-shadow-[0_1px_2px_rgba(255,255,255,0.3)]">+</span>
+                    <AnimatedStat target={50} /><span className="text-red-500">+</span>
                 </div>
-                <div className="text-[10px] font-black uppercase tracking-widest text-gray-300 drop-shadow-[0_1px_2px_rgba(255,255,255,0.3)]">Corporate Clients</div>
+                <div className="text-[10px] font-black uppercase tracking-widest text-gray-300">Corporate Clients</div>
               </div>
               <div className="space-y-1">
                 <div className="text-5xl font-black tracking-tighter flex items-center">
-                    <AnimatedStat target={10} /><span className="text-red-500 drop-shadow-[0_1px_2px_rgba(255,255,255,0.3)]">+</span>
+                    <AnimatedStat target={10} /><span className="text-red-500">+</span>
                 </div>
-                <div className="text-[10px] font-black uppercase tracking-widest text-gray-300 drop-shadow-[0_1px_2px_rgba(255,255,255,0.3)]">Years Mastery</div>
+                <div className="text-[10px] font-black uppercase tracking-widest text-gray-300">Years Mastery</div>
               </div>
               <div className="flex items-center justify-end">
-                  <Link href="/contact" aria-label="Start your interior design project" className="border border-white/20 px-8 py-4 text-[10px] font-black uppercase tracking-widest hover:bg-white hover:text-black transition-all">
+                  <Link href="/contact" className="border border-white/20 px-8 py-4 text-[10px] font-black uppercase tracking-widest hover:bg-white hover:text-black transition-all">
                     Start Project
                   </Link>
               </div>
@@ -215,7 +200,6 @@ export default function Home() {
                   </p>
                   <Link 
                     href={`/services/${service.slug}`}
-                    aria-label={`View ${service.title} specialty`}
                     className="inline-block pt-4 text-[10px] font-black uppercase tracking-widest group-hover:text-red-600 transition-colors"
                   >
                     View Specialty +
@@ -226,33 +210,37 @@ export default function Home() {
           </div>
         </section>
 
-        {/* === ADDED: QUICK ESTIMATE CALCULATOR SECTION === */}
+        {/* ProjectScope Pro CTA - UPDATED ANCHOR LINKS */}
         <section className="py-24 px-6 lg:px-12 bg-gradient-to-b from-white to-gray-50">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
               <div className="inline-flex items-center gap-3 bg-red-50 text-red-700 px-6 py-3 rounded-full mb-6">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                </svg>
-                <span className="text-sm font-bold uppercase tracking-widest">Cost Calculator</span>
+                <span className="text-sm font-bold uppercase tracking-widest">New Tool</span>
               </div>
               <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-gray-900 mb-6">
-                Get an Instant Project Estimate
+                Plan & Estimate Your Project
               </h2>
-              <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-                Answer 3 simple questions to get a ballpark figure for your office design or renovation project in Addis Ababa.
-              </p>
             </div>
-            <QuickEstimate />
-            <div className="text-center mt-12">
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               <Link
-                href="/estimate-cost"
-                className="inline-flex items-center gap-3 text-gray-700 text-[10px] font-black uppercase tracking-widest border-b border-gray-700 pb-1 hover:text-red-600 hover:border-red-600 transition-colors"
+                href="/estimate#planner"
+                className="group bg-white border-2 border-gray-200 rounded-xl p-8 text-center hover:border-red-600 hover:shadow-2xl transition-all block"
               >
-                Need a detailed breakdown? Use our full calculator
-                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
+                <div className="text-5xl mb-4">📐</div>
+                <h3 className="text-xl font-black mb-2">Space Planner</h3>
+                <p className="text-gray-600 mb-4">Calculate office area requirements.</p>
+                <span className="text-red-600 font-black text-sm uppercase tracking-widest group-hover:underline">Plan Your Space →</span>
+              </Link>
+              
+              <Link
+                href="/estimate#cost-estimator"
+                className="group bg-white border-2 border-gray-200 rounded-xl p-8 text-center hover:border-red-600 hover:shadow-2xl transition-all block"
+              >
+                <div className="text-5xl mb-4">💰</div>
+                <h3 className="text-xl font-black mb-2">Cost Estimator</h3>
+                <p className="text-gray-600 mb-4">Get detailed cost breakdowns.</p>
+                <span className="text-red-600 font-black text-sm uppercase tracking-widest group-hover:underline">Get Estimate →</span>
               </Link>
             </div>
           </div>
@@ -261,11 +249,9 @@ export default function Home() {
         <Gallery />
         <ClientLogosFinal />
         <Testimonials />
-        
         <div id="final-cta">
           <FinalCTA />
         </div>
-        
         <Footer />
       </main>
     </>

@@ -40,20 +40,23 @@ export default function ResourcesPage() {
               Expertise for the modern Ethiopian workspace
             </p>
             
-            {/* === ADDED: Calculator CTA === */}
+            {/* ProjectScope Pro CTA */}
             <div className="mt-8 pt-6 border-t border-gray-200">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <p className="text-gray-600">
-                  Planning a project? Get a quick estimate with our interactive calculator.
-                </p>
+                <div>
+                  <h3 className="font-black text-gray-900 text-lg mb-2">Plan & Estimate Your Project</h3>
+                  <p className="text-gray-600">
+                    Use our interactive tools to plan your office space and get instant cost estimates
+                  </p>
+                </div>
                 <Link
-                  href="/estimate-cost"
+                  href="/estimate"
                   className="inline-flex items-center gap-3 bg-red-600 text-white px-6 py-3 rounded-xl text-sm font-black uppercase tracking-widest hover:bg-red-700 transition-colors"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                   </svg>
-                  Cost Calculator
+                  Open ProjectScope Pro
                 </Link>
               </div>
             </div>
