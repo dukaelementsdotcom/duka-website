@@ -138,12 +138,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <head>
-        {/* ✅ FIXED: Preconnect to own domain - NO EXTRA SPACES */}
-        <link rel="preconnect" href="https://www.dukainteriors.com" />
+       {/* ✅ FIXED: Preconnect to own domain - NO EXTRA SPACES */}
+<link rel="preconnect" href="https://www.dukainteriors.com" />
         
-        {/* ✅ FIXED: Preconnect to Google Fonts - NO EXTRA SPACES */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+{/* ✅ FIXED: Preconnect to Google Fonts - NO EXTRA SPACES */}
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         
         {/* ✅ FIXED: Preload critical fonts - NO EXTRA SPACES */}
         <link 
