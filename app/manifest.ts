@@ -1,3 +1,4 @@
+// app/manifest.ts
 import { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
@@ -8,13 +9,25 @@ export default function manifest(): MetadataRoute.Manifest {
     start_url: '/',
     display: 'standalone',
     background_color: '#ffffff',
-    theme_color: '#dc2626', // This is your Duka Red hex code
+    theme_color: '#dc2626',
     icons: [
       {
-        src: '/icon.png', // This uses the icon you added to your app folder
+        src: '/images/icons-duka-interiors/logo-duka-interiors-big.svg', // ✅ Use your SVG logo
         sizes: 'any',
-        type: 'image/png',
+        type: 'image/svg+xml',
       },
+      {
+        src: '/images/icons-duka-interiors/logo-duka-interiors-big.svg',
+        sizes: '192x192',
+        type: 'image/svg+xml',
+        purpose: 'any maskable'
+      },
+      {
+        src: '/images/icons-duka-interiors/logo-duka-interiors-big.svg',
+        sizes: '512x512',
+        type: 'image/svg+xml',
+        purpose: 'any maskable'
+      }
     ],
   }
 }
