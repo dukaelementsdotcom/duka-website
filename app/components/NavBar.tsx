@@ -33,12 +33,10 @@ export default function NavBar() {
   const [openMobileSection, setOpenMobileSection] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
 
-  // Prevent hydration mismatch
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Detect scroll
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -47,7 +45,6 @@ export default function NavBar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Lock body scroll when mobile menu is open
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = 'hidden';
@@ -59,7 +56,6 @@ export default function NavBar() {
     };
   }, [isMenuOpen]);
 
-  // Close mobile menu on desktop resize
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024 && isMenuOpen) {
@@ -70,16 +66,14 @@ export default function NavBar() {
     return () => window.removeEventListener('resize', handleResize);
   }, [isMenuOpen]);
 
-  // Styling Classes
   const topRowClasses = isScrolled
-    ? 'bg-white border-b border-gray-200 shadow-sm py-3' 
+    ? 'bg-white border-b border-gray-200 shadow-sm py-3'
     : 'bg-gradient-to-r from-black/95 to-gray-900/95 backdrop-blur-md py-3';
   
   const bottomRowClasses = isScrolled
-    ? 'bg-white/95 backdrop-blur-md border-t border-gray-100 shadow-sm h-12' 
+    ? 'bg-white/95 backdrop-blur-md border-t border-gray-100 shadow-sm h-12'
     : 'bg-gradient-to-r from-gray-900/90 to-black/90 backdrop-blur-md border-t border-white/10 h-14';
 
-  // Navigation structure - ESTIMATOR TAB ADDED CORRECTLY
   const navStructure = {
     services: {
       icon: faTools,
@@ -113,7 +107,7 @@ export default function NavBar() {
         { name: 'Renovation FAQ', href: '/resources/faq' },
       ]
     },
-    estimator: {  // ✅ PROPERLY INTEGRATED ESTIMATOR TAB
+    estimator: {
       icon: null,
       title: 'ESTIMATOR',
       mainLink: '/estimate',
@@ -140,7 +134,6 @@ export default function NavBar() {
   ];
   const email = 'contact@dukainteriors.com';
 
-  // ✅ FIXED: Removed ALL trailing spaces from social links
   const socialLinks = [
     { name: 'WhatsApp', href: 'https://wa.me/251940607055', icon: faWhatsapp, color: 'hover:bg-green-500' },
     { name: 'Telegram', href: 'https://t.me/dukainteriorsplc', icon: faTelegram, color: 'hover:bg-blue-400' },
@@ -154,7 +147,6 @@ export default function NavBar() {
     setOpenMobileSection(openMobileSection === section ? null : section);
   };
 
-  // ✅ PERFECTED HEIGHT CALCULATION
   const getNavbarHeight = () => {
     if (!mounted) return '128px';
     if (window.innerWidth < 1024) return '72px';
@@ -170,7 +162,6 @@ export default function NavBar() {
       ></div>
 
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'shadow-lg' : ''}`}>
-        {/* ========== TOP ROW ========== */}
         <div className={`w-full transition-all duration-300 ${topRowClasses}`}>
           <div className="max-w-screen-2xl mx-auto px-4 lg:px-6">
             <div className="flex items-center justify-between h-12">
@@ -240,7 +231,6 @@ export default function NavBar() {
           </div>
         </div>
 
-        {/* ========== BOTTOM ROW: Main Navigation ========== */}
         <div className={`hidden lg:block transition-all duration-300 ${bottomRowClasses}`}>
           <div className="w-full max-w-screen-2xl mx-auto px-4 lg:px-6">
             <div className="flex items-center justify-center h-full">
@@ -352,7 +342,6 @@ export default function NavBar() {
           </div>
         </div>
 
-        {/* ========== MOBILE MENU ========== */}
         {isMenuOpen && (
           <div 
             className="fixed inset-0 lg:hidden bg-gradient-to-b from-gray-900 to-black z-40 h-[100dvh] overflow-y-auto overscroll-contain"
