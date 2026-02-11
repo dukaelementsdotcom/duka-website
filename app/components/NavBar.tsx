@@ -33,10 +33,12 @@ export default function NavBar() {
   const [openMobileSection, setOpenMobileSection] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
 
+  // Prevent hydration mismatch
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  // Detect scroll
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -45,6 +47,7 @@ export default function NavBar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Lock body scroll when mobile menu is open
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = 'hidden';
@@ -56,6 +59,7 @@ export default function NavBar() {
     };
   }, [isMenuOpen]);
 
+  // Close mobile menu on desktop resize
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024 && isMenuOpen) {
@@ -66,14 +70,16 @@ export default function NavBar() {
     return () => window.removeEventListener('resize', handleResize);
   }, [isMenuOpen]);
 
+  // Styling Classes
   const topRowClasses = isScrolled
-    ? 'bg-white border-b border-gray-200 shadow-sm py-3'
+    ? 'bg-white border-b border-gray-200 shadow-sm py-3' 
     : 'bg-gradient-to-r from-black/95 to-gray-900/95 backdrop-blur-md py-3';
   
   const bottomRowClasses = isScrolled
-    ? 'bg-white/95 backdrop-blur-md border-t border-gray-100 shadow-sm h-12'
+    ? 'bg-white/95 backdrop-blur-md border-t border-gray-100 shadow-sm h-12' 
     : 'bg-gradient-to-r from-gray-900/90 to-black/90 backdrop-blur-md border-t border-white/10 h-14';
 
+  // Navigation structure
   const navStructure = {
     services: {
       icon: faTools,
@@ -107,13 +113,14 @@ export default function NavBar() {
         { name: 'Renovation FAQ', href: '/resources/faq' },
       ]
     },
-    estimator: {
-      icon: null,
-      title: 'ESTIMATOR',
-      mainLink: '/estimate',
-      hasDropdown: false,
-      items: []
-    },
+    // Add this to your navStructure object in NavBar.tsx
+estimator: {
+  icon: null,
+  title: 'ESTIMATOR',
+  mainLink: '/estimate',
+  hasDropdown: false,
+  items: []
+},
     products: {
       icon: faStore,
       title: 'PRODUCTS',
@@ -147,14 +154,20 @@ export default function NavBar() {
     setOpenMobileSection(openMobileSection === section ? null : section);
   };
 
+  // ✅ PERFECTED HEIGHT CALCULATION
+  // Top Row: content(48px) + padding(24px) = 72px
+  // Bottom Row (Initial): 56px -> Total = 128px
+  // Bottom Row (Scrolled): 48px -> Total = 120px
+  // Mobile: Just Top Row = 72px
   const getNavbarHeight = () => {
-    if (!mounted) return '128px';
-    if (window.innerWidth < 1024) return '72px';
-    return isScrolled ? '120px' : '128px';
+    if (!mounted) return '128px'; // Default desktop height
+    if (window.innerWidth < 1024) return '72px'; // Exact mobile height
+    return isScrolled ? '120px' : '128px'; // Exact desktop heights
   };
 
   return (
     <>
+      {/* ✅ SPACER: Now matches navbar height exactly to remove gaps */}
       <div 
         className="transition-all duration-300 w-full"
         style={{ height: getNavbarHeight() }}
@@ -162,9 +175,11 @@ export default function NavBar() {
       ></div>
 
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'shadow-lg' : ''}`}>
+        {/* ========== TOP ROW ========== */}
         <div className={`w-full transition-all duration-300 ${topRowClasses}`}>
           <div className="max-w-screen-2xl mx-auto px-4 lg:px-6">
-            <div className="flex items-center justify-between h-12">
+            <div className="flex items-center justify-between h-12"> {/* Explicit 48px height */}
+              {/* Logo */}
               <Link href="/" aria-label="Go to homepage">
                 <Image
                   src="/images/icons-duka-interiors/logo-duka-interiors-big.svg"
@@ -176,6 +191,7 @@ export default function NavBar() {
                 />
               </Link>
 
+              {/* Desktop: Contact & Social */}
               <div className="hidden lg:flex items-center gap-x-6">
                 <div className="flex items-center gap-x-4">
                   {phones.map((phone, idx) => (
@@ -220,6 +236,7 @@ export default function NavBar() {
                 </div>
               </div>
 
+              {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className={`lg:hidden p-2.5 transition-colors ${isScrolled ? 'text-gray-800 hover:text-red-600' : 'text-white hover:text-red-300'}`}
@@ -231,6 +248,7 @@ export default function NavBar() {
           </div>
         </div>
 
+        {/* ========== BOTTOM ROW: Main Navigation ========== */}
         <div className={`hidden lg:block transition-all duration-300 ${bottomRowClasses}`}>
           <div className="w-full max-w-screen-2xl mx-auto px-4 lg:px-6">
             <div className="flex items-center justify-center h-full">
@@ -342,6 +360,7 @@ export default function NavBar() {
           </div>
         </div>
 
+        {/* ========== MOBILE MENU ========== */}
         {isMenuOpen && (
           <div 
             className="fixed inset-0 lg:hidden bg-gradient-to-b from-gray-900 to-black z-40 h-[100dvh] overflow-y-auto overscroll-contain"
