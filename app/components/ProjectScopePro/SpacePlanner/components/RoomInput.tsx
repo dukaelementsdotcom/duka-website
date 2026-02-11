@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState } from 'react';
 import { RoomType, RoomConfig, WorkStyle } from '../../../Shared/types';

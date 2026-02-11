@@ -1,7 +1,7 @@
-'use client';
+﻿'use client';
 
 import React, { useState } from 'react';
-import { ServiceCategory, ProjectType, QualityTier, DesignServiceType } from '../../Shared/types';
+import { ServiceCategory, ProjectType, QualityTier, DesignServiceType } from '@/components/ProjectScopePro/Shared/types';
 import { useCostCalculator } from './hooks/useCostCalculator';
 import ProjectTypeSelector from './components/ProjectTypeSelector';
 import QualityTierSelector from './components/QualityTierSelector';

@@ -1,10 +1,10 @@
-// ========================================
+﻿// ========================================
 // COST ESTIMATOR - CONSTANTS
 // Ethiopian Market Rates (2026)
 // ========================================
 
 import { EthiopianMarketRates, PricingTier } from './types';
-import { QUALITY_TIER_NAMES } from '../../Shared/constants';
+import { QUALITY_TIER_NAMES } from '@/components/ProjectScopePro/Shared/constants';
 
 // Ethiopian Market Rates - PLACEHOLDER VALUES (to be refined with real data)
 export const ETHIOPIAN_MARKET_RATES: EthiopianMarketRates = {

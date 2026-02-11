@@ -1,11 +1,11 @@
-'use client';
+﻿'use client';
 
 import React, { useState, useEffect } from 'react';
-import { SpacePlannerInput, RoomConfig, WorkStyle, RoomType } from '../../Shared/types';
+import { SpacePlannerInput, RoomConfig, WorkStyle, RoomType } from '@/components/ProjectScopePro/Shared/types';
 import { useSpaceCalculator, getDefaultRoomConfiguration } from './hooks/useSpaceCalculator';
 import RoomInput from './components/RoomInput';
 import Results from './components/Results';
-import { WORK_STYLE_DISTRIBUTION, ROOM_STANDARDS } from '../../Shared/constants';
+import { WORK_STYLE_DISTRIBUTION, ROOM_STANDARDS } from '@/components/ProjectScopePro/Shared/constants';
 
 export default function SpacePlanner() {
   const { calculateSpace, reset, result } = useSpaceCalculator();

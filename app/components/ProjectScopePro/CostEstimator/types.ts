@@ -1,4 +1,4 @@
-// ========================================
+﻿// ========================================
 // COST ESTIMATOR - TYPES
 // ========================================
 
@@ -14,7 +14,7 @@ import {
   CostBreakdown,
   CostEstimateResult,
   EthiopianStandards
-} from '../../Shared/types';
+} from '@/components/ProjectScopePro/Shared/types';
 
 // Cost Estimator specific types
 export interface CostEstimatorFormState {

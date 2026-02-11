@@ -1,8 +1,8 @@
-'use client';
+﻿'use client';
 
 import React, { useState } from 'react';
-import { SpacePlanner } from './SpacePlanner';
-import { CostEstimator } from './CostEstimator';
+import { SpacePlanner } from '@/components/ProjectScopePro/SpacePlanner';
+import { CostEstimator } from '@/components/ProjectScopePro/CostEstimator';
 
 type ActiveTab = 'space-planner' | 'cost-estimator';
 

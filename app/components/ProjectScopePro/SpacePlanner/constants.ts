@@ -1,9 +1,9 @@
-// ========================================
+﻿// ========================================
 // SPACE PLANNER - CONSTANTS
 // Office Area Calculation Standards
 // ========================================
 
-import { ETHIOPIAN_STANDARDS } from '../../Shared/constants';
+import { ETHIOPIAN_STANDARDS } from '@/components/ProjectScopePro/Shared/constants';
 
 export const SPACE_PLANNER_CONFIG = {
   minHeadcount: 1,

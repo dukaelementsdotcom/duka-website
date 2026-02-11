@@ -1,4 +1,4 @@
-// ========================================
+﻿// ========================================
 // SPACE PLANNER - CALCULATION HOOK
 // Ethiopian Office Space Calculator
 // ========================================
@@ -11,12 +11,12 @@ import {
   WorkStyle,
   SpaceCalculationResult,
   RoomCalculation
-} from '../../Shared/types';
+} from '@/components/ProjectScopePro/Shared/types';
 import { 
   ETHIOPIAN_STANDARDS, 
   ROOM_STANDARDS,
   WORK_STYLE_DISTRIBUTION 
-} from '../../Shared/constants';
+} from '@/components/ProjectScopePro/Shared/constants';
 import { 
   calculateRoomArea,
   calculateMeetingRoomSize,
@@ -26,7 +26,7 @@ import {
   autoDistributeRooms,
   generateRecommendations,
   formatArea
-} from '../../Shared/utils';
+} from '@/components/ProjectScopePro/Shared/utils';
 
 export function useSpaceCalculator() {
   const [calculationResult, setCalculationResult] = useState<SpaceCalculationResult | null>(null);

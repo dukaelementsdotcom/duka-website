@@ -1,2 +1,2 @@
-// ProjectScope Pro - Auto-generated file
+﻿// ProjectScope Pro - Auto-generated file
 

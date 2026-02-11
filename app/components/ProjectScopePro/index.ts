@@ -1,4 +1,4 @@
-// ProjectScope Pro - Main Export
+﻿// ProjectScope Pro - Main Export
 
 export { default as ProjectScopePro } from './ProjectScopePro';
 export { default as SpacePlanner } from './SpacePlanner/SpacePlanner';

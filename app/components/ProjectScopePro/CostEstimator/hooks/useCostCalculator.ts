@@ -1,4 +1,4 @@
-// ========================================
+﻿// ========================================
 // COST ESTIMATOR - CALCULATION HOOK
 // ========================================
 
@@ -15,9 +15,9 @@ import {
   MaterialEstimate,
   FurnitureItem,
   MaterialCategory
-} from '../../Shared/types';
+} from '@/components/ProjectScopePro/Shared/types';
 import { ETHIOPIAN_MARKET_RATES } from '../constants';
-import { formatCurrency } from '../../Shared/utils';
+import { formatCurrency } from '@/components/ProjectScopePro/Shared/utils';
 
 export function useCostCalculator() {
   const [calculationResult, setCalculationResult] = useState<CostEstimateResult | null>(null);

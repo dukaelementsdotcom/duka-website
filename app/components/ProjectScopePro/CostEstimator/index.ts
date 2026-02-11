@@ -1,6 +1,6 @@
-// Cost Estimator - Barrel Export
+﻿// Cost Estimator - Barrel Export
 
-export { default as CostEstimator } from './CostEstimator';
+export { default as CostEstimator } from '@/components/ProjectScopePro/CostEstimator';
 export { useCostCalculator } from './hooks/useCostCalculator';
 export type { 
   CostEstimatorFormState, 

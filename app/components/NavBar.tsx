@@ -79,7 +79,7 @@ export default function NavBar() {
     ? 'bg-white/95 backdrop-blur-md border-t border-gray-100 shadow-sm h-12' 
     : 'bg-gradient-to-r from-gray-900/90 to-black/90 backdrop-blur-md border-t border-white/10 h-14';
 
-  // Navigation structure
+  // Navigation structure - ESTIMATOR TAB ADDED CORRECTLY
   const navStructure = {
     services: {
       icon: faTools,
@@ -113,14 +113,13 @@ export default function NavBar() {
         { name: 'Renovation FAQ', href: '/resources/faq' },
       ]
     },
-    // Add this to your navStructure object in NavBar.tsx
-estimator: {
-  icon: null,
-  title: 'ESTIMATOR',
-  mainLink: '/estimate',
-  hasDropdown: false,
-  items: []
-},
+    estimator: {  // ✅ PROPERLY INTEGRATED ESTIMATOR TAB
+      icon: null,
+      title: 'ESTIMATOR',
+      mainLink: '/estimate',
+      hasDropdown: false,
+      items: []
+    },
     products: {
       icon: faStore,
       title: 'PRODUCTS',
@@ -141,6 +140,7 @@ estimator: {
   ];
   const email = 'contact@dukainteriors.com';
 
+  // ✅ FIXED: Removed ALL trailing spaces from social links
   const socialLinks = [
     { name: 'WhatsApp', href: 'https://wa.me/251940607055', icon: faWhatsapp, color: 'hover:bg-green-500' },
     { name: 'Telegram', href: 'https://t.me/dukainteriorsplc', icon: faTelegram, color: 'hover:bg-blue-400' },
@@ -155,19 +155,14 @@ estimator: {
   };
 
   // ✅ PERFECTED HEIGHT CALCULATION
-  // Top Row: content(48px) + padding(24px) = 72px
-  // Bottom Row (Initial): 56px -> Total = 128px
-  // Bottom Row (Scrolled): 48px -> Total = 120px
-  // Mobile: Just Top Row = 72px
   const getNavbarHeight = () => {
-    if (!mounted) return '128px'; // Default desktop height
-    if (window.innerWidth < 1024) return '72px'; // Exact mobile height
-    return isScrolled ? '120px' : '128px'; // Exact desktop heights
+    if (!mounted) return '128px';
+    if (window.innerWidth < 1024) return '72px';
+    return isScrolled ? '120px' : '128px';
   };
 
   return (
     <>
-      {/* ✅ SPACER: Now matches navbar height exactly to remove gaps */}
       <div 
         className="transition-all duration-300 w-full"
         style={{ height: getNavbarHeight() }}
@@ -178,8 +173,7 @@ estimator: {
         {/* ========== TOP ROW ========== */}
         <div className={`w-full transition-all duration-300 ${topRowClasses}`}>
           <div className="max-w-screen-2xl mx-auto px-4 lg:px-6">
-            <div className="flex items-center justify-between h-12"> {/* Explicit 48px height */}
-              {/* Logo */}
+            <div className="flex items-center justify-between h-12">
               <Link href="/" aria-label="Go to homepage">
                 <Image
                   src="/images/icons-duka-interiors/logo-duka-interiors-big.svg"
@@ -191,7 +185,6 @@ estimator: {
                 />
               </Link>
 
-              {/* Desktop: Contact & Social */}
               <div className="hidden lg:flex items-center gap-x-6">
                 <div className="flex items-center gap-x-4">
                   {phones.map((phone, idx) => (
@@ -236,7 +229,6 @@ estimator: {
                 </div>
               </div>
 
-              {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className={`lg:hidden p-2.5 transition-colors ${isScrolled ? 'text-gray-800 hover:text-red-600' : 'text-white hover:text-red-300'}`}
