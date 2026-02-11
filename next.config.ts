@@ -1,19 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // DISABLE TURBOPACK FOR PRODUCTION BUILDS (FIXES RangeError)
-  experimental: {
-    // Remove turbopack-related experiments
-    optimizePackageImports: [
-      'react',
-      'next',
-      '@fortawesome/react-fontawesome'
-    ],
-    // CRITICAL: Force webpack for production builds
-    webpackBuildWorker: true,
-  },
-  
-  // Keep your existing config
   trailingSlash: true,
   skipTrailingSlashRedirect: false,
   
