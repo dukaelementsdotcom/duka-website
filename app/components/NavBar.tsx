@@ -113,6 +113,14 @@ export default function NavBar() {
         { name: 'Renovation FAQ', href: '/resources/faq' },
       ]
     },
+    // Add this to your navStructure object in NavBar.tsx
+estimator: {
+  icon: null,
+  title: 'ESTIMATOR',
+  mainLink: '/estimate',
+  hasDropdown: false,
+  items: []
+},
     products: {
       icon: faStore,
       title: 'PRODUCTS',
