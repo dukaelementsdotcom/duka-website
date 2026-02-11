@@ -5,7 +5,16 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
-import { formatCurrency } from '@/components/ProjectScopePro/Shared/utils';
+
+// Simple currency formatter
+function formatCurrency(amount: number): string {
+  return new Intl.NumberFormat('en-ET', {
+    style: 'currency',
+    currency: 'ETB',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(amount);
+}
 
 export default function EstimatePage() {
   // ===== STATE MANAGEMENT =====
@@ -235,7 +244,6 @@ export default function EstimatePage() {
   const handleReset = () => {
     setSpaceResult(null);
     setCostResult(null);
-    // Reset to defaults if needed
   };
 
   // Auto-calculate open plan seats based on headcount
