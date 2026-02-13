@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ========== CSS VARIABLES ========== */
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -14,36 +15,100 @@
   }
 }
 
-/* PERFORMANCE & ACCESSIBILITY OPTIMIZATION */
+/* ========== PERFORMANCE CRITICAL: Prevent Forced Reflow ========== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ========== PERFORMANCE CRITICAL: Prevent Layout Shift ========== */
+body {
+  visibility: hidden;
+  transition: visibility 0s;
+}
+
+/* ========== HTML OPTIMIZATIONS ========== */
 html {
   scroll-behavior: smooth;
-  /* Prevents "jumping" layouts during font loading */
+  scroll-padding-top: 128px; /* Adjust based on navbar height */
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ========== BODY STYLES ========== */
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  /* Maintain your security/brand protection */
+  
+  /* Security/brand protection */
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  
   overflow-x: hidden;
+  
+  /* Override visibility after hydration */
+  visibility: visible !important;
 }
 
+/* ========== FONT OPTIMIZATION ========== */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/fonts/inter-regular.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(/fonts/inter-bold.woff2) format('woff2');
+}
+
+/* ========== IMAGE OPTIMIZATION ========== */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* SVG optimization - ensures pin-sharp logos */
+img[src$=".svg"] {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* ========== LAYOUT OPTIMIZATIONS ========== */
 /* BETA TECHNIQUE: Prioritizes rendering of critical sections */
-main, .main-content {
+main,
+.main-content {
   content-visibility: visible;
   contain: layout;
   position: relative;
   z-index: 10;
 }
 
-/* SCROLLBAR MANAGEMENT */
+/* Prevent layout shifts on images */
+.object-cover {
+  object-fit: cover;
+}
+
+.min-h-screen {
+  min-height: 100vh;
+}
+
+/* ========== SCROLLBAR MANAGEMENT ========== */
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
@@ -53,7 +118,25 @@ main, .main-content {
   scrollbar-width: none; /* Firefox */
 }
 
-/* UI UTILITIES */
+/* ========== TRANSITION OPTIMIZATION ========== */
+/* Only animate transform and opacity for better performance */
+.transition-transform {
+  transition-property: transform, opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* ========== WILL-CHANGE OPTIMIZATION ========== */
+/* Use sparingly - only for elements that will animate */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+/* ========== UI UTILITIES ========== */
 .sticky-filter-bar {
   padding-right: 1rem;
 }
@@ -62,42 +145,38 @@ main, .main-content {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-/* SVG OPTIMIZATION - Ensures your SVG logo is pin-sharp */
-img[src$=".svg"] {
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: crisp-edges;
-}
-
-/* ACCESSIBILITY: Respects users who prefer less motion (Good for SEO Trust) */
+/* ========== ACCESSIBILITY: Reduced Motion ========== */
 @media (prefers-reduced-motion: reduce) {
-  * {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
 }
-/* Add at the TOP of globals.css */
-/* Critical above-the-fold styles */
-html {
-  scroll-behavior: smooth;
+
+/* ========== LINK & BUTTON RESETS ========== */
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
-body {
-  overflow-x: hidden;
+button {
+  font-family: inherit;
+  cursor: pointer;
 }
 
-/* Critical image styles */
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-/* Critical layout prevention */
-.min-h-screen {
-  min-height: 100vh;
-}
-
-.object-cover {
-  object-fit: cover;
+/* ========== VISUALLY HIDDEN UTILITY ========== */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
