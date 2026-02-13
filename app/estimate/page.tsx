@@ -17,14 +17,14 @@ circulationRatio: 0.22, // 22% circulation space
 wallHeight: 2.7,        // Standard wall height (m)
 // Material rates (ETB per m²) - Q1 2026 Addis Ababa market
 materials: {
-gwbPartition: 2200,
-glassSingle: 4200,
-glassDoubleSoundproof: 7800,
-glassFramelessTempered: 12500,
-falseCeiling: 1100,
-painting: 450,
-carpet: 1600,
-spcFlooring: 2600
+gwbPartition: 3000,
+glassSingle: 14500,
+glassDoubleSoundproof: 16500,
+glassFramelessTempered: 15500,
+falseCeiling: 2800,
+painting: 200,
+carpet: 1800,
+spcFlooring: 2000
 },
 // Furniture rates (ETB per unit)
 furniture: {
