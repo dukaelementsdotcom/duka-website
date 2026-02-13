@@ -113,14 +113,15 @@ export default function NavBar() {
         { name: 'Renovation FAQ', href: '/resources/faq' },
       ]
     },
-    // Add this to your navStructure object in NavBar.tsx
-estimator: {
-  icon: null,
-  title: 'ESTIMATOR',
-  mainLink: '/estimate',
-  hasDropdown: false,
-  items: []
-},
+    // ✨ NEW PRODUCT CTA - Subtle badge added
+    estimator: {
+      icon: null,
+      title: 'ESTIMATOR',
+      mainLink: '/estimate',
+      isNew: true, // ✨ NEW FLAG FOR BADGE
+      hasDropdown: false,
+      items: []
+    },
     products: {
       icon: faStore,
       title: 'PRODUCTS',
@@ -287,6 +288,15 @@ estimator: {
                           {section.comingSoon && (
                             <span className={`text-[8px] px-1.5 py-0.5 rounded-full ${isScrolled ? 'bg-gray-100 text-gray-600' : 'bg-white/20 text-white'}`}>SOON</span>
                           )}
+                          {section.isNew && (
+                            <span className={`text-[8px] px-1.5 py-0.5 rounded-full font-bold ${
+                              isScrolled 
+                                ? 'bg-gradient-to-r from-red-500 to-red-600 text-white animate-pulse' 
+                                : 'bg-gradient-to-r from-red-400 to-red-500 text-white animate-pulse'
+                            }`}>
+                              NEW
+                            </span>
+                          )}
                           <FontAwesomeIcon 
                             icon={faChevronDown} 
                             className={`text-[9px] transition-transform ${openDropdown === key ? 'rotate-180' : ''}`} 
@@ -340,6 +350,18 @@ estimator: {
                       >
                         {section.icon && <FontAwesomeIcon icon={section.icon} className="text-[10px]" />}
                         <span>{section.title}</span>
+                        {section.comingSoon && (
+                          <span className={`text-[8px] px-1.5 py-0.5 rounded-full ${isScrolled ? 'bg-gray-100 text-gray-600' : 'bg-white/20 text-white'}`}>SOON</span>
+                        )}
+                        {section.isNew && (
+                          <span className={`text-[8px] px-1.5 py-0.5 rounded-full font-bold ${
+                            isScrolled 
+                              ? 'bg-gradient-to-r from-red-500 to-red-600 text-white animate-pulse' 
+                              : 'bg-gradient-to-r from-red-400 to-red-500 text-white animate-pulse'
+                          }`}>
+                            NEW
+                          </span>
+                        )}
                       </Link>
                     );
                   }
@@ -432,6 +454,11 @@ estimator: {
                             {section.icon && <FontAwesomeIcon icon={section.icon} className="text-sm" />}
                             <span>{section.title}</span>
                             {section.comingSoon && <span className="text-xs bg-white/20 text-white px-2 py-0.5 rounded-full">SOON</span>}
+                            {section.isNew && (
+                              <span className="text-xs bg-gradient-to-r from-red-500 to-red-600 text-white px-2 py-0.5 rounded-full font-bold animate-pulse">
+                                NEW
+                              </span>
+                            )}
                           </div>
                           <FontAwesomeIcon icon={faChevronDown} className={`transition-transform text-sm ${openMobileSection === key ? 'rotate-180' : ''}`} />
                         </button>
@@ -466,6 +493,12 @@ estimator: {
                         <div className="flex items-center gap-3">
                           {section.icon && <FontAwesomeIcon icon={section.icon} className="text-sm" />}
                           <span>{section.title}</span>
+                          {section.comingSoon && <span className="text-xs bg-white/20 text-white px-2 py-0.5 rounded-full">SOON</span>}
+                          {section.isNew && (
+                            <span className="text-xs bg-gradient-to-r from-red-500 to-red-600 text-white px-2 py-0.5 rounded-full font-bold animate-pulse ml-2">
+                              NEW
+                            </span>
+                          )}
                         </div>
                       </Link>
                     );
