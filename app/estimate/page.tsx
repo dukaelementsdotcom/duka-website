@@ -109,6 +109,8 @@ export default function EstimatePage() {
   const [customRooms, setCustomRooms] = useState<{name: string; area: number}[]>([]);
   const [areaResult, setAreaResult] = useState<any>(null);
   
+  const [isCalculating, setIsCalculating] = useState(false);
+
   // ===== COST ESTIMATOR STATE =====
   // Section 01: Project Scope
   const [totalRentedArea, setTotalRentedArea] = useState(0);
@@ -199,7 +201,6 @@ export default function EstimatePage() {
   // Quality tier selector (applies to all sections)
   const [qualityTier, setQualityTier] = useState<'standard' | 'premium' | 'luxury'>('premium');
   const [costResult, setCostResult] = useState<any>(null);
-  const [isCalculating, setIsCalculating] = useState(false);
 
   // ========================================
   // AREA ESTIMATION CALCULATION (SCIENTIFIC)
@@ -314,7 +315,6 @@ export default function EstimatePage() {
     let partitionArea = totalPartitionArea;
     if (!partitionOverride && useAreaEstimatorResults && areaResult) {
       // SCIENTIFIC CALCULATION: Perimeter of enclosed rooms × wall height
-      // Simplified for demo: 0.4 × total area × wall height
       partitionArea = areaResult.standardEstimate * 0.4 * ETHIOPIAN_STANDARDS.wallHeight;
     }
     
@@ -743,19 +743,13 @@ export default function EstimatePage() {
       <NavBar />
       
       <main className="min-h-screen pt-32 bg-gradient-to-b from-gray-50 to-white">
-        {/* Hero Section */}
-        <section className="bg-gradient-to-r from-red-600 to-red-800 text-white py-16">
+        {/* Hero Section - SUBTLE, PROFESSIONAL */}
+        <section className="bg-gradient-to-r from-blue-500 to-blue-600 text-white py-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full mb-6">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-              </svg>
-              <span className="font-black uppercase tracking-widest">Ethiopian Standards</span>
-            </div>
-            <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-6">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tighter mb-4">
               Duka Project Estimator
             </h1>
-            <p className="text-xl max-w-3xl mx-auto opacity-90">
+            <p className="text-lg max-w-3xl mx-auto opacity-90">
               Professional space planning and cost estimation for Ethiopian commercial projects. 
               Get accurate, market-specific estimates in minutes.
             </p>
@@ -771,8 +765,8 @@ export default function EstimatePage() {
                   onClick={() => setActiveTab('area')}
                   className={`flex-1 py-6 px-4 text-center transition-all ${
                     activeTab === 'area'
-                      ? 'bg-red-600 text-white font-black'
-                      : 'bg-white text-gray-700 hover:bg-gray-50 font-bold'
+                      ? 'bg-blue-600 text-white font-bold'
+                      : 'bg-white text-gray-700 hover:bg-gray-50 font-medium'
                   }`}
                 >
                   <div className="text-3xl mb-2">📐</div>
@@ -788,8 +782,8 @@ export default function EstimatePage() {
                   onClick={() => setActiveTab('cost')}
                   className={`flex-1 py-6 px-4 text-center transition-all ${
                     activeTab === 'cost'
-                      ? 'bg-red-600 text-white font-black'
-                      : 'bg-white text-gray-700 hover:bg-gray-50 font-bold'
+                      ? 'bg-blue-600 text-white font-bold'
+                      : 'bg-white text-gray-700 hover:bg-gray-50 font-medium'
                   }`}
                 >
                   <div className="text-3xl mb-2">💰</div>
@@ -809,7 +803,7 @@ export default function EstimatePage() {
                   {/* Headcount & Work Style */}
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div className="bg-gray-50 p-6 rounded-xl border border-gray-200">
-                      <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-3">
+                      <label className="block text-xs font-medium uppercase tracking-wider text-gray-600 mb-3">
                         Total Headcount
                       </label>
                       <input
@@ -818,7 +812,7 @@ export default function EstimatePage() {
                         onChange={(e) => setHeadcount(Math.max(5, parseInt(e.target.value) || 5))}
                         min="5"
                         max="500"
-                        className="w-full text-3xl font-black text-center py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                        className="w-full text-3xl font-bold text-center py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       />
                       <p className="text-xs text-gray-500 mt-2 text-center">
                         Staff requiring workspace
@@ -826,13 +820,13 @@ export default function EstimatePage() {
                     </div>
                     
                     <div className="bg-gray-50 p-6 rounded-xl border border-gray-200">
-                      <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-3">
+                      <label className="block text-xs font-medium uppercase tracking-wider text-gray-600 mb-3">
                         Work Style
                       </label>
                       <select
                         value={workStyle}
                         onChange={(e) => setWorkStyle(e.target.value as any)}
-                        className="w-full text-lg font-black text-center py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent appearance-none"
+                        className="w-full text-lg font-bold text-center py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none"
                       >
                         <option value="traditional">Traditional (12m²/person)</option>
                         <option value="hybrid">Hybrid (9m²/person)</option>
@@ -844,14 +838,14 @@ export default function EstimatePage() {
                     </div>
                     
                     <div className="bg-gray-50 p-6 rounded-xl border border-gray-200">
-                      <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-3">
+                      <label className="block text-xs font-medium uppercase tracking-wider text-gray-600 mb-3">
                         Optimization Level
                       </label>
                       <div className="text-center">
-                        <div className="text-2xl font-black text-red-600 mb-2">Standard vs Optimized</div>
+                        <div className="text-2xl font-bold text-blue-600 mb-2">Standard vs Optimized</div>
                         <p className="text-xs text-gray-600">
                           Optimized = 20% space reduction<br />
-                          <span className="text-red-600 font-bold">*Requires flexible layout</span>
+                          <span className="text-blue-600 font-bold">*Requires flexible layout</span>
                         </p>
                       </div>
                     </div>
@@ -859,14 +853,14 @@ export default function EstimatePage() {
                   
                   {/* Room Configuration - EXACT SPECIFICATIONS */}
                   <div className="bg-white border border-gray-200 rounded-xl p-6">
-                    <h3 className="text-lg font-black uppercase tracking-wider text-gray-900 mb-6">
+                    <h3 className="text-lg font-bold uppercase tracking-wider text-gray-900 mb-6">
                       Room Configuration (Ethiopian Standards)
                     </h3>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                       {/* CEO Offices */}
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-2">
+                        <label className="block text-xs font-medium uppercase tracking-widest text-gray-600 mb-2">
                           CEO Offices
                         </label>
                         <input
@@ -874,14 +868,14 @@ export default function EstimatePage() {
                           value={ceoOffices}
                           onChange={(e) => setCeoOffices(Math.max(0, parseInt(e.target.value) || 0))}
                           min="0"
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
                         <p className="text-[11px] text-gray-500 mt-1 text-center">20m² per office</p>
                       </div>
                       
                       {/* Manager Offices */}
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-2">
+                        <label className="block text-xs font-medium uppercase tracking-widest text-gray-600 mb-2">
                           Manager Offices
                         </label>
                         <input
@@ -889,14 +883,14 @@ export default function EstimatePage() {
                           value={managerOffices}
                           onChange={(e) => setManagerOffices(Math.max(0, parseInt(e.target.value) || 0))}
                           min="0"
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
                         <p className="text-[11px] text-gray-500 mt-1 text-center">16m² per office</p>
                       </div>
                       
                       {/* Small Private Offices */}
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-2">
+                        <label className="block text-xs font-medium uppercase tracking-widest text-gray-600 mb-2">
                           Small Private Offices
                         </label>
                         <input
@@ -904,14 +898,14 @@ export default function EstimatePage() {
                           value={smallPrivateOffices}
                           onChange={(e) => setSmallPrivateOffices(Math.max(0, parseInt(e.target.value) || 0))}
                           min="0"
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
                         <p className="text-[11px] text-gray-500 mt-1 text-center">12m² per office</p>
                       </div>
                       
                       {/* Meeting Rooms - EXACT PERSON RANGES */}
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-2">
+                        <label className="block text-xs font-medium uppercase tracking-widest text-gray-600 mb-2">
                           Large Meeting (12-20 people)
                         </label>
                         <input
@@ -919,13 +913,13 @@ export default function EstimatePage() {
                           value={meetingLarge}
                           onChange={(e) => setMeetingLarge(Math.max(0, parseInt(e.target.value) || 0))}
                           min="0"
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
                         <p className="text-[11px] text-gray-500 mt-1 text-center">35m² per room</p>
                       </div>
                       
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-2">
+                        <label className="block text-xs font-medium uppercase tracking-widest text-gray-600 mb-2">
                           Medium Meeting (8-12 people)
                         </label>
                         <input
@@ -933,13 +927,13 @@ export default function EstimatePage() {
                           value={meetingMedium}
                           onChange={(e) => setMeetingMedium(Math.max(0, parseInt(e.target.value) || 0))}
                           min="0"
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
                         <p className="text-[11px] text-gray-500 mt-1 text-center">22m² per room</p>
                       </div>
                       
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-2">
+                        <label className="block text-xs font-medium uppercase tracking-widest text-gray-600 mb-2">
                           Small Meeting (4-8 people)
                         </label>
                         <input
@@ -947,14 +941,14 @@ export default function EstimatePage() {
                           value={meetingSmall}
                           onChange={(e) => setMeetingSmall(Math.max(0, parseInt(e.target.value) || 0))}
                           min="0"
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
                         <p className="text-[11px] text-gray-500 mt-1 text-center">14m² per room</p>
                       </div>
                       
                       {/* Canteen/Kitchen - THREE DISTINCT OPTIONS */}
                       <div className="md:col-span-2 lg:col-span-3">
-                        <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-3">
+                        <label className="block text-xs font-medium uppercase tracking-widest text-gray-600 mb-3">
                           Canteen / Kitchen Type
                         </label>
                         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -972,11 +966,11 @@ export default function EstimatePage() {
                               }}
                               className={`p-4 rounded-lg border-2 text-center transition-all ${
                                 canteenType === opt.id
-                                  ? 'border-red-600 bg-red-50'
-                                  : 'border-gray-200 hover:border-red-300 hover:bg-gray-50'
+                                  ? 'border-blue-600 bg-blue-50'
+                                  : 'border-gray-200 hover:border-blue-300 hover:bg-gray-50'
                               }`}
                             >
-                              <div className="font-black text-sm mb-1">{opt.label}</div>
+                              <div className="font-bold text-sm mb-1">{opt.label}</div>
                               <div className="text-[11px] text-gray-600">{opt.desc}</div>
                             </button>
                           ))}
@@ -993,7 +987,7 @@ export default function EstimatePage() {
                               onChange={(e) => setCanteenCapacity(Math.max(4, parseInt(e.target.value) || 4))}
                               min="4"
                               max="50"
-                              className="w-full px-4 py-2 border border-gray-300 rounded-lg text-center focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                              className="w-full px-4 py-2 border border-gray-300 rounded-lg text-center focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             />
                             <p className="text-[10px] text-gray-500 mt-1">
                               {canteenType === 'dryWithSeating' 
@@ -1011,9 +1005,9 @@ export default function EstimatePage() {
                             type="checkbox"
                             checked={itRoom}
                             onChange={(e) => setItRoom(e.target.checked)}
-                            className="w-4 h-4 text-red-600 rounded focus:ring-red-500"
+                            className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
                           />
-                          <span className="text-sm font-bold">IT / Server Room</span>
+                          <span className="text-sm font-medium">IT / Server Room</span>
                         </label>
                         <p className="text-[11px] text-gray-500 mt-1">
                           Auto-sized: 8m² + 1.5m² per server rack<br />
@@ -1028,9 +1022,9 @@ export default function EstimatePage() {
                             type="checkbox"
                             checked={archiveRoom}
                             onChange={(e) => setArchiveRoom(e.target.checked)}
-                            className="w-4 h-4 text-red-600 rounded focus:ring-red-500"
+                            className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
                           />
-                          <span className="text-sm font-bold">Archive Room (Finance)</span>
+                          <span className="text-sm font-medium">Archive Room (Finance)</span>
                         </label>
                         <p className="text-[11px] text-gray-500 mt-1">Standard 12m² archive</p>
                       </div>
@@ -1038,13 +1032,13 @@ export default function EstimatePage() {
                       {/* Custom Rooms */}
                       <div className="md:col-span-2 lg:col-span-3">
                         <div className="flex items-center justify-between mb-3">
-                          <label className="text-xs font-black uppercase tracking-widest text-gray-600">
+                          <label className="text-xs font-medium uppercase tracking-widest text-gray-600">
                             Custom Rooms
                           </label>
                           <button
                             type="button"
                             onClick={() => setCustomRooms([...customRooms, { name: '', area: 0 }])}
-                            className="text-sm font-black text-red-600 hover:underline"
+                            className="text-sm font-medium text-blue-600 hover:underline"
                           >
                             + Add Custom Room
                           </button>
@@ -1061,7 +1055,7 @@ export default function EstimatePage() {
                                 setCustomRooms(newRooms);
                               }}
                               placeholder="Room name"
-                              className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                              className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             />
                             <input
                               type="number"
@@ -1072,12 +1066,12 @@ export default function EstimatePage() {
                                 setCustomRooms(newRooms);
                               }}
                               placeholder="Area (m²)"
-                              className="w-32 px-3 py-2 border border-gray-300 rounded-lg text-sm text-right focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                              className="w-32 px-3 py-2 border border-gray-300 rounded-lg text-sm text-right focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             />
                             <button
                               type="button"
                               onClick={() => setCustomRooms(customRooms.filter((_, i) => i !== index))}
-                              className="px-3 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors"
+                              className="px-3 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors"
                             >
                               ✕
                             </button>
@@ -1092,10 +1086,10 @@ export default function EstimatePage() {
                     <button
                       onClick={handleAreaCalculate}
                       disabled={isCalculating}
-                      className={`flex-1 px-8 py-4 text-sm font-black uppercase tracking-widest rounded-lg transition-all ${
+                      className={`flex-1 px-8 py-4 text-sm font-medium uppercase tracking-widest rounded-lg transition-all ${
                         isCalculating
                           ? 'bg-gray-400 cursor-not-allowed'
-                          : 'bg-red-600 hover:bg-red-700 text-white'
+                          : 'bg-blue-600 hover:bg-blue-700 text-white'
                       }`}
                     >
                       {isCalculating ? 'Calculating...' : 'Calculate Area Requirements'}
@@ -1103,7 +1097,7 @@ export default function EstimatePage() {
                     {areaResult && (
                       <button
                         onClick={() => setAreaResult(null)}
-                        className="px-8 py-4 text-sm font-black uppercase tracking-widest rounded-lg bg-white border border-gray-300 text-gray-700 hover:bg-gray-50"
+                        className="px-8 py-4 text-sm font-medium uppercase tracking-widest rounded-lg bg-white border border-gray-300 text-gray-700 hover:bg-gray-50"
                       >
                         Reset Form
                       </button>
@@ -1117,12 +1111,12 @@ export default function EstimatePage() {
                 <div className="space-y-8">
                   {/* Section 01: Project Scope */}
                   <div className="bg-white border border-gray-200 rounded-xl p-6">
-                    <h3 className="text-lg font-black uppercase tracking-wider text-gray-900 mb-4">
+                    <h3 className="text-lg font-bold uppercase tracking-wider text-gray-900 mb-4">
                       Section 01: Project Scope
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-2">
+                        <label className="block text-xs font-medium uppercase tracking-widest text-gray-600 mb-2">
                           Total Rented Area (m²)
                         </label>
                         <input
@@ -1130,11 +1124,11 @@ export default function EstimatePage() {
                           value={totalRentedArea}
                           onChange={(e) => setTotalRentedArea(Math.max(0, parseInt(e.target.value) || 0))}
                           min="0"
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-2">
+                        <label className="block text-xs font-medium uppercase tracking-widest text-gray-600 mb-2">
                           Total Employees
                         </label>
                         <input
@@ -1142,7 +1136,7 @@ export default function EstimatePage() {
                           value={costHeadcount}
                           onChange={(e) => setCostHeadcount(Math.max(1, parseInt(e.target.value) || 1))}
                           min="1"
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
                       </div>
                     </div>
@@ -1152,7 +1146,7 @@ export default function EstimatePage() {
                         <button
                           type="button"
                           onClick={handleUseAreaResults}
-                          className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-2 rounded-lg font-bold hover:bg-blue-100 transition-colors"
+                          className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-2 rounded-lg font-medium hover:bg-blue-100 transition-colors"
                         >
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
@@ -1165,7 +1159,7 @@ export default function EstimatePage() {
                   
                   {/* Section 03: Partitions & Ceilings - SCIENTIFIC CALCULATION */}
                   <div className="bg-white border border-gray-200 rounded-xl p-6">
-                    <h3 className="text-lg font-black uppercase tracking-wider text-gray-900 mb-4">
+                    <h3 className="text-lg font-bold uppercase tracking-wider text-gray-900 mb-4">
                       Section 03: Partitions & Ceilings
                     </h3>
                     
@@ -1176,9 +1170,9 @@ export default function EstimatePage() {
                             type="checkbox"
                             checked={partitionOverride}
                             onChange={(e) => setPartitionOverride(e.target.checked)}
-                            className="w-4 h-4 text-red-600 rounded focus:ring-red-500"
+                            className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
                           />
-                          <span className="text-sm font-bold">
+                          <span className="text-sm font-medium">
                             Override auto-calculation (Scientific: Perimeter × Wall Height)
                           </span>
                         </label>
@@ -1189,12 +1183,12 @@ export default function EstimatePage() {
                             value={totalPartitionArea}
                             onChange={(e) => setTotalPartitionArea(Math.max(0, parseFloat(e.target.value) || 0))}
                             placeholder="Total partition area (m²)"
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                           />
                         ) : (
                           <div className="bg-gray-50 p-4 rounded-lg text-center">
                             <div className="text-sm text-gray-600 mb-1">Auto-calculated partition area</div>
-                            <div className="text-2xl font-black text-red-600">
+                            <div className="text-2xl font-bold text-blue-600">
                               {areaResult ? (areaResult.standardEstimate * 0.4 * ETHIOPIAN_STANDARDS.wallHeight).toFixed(1) : '0.0'} m²
                             </div>
                             <p className="text-[11px] text-gray-500 mt-2">
@@ -1205,13 +1199,13 @@ export default function EstimatePage() {
                       </div>
                       
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-2">
+                        <label className="block text-xs font-medium uppercase tracking-widest text-gray-600 mb-2">
                           Partition Material Split
                         </label>
                         <div className="flex items-center gap-4">
                           <div className="flex-1">
                             <div className="flex justify-between mb-1">
-                              <span className="text-[11px] font-bold">GWB ({gwbPercentage}%)</span>
+                              <span className="text-[11px] font-medium">GWB ({gwbPercentage}%)</span>
                               <span className="text-[11px] text-gray-500">{((totalPartitionArea || (areaResult?.standardEstimate * 0.4 * ETHIOPIAN_STANDARDS.wallHeight)) * gwbPercentage / 100).toFixed(1)} m²</span>
                             </div>
                             <input
@@ -1224,12 +1218,12 @@ export default function EstimatePage() {
                                 setGwbPercentage(val);
                                 setGlassPercentage(100 - val);
                               }}
-                              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-red-600"
+                              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
                             />
                           </div>
                           <div className="flex-1">
                             <div className="flex justify-between mb-1">
-                              <span className="text-[11px] font-bold">Glass ({glassPercentage}%)</span>
+                              <span className="text-[11px] font-medium">Glass ({glassPercentage}%)</span>
                               <span className="text-[11px] text-gray-500">{((totalPartitionArea || (areaResult?.standardEstimate * 0.4 * ETHIOPIAN_STANDARDS.wallHeight)) * glassPercentage / 100).toFixed(1)} m²</span>
                             </div>
                             <input
@@ -1257,9 +1251,9 @@ export default function EstimatePage() {
                             type="checkbox"
                             checked={includeCeiling}
                             onChange={(e) => setIncludeCeiling(e.target.checked)}
-                            className="w-4 h-4 text-red-600 rounded focus:ring-red-500"
+                            className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
                           />
-                          <span className="text-sm font-bold">Include False Ceiling Work</span>
+                          <span className="text-sm font-medium">Include False Ceiling Work</span>
                         </label>
                         <p className="text-[11px] text-gray-500 mt-1 ml-6">
                           Standard rate: {ETHIOPIAN_STANDARDS.materials.falseCeiling.toLocaleString()} ETB/m²<br />
@@ -1271,7 +1265,7 @@ export default function EstimatePage() {
                   
                   {/* Section 04: Glass Partition Types - ALL THREE TYPES */}
                   <div className="bg-white border border-gray-200 rounded-xl p-6">
-                    <h3 className="text-lg font-black uppercase tracking-wider text-gray-900 mb-4">
+                    <h3 className="text-lg font-bold uppercase tracking-wider text-gray-900 mb-4">
                       Section 04: Glass Partition Types
                     </h3>
                     <p className="text-sm text-gray-600 mb-4">
@@ -1280,7 +1274,7 @@ export default function EstimatePage() {
                     
                     <div className="space-y-4">
                       {/* Aluminum Single Glass */}
-                      <label className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 hover:border-red-300 cursor-pointer">
+                      <label className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 hover:border-blue-300 cursor-pointer">
                         <input
                           type="checkbox"
                           checked={glassTypes.single.selected}
@@ -1288,18 +1282,18 @@ export default function EstimatePage() {
                             ...glassTypes,
                             single: { ...glassTypes.single, selected: e.target.checked }
                           })}
-                          className="mt-1 w-5 h-5 rounded border-gray-300 text-red-600 focus:ring-red-500"
+                          className="mt-1 w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                         />
                         <div className="flex-1">
                           <div className="flex items-start justify-between">
                             <div>
-                              <div className="font-black">Aluminum Single Glass Partitions</div>
+                              <div className="font-bold">Aluminum Single Glass Partitions</div>
                               <p className="text-sm text-gray-600 mt-1">
                                 Standard office partitions with aluminum framing. Good visibility, moderate sound insulation.
                               </p>
                             </div>
                             <div className="text-right">
-                              <div className="font-black text-red-600">
+                              <div className="font-bold text-blue-600">
                                 {ETHIOPIAN_STANDARDS.materials.glassSingle.toLocaleString()} ETB/m²
                               </div>
                               <div className="text-xs text-gray-500">Standard</div>
@@ -1308,7 +1302,7 @@ export default function EstimatePage() {
                           
                           {glassTypes.single.selected && (
                             <div className="mt-3 pt-3 border-t border-gray-200">
-                              <label className="block text-[11px] font-bold text-gray-600 mb-2">
+                              <label className="block text-[11px] font-medium text-gray-600 mb-2">
                                 Area Allocation (m²)
                               </label>
                               <input
@@ -1322,7 +1316,7 @@ export default function EstimatePage() {
                                   }
                                 })}
                                 placeholder="Auto-calculated or specify"
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                               />
                               <p className="text-[10px] text-gray-500 mt-1">
                                 Recommended: 60% of total glass area
@@ -1333,7 +1327,7 @@ export default function EstimatePage() {
                       </label>
                       
                       {/* Aluminum Double Glass (Sound Proof) */}
-                      <label className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 hover:border-red-300 cursor-pointer">
+                      <label className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 hover:border-blue-300 cursor-pointer">
                         <input
                           type="checkbox"
                           checked={glassTypes.doubleSoundproof.selected}
@@ -1341,18 +1335,18 @@ export default function EstimatePage() {
                             ...glassTypes,
                             doubleSoundproof: { ...glassTypes.doubleSoundproof, selected: e.target.checked }
                           })}
-                          className="mt-1 w-5 h-5 rounded border-gray-300 text-red-600 focus:ring-red-500"
+                          className="mt-1 w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                         />
                         <div className="flex-1">
                           <div className="flex items-start justify-between">
                             <div>
-                              <div className="font-black">Aluminum Double Glass (Sound Proof)</div>
+                              <div className="font-bold">Aluminum Double Glass (Sound Proof)</div>
                               <p className="text-sm text-gray-600 mt-1">
                                 Double-glazed with air gap for superior sound insulation. Ideal for meeting rooms and private offices.
                               </p>
                             </div>
                             <div className="text-right">
-                              <div className="font-black text-red-600">
+                              <div className="font-bold text-blue-600">
                                 {ETHIOPIAN_STANDARDS.materials.glassDoubleSoundproof.toLocaleString()} ETB/m²
                               </div>
                               <div className="text-xs text-gray-500">Premium</div>
@@ -1361,7 +1355,7 @@ export default function EstimatePage() {
                           
                           {glassTypes.doubleSoundproof.selected && (
                             <div className="mt-3 pt-3 border-t border-gray-200">
-                              <label className="block text-[11px] font-bold text-gray-600 mb-2">
+                              <label className="block text-[11px] font-medium text-gray-600 mb-2">
                                 Area Allocation (m²)
                               </label>
                               <input
@@ -1375,7 +1369,7 @@ export default function EstimatePage() {
                                   }
                                 })}
                                 placeholder="Auto-calculated or specify"
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                               />
                               <p className="text-[10px] text-gray-500 mt-1">
                                 Recommended: 30% of total glass area
@@ -1386,7 +1380,7 @@ export default function EstimatePage() {
                       </label>
                       
                       {/* Frameless Tempered Glass */}
-                      <label className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 hover:border-red-300 cursor-pointer">
+                      <label className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 hover:border-blue-300 cursor-pointer">
                         <input
                           type="checkbox"
                           checked={glassTypes.framelessTempered.selected}
@@ -1394,18 +1388,18 @@ export default function EstimatePage() {
                             ...glassTypes,
                             framelessTempered: { ...glassTypes.framelessTempered, selected: e.target.checked }
                           })}
-                          className="mt-1 w-5 h-5 rounded border-gray-300 text-red-600 focus:ring-red-500"
+                          className="mt-1 w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                         />
                         <div className="flex-1">
                           <div className="flex items-start justify-between">
                             <div>
-                              <div className="font-black">Frameless Tempered Glass Partitions</div>
+                              <div className="font-bold">Frameless Tempered Glass Partitions</div>
                               <p className="text-sm text-gray-600 mt-1">
                                 Premium aesthetic with minimal framing. Maximum light transmission and modern appearance. Highest cost.
                               </p>
                             </div>
                             <div className="text-right">
-                              <div className="font-black text-red-600">
+                              <div className="font-bold text-blue-600">
                                 {ETHIOPIAN_STANDARDS.materials.glassFramelessTempered.toLocaleString()} ETB/m²
                               </div>
                               <div className="text-xs text-gray-500">Luxury</div>
@@ -1414,7 +1408,7 @@ export default function EstimatePage() {
                           
                           {glassTypes.framelessTempered.selected && (
                             <div className="mt-3 pt-3 border-t border-gray-200">
-                              <label className="block text-[11px] font-bold text-gray-600 mb-2">
+                              <label className="block text-[11px] font-medium text-gray-600 mb-2">
                                 Area Allocation (m²)
                               </label>
                               <input
@@ -1428,7 +1422,7 @@ export default function EstimatePage() {
                                   }
                                 })}
                                 placeholder="Auto-calculated or specify"
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                               />
                               <p className="text-[10px] text-gray-500 mt-1">
                                 Recommended: 10% of total glass area (feature zones)
@@ -1440,25 +1434,25 @@ export default function EstimatePage() {
                       
                       {/* Glass Doors */}
                       <div className="pt-4 border-t border-gray-200">
-                        <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-2">
+                        <label className="block text-xs font-medium uppercase tracking-widest text-gray-600 mb-2">
                           Glass Doors (Auto-calculated from room configuration)
                         </label>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                           <div>
                             <div className="text-[11px] text-gray-500 mb-1">Private Offices</div>
-                            <div className="font-black text-center">{ceoOffices + managerOffices + smallPrivateOffices}</div>
+                            <div className="font-bold text-center">{ceoOffices + managerOffices + smallPrivateOffices}</div>
                           </div>
                           <div>
                             <div className="text-[11px] text-gray-500 mb-1">Meeting Rooms</div>
-                            <div className="font-black text-center">{meetingLarge + meetingMedium + meetingSmall}</div>
+                            <div className="font-bold text-center">{meetingLarge + meetingMedium + meetingSmall}</div>
                           </div>
                           <div>
                             <div className="text-[11px] text-gray-500 mb-1">Reception</div>
-                            <div className="font-black text-center">1</div>
+                            <div className="font-bold text-center">1</div>
                           </div>
                           <div>
                             <div className="text-[11px] text-gray-500 mb-1">Total Doors</div>
-                            <div className="font-black text-red-600 text-center">
+                            <div className="font-bold text-blue-600 text-center">
                               {ceoOffices + managerOffices + smallPrivateOffices + meetingLarge + meetingMedium + meetingSmall + 1}
                             </div>
                           </div>
@@ -1472,7 +1466,7 @@ export default function EstimatePage() {
                   
                   {/* Section 05: Furniture - EXACT DIMENSIONS & OPTIONS */}
                   <div className="bg-white border border-gray-200 rounded-xl p-6">
-                    <h3 className="text-lg font-black uppercase tracking-wider text-gray-900 mb-4">
+                    <h3 className="text-lg font-bold uppercase tracking-wider text-gray-900 mb-4">
                       Section 05: Furniture
                     </h3>
                     <p className="text-sm text-gray-600 mb-4">
@@ -1482,7 +1476,7 @@ export default function EstimatePage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                       {/* CEO Desks */}
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-2">
+                        <label className="block text-xs font-medium uppercase tracking-widest text-gray-600 mb-2">
                           CEO Desks
                         </label>
                         <input
@@ -1490,7 +1484,7 @@ export default function EstimatePage() {
                           value={furniture.ceoDesks}
                           onChange={(e) => setFurniture({ ...furniture, ceoDesks: Math.max(0, parseInt(e.target.value) || 0) })}
                           min="0"
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
                         <p className="text-[11px] text-gray-500 mt-1 text-center">
                           Executive desk with storage
@@ -1499,7 +1493,7 @@ export default function EstimatePage() {
                       
                       {/* Manager Desks */}
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-2">
+                        <label className="block text-xs font-medium uppercase tracking-widest text-gray-600 mb-2">
                           Manager Desks
                         </label>
                         <input
@@ -1507,7 +1501,7 @@ export default function EstimatePage() {
                           value={furniture.managerDesks}
                           onChange={(e) => setFurniture({ ...furniture, managerDesks: Math.max(0, parseInt(e.target.value) || 0) })}
                           min="0"
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
                         <p className="text-[11px] text-gray-500 mt-1 text-center">
                           Manager workstation
@@ -1516,7 +1510,7 @@ export default function EstimatePage() {
                       
                       {/* Supervisor Desks */}
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-2">
+                        <label className="block text-xs font-medium uppercase tracking-widest text-gray-600 mb-2">
                           Supervisor Desks
                         </label>
                         <input
@@ -1524,7 +1518,7 @@ export default function EstimatePage() {
                           value={furniture.supervisorDesks}
                           onChange={(e) => setFurniture({ ...furniture, supervisorDesks: Math.max(0, parseInt(e.target.value) || 0) })}
                           min="0"
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
                         <p className="text-[11px] text-gray-500 mt-1 text-center">
                           Single workstation
@@ -1533,7 +1527,7 @@ export default function EstimatePage() {
                       
                       {/* Workstations */}
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-2">
+                        <label className="block text-xs font-medium uppercase tracking-widest text-gray-600 mb-2">
                           2-Seater Workstations
                         </label>
                         <input
@@ -1541,7 +1535,7 @@ export default function EstimatePage() {
                           value={furniture.workstation2Seater}
                           onChange={(e) => setFurniture({ ...furniture, workstation2Seater: Math.max(0, parseInt(e.target.value) || 0) })}
                           min="0"
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
                         <p className="text-[11px] text-gray-500 mt-1 text-center">
                           For open plan areas
@@ -1549,7 +1543,7 @@ export default function EstimatePage() {
                       </div>
                       
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-2">
+                        <label className="block text-xs font-medium uppercase tracking-widest text-gray-600 mb-2">
                           4-Seater Workstations
                         </label>
                         <input
@@ -1557,7 +1551,7 @@ export default function EstimatePage() {
                           value={furniture.workstation4Seater}
                           onChange={(e) => setFurniture({ ...furniture, workstation4Seater: Math.max(0, parseInt(e.target.value) || 0) })}
                           min="0"
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
                         <p className="text-[11px] text-gray-500 mt-1 text-center">
                           For team zones
@@ -1566,7 +1560,7 @@ export default function EstimatePage() {
                       
                       {/* Storage Cabinets - EXACT DIMENSIONS */}
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-2">
+                        <label className="block text-xs font-medium uppercase tracking-widest text-gray-600 mb-2">
                           Tall Storage Cabinets
                         </label>
                         <input
@@ -1574,7 +1568,7 @@ export default function EstimatePage() {
                           value={furniture.tallCabinets}
                           onChange={(e) => setFurniture({ ...furniture, tallCabinets: Math.max(0, parseInt(e.target.value) || 0) })}
                           min="0"
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
                         <p className="text-[11px] text-gray-500 mt-1 text-center font-mono">
                           90cm W × 180cm H
@@ -1582,7 +1576,7 @@ export default function EstimatePage() {
                       </div>
                       
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-2">
+                        <label className="block text-xs font-medium uppercase tracking-widest text-gray-600 mb-2">
                           Short Storage Cabinets
                         </label>
                         <input
@@ -1590,7 +1584,7 @@ export default function EstimatePage() {
                           value={furniture.shortCabinets}
                           onChange={(e) => setFurniture({ ...furniture, shortCabinets: Math.max(0, parseInt(e.target.value) || 0) })}
                           min="0"
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
                         <p className="text-[11px] text-gray-500 mt-1 text-center font-mono">
                           90cm W × 90cm H
@@ -1599,7 +1593,7 @@ export default function EstimatePage() {
                       
                       {/* Chairs - WITH/NO HEADREST OPTIONS */}
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-2">
+                        <label className="block text-xs font-medium uppercase tracking-widest text-gray-600 mb-2">
                           Mesh Chairs (No Headrest)
                         </label>
                         <input
@@ -1607,7 +1601,7 @@ export default function EstimatePage() {
                           value={furniture.meshChairsNoHeadrest}
                           onChange={(e) => setFurniture({ ...furniture, meshChairsNoHeadrest: Math.max(0, parseInt(e.target.value) || 0) })}
                           min="0"
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
                         <p className="text-[11px] text-gray-500 mt-1 text-center">
                           Standard task chair
@@ -1615,7 +1609,7 @@ export default function EstimatePage() {
                       </div>
                       
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-2">
+                        <label className="block text-xs font-medium uppercase tracking-widest text-gray-600 mb-2">
                           Mesh Chairs (With Headrest)
                         </label>
                         <input
@@ -1623,7 +1617,7 @@ export default function EstimatePage() {
                           value={furniture.meshChairsWithHeadrest}
                           onChange={(e) => setFurniture({ ...furniture, meshChairsWithHeadrest: Math.max(0, parseInt(e.target.value) || 0) })}
                           min="0"
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
                         <p className="text-[11px] text-gray-500 mt-1 text-center">
                           Enhanced comfort
@@ -1631,15 +1625,15 @@ export default function EstimatePage() {
                       </div>
                       
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-2">
-                          Luxury Leather Manager Chairs
+                        <label className="block text-xs font-medium uppercase tracking-widest text-gray-600 mb-2">
+                          Luxury Managerial Leather Chairs
                         </label>
                         <input
                           type="number"
                           value={furniture.leatherManagerChairs}
                           onChange={(e) => setFurniture({ ...furniture, leatherManagerChairs: Math.max(0, parseInt(e.target.value) || 0) })}
                           min="0"
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
                         <p className="text-[11px] text-gray-500 mt-1 text-center">
                           Executive seating
@@ -1647,7 +1641,7 @@ export default function EstimatePage() {
                       </div>
                       
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-2">
+                        <label className="block text-xs font-medium uppercase tracking-widest text-gray-600 mb-2">
                           Visitor Chairs
                         </label>
                         <input
@@ -1655,7 +1649,7 @@ export default function EstimatePage() {
                           value={furniture.visitorChairs}
                           onChange={(e) => setFurniture({ ...furniture, visitorChairs: Math.max(0, parseInt(e.target.value) || 0) })}
                           min="0"
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
                         <p className="text-[11px] text-gray-500 mt-1 text-center">
                           Guest seating
@@ -1664,7 +1658,7 @@ export default function EstimatePage() {
                       
                       {/* Reception Desk - EXACT SIZE OPTIONS */}
                       <div className="md:col-span-2 lg:col-span-3">
-                        <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-3">
+                        <label className="block text-xs font-medium uppercase tracking-widest text-gray-600 mb-3">
                           Reception Desk Size
                         </label>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -1678,11 +1672,11 @@ export default function EstimatePage() {
                               onClick={() => setFurniture({ ...furniture, receptionDeskSize: opt.id as any })}
                               className={`p-4 rounded-lg border-2 text-center transition-all ${
                                 furniture.receptionDeskSize === opt.id
-                                  ? 'border-red-600 bg-red-50'
-                                  : 'border-gray-200 hover:border-red-300 hover:bg-gray-50'
+                                  ? 'border-blue-600 bg-blue-50'
+                                  : 'border-gray-200 hover:border-blue-300 hover:bg-gray-50'
                               }`}
                             >
-                              <div className="font-black text-sm mb-1">{opt.label}</div>
+                              <div className="font-bold text-sm mb-1">{opt.label}</div>
                               <div className="text-[11px] text-gray-600">{opt.desc}</div>
                             </button>
                           ))}
@@ -1691,7 +1685,7 @@ export default function EstimatePage() {
                       
                       {/* Soft Furnishings */}
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-2">
+                        <label className="block text-xs font-medium uppercase tracking-widest text-gray-600 mb-2">
                           Small Sofas
                         </label>
                         <input
@@ -1699,7 +1693,7 @@ export default function EstimatePage() {
                           value={furniture.sofaSmall}
                           onChange={(e) => setFurniture({ ...furniture, sofaSmall: Math.max(0, parseInt(e.target.value) || 0) })}
                           min="0"
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
                         <p className="text-[11px] text-gray-500 mt-1 text-center">
                           For waiting areas
@@ -1707,7 +1701,7 @@ export default function EstimatePage() {
                       </div>
                       
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-2">
+                        <label className="block text-xs font-medium uppercase tracking-widest text-gray-600 mb-2">
                           Medium Sofas
                         </label>
                         <input
@@ -1715,7 +1709,7 @@ export default function EstimatePage() {
                           value={furniture.sofaMedium}
                           onChange={(e) => setFurniture({ ...furniture, sofaMedium: Math.max(0, parseInt(e.target.value) || 0) })}
                           min="0"
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
                         <p className="text-[11px] text-gray-500 mt-1 text-center">
                           For breakout zones
@@ -1723,7 +1717,7 @@ export default function EstimatePage() {
                       </div>
                       
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-2">
+                        <label className="block text-xs font-medium uppercase tracking-widest text-gray-600 mb-2">
                           Large Sofas
                         </label>
                         <input
@@ -1731,7 +1725,7 @@ export default function EstimatePage() {
                           value={furniture.sofaLarge}
                           onChange={(e) => setFurniture({ ...furniture, sofaLarge: Math.max(0, parseInt(e.target.value) || 0) })}
                           min="0"
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
                         <p className="text-[11px] text-gray-500 mt-1 text-center">
                           For executive lounges
@@ -1739,7 +1733,7 @@ export default function EstimatePage() {
                       </div>
                       
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-2">
+                        <label className="block text-xs font-medium uppercase tracking-widest text-gray-600 mb-2">
                           Coffee Tables
                         </label>
                         <input
@@ -1747,12 +1741,12 @@ export default function EstimatePage() {
                           value={furniture.coffeeTables}
                           onChange={(e) => setFurniture({ ...furniture, coffeeTables: Math.max(0, parseInt(e.target.value) || 0) })}
                           min="0"
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
                       </div>
                       
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-2">
+                        <label className="block text-xs font-medium uppercase tracking-widest text-gray-600 mb-2">
                           Potted Plants
                         </label>
                         <input
@@ -1760,7 +1754,7 @@ export default function EstimatePage() {
                           value={furniture.pottedPlants}
                           onChange={(e) => setFurniture({ ...furniture, pottedPlants: Math.max(0, parseInt(e.target.value) || 0) })}
                           min="0"
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
                         <p className="text-[11px] text-gray-500 mt-1 text-center">
                           Interior landscaping
@@ -1774,14 +1768,14 @@ export default function EstimatePage() {
                             type="checkbox"
                             checked={furniture.verticalBlinds}
                             onChange={(e) => setFurniture({ ...furniture, verticalBlinds: e.target.checked })}
-                            className="w-4 h-4 text-red-600 rounded focus:ring-red-500"
+                            className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
                           />
-                          <span className="text-sm font-bold">Vertical Blinds</span>
+                          <span className="text-sm font-medium">Vertical Blinds</span>
                         </label>
                         
                         {furniture.verticalBlinds && (
                           <div className="mt-3">
-                            <label className="block text-[11px] font-bold text-gray-600 mb-2">
+                            <label className="block text-[11px] font-medium text-gray-600 mb-2">
                               Area to Cover (m²)
                             </label>
                             <input
@@ -1789,7 +1783,7 @@ export default function EstimatePage() {
                               value={furniture.verticalBlindsArea}
                               onChange={(e) => setFurniture({ ...furniture, verticalBlindsArea: Math.max(0, parseFloat(e.target.value) || 0) })}
                               placeholder="Window area"
-                              className="w-full px-4 py-2 border border-gray-300 rounded-lg text-center focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                              className="w-full px-4 py-2 border border-gray-300 rounded-lg text-center focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             />
                             <p className="text-[10px] text-gray-500 mt-1">
                               Rate: {ETHIOPIAN_STANDARDS.furniture.verticalBlindsPerM2.toLocaleString()} ETB/m²
@@ -1802,7 +1796,7 @@ export default function EstimatePage() {
                   
                   {/* Section 06: Electrical - SPACE-SPECIFIC STANDARDS */}
                   <div className="bg-white border border-gray-200 rounded-xl p-6">
-                    <h3 className="text-lg font-black uppercase tracking-wider text-gray-900 mb-4">
+                    <h3 className="text-lg font-bold uppercase tracking-wider text-gray-900 mb-4">
                       Section 06: Electrical & Networking
                     </h3>
                     
@@ -1813,9 +1807,9 @@ export default function EstimatePage() {
                             type="checkbox"
                             checked={lighting.existingLighting}
                             onChange={(e) => setLighting({ ...lighting, existingLighting: e.target.checked })}
-                            className="w-4 h-4 text-red-600 rounded focus:ring-red-500"
+                            className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
                           />
-                          <span className="text-sm font-bold">
+                          <span className="text-sm font-medium">
                             Existing lighting in good condition (opt out of new lighting)
                           </span>
                         </label>
@@ -1823,7 +1817,7 @@ export default function EstimatePage() {
                         {!lighting.existingLighting && (
                           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                             <div>
-                              <label className="block text-[11px] font-bold text-gray-600 mb-2">
+                              <label className="block text-[11px] font-medium text-gray-600 mb-2">
                                 Office LED Panels (60x60cm)
                               </label>
                               <input
@@ -1831,7 +1825,7 @@ export default function EstimatePage() {
                                 value={lighting.officeLed60x60}
                                 onChange={(e) => setLighting({ ...lighting, officeLed60x60: Math.max(0, parseInt(e.target.value) || 0) })}
                                 placeholder="Auto-calculated"
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-center focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-center focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                               />
                               <p className="text-[10px] text-gray-500 mt-1">
                                 300 lux standard (1 per 12m²)
@@ -1839,7 +1833,7 @@ export default function EstimatePage() {
                             </div>
                             
                             <div>
-                              <label className="block text-[11px] font-bold text-gray-600 mb-2">
+                              <label className="block text-[11px] font-medium text-gray-600 mb-2">
                                 Track Shooter Lights
                               </label>
                               <input
@@ -1848,7 +1842,7 @@ export default function EstimatePage() {
                                 onChange={(e) => setLighting({ ...lighting, trackShooters: Math.max(0, parseInt(e.target.value) || 0) })}
                                 min="0"
                                 max="10"
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-center focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-center focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                               />
                               <p className="text-[10px] text-gray-500 mt-1">
                                 For reception logo (500 lux)
@@ -1856,7 +1850,7 @@ export default function EstimatePage() {
                             </div>
                             
                             <div>
-                              <label className="block text-[11px] font-bold text-gray-600 mb-2">
+                              <label className="block text-[11px] font-medium text-gray-600 mb-2">
                                 Pendant Lights
                               </label>
                               <input
@@ -1865,7 +1859,7 @@ export default function EstimatePage() {
                                 onChange={(e) => setLighting({ ...lighting, pendantLights: Math.max(0, parseInt(e.target.value) || 0) })}
                                 min="0"
                                 max="10"
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-center focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-center focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                               />
                               <p className="text-[10px] text-gray-500 mt-1">
                                 Reception ambient lighting
@@ -1877,12 +1871,12 @@ export default function EstimatePage() {
                       
                       {/* Sockets & Data Points */}
                       <div>
-                        <h4 className="text-sm font-black uppercase tracking-wider text-gray-900 mb-3">
+                        <h4 className="text-sm font-bold uppercase tracking-wider text-gray-900 mb-3">
                           Power & Data Points
                         </h4>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                           <div>
-                            <label className="block text-[11px] font-bold text-gray-600 mb-2">
+                            <label className="block text-[11px] font-medium text-gray-600 mb-2">
                               Waterproof Sockets
                             </label>
                             <input
@@ -1890,7 +1884,7 @@ export default function EstimatePage() {
                               value={sockets.waterproof}
                               onChange={(e) => setSockets({ ...sockets, waterproof: Math.max(0, parseInt(e.target.value) || 0) })}
                               placeholder="Auto from wet areas"
-                              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-center focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-center focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             />
                             <p className="text-[10px] text-gray-500 mt-1">
                               For kitchen/wet areas
@@ -1898,7 +1892,7 @@ export default function EstimatePage() {
                           </div>
                           
                           <div>
-                            <label className="block text-[11px] font-bold text-gray-600 mb-2">
+                            <label className="block text-[11px] font-medium text-gray-600 mb-2">
                               Recessed Wall Sockets
                             </label>
                             <input
@@ -1906,12 +1900,12 @@ export default function EstimatePage() {
                               value={sockets.recessed}
                               onChange={(e) => setSockets({ ...sockets, recessed: Math.max(0, parseInt(e.target.value) || 0) })}
                               placeholder="Auto: 1.2 per person"
-                              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-center focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-center focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             />
                           </div>
                           
                           <div>
-                            <label className="block text-[11px] font-bold text-gray-600 mb-2">
+                            <label className="block text-[11px] font-medium text-gray-600 mb-2">
                               Data/Network Points
                             </label>
                             <input
@@ -1919,7 +1913,7 @@ export default function EstimatePage() {
                               value={dataPoints}
                               onChange={(e) => setDataPoints(Math.max(0, parseInt(e.target.value) || 0))}
                               placeholder="Auto: 1.5 per person"
-                              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-center focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-center focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             />
                           </div>
                         </div>
@@ -1929,7 +1923,7 @@ export default function EstimatePage() {
                   
                   {/* Section 07: Wet Areas - AUTO-ACCESSORIES */}
                   <div className="bg-white border border-gray-200 rounded-xl p-6">
-                    <h3 className="text-lg font-black uppercase tracking-wider text-gray-900 mb-4">
+                    <h3 className="text-lg font-bold uppercase tracking-wider text-gray-900 mb-4">
                       Section 07: Wet Areas (Toilet Renovation)
                     </h3>
                     
@@ -1938,9 +1932,9 @@ export default function EstimatePage() {
                         type="checkbox"
                         checked={wetAreas.toiletRenovation}
                         onChange={(e) => setWetAreas({ ...wetAreas, toiletRenovation: e.target.checked })}
-                        className="w-4 h-4 text-red-600 rounded focus:ring-red-500"
+                        className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
                       />
-                      <span className="text-sm font-bold">
+                      <span className="text-sm font-medium">
                         Include toilet renovation in this project
                       </span>
                     </label>
@@ -1948,7 +1942,7 @@ export default function EstimatePage() {
                     {wetAreas.toiletRenovation && (
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                          <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-2">
+                          <label className="block text-xs font-medium uppercase tracking-widest text-gray-600 mb-2">
                             Toilet Seats (Water Closets)
                           </label>
                           <input
@@ -1956,15 +1950,15 @@ export default function EstimatePage() {
                             value={wetAreas.toiletSeats}
                             onChange={(e) => setWetAreas({ ...wetAreas, toiletSeats: Math.max(0, parseInt(e.target.value) || 0) })}
                             min="0"
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                           />
                           <p className="text-[11px] text-gray-500 mt-1 text-center">
-                            <span className="text-red-600 font-bold">Auto-adds:</span> 1 paper holder + 1 grab bar per seat
+                            <span className="text-blue-600 font-medium">Auto-adds:</span> 1 paper holder + 1 grab bar per seat
                           </p>
                         </div>
                         
                         <div>
-                          <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-2">
+                          <label className="block text-xs font-medium uppercase tracking-widest text-gray-600 mb-2">
                             Wash Basins
                           </label>
                           <input
@@ -1972,10 +1966,10 @@ export default function EstimatePage() {
                             value={wetAreas.washBasins}
                             onChange={(e) => setWetAreas({ ...wetAreas, washBasins: Math.max(0, parseInt(e.target.value) || 0) })}
                             min="0"
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                           />
                           <p className="text-[11px] text-gray-500 mt-1 text-center">
-                            <span className="text-red-600 font-bold">Auto-adds:</span> 1 soap dispenser + 1 mirror per basin
+                            <span className="text-blue-600 font-medium">Auto-adds:</span> 1 soap dispenser + 1 mirror per basin
                           </p>
                         </div>
                       </div>
@@ -1984,13 +1978,13 @@ export default function EstimatePage() {
                   
                   {/* Section 09: Branding - SAND BLASTED STICKER = 50% GLASS AREA */}
                   <div className="bg-white border border-gray-200 rounded-xl p-6">
-                    <h3 className="text-lg font-black uppercase tracking-wider text-gray-900 mb-4">
+                    <h3 className="text-lg font-bold uppercase tracking-wider text-gray-900 mb-4">
                       Section 09: Branding & Signage
                     </h3>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-2">
+                        <label className="block text-xs font-medium uppercase tracking-widest text-gray-600 mb-2">
                           Reception Logo Width (meters)
                         </label>
                         <input
@@ -2000,7 +1994,7 @@ export default function EstimatePage() {
                           min="0.6"
                           max="5"
                           step="0.1"
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
                         <p className="text-[11px] text-gray-500 mt-1 text-center">
                           Acrylic logo (0.6m height assumed)<br />
@@ -2009,7 +2003,7 @@ export default function EstimatePage() {
                       </div>
                       
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-widest text-gray-600 mb-2">
+                        <label className="block text-xs font-medium uppercase tracking-widest text-gray-600 mb-2">
                           Total Glass Partition Area (m²)
                         </label>
                         <input
@@ -2017,10 +2011,10 @@ export default function EstimatePage() {
                           value={branding.glassPartitionArea}
                           onChange={(e) => setBranding({ ...branding, glassPartitionArea: Math.max(0, parseFloat(e.target.value) || 0) })}
                           placeholder="From Section 04"
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center font-bold focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
                         <p className="text-[11px] text-gray-500 mt-1 text-center">
-                          <span className="text-red-600 font-bold">Sand blasted sticker:</span> 50% of glass area<br />
+                          <span className="text-blue-600 font-medium">Sand blasted sticker:</span> 50% of glass area<br />
                           Rate: {ETHIOPIAN_STANDARDS.branding.sandblastedStickerPerM2.toLocaleString()} ETB/m²
                         </p>
                       </div>
@@ -2029,7 +2023,7 @@ export default function EstimatePage() {
                   
                   {/* Quality Tier Selector */}
                   <div className="bg-white border border-gray-200 rounded-xl p-6">
-                    <h3 className="text-lg font-black uppercase tracking-wider text-gray-900 mb-4">
+                    <h3 className="text-lg font-bold uppercase tracking-wider text-gray-900 mb-4">
                       Quality Tier Selection
                     </h3>
                     <p className="text-sm text-gray-600 mb-4">
@@ -2062,13 +2056,13 @@ export default function EstimatePage() {
                           onClick={() => setQualityTier(tier.id as any)}
                           className={`p-6 rounded-xl border-2 text-left transition-all ${
                             qualityTier === tier.id
-                              ? 'border-red-600 bg-red-50'
-                              : 'border-gray-200 hover:border-red-300 hover:bg-gray-50'
+                              ? 'border-blue-600 bg-blue-50'
+                              : 'border-gray-200 hover:border-blue-300 hover:bg-gray-50'
                           }`}
                         >
                           <div className="flex items-start justify-between mb-2">
-                            <div className="font-black text-lg">{tier.label}</div>
-                            <div className="bg-red-100 text-red-800 text-xs font-bold px-3 py-1 rounded-full">
+                            <div className="font-bold text-lg">{tier.label}</div>
+                            <div className="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full">
                               {tier.price}
                             </div>
                           </div>
@@ -2083,10 +2077,10 @@ export default function EstimatePage() {
                     <button
                       onClick={handleCostCalculate}
                       disabled={isCalculating}
-                      className={`flex-1 px-8 py-4 text-sm font-black uppercase tracking-widest rounded-lg transition-all ${
+                      className={`flex-1 px-8 py-4 text-sm font-medium uppercase tracking-widest rounded-lg transition-all ${
                         isCalculating
                           ? 'bg-gray-400 cursor-not-allowed'
-                          : 'bg-red-600 hover:bg-red-700 text-white'
+                          : 'bg-blue-600 hover:bg-blue-700 text-white'
                       }`}
                     >
                       {isCalculating ? 'Calculating...' : 'Get Detailed Cost Estimate'}
@@ -2094,7 +2088,7 @@ export default function EstimatePage() {
                     {costResult && (
                       <button
                         onClick={() => setCostResult(null)}
-                        className="px-8 py-4 text-sm font-black uppercase tracking-widest rounded-lg bg-white border border-gray-300 text-gray-700 hover:bg-gray-50"
+                        className="px-8 py-4 text-sm font-medium uppercase tracking-widest rounded-lg bg-white border border-gray-300 text-gray-700 hover:bg-gray-50"
                       >
                         Reset Form
                       </button>
@@ -2111,7 +2105,7 @@ export default function EstimatePage() {
           <section id="results-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <div className="bg-white rounded-2xl border border-gray-200 shadow-xl overflow-hidden">
               <div className="px-8 py-6 bg-gray-50 border-b border-gray-200">
-                <h2 className="text-2xl font-black uppercase tracking-tighter text-gray-900">
+                <h2 className="text-2xl font-bold uppercase tracking-tighter text-gray-900">
                   {activeTab === 'area' ? 'Area Estimation Results' : 'Cost Estimation Results'}
                 </h2>
               </div>
@@ -2121,9 +2115,9 @@ export default function EstimatePage() {
                   <div>
                     {/* Two Estimates Display */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                      <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl p-8 text-white">
+                      <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-8 text-white">
                         <div className="text-sm opacity-90 mb-2">STANDARD ESTIMATE</div>
-                        <div className="text-5xl font-black tracking-tighter mb-4">
+                        <div className="text-5xl font-bold tracking-tighter mb-4">
                           {areaResult.standardEstimate.toFixed(1)} <span className="text-3xl">m²</span>
                         </div>
                         <p className="opacity-90">
@@ -2139,9 +2133,9 @@ export default function EstimatePage() {
                         </div>
                       </div>
                       
-                      <div className="bg-gradient-to-br from-purple-600 to-purple-700 rounded-xl p-8 text-white">
+                      <div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl p-8 text-white">
                         <div className="text-sm opacity-90 mb-2">OPTIMIZED ESTIMATE</div>
-                        <div className="text-5xl font-black tracking-tighter mb-4">
+                        <div className="text-5xl font-bold tracking-tighter mb-4">
                           {areaResult.optimizedEstimate.toFixed(1)} <span className="text-3xl">m²</span>
                         </div>
                         <p className="opacity-90">
@@ -2149,7 +2143,7 @@ export default function EstimatePage() {
                         </p>
                         <div className="mt-6 pt-4 border-t border-purple-400/30">
                           <div className="text-sm opacity-75 mb-2">Savings:</div>
-                          <div className="font-black text-2xl">
+                          <div className="font-bold text-2xl">
                             {Math.round((areaResult.standardEstimate - areaResult.optimizedEstimate) / areaResult.standardEstimate * 100)}% reduction
                           </div>
                           <p className="text-xs mt-2 opacity-75">
@@ -2161,17 +2155,17 @@ export default function EstimatePage() {
                     
                     {/* Room Breakdown Table */}
                     <div className="mb-8">
-                      <h3 className="font-black text-gray-900 mb-4 text-lg uppercase tracking-wider">
+                      <h3 className="font-bold text-gray-900 mb-4 text-lg uppercase tracking-wider">
                         Room Configuration Breakdown
                       </h3>
                       <div className="overflow-x-auto">
                         <table className="min-w-full border border-gray-200">
                           <thead className="bg-gray-50">
                             <tr>
-                              <th className="px-4 py-3 text-left text-xs font-black uppercase tracking-wider text-gray-600 border-b border-gray-200">Room Type</th>
-                              <th className="px-4 py-3 text-left text-xs font-black uppercase tracking-wider text-gray-600 border-b border-gray-200">Count</th>
-                              <th className="px-4 py-3 text-left text-xs font-black uppercase tracking-wider text-gray-600 border-b border-gray-200">Area (m²)</th>
-                              <th className="px-4 py-3 text-left text-xs font-black uppercase tracking-wider text-gray-600 border-b border-gray-200">Standard</th>
+                              <th className="px-4 py-3 text-left text-xs font-bold uppercase tracking-wider text-gray-600 border-b border-gray-200">Room Type</th>
+                              <th className="px-4 py-3 text-left text-xs font-bold uppercase tracking-wider text-gray-600 border-b border-gray-200">Count</th>
+                              <th className="px-4 py-3 text-left text-xs font-bold uppercase tracking-wider text-gray-600 border-b border-gray-200">Area (m²)</th>
+                              <th className="px-4 py-3 text-left text-xs font-bold uppercase tracking-wider text-gray-600 border-b border-gray-200">Standard</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -2179,17 +2173,17 @@ export default function EstimatePage() {
                               <tr key={idx} className="border-b border-gray-100 hover:bg-gray-50">
                                 <td className="px-4 py-3 font-medium">{room.name}</td>
                                 <td className="px-4 py-3">{room.count}</td>
-                                <td className="px-4 py-3 font-black text-red-600">{room.area.toFixed(1)}</td>
+                                <td className="px-4 py-3 font-bold text-blue-600">{room.area.toFixed(1)}</td>
                                 <td className="px-4 py-3 text-sm text-gray-500">{room.standard}</td>
                               </tr>
                             ))}
-                            <tr className="bg-gray-50 font-black">
+                            <tr className="bg-gray-50 font-bold">
                               <td className="px-4 py-3">Circulation Space</td>
                               <td className="px-4 py-3">-</td>
-                              <td className="px-4 py-3 text-red-600">{areaResult.circulationArea.toFixed(1)}</td>
+                              <td className="px-4 py-3 text-blue-600">{areaResult.circulationArea.toFixed(1)}</td>
                               <td className="px-4 py-3">{Math.round(ETHIOPIAN_STANDARDS.circulationRatio * 100)}% of total</td>
                             </tr>
-                            <tr className="bg-red-50 text-red-800 font-black">
+                            <tr className="bg-blue-50 text-blue-800 font-bold">
                               <td className="px-4 py-3">TOTAL USABLE AREA</td>
                               <td className="px-4 py-3">-</td>
                               <td className="px-4 py-3">{areaResult.standardEstimate.toFixed(1)}</td>
@@ -2203,7 +2197,7 @@ export default function EstimatePage() {
                     {/* Recommendations */}
                     {areaResult.recommendations.length > 0 && (
                       <div className="bg-blue-50 border-l-4 border-blue-600 rounded-xl p-6">
-                        <h4 className="font-black text-blue-900 mb-3">Professional Recommendations</h4>
+                        <h4 className="font-bold text-blue-900 mb-3">Professional Recommendations</h4>
                         <ul className="space-y-2">
                           {areaResult.recommendations.map((rec: string, idx: number) => (
                             <li key={idx} className="flex items-start gap-2 text-blue-800">
@@ -2222,29 +2216,29 @@ export default function EstimatePage() {
                 {activeTab === 'cost' && costResult && (
                   <div>
                     {/* Total Cost Card */}
-                    <div className="bg-gradient-to-r from-red-600 to-red-700 rounded-xl p-8 text-white mb-12">
-                      <div className="text-2xl font-black opacity-90 mb-2">TOTAL PROJECT ESTIMATE</div>
-                      <div className="text-6xl font-black tracking-tighter mb-6">
+                    <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl p-8 text-white mb-12">
+                      <div className="text-2xl font-bold opacity-90 mb-2">TOTAL PROJECT ESTIMATE</div>
+                      <div className="text-6xl font-bold tracking-tighter mb-6">
                         {costResult.total.toLocaleString()} <span className="text-3xl">ETB</span>
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-sm">
                         <div>
                           <div className="opacity-75 mb-1">Quality Tier</div>
-                          <div className="font-black uppercase">
+                          <div className="font-bold uppercase">
                             {qualityTier.charAt(0).toUpperCase() + qualityTier.slice(1)}
                           </div>
                         </div>
                         <div>
                           <div className="opacity-75 mb-1">Project Area</div>
-                          <div className="font-black">{totalRentedArea} m²</div>
+                          <div className="font-bold">{totalRentedArea} m²</div>
                         </div>
                         <div>
                           <div className="opacity-75 mb-1">Employees</div>
-                          <div className="font-black">{costHeadcount}</div>
+                          <div className="font-bold">{costHeadcount}</div>
                         </div>
                         <div>
                           <div className="opacity-75 mb-1">Contingency</div>
-                          <div className="font-black">12%</div>
+                          <div className="font-bold">12%</div>
                         </div>
                       </div>
                     </div>
@@ -2260,8 +2254,8 @@ export default function EstimatePage() {
                           return (
                             <div key={sectionKey} className="border border-gray-200 rounded-xl p-6">
                               <div className="flex items-center justify-between mb-4 pb-3 border-b border-gray-200">
-                                <h4 className="font-black text-gray-900">{section.name}</h4>
-                                <div className="font-black text-red-600">
+                                <h4 className="font-bold text-gray-900">{section.name}</h4>
+                                <div className="font-bold text-blue-600">
                                   {section.total.toLocaleString()} ETB
                                 </div>
                               </div>
@@ -2276,7 +2270,7 @@ export default function EstimatePage() {
                                         {item.quantity} {item.unit} × {item.rate.toLocaleString()} ETB
                                       </div>
                                     </div>
-                                    <div className="font-black text-red-600 whitespace-nowrap">
+                                    <div className="font-bold text-blue-600 whitespace-nowrap">
                                       {item.amount.toLocaleString()} ETB
                                     </div>
                                   </div>
@@ -2291,23 +2285,23 @@ export default function EstimatePage() {
                     <div className="mt-8 pt-6 border-t border-gray-200 bg-gray-50 rounded-xl p-6">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                          <div className="text-sm font-black text-gray-600 mb-1">Subtotal (with 12% contingency)</div>
-                          <div className="text-2xl font-black">{costResult.subtotal.toLocaleString()} ETB</div>
+                          <div className="text-sm font-bold text-gray-600 mb-1">Subtotal (with 12% contingency)</div>
+                          <div className="text-2xl font-bold">{costResult.subtotal.toLocaleString()} ETB</div>
                         </div>
                         <div>
-                          <div className="text-sm font-black text-gray-600 mb-1">VAT (15%)</div>
-                          <div className="text-2xl font-black text-red-600">{costResult.vat.toLocaleString()} ETB</div>
+                          <div className="text-sm font-bold text-gray-600 mb-1">VAT (15%)</div>
+                          <div className="text-2xl font-bold text-blue-600">{costResult.vat.toLocaleString()} ETB</div>
                         </div>
                       </div>
                       <div className="mt-6 pt-4 border-t border-gray-300">
-                        <div className="text-sm font-black text-gray-600 mb-2">TOTAL PROJECT COST</div>
-                        <div className="text-4xl font-black text-red-600">{costResult.total.toLocaleString()} ETB</div>
+                        <div className="text-sm font-bold text-gray-600 mb-2">TOTAL PROJECT COST</div>
+                        <div className="text-4xl font-bold text-blue-600">{costResult.total.toLocaleString()} ETB</div>
                       </div>
                     </div>
                     
                     {/* Important Notes */}
                     <div className="mt-8 bg-amber-50 border-l-4 border-amber-500 rounded-xl p-6">
-                      <h4 className="font-black text-amber-900 mb-3">Important Notes</h4>
+                      <h4 className="font-bold text-amber-900 mb-3">Important Notes</h4>
                       <ul className="space-y-2 text-sm">
                         <li className="flex items-start gap-2 text-amber-800">
                           <svg className="w-4 h-4 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2342,14 +2336,14 @@ export default function EstimatePage() {
             
             {/* Final CTA */}
             <div className="mt-12 text-center">
-              <div className="inline-block bg-gradient-to-r from-red-600 to-red-700 text-white px-8 py-6 rounded-2xl">
-                <h3 className="text-2xl font-black mb-3">Ready for a Detailed Proposal?</h3>
+              <div className="inline-block bg-gradient-to-r from-blue-500 to-blue-600 text-white px-8 py-6 rounded-2xl">
+                <h3 className="text-2xl font-bold mb-3">Ready for a Detailed Proposal?</h3>
                 <p className="opacity-90 mb-6 max-w-2xl mx-auto">
                   This estimate provides a professional ballpark figure. For a precise quotation with material specifications, 3D visuals, and site-specific details, schedule a free consultation with our design team.
                 </p>
                 <Link
                   href="/contact"
-                  className="inline-block bg-white text-red-600 px-10 py-4 rounded-lg font-black uppercase tracking-widest text-sm hover:bg-gray-100 transition-colors shadow-lg"
+                  className="inline-block bg-white text-blue-600 px-10 py-4 rounded-lg font-bold uppercase tracking-widest text-sm hover:bg-gray-100 transition-colors shadow-lg"
                 >
                   Schedule Free Consultation →
                 </Link>
