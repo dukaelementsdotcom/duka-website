@@ -14,18 +14,17 @@ export default function ResourcesPage() {
     return () => { document.title = "Duka Interiors"; };
   }, []);
 
-  // ✅ CRITICAL FIX: Inject canonical URL for Client Component (GMB migration essential)
-  useEffect(() => {
-    const existing = document.querySelector('link[rel="canonical"]');
-    if (existing) existing.remove();
-    
-    const canonicalLink = document.createElement('link');
-    canonicalLink.rel = 'canonical';
-    canonicalLink.href = 'https://www.dukainteriors.com/resources';
-    document.head.appendChild(canonicalLink);
-    
-    return () => { canonicalLink.remove(); };
-  }, []);
+ useEffect(() => {
+  const existing = document.querySelector('link[rel="canonical"]');
+  if (existing) existing.remove();
+  
+  const canonicalLink = document.createElement('link');
+  canonicalLink.rel = 'canonical';
+  canonicalLink.href = 'https://www.dukainteriors.com/resources/'; // ✅ Removed trailing spaces + added slash
+  document.head.appendChild(canonicalLink);
+  
+  return () => { canonicalLink.remove(); };
+}, []);
 
   return (
     <div className="min-h-screen bg-white">

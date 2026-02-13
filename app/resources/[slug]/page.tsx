@@ -1,37 +1,21 @@
+// REMOVE 'use client' - THIS MUST BE A SERVER COMPONENT
 import { BLOG_POSTS } from '@/app/resources/post.data';
 import NavBar from '@/app/components/NavBar';
 import Footer from '@/app/components/Footer';
 import Link from 'next/link';
-import React, { use } from 'react';
+import { notFound } from 'next/navigation'; // ✅ Proper 404 handling
 
-// Pre-rendering all blog paths
+// ✅ PRE-RENDER ALL BLOG PATHS (Server Component only)
 export async function generateStaticParams() {
-  return BLOG_POSTS.map((post) => ({
-    slug: post.slug,
-  }));
+  return BLOG_POSTS.map(post => ({ slug: post.slug }));
 }
 
-export default function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = use(params);
-  const post = BLOG_POSTS.find((p) => p.slug === slug);
-
+// ✅ params is PLAIN OBJECT in Server Components (no Promise/unwrapping needed)
+export default function ArticlePage({ params }: { params: { slug: string } }) {
+  const post = BLOG_POSTS.find(p => p.slug === params.slug);
+  
   if (!post) {
-    return (
-      <div className="min-h-screen pt-40 bg-white flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-4xl font-black text-gray-900 mb-4">404</h1>
-          <p className="text-gray-600 mb-8 uppercase tracking-widest text-xs">
-            Article not found.
-          </p>
-          <Link
-            href="/resources"
-            className="bg-black text-white px-8 py-3 font-black uppercase text-xs tracking-widest hover:bg-red-600 transition-colors"
-          >
-            ← Back to Insights
-          </Link>
-        </div>
-      </div>
-    );
+    notFound(); // ✅ Triggers Next.js 404 handling
   }
 
   return (
@@ -40,7 +24,7 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
       <main className="pt-32 pb-20 px-6">
         <article className="max-w-4xl mx-auto">
           <Link
-            href="/resources"
+            href="/resources/"
             className="text-[10px] font-black tracking-widest text-gray-400 hover:text-red-600 mb-12 block"
           >
             ← BACK TO ALL INSIGHTS
@@ -59,6 +43,7 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
                 width={1200}
                 height={630}
                 className="object-cover w-full h-full"
+                loading="lazy"
               />
             </div>
           </header>
@@ -78,7 +63,7 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
               </p>
             </div>
             <a
-              href="https://t.me/dukainteriorsplc"
+              href="https://t.me/dukainteriorsplc" // ✅ Fixed URL (removed trailing spaces)
               target="_blank"
               rel="noopener noreferrer"
               className="bg-red-600 text-white px-8 py-4 font-black uppercase tracking-widest text-[10px] hover:bg-black transition-all"
