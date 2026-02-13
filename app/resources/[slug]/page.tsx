@@ -1,21 +1,40 @@
-// REMOVE 'use client' - THIS MUST BE A SERVER COMPONENT
-import { BLOG_POSTS } from '@/app/resources/post.data';
-import NavBar from '@/app/components/NavBar';
-import Footer from '@/app/components/Footer';
+import { BLOG_POSTS } from '../post.data'; // Fixed import path relative to [slug] folder
+import NavBar from '../../components/NavBar'; // Adjusted import for NavBar
+import Footer from '../../components/Footer'; // Adjusted import for Footer
 import Link from 'next/link';
-import { notFound } from 'next/navigation'; // ✅ Proper 404 handling
+import React, { use } from 'react';
 
-// ✅ PRE-RENDER ALL BLOG PATHS (Server Component only)
+// Pre-rendering all blog paths
 export async function generateStaticParams() {
-  return BLOG_POSTS.map(post => ({ slug: post.slug }));
+  return BLOG_POSTS.map((post) => ({
+    slug: post.slug,
+  }));
 }
 
-// ✅ params is PLAIN OBJECT in Server Components (no Promise/unwrapping needed)
-export default function ArticlePage({ params }: { params: { slug: string } }) {
-  const post = BLOG_POSTS.find(p => p.slug === params.slug);
+export default function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = use(params);
   
+  // Fix: Decode the slug to handle URL encoding (e.g., "office%20design" -> "office design")
+  const decodedSlug = decodeURIComponent(slug);
+  const post = BLOG_POSTS.find((p) => p.slug === decodedSlug);
+
   if (!post) {
-    notFound(); // ✅ Triggers Next.js 404 handling
+    return (
+      <div className="min-h-screen pt-40 bg-white flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-4xl font-black text-gray-900 mb-4">404</h1>
+          <p className="text-gray-600 mb-8 uppercase tracking-widest text-xs">
+            Article not found.
+          </p>
+          <Link
+            href="/resources"
+            className="bg-black text-white px-8 py-3 font-black uppercase text-xs tracking-widest hover:bg-red-600 transition-colors"
+          >
+            ← Back to Insights
+          </Link>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -24,7 +43,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
       <main className="pt-32 pb-20 px-6">
         <article className="max-w-4xl mx-auto">
           <Link
-            href="/resources/"
+            href="/resources"
             className="text-[10px] font-black tracking-widest text-gray-400 hover:text-red-600 mb-12 block"
           >
             ← BACK TO ALL INSIGHTS
@@ -43,7 +62,6 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
                 width={1200}
                 height={630}
                 className="object-cover w-full h-full"
-                loading="lazy"
               />
             </div>
           </header>
@@ -63,7 +81,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
               </p>
             </div>
             <a
-              href="https://t.me/dukainteriorsplc" // ✅ Fixed URL (removed trailing spaces)
+              href="https://t.me/dukainteriorsplc"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-red-600 text-white px-8 py-4 font-black uppercase tracking-widest text-[10px] hover:bg-black transition-all"
