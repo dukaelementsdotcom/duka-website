@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
   skipTrailingSlashRedirect: false,
   
-  // ✅ VALIDATED IMAGE CONFIGURATION (removed invalid keys)
+  // ✅ VALIDATED IMAGE CONFIGURATION
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'www.dukainteriors.com' },
@@ -15,24 +15,22 @@ const nextConfig: NextConfig = {
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     formats: ['image/webp', 'image/avif'],
-    minimumCacheTTL: 604800, // 1 week cache (valid number)
+    minimumCacheTTL: 604800, // 1 week cache
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   
-  // ✅ LEGACY JS FIX: Remove polyfills for modern browsers
-  webpack: (config, { isServer, dev }) => {
-    if (!isServer && !dev) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        fs: false,
-        path: false,
-        crypto: false,
-        stream: false,
-        buffer: false,
-      };
-    }
-    return config;
+  // ✅ TURBOPACK CONFIGURATION (required for Next.js 16)
+  turbopack: {
+    // Enable Turbopack (silences the warning)
+  },
+  
+  // ✅ LEGACY JS FIX: Target modern browsers only (no polyfills needed)
+  compiler: {
+    // Remove console logs in production
+    removeConsole: process.env.NODE_ENV === 'production' 
+      ? { exclude: ['error'] } 
+      : false,
   },
   
   // ✅ RENDER BLOCKING FIX: Optimize CSS delivery
@@ -43,7 +41,7 @@ const nextConfig: NextConfig = {
     largePageDataBytes: 128 * 1000,
   },
   
-  // ✅ SECURITY & CACHING HEADERS (fixed structure)
+  // ✅ SECURITY & CACHING HEADERS
   async headers() {
     return [
       // Security headers for all pages
