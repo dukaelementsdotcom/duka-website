@@ -7,9 +7,9 @@ import GlobalProtection from "./components/GlobalProtection";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
-  display: 'swap', // ✅ Prevents FOUC (Flash of Unstyled Text)
+  display: 'swap',
   weight: ['400', '500', '600', '700', '800', '900'],
-  preload: true, // ✅ Preload critical font
+  preload: true,
 });
 
 const geistMono = Geist_Mono({
@@ -17,11 +17,11 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
   display: 'swap',
   weight: ['400', '500', '600'],
-  preload: false, // ✅ Don't preload non-critical font
+  preload: false,
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.dukainteriors.com"), // ✅ FIXED: Removed trailing spaces
+  metadataBase: new URL("https://www.dukainteriors.com"),
   title: {
     template: "%s | Duka Interiors Addis Ababa",
     default: "The Best Interior Design Company in Addis Ababa Ethiopia | Duka Interiors",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "The Best Interior Design Company in Addis Ababa Ethiopia | Duka Interiors",
     description: "Ethiopia's leading firm for office partitioning, renovation, and professional interior decoration in Addis Ababa since 2015.",
-    url: "https://www.dukainteriors.com", // ✅ FIXED: Removed trailing spaces
+    url: "https://www.dukainteriors.com",
     siteName: "Duka Interiors",
     images: [
       {
@@ -61,7 +61,6 @@ export const metadata: Metadata = {
     maximumScale: 5,
   },
   themeColor: '#ffffff',
-  // ✅ ADD PERFORMANCE HEADERS
   other: {
     'referrer-policy': 'strict-origin-when-cross-origin',
   },
@@ -71,14 +70,14 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   const logoPath = "/images/icons-duka-interiors/logo-duka-interiors-big.svg";
-  const fullLogoUrl = `https://www.dukainteriors.com${logoPath}`; // ✅ FIXED: Removed trailing spaces
+  const fullLogoUrl = `https://www.dukainteriors.com${logoPath}`;
 
   const localBusinessSchema = {
-    "@context": "https://schema.org", // ✅ FIXED: Removed trailing spaces
+    "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "@id": "https://www.dukainteriors.com/#business", // ✅ FIXED
+    "@id": "https://www.dukainteriors.com/#business",
     "name": "Duka Interiors P.L.C",
-    "url": "https://www.dukainteriors.com", // ✅ FIXED
+    "url": "https://www.dukainteriors.com",
     "telephone": "+251940607055",
     "address": {
       "@type": "PostalAddress",
@@ -102,11 +101,11 @@ export default function RootLayout({
       }
     ],
     "priceRange": "$$$",
-    "image": "https://www.dukainteriors.com/og-image.jpg", // ✅ FIXED
+    "image": "https://www.dukainteriors.com/og-image.jpg",
     "logo": fullLogoUrl,
     "description": "Ethiopia's leading interior design and office partitioning company in Addis Ababa since 2015. Specializing in commercial office fit-outs, custom furniture production, and design-build services.",
     "areaServed": ["Addis Ababa", "Ethiopia"],
-    "hasMap": "https://maps.app.goo.gl/FNBrMacYUefLEH7k8", // ✅ FIXED
+    "hasMap": "https://maps.app.goo.gl/FNBrMacYUefLEH7k8",
     "contactPoint": {
       "@type": "ContactPoint",
       "telephone": "+251940607055",
@@ -125,20 +124,20 @@ export default function RootLayout({
     },
     "keywords": "office partitioning Addis Ababa, office renovation Ethiopia, interior design Addis Ababa, custom furniture Ethiopia, design build Addis Ababa",
     "sameAs": [
-      "https://t.me/dukainteriorsplc", // ✅ FIXED
-      "https://www.instagram.com/dukainteriors", // ✅ FIXED
-      "https://www.linkedin.com/company/duka-interiors" // ✅ FIXED
+      "https://t.me/dukainteriorsplc",
+      "https://www.instagram.com/dukainteriors",
+      "https://www.linkedin.com/company/duka-interiors"
     ]
   };
 
   const breadcrumbSchema = {
-    "@context": "https://schema.org", // ✅ FIXED
+    "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [{
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": "https://www.dukainteriors.com" // ✅ FIXED
+      "item": "https://www.dukainteriors.com"
     }]
   };
 
@@ -170,20 +169,10 @@ export default function RootLayout({
           * {
             box-sizing: border-box;
           }
-          /* Prevent layout shift on font load */
           html {
             font-display: swap;
           }
         ` }} />
-        
-        {/* ✅ DEFER NON-CRITICAL CSS */}
-        <link 
-          rel="stylesheet" 
-          href="/styles/non-critical.css" 
-          media="print" 
-          onLoad="this.media='all'" 
-          referrerPolicy="strict-origin-when-cross-origin"
-        />
         
         {/* Schema markup */}
         <script
@@ -199,7 +188,7 @@ export default function RootLayout({
           }}
         />
         
-        {/* ✅ PERFORMANCE: DNS prefetch for secondary resources */}
+        {/* ✅ PERFORMANCE: DNS prefetch */}
         <link rel="dns-prefetch" href="https://www.dukainteriors.com" />
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
       </head>
