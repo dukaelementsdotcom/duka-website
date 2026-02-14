@@ -10,10 +10,15 @@
   },
   "browserslist": {
     "production": [
-      "last 2 versions",
-      "> 1%",
+      ">0.25%",
       "not dead",
-      "not IE 11"
+      "not op_mini all",
+      "not ie 11",
+      "not ios_saf 15",
+      "not safari 15",
+      "not samsung 17",
+      "not and_qq 14",
+      "not baidu 14"
     ],
     "development": [
       "last 1 chrome version",
