@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   // URL configuration
-  trailingSlash: true, // ✅ Keep this - enforces trailing slashes
+  trailingSlash: true,
   skipTrailingSlashRedirect: false,
   
   // ✅ VALIDATED IMAGE CONFIGURATION
@@ -20,33 +20,26 @@ const nextConfig: NextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   
-  // ✅ TURBOPACK CONFIGURATION (required for Next.js 16)
-  turbopack: {
-    // Enable Turbopack (silences the warning)
-  },
+  // ✅ TURBOPACK CONFIGURATION
+  turbopack: {},
   
-  // ✅ CRITICAL: Modern JavaScript Targeting (Eliminates Legacy Polyfills)
+  // ✅ VALID COMPILER OPTIONS ONLY
   compiler: {
     // Remove console logs in production
     removeConsole: process.env.NODE_ENV === 'production' 
       ? { exclude: ['error'] } 
       : false,
     
-    // ✅ REMOVE REACT PROPS IN PRODUCTION (smaller bundles)
+    // ✅ VALID: Remove React properties in production
     reactRemoveProperties: process.env.NODE_ENV === 'production' ? {} : false,
-    
-    // ✅ REMOVE UNUSED IMPORTS (fixed - use correct option name)
-    removeUnusedImports: process.env.NODE_ENV === 'production',
   },
   
   // ✅ RENDER BLOCKING FIX: Optimize CSS delivery
   experimental: {
     optimizePackageImports: ['react', 'next', '@fortawesome/react-fontawesome'],
-    optimizeCss: true, // Critical for CSS blocking fix
+    optimizeCss: true,
     scrollRestoration: true,
     largePageDataBytes: 128 * 1000,
-    
-    // ✅ MODERN BUNDLE OPTIMIZATION
     webpackBuildWorker: true,
     cpus: Math.max(2, Math.floor(require('os').cpus().length / 2)),
   },
@@ -61,7 +54,6 @@ const nextConfig: NextConfig = {
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'X-Frame-Options', value: 'DENY' },
           { key: 'X-XSS-Protection', value: '1; mode=block' },
-          // ✅ ADD PERFORMANCE HEADERS
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
         ],
       },
@@ -82,27 +74,18 @@ const nextConfig: NextConfig = {
     ];
   },
   
-  // ✅ ADD OUTPUT OPTIMIZATION FOR BETTER DEPLOYMENT
-  output: 'export', // Static export for better performance
-  
-  // ✅ ADD POWERED BY HEADER REMOVAL (SMALLER RESPONSES)
+  // ✅ VALID PERFORMANCE OPTIONS
   poweredByHeader: false,
-  
-  // ✅ ADD ETAG REMOVAL FOR BETTER CACHING
   generateEtags: false,
-  
-  // ✅ ADD COMPRESS FOR SMALLER TRANSFERS
   compress: true,
-  
-  // ✅ ADD REACT 18 CONCURRENT FEATURES
   reactStrictMode: true,
   
-  // ✅ ADD ENVIRONMENT VARIABLES OPTIMIZATION
+  // ✅ ENVIRONMENT VARIABLES
   env: {
-    NEXT_TELEMETRY_DISABLED: '1', // Disable telemetry for faster builds
+    NEXT_TELEMETRY_DISABLED: '1',
   },
   
-  // ✅ ADD WEBPACK CONFIGURATION FOR TREE-SHAKING
+  // ✅ WEBPACK CONFIGURATION FOR TREE-SHAKING
   webpack: (config, { isServer, dev }) => {
     if (!dev) {
       // ✅ REMOVE UNUSED CODE IN PRODUCTION
