@@ -62,15 +62,19 @@ export default function Home() {
       <ResetScroll />
 
       <div className="relative h-screen min-h-screen overflow-hidden">
-        <Image
-          src="/images/duka-interiors-portfolio/modern-conference-room-and-lobby-design/modern-board-room-habesha-breweries.webp"
-          alt="The best interior design company in Addis Ababa - Duka Interiors"
-          fill
-          className="object-cover"
-          priority
-          quality={60}
-          sizes="100vw"
-        />
+        {/* ✅ FIXED: Added aspect ratio to prevent layout shifts */}
+        <div style={{ aspectRatio: '16/9' }}>
+          <Image
+            src="/images/duka-interiors-portfolio/modern-conference-room-and-lobby-design/modern-board-room-habesha-breweries.webp"
+            alt="The best interior design company in Addis Ababa - Duka Interiors"
+            fill
+            className="object-cover"
+            priority
+            fetchPriority="high" // ✅ FIXED: Added high fetch priority
+            quality={60}
+            sizes="100vw"
+          />
+        </div>
         <div className="absolute inset-0 bg-black/30"></div>
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
           <p className="text-red-600 font-black tracking-[0.3em] uppercase text-[10px] mb-4">
@@ -128,7 +132,8 @@ export default function Home() {
 
               <div className="lg:col-span-5">
                 <Link href="/projects/modern-conference-room-and-lobby-design" className="block">
-                  <div className="relative aspect-square overflow-hidden group border border-gray-200">
+                  {/* ✅ FIXED: Added aspect ratio to prevent layout shifts */}
+                  <div className="relative" style={{ aspectRatio: '16/9' }}>
                     <Image
                       src="/images/duka-interiors-portfolio/modern-conference-room-and-lobby-design/modern-conference-room-addis-ababa.webp"
                       alt="Office partitioning project"
