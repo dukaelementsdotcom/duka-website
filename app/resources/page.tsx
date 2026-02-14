@@ -21,7 +21,7 @@ export default function ResourcesPage() {
     
     const canonicalLink = document.createElement('link');
     canonicalLink.rel = 'canonical';
-    canonicalLink.href = 'https://www.dukainteriors.com/resources'; // ✅ REMOVED TRAILING SPACES
+    canonicalLink.href = 'https://www.dukainteriors.com/resources/'; // ✅ NO TRAILING SPACES + TRAILING SLASH (matches next.config.js)
     document.head.appendChild(canonicalLink);
     
     return () => { canonicalLink.remove(); };
@@ -50,13 +50,13 @@ export default function ResourcesPage() {
                   </p>
                 </div>
                 <Link
-                  href="/estimate"
+                  href="/estimate/"
                   className="inline-flex items-center gap-3 bg-red-600 text-white px-6 py-3 rounded-xl text-sm font-black uppercase tracking-widest hover:bg-red-700 transition-colors"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                   </svg>
-                  Open ProjectScope Pro
+                  TRY OUR ESTIMATOR {/* ✅ CHANGED TEXT HERE */}
                 </Link>
               </div>
             </div>
@@ -66,7 +66,7 @@ export default function ResourcesPage() {
         <section className="container mx-auto px-6 max-w-7xl">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
             {BLOG_POSTS.map((post) => (
-              <Link key={post.slug} href={`/resources/${post.slug}`} className="group flex flex-col h-full"> {/* ✅ REMOVED TRAILING SLASH */}
+              <Link key={post.slug} href={`/resources/${post.slug}/`} className="group flex flex-col h-full"> {/* ✅ TRAILING SLASH (matches next.config.js) */}
                 <div className="relative aspect-[16/10] mb-6 overflow-hidden rounded-sm bg-gray-100">
                   <Image 
                     src={post.image} 
