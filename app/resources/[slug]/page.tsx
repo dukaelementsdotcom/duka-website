@@ -11,6 +11,33 @@ export async function generateStaticParams() {
   }));
 }
 
+// ✅ ADD METADATA FOR SEO (FIXES CANONICAL + PREVENTS REDIRECTS)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const decodedSlug = decodeURIComponent(slug);
+  const post = BLOG_POSTS.find((p) => p.slug === decodedSlug);
+
+  if (!post) {
+    return {
+      title: 'Article Not Found | Duka Interiors',
+      description: 'The requested article could not be found.',
+    };
+  }
+
+  return {
+    title: `${post.title} | Duka Interiors`,
+    description: post.excerpt,
+    alternates: {
+      canonical: `https://www.dukainteriors.com/resources/${post.slug}`, // ✅ NO TRAILING SLASH
+    },
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      images: [post.image],
+    },
+  };
+}
+
 export default function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
   
@@ -81,7 +108,7 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
               </p>
             </div>
             <a
-              href="https://t.me/dukainteriorsplc"
+              href="https://t.me/dukainteriorsplc" // ✅ REMOVED TRAILING SPACES
               target="_blank"
               rel="noopener noreferrer"
               className="bg-red-600 text-white px-8 py-4 font-black uppercase tracking-widest text-[10px] hover:bg-black transition-all"

@@ -21,7 +21,7 @@ export default function ResourcesPage() {
     
     const canonicalLink = document.createElement('link');
     canonicalLink.rel = 'canonical';
-    canonicalLink.href = 'https://www.dukainteriors.com/resources';
+    canonicalLink.href = 'https://www.dukainteriors.com/resources'; // ✅ REMOVED TRAILING SPACES
     document.head.appendChild(canonicalLink);
     
     return () => { canonicalLink.remove(); };
@@ -66,7 +66,7 @@ export default function ResourcesPage() {
         <section className="container mx-auto px-6 max-w-7xl">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
             {BLOG_POSTS.map((post) => (
-             <Link key={post.slug} href={`/resources/${post.slug}/`} className="group flex flex-col h-full">
+              <Link key={post.slug} href={`/resources/${post.slug}`} className="group flex flex-col h-full"> {/* ✅ REMOVED TRAILING SLASH */}
                 <div className="relative aspect-[16/10] mb-6 overflow-hidden rounded-sm bg-gray-100">
                   <Image 
                     src={post.image} 
