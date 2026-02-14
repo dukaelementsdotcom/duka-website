@@ -180,15 +180,15 @@ export default function NavBar() {
         <div className={`w-full transition-all duration-300 ${topRowClasses}`}>
           <div className="max-w-screen-2xl mx-auto px-4 lg:px-6">
             <div className="flex items-center justify-between h-12"> {/* Explicit 48px height */}
-              {/* Logo */}
+              {/* Logo - ✅ FIXED: Correct aspect ratio (268x150 = 1.79 ratio) */}
               <Link href="/" aria-label="Go to homepage">
                 <Image
                   src="/images/icons-duka-interiors/logo-duka-interiors-big.svg"
                   alt="Duka Interiors Logo"
-                  width={isScrolled ? 120 : 140}
-                  height={isScrolled ? 32 : 40}
+                  width={isScrolled ? 100 : 120} // ✅ FIXED: Maintains 1.79 ratio (120x67, 100x56)
+                  height={isScrolled ? 56 : 67} // ✅ FIXED: Correct height for aspect ratio
                   priority
-                  className={`transition-all duration-300 ${isScrolled ? 'h-8' : 'h-10'}`}
+                  className={`transition-all duration-300 ${isScrolled ? 'h-[56px]' : 'h-[67px]'}`} // ✅ FIXED: Exact heights
                 />
               </Link>
 
@@ -395,12 +395,13 @@ export default function NavBar() {
                 onClick={() => setIsMenuOpen(false)}
                 className="transition-transform hover:scale-105"
               >
+                {/* ✅ FIXED: Mobile logo with correct aspect ratio */}
                 <Image
                   src="/images/icons-duka-interiors/logo-duka-interiors-big.svg"
                   alt="Duka Interiors Logo"
-                  width={110}
-                  height={36}
-                  className="h-8 w-auto"
+                  width={98} // ✅ FIXED: Maintains 1.79 ratio (98x55)
+                  height={55} // ✅ FIXED: Correct height for aspect ratio
+                  className="h-[55px] w-auto"
                 />
               </Link>
               
