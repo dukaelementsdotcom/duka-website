@@ -1,6 +1,6 @@
-import { BLOG_POSTS } from '../post.data'; // Fixed import path relative to [slug] folder
-import NavBar from '../../components/NavBar'; // Adjusted import for NavBar
-import Footer from '../../components/Footer'; // Adjusted import for Footer
+import { BLOG_POSTS } from '../post.data';
+import NavBar from '../../components/NavBar';
+import Footer from '../../components/Footer';
 import Link from 'next/link';
 import React, { use } from 'react';
 
@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: `${post.title} | Duka Interiors`,
     description: post.excerpt,
     alternates: {
-      canonical: `https://www.dukainteriors.com/resources/${post.slug}`, // ✅ NO TRAILING SLASH
+      canonical: `https://www.dukainteriors.com/resources/${post.slug}/`, // ✅ TRAILING SLASH (matches next.config.js)
     },
     openGraph: {
       title: post.title,
@@ -54,7 +54,7 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
             Article not found.
           </p>
           <Link
-            href="/resources"
+            href="/resources/"
             className="bg-black text-white px-8 py-3 font-black uppercase text-xs tracking-widest hover:bg-red-600 transition-colors"
           >
             ← Back to Insights
@@ -70,7 +70,7 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
       <main className="pt-32 pb-20 px-6">
         <article className="max-w-4xl mx-auto">
           <Link
-            href="/resources"
+            href="/resources/"
             className="text-[10px] font-black tracking-widest text-gray-400 hover:text-red-600 mb-12 block"
           >
             ← BACK TO ALL INSIGHTS

@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   // URL configuration
-  trailingSlash: true,
+  trailingSlash: true, // ✅ Keep this - enforces trailing slashes
   skipTrailingSlashRedirect: false,
   
   // ✅ VALIDATED IMAGE CONFIGURATION
@@ -70,14 +70,8 @@ const nextConfig: NextConfig = {
     ];
   },
   
-  // SEO redirects
-  async redirects() {
-    return [
-      { source: '/services/:path', destination: '/services/:path/', permanent: true },
-      { source: '/projects/:path', destination: '/projects/:path/', permanent: true },
-      { source: '/resources/:path', destination: '/resources/:path/', permanent: true },
-    ];
-  },
+  // ✅ REMOVED REDUNDANT REDIRECTS (trailingSlash handles this)
+  // redirects() removed - trailingSlash: true already manages this
   
   // TypeScript safety
   typescript: { ignoreBuildErrors: true },
