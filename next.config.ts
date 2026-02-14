@@ -32,16 +32,11 @@ const nextConfig: NextConfig = {
       ? { exclude: ['error'] } 
       : false,
     
-    // ✅ ELIMINATE LEGACY POLYFILLS (13.8 KiB savings)
-    // Target modern browsers only - no ES5/ES6 transpilation
-    // This removes Array.prototype.at, flat, flatMap, Object.fromEntries, etc.
-    styledComponents: true,
-    
     // ✅ REMOVE REACT PROPS IN PRODUCTION (smaller bundles)
     reactRemoveProperties: process.env.NODE_ENV === 'production' ? {} : false,
     
-    // ✅ REMOVE UNUSED IMPORTS
-    removeImport: true,
+    // ✅ REMOVE UNUSED IMPORTS (fixed - use correct option name)
+    removeUnusedImports: process.env.NODE_ENV === 'production',
   },
   
   // ✅ RENDER BLOCKING FIX: Optimize CSS delivery
@@ -84,23 +79,11 @@ const nextConfig: NextConfig = {
           { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
         ],
       },
-      // ✅ ADD PRECONNECT FOR CRITICAL ORIGINS
-      {
-        source: '/:path*',
-        headers: [
-          { key: 'Link', value: '<https://www.dukainteriors.com>; rel=preconnect' },
-          { key: 'Link', value: '<https://fonts.googleapis.com>; rel=preconnect' },
-          { key: 'Link', value: '<https://fonts.gstatic.com>; rel=preconnect; crossorigin' },
-        ],
-      },
     ];
   },
   
   // ✅ ADD OUTPUT OPTIMIZATION FOR BETTER DEPLOYMENT
   output: 'export', // Static export for better performance
-  
-  // ✅ ADD SWC MINIFICATION (BETTER THAN DEFAULT)
-  swcMinify: true,
   
   // ✅ ADD POWERED BY HEADER REMOVAL (SMALLER RESPONSES)
   poweredByHeader: false,
