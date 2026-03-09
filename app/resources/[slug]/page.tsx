@@ -1,3 +1,4 @@
+// app/resources/[slug]/page.tsx
 import { BLOG_POSTS } from '../post.data';
 import NavBar from '../../components/NavBar';
 import Footer from '../../components/Footer';
@@ -100,22 +101,25 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
 
-          <div className="mt-20 p-8 border-2 border-black rounded-lg flex flex-col md:flex-row justify-between items-center gap-6">
-            <div className="text-center md:text-left">
-              <h4 className="font-black uppercase text-xl">Need Professional Finishing?</h4>
-              <p className="text-xs text-gray-500 uppercase font-bold tracking-widest">
-                Request a technical site visit for your office project.
-              </p>
+          {/* ✅ CONDITIONALLY RENDER DEFAULT CTA - HIDE FOR LIVE ETHIO ARTICLE */}
+          {!post.hideDefaultCTA && (
+            <div className="mt-20 p-8 border-2 border-black rounded-lg flex flex-col md:flex-row justify-between items-center gap-6">
+              <div className="text-center md:text-left">
+                <h4 className="font-black uppercase text-xl">Need Professional Finishing?</h4>
+                <p className="text-xs text-gray-500 uppercase font-bold tracking-widest">
+                  Request a technical site visit for your office project.
+                </p>
+              </div>
+              <a
+                href="https://t.me/dukainteriorsplc"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-red-600 text-white px-8 py-4 font-black uppercase tracking-widest text-[10px] hover:bg-black transition-all"
+              >
+                Send Telegram Message
+              </a>
             </div>
-            <a
-              href="https://t.me/dukainteriorsplc" // ✅ REMOVED TRAILING SPACES
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-red-600 text-white px-8 py-4 font-black uppercase tracking-widest text-[10px] hover:bg-black transition-all"
-            >
-              Send Telegram Message
-            </a>
-          </div>
+          )}
         </article>
       </main>
       <Footer />

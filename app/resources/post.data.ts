@@ -8,6 +8,17 @@ export interface BlogPost {
   excerpt: string;
   content: string;
 }
+// Add this to the interface at the top of post.data.ts
+export interface BlogPost {
+  slug: string;
+  category: string;
+  title: string;
+  date: string;
+  image: string;
+  excerpt: string;
+  content: string;
+  hideDefaultCTA?: boolean;  // ✅ ADD THIS LINE
+}
 
 export const BLOG_POSTS: BlogPost[] = [
   {
@@ -747,7 +758,8 @@ Est. 2026 | Addis Ababa
     date: 'Mar 09, 2026',
     image: '/images/duka-interiors-portfolio/apartment-interior-design-addis-ababa.webp',
     excerpt: 'As Addis Ababa expands, the connection between real estate consulting and interior design is creating stronger outcomes for property owners. Discover how the <a href="https://livingethio.com/" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:underline font-bold">Live Ethio</a> and Duka Interiors partnership delivers seamless property transformation—from selection to functional, inspiring homes.',
-    content: `
+    hideDefaultCTA: true,  // ✅ ADD THIS LINE
+  content: `
 <!-- ✅ NO H1 HERE - SLUG PAGE TEMPLATE HANDLES TITLE -->
 <section class="mb-16 md:mb-24">
   <div class="max-w-4xl space-y-6">
@@ -763,7 +775,7 @@ Est. 2026 | Addis Ababa
 <section class="mb-20 pt-12 border-t border-gray-200">
   <h2 class="text-2xl md:text-4xl font-black text-gray-900 mb-8 uppercase tracking-tighter">The Evolving Property Landscape in Addis Ababa</h2>
   
-  <!-- ✅ IMAGE 1: PLACED HERE (WHERE IT LOADS CORRECTLY) -->
+  <!-- ✅ IMAGE PLACED HERE (WHERE IT LOADS CORRECTLY) -->
   <div class="relative w-full aspect-video rounded-lg overflow-hidden mb-12 bg-gray-100 border border-gray-100">
     <img
       src="/images/duka-interiors-portfolio/live-ethio-duka-interiors_result.webp"
