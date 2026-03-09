@@ -739,7 +739,7 @@ Est. 2026 | Addis Ababa
 </section>
 `
   },
-  // ✅ NEW ARTICLE: Live Ethio Partnership (RESIDENTIAL FOCUS ONLY)
+  // ✅ ARTICLE 3: LIVE ETHIO PARTNERSHIP (FIXED STRUCTURE & CTA)
   {
     slug: 'transforming-addis-ababa-properties-real-estate-interior-design-partnership',
     category: 'INDUSTRY INSIGHTS',
@@ -748,11 +748,8 @@ Est. 2026 | Addis Ababa
     image: '/images/duka-interiors-portfolio/apartment-interior-design-addis-ababa.webp',
     excerpt: 'As Addis Ababa expands, the connection between real estate consulting and interior design is creating stronger outcomes for property owners. Discover how the <a href="https://livingethio.com/" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:underline font-bold">Live Ethio</a> and Duka Interiors partnership delivers seamless property transformation—from selection to functional, inspiring homes.',
     content: `
+<!-- ✅ NO H1 HERE - SLUG PAGE TEMPLATE HANDLES TITLE -->
 <section class="mb-16 md:mb-24">
-  <h1 class="text-3xl md:text-5xl font-bold tracking-tight text-gray-900 mb-8 leading-tight">
-    Transforming Addis Ababa Properties:<br />
-    <span class="text-red-600">A Strategic Partnership</span> Between Real Estate & Design
-  </h1>
   <div class="max-w-4xl space-y-6">
     <p class="text-lg md:text-xl text-gray-800 leading-relaxed font-medium italic border-l-4 border-red-600 pl-6">
       As Addis Ababa continues to expand, the way people approach property is changing. Businesses, investors, and homeowners are no longer looking only at location or square footage—they are considering how a space performs, how it feels, and how it supports long-term goals.
@@ -766,7 +763,7 @@ Est. 2026 | Addis Ababa
 <section class="mb-20 pt-12 border-t border-gray-200">
   <h2 class="text-2xl md:text-4xl font-black text-gray-900 mb-8 uppercase tracking-tighter">The Evolving Property Landscape in Addis Ababa</h2>
   
-  <!-- ✅ IMAGE 1 ADDED HERE -->
+  <!-- ✅ IMAGE 1: PLACED HERE (WHERE IT LOADS CORRECTLY) -->
   <div class="relative w-full aspect-video rounded-lg overflow-hidden mb-12 bg-gray-100 border border-gray-100">
     <img
       src="/images/duka-interiors-portfolio/live-ethio-duka-interiors_result.webp"
@@ -821,7 +818,7 @@ Est. 2026 | Addis Ababa
 <section class="mb-20 pt-12 border-t border-gray-200">
   <h2 class="text-2xl md:text-4xl font-black text-gray-900 mb-8 uppercase tracking-tighter">Creating Spaces That Hold Long-Term Value</h2>
   
-  <!-- ✅ IMAGE 2 ADDED HERE -->
+  <!-- ✅ IMAGE 2: PLACED HERE -->
   <div class="relative w-full aspect-video rounded-lg overflow-hidden mb-12 bg-gray-100 border border-gray-100">
     <img
       src="/images/duka-interiors-portfolio/apartment-interior-finishing-addis-ababa/luxurious-interior-design-in-addis-ababa.webp"
@@ -867,7 +864,7 @@ Est. 2026 | Addis Ababa
   </div>
 </section>
 
-<!-- ✅ ONLY ONE CTA SECTION - LIVE ETHIO FOCUSED (RESIDENTIAL) -->
+<!-- ✅ ONLY LIVE ETHIO CTA (NO DUKA CTA) -->
 <section class="mt-20 p-12 md:p-16 border-4 border-black text-center rounded-sm bg-gray-50">
   <h3 class="text-3xl md:text-5xl font-black text-gray-900 mb-6 uppercase tracking-tighter leading-none">
     Find Your Dream Home <br /><span class="text-red-600">With Live Ethio</span>
