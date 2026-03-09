@@ -739,14 +739,14 @@ Est. 2026 | Addis Ababa
 </section>
 `
   },
-  // ✅ NEW ARTICLE ADDED BELOW
+  // ✅ NEW ARTICLE: Live Ethio Partnership
   {
     slug: 'transforming-addis-ababa-properties-real-estate-interior-design-partnership',
     category: 'INDUSTRY INSIGHTS',
     title: 'Transforming Addis Ababa Properties: A New Partnership Between Real Estate Experts and Interior Designers',
     date: 'Mar 09, 2026',
-    image: '/images/duka-interiors-portfolio/real-estate-partnership-addis-ababa.webp',
-    excerpt: 'As Addis Ababa expands, the connection between real estate consulting and interior design is creating stronger outcomes for property owners. Discover how the Live Ethio and Duka Interiors partnership delivers seamless property transformation—from selection to functional, inspiring spaces.',
+    image: '/images/duka-interiors-portfolio/apartment-interior-design-addis-ababa.webp',
+    excerpt: 'As Addis Ababa expands, the connection between real estate consulting and interior design is creating stronger outcomes for property owners. Discover how the <a href="https://livingethio.com/" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:underline font-bold">Live Ethio</a> and Duka Interiors partnership delivers seamless property transformation—from selection to functional, inspiring spaces.',
     content: `
 <section class="mb-16 md:mb-24">
   <h1 class="text-3xl md:text-5xl font-bold tracking-tight text-gray-900 mb-8 leading-tight">
@@ -758,7 +758,7 @@ Est. 2026 | Addis Ababa
       As Addis Ababa continues to expand, the way people approach property is changing. Businesses, investors, and homeowners are no longer looking only at location or square footage—they are considering how a space performs, how it feels, and how it supports long-term goals.
     </p>
     <p class="text-base md:text-lg text-gray-600 leading-relaxed">
-      This shift has created a growing connection between real estate consulting and interior design. Choosing the right property is only the first step; transforming that property into a functional, valuable space is equally important. When these two elements are planned together, the results are stronger for property owners and end users alike.
+      This shift has created a growing connection between real estate consulting and interior design. Choosing <a href="https://livingethio.com/site/property/apartment-for-sale" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:underline font-bold">the right property</a> is only the first step; transforming that property into a functional, valuable space is equally important. When these two elements are planned together, the results are stronger for property owners and end users alike.
     </p>
   </div>
 </section>
@@ -767,7 +767,7 @@ Est. 2026 | Addis Ababa
   <h2 class="text-2xl md:text-4xl font-black text-gray-900 mb-8 uppercase tracking-tighter">The Evolving Property Landscape in Addis Ababa</h2>
   <div class="max-w-4xl space-y-6 text-gray-600 leading-relaxed">
     <p>
-      The city's rapid growth has brought new residential developments, office spaces, and mixed-use projects into emerging neighborhoods. Buyers and tenants now expect spaces that are ready to live or work in, rather than properties that require extensive adjustments after purchase.
+      The city's rapid growth has brought new <a href="https://livingethio.com/site/property/house-for-sale" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:underline font-bold">residential developments</a>, office spaces, and mixed-use projects into emerging neighborhoods. Buyers and tenants now expect spaces that are ready to live or work in, rather than properties that require extensive adjustments after purchase.
     </p>
     <p>
       Real estate strategy plays a critical role in this process. Understanding market demand, location trends, and investment potential helps clients select properties that align with their goals. At the same time, interior design ensures those properties meet modern expectations for functionality, efficiency, and visual appeal.
@@ -780,10 +780,10 @@ Est. 2026 | Addis Ababa
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
     <div class="space-y-6 text-gray-600 leading-relaxed">
       <p>
-        <strong>Live Ethio</strong>, Ethiopia's number one real estate marketplace, assists individuals and families in finding properties for rent or sale, while also helping property owners connect with the right buyers. In addition, they provide strategic guidance to real estate investors, foreign companies, and NGOs looking to acquire properties in Addis Ababa, offering insights on market trends, investment opportunities, and property positioning across the city.
+        <a href="https://livingethio.com/" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:underline font-bold">Live Ethio</a>, Ethiopia's number one real estate marketplace, assists individuals and families in finding properties for rent or sale, while also helping property owners connect with the right buyers. In addition, they provide strategic guidance to real estate investors, foreign companies, and NGOs looking to acquire properties in Addis Ababa, offering insights on market trends, investment opportunities, and property positioning across the city.
       </p>
       <p>
-        By partnering with Live Ethio, Duka Interiors can offer clients a seamless experience—from identifying high-potential properties to transforming them into functional, inspiring spaces.
+        By partnering with <a href="https://livingethio.com/" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:underline font-bold">Live Ethio</a>, Duka Interiors can offer clients a seamless experience—from identifying high-potential properties to transforming them into functional, inspiring spaces.
       </p>
     </div>
     <div class="bg-red-50 p-8 border-l-4 border-red-600">
@@ -791,7 +791,7 @@ Est. 2026 | Addis Ababa
       <ul class="space-y-3 text-sm">
         <li class="flex gap-3">
           <span class="font-bold text-red-600">01.</span>
-          <span><strong>Market Intelligence:</strong> Live Ethio provides data-driven insights on neighborhood growth, rental yields, and buyer preferences.</span>
+          <span><strong>Market Intelligence:</strong> <a href="https://livingethio.com/" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:underline">Live Ethio</a> provides data-driven insights on neighborhood growth, rental yields, and buyer preferences.</span>
         </li>
         <li class="flex gap-3">
           <span class="font-bold text-red-600">02.</span>
@@ -823,7 +823,7 @@ Est. 2026 | Addis Ababa
       </div>
     </div>
     <p>
-      By combining real estate insight from Live Ethio with Duka Interiors' design expertise, clients benefit from an integrated approach that is both practical and future-focused. Properties are not only well-positioned in the market but are also transformed into spaces that are functional, inspiring, and ready to use.
+      By combining real estate insight from <a href="https://livingethio.com/" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:underline font-bold">Live Ethio</a> with Duka Interiors' design expertise, clients benefit from an integrated approach that is both practical and future-focused. Properties are not only well-positioned in the market but are also transformed into spaces that are functional, inspiring, and ready to use.
     </p>
   </div>
 </section>
@@ -835,7 +835,7 @@ Est. 2026 | Addis Ababa
       The future of real estate and interior design increasingly depends on collaboration between industries once seen as separate. Real estate professionals provide market knowledge, strategic planning, and investment insight, while design experts transform spaces into environments that are functional, inspiring, and aligned with modern expectations.
     </p>
     <p>
-      Through our partnership with Live Ethio, Duka Interiors offers clients a more complete experience—from selecting the right property to shaping it into a space that truly performs. This collaborative approach helps clients make smarter decisions, reduce long-term costs, and create spaces that hold lasting value.
+      Through our partnership with <a href="https://livingethio.com/" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:underline font-bold">Live Ethio</a>, Duka Interiors offers clients a more complete experience—from selecting <a href="https://livingethio.com/site/property/apartment-for-sale" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:underline font-bold">the right property</a> to shaping it into a space that truly performs. This collaborative approach helps clients make smarter decisions, reduce long-term costs, and create spaces that hold lasting value.
     </p>
     <p class="font-bold italic border-l-4 border-red-600 pl-6">
       As Addis Ababa continues to grow and redefine its urban landscape, partnerships that combine strategy and design are playing an important role in creating better homes, stronger workplaces, and more meaningful spaces for the people who use them.
@@ -850,17 +850,23 @@ Est. 2026 | Addis Ababa
   <p class="text-gray-600 mb-10 max-w-2xl mx-auto text-lg font-medium">
     Whether you're acquiring a new office in Bole or renovating a residential unit in Kazanchis, our integrated team can guide you from selection to completion.
   </p>
-  <div class="flex flex-col sm:flex-row justify-center gap-6">
-    <a href="https://t.me/dukainteriorsplc" class="bg-black text-white px-12 py-5 font-black uppercase tracking-widest text-sm hover:bg-red-600 transition-all">
-      Start Your Project →
+  <div class="flex flex-col sm:flex-row justify-center gap-6 mb-8">
+    <a href="https://livingethio.com/" target="_blank" rel="noopener noreferrer" class="bg-black text-white px-12 py-5 font-black uppercase tracking-widest text-sm hover:bg-red-600 transition-all">
+      Visit Live Ethio →
     </a>
     <div class="px-10 py-5 bg-white border-2 border-black font-black uppercase text-sm flex items-center justify-center">
       Live Ethio + Duka Interiors
     </div>
   </div>
+  <div class="text-left max-w-md mx-auto space-y-2 text-sm">
+    <p class="font-bold text-gray-900">Contact Live Ethio Real Estate Consulting</p>
+    <p class="text-gray-600">
+      <strong>Call:</strong> <a href="tel:+251947002233" class="text-red-600 hover:underline">+251 947 002 233</a><br />
+      <strong>WhatsApp:</strong> <a href="https://wa.me/251974299472" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:underline">+251 974 299 472</a>
+    </p>
+  </div>
   <p class="text-xs text-gray-400 mt-8">
-    Contact Live Ethio Real Estate Consulting:<br />
-    Call: +251 947 002 233 | WhatsApp: +251 974 299 472
+    <a href="https://livingethio.com/" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:underline">livingethio.com</a> — Ethiopia's #1 Real Estate Marketplace
   </p>
 </section>
 `
