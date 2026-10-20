@@ -3,6 +3,11 @@ import { SITE_URL } from "@/lib/seo";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
+// Font Awesome: ship its CSS with the page instead of injecting it at runtime,
+// so icons render at the right size on first paint (no flash of giant icons).
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import { config as faConfig } from "@fortawesome/fontawesome-svg-core";
+faConfig.autoAddCss = false;
 import GlobalProtection from "./components/GlobalProtection";
 
 // Self-hosted Geist fonts (no Google Fonts request at build or runtime)
