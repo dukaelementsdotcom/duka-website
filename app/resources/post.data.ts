@@ -757,7 +757,7 @@ Est. 2026 | Addis Ababa
     title: 'Transforming Addis Ababa Properties: A New Partnership Between Real Estate Experts and Interior Designers',
     date: 'Mar 09, 2026',
     image: '/images/duka-interiors-portfolio/live-ethio-duka-interiors_result.webp',
-    excerpt: 'As Addis Ababa expands, the connection between real estate consulting and interior design is creating stronger outcomes for property owners. Discover how the <a href="https://livingethio.com/" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:underline font-bold">Live Ethio</a> and Duka Interiors partnership delivers seamless property transformation—from selection to functional, inspiring homes.',
+    excerpt: 'As Addis Ababa expands, the connection between real estate consulting and interior design is creating stronger outcomes for property owners. Discover how the Live Ethio and Duka Interiors partnership delivers seamless property transformation—from selection to functional, inspiring homes.',
     hideDefaultCTA: true,  // ✅ ADD THIS LINE
   content: `
 <!-- ✅ NO H1 HERE - SLUG PAGE TEMPLATE HANDLES TITLE -->

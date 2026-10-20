@@ -7,6 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/api/', '/private/'],
     },
-    sitemap: 'https://dukainteriors.com/sitemap.xml',
+    sitemap: 'https://www.dukainteriors.com/sitemap.xml',
+    host: 'https://www.dukainteriors.com',
   };
 }

@@ -10,24 +10,7 @@ import Image from 'next/image';
 export default function AboutPage() {
   const [featuredProjects, setFeaturedProjects] = useState([]);
 
-  // ✅ CLIENT-SIDE TITLE UPDATE
-  useEffect(() => {
-    document.title = "About Duka Interiors: Office Design Experts Addis Ababa Since 2015 | Duka Interiors";
-    return () => { document.title = "Duka Interiors"; };
-  }, []);
 
-  // ✅ CRITICAL FIX: Inject canonical URL for Client Component (GMB migration essential)
-  useEffect(() => {
-    const existing = document.querySelector('link[rel="canonical"]');
-    if (existing) existing.remove();
-    
-    const canonicalLink = document.createElement('link');
-    canonicalLink.rel = 'canonical';
-    canonicalLink.href = 'https://www.dukainteriors.com/about';
-    document.head.appendChild(canonicalLink);
-    
-    return () => { canonicalLink.remove(); };
-  }, []);
 
   useEffect(() => {
     fetch('/data/projects.json')
@@ -108,18 +91,20 @@ export default function AboutPage() {
               <div className="overflow-hidden shadow-2xl bg-gray-100 aspect-[16/10] relative">
                 <Image 
                   src="/images/duka-interiors-portfolio/dereja-office-interior-partition-work/small-office-space-optimization-ideas.webp" 
-                  alt="Duka Interiors Workspace" 
+                  alt="Office partition work by Duka Interiors for Dereja"
                   fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 58vw"
                   className="object-cover grayscale hover:grayscale-0 transition-all duration-1000"
                 />
               </div>
             </div>
             <div className="lg:col-span-5 space-y-6">
               <p className="text-lg text-gray-700 leading-relaxed font-medium italic">
-                Established in 2015 by two visionary professional architects, Dagmawi Tilahun and Henok Teshome, Duka Interiors has evolved over a decade into a leading force in commercial interior design across Addis Ababa and throughout Ethiopia.
+                Established in 2015 by two visionary professional architects, Dagmawi Tilahun and Henok Teshome, Duka Interiors has grown since then into a leading force in commercial interior design across Addis Ababa and throughout Ethiopia.
               </p>
               <p className="text-gray-600 leading-relaxed">
-                With 10 years of experience successfully delivering several impactful projects, our mission is clear: to craft exceptional office interiors and execute turnkey solutions that are delivered on time, within budget, and to the highest standards of quality.
+                We have delivered offices, showrooms and homes across the city, and our mission is clear: to craft exceptional office interiors and execute turnkey solutions that are delivered on time, within budget, and to the highest standards of quality.
               </p>
               <div className="pt-4 border-t border-gray-100">
                 <p className="text-[10px] font-black text-red-600 uppercase tracking-widest">Turnkey Solutions / Spatial Strategy / Custom Build</p>
@@ -194,8 +179,9 @@ export default function AboutPage() {
             <div className="aspect-video overflow-hidden shadow-xl border-8 border-gray-50 group relative">
               <Image 
                 src="/images/duka-interiors-portfolio/modern-office-finishing-work-bole.webp" 
-                alt="Expertise in Addis Ababa Office Design" 
+                alt="Modern office finishing work in Bole, Addis Ababa"
                 fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover group-hover:scale-105 transition-transform duration-700"
               />
             </div>
@@ -228,8 +214,9 @@ export default function AboutPage() {
                 <div className="relative aspect-[4/3] overflow-hidden mb-6 bg-gray-100">
                   <Image 
                     src={project.image} 
-                    alt={project.title} 
+                    alt={project.title}
                     fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
                     className="object-cover group-hover:scale-110 transition-transform duration-700 group-hover:saturate-0"
                   />
                   <div className="absolute inset-0 bg-black/10 group-hover:bg-black/60 transition-all duration-500 flex items-center justify-center opacity-0 group-hover:opacity-100">
@@ -265,6 +252,7 @@ export default function AboutPage() {
                     src={member.img}
                     alt={member.name}
                     fill
+                    sizes="(max-width: 768px) 50vw, 25vw"
                     className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
                   />
                 </div>

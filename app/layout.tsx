@@ -1,69 +1,57 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { SITE_URL } from "@/lib/seo";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import GlobalProtection from "./components/GlobalProtection";
 
-// ✅ OPTIMIZED FONT LOADING STRATEGY
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  display: 'swap',
-  weight: ['400', '500', '600', '700', '800', '900'],
-  preload: true,
-});
+// Self-hosted Geist fonts (no Google Fonts request at build or runtime)
+const geistSans = GeistSans;
+const geistMono = GeistMono;
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: 'swap',
-  weight: ['400', '500', '600'],
-  preload: false,
-});
+const HOME_TITLE = "Interior Design & Office Fit-Out in Addis Ababa | Duka Interiors";
+const HOME_DESCRIPTION =
+  "Design-and-build interior firm in Addis Ababa since 2015. Office partitioning, renovation, fit-out and custom furniture for companies across Ethiopia.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.dukainteriors.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    template: "%s | Duka Interiors Addis Ababa",
-    default: "The Best Interior Design Company in Addis Ababa Ethiopia | Duka Interiors",
+    template: "%s | Duka Interiors",
+    default: HOME_TITLE,
   },
-  description: "Duka Interiors is Ethiopia's leading interior design company in Addis Ababa. Expert office partitioning, renovation, and custom furniture production since 2015.",
+  description: HOME_DESCRIPTION,
   icons: {
     icon: "/images/icons-duka-interiors/logo-duka-interiors-big.svg",
     apple: "/images/icons-duka-interiors/logo-duka-interiors-big.svg",
   },
-  keywords: [
-    "office partitioning Addis Ababa",
-    "office renovation Ethiopia",
-    "interior design Addis Ababa", 
-    "custom furniture Ethiopia",
-    "design build Addis Ababa",
-    "Duka Interiors"
-  ],
   openGraph: {
-    title: "The Best Interior Design Company in Addis Ababa Ethiopia | Duka Interiors",
-    description: "Ethiopia's leading firm for office partitioning, renovation, and professional interior decoration in Addis Ababa since 2015.",
-    url: "https://www.dukainteriors.com",
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
     siteName: "Duka Interiors",
     images: [
       {
-        url: "/og-image.jpg", 
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Duka Interiors - Office Design Experts in Addis Ababa",
+        alt: "Duka Interiors - office design and build in Addis Ababa",
       },
     ],
     locale: "en_ET",
     type: "website",
   },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 5,
+  twitter: {
+    card: "summary_large_image",
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
+    images: ["/og-image.jpg"],
   },
-  themeColor: '#ffffff',
-  other: {
-    'referrer-policy': 'strict-origin-when-cross-origin',
-  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({
@@ -79,9 +67,15 @@ export default function RootLayout({
     "name": "Duka Interiors P.L.C",
     "url": "https://www.dukainteriors.com",
     "telephone": "+251940607055",
+    "email": "contact@dukainteriors.com",
+    "foundingDate": "2015",
+    "founder": [
+      { "@type": "Person", "name": "Dagmawi Tilahun" },
+      { "@type": "Person", "name": "Henok Teshome" }
+    ],
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Welelay Building, 5th Floor, Office 507, Djibouti Street",
+      "streetAddress": "Djibouti Street, Welela Building, 5th Floor, Suite 507",
       "addressLocality": "Bole",
       "addressRegion": "Addis Ababa",
       "postalCode": "1000",
@@ -103,7 +97,7 @@ export default function RootLayout({
     "priceRange": "$$$",
     "image": "https://www.dukainteriors.com/og-image.jpg",
     "logo": fullLogoUrl,
-    "description": "Ethiopia's leading interior design and office partitioning company in Addis Ababa since 2015. Specializing in commercial office fit-outs, custom furniture production, and design-build services.",
+    "description": "Interior design and office partitioning company in Addis Ababa since 2015, specializing in commercial office fit-outs, custom furniture production, and design-build services.",
     "areaServed": ["Addis Ababa", "Ethiopia"],
     "hasMap": "https://maps.app.goo.gl/FNBrMacYUefLEH7k8",
     "contactPoint": {
@@ -122,11 +116,12 @@ export default function RootLayout({
       },
       "geoRadius": "25000"
     },
-    "keywords": "office partitioning Addis Ababa, office renovation Ethiopia, interior design Addis Ababa, custom furniture Ethiopia, design build Addis Ababa",
     "sameAs": [
       "https://t.me/dukainteriorsplc",
       "https://www.instagram.com/dukainteriors",
-      "https://www.linkedin.com/company/duka-interiors"
+      "https://www.linkedin.com/company/duka-interiors",
+      "https://www.facebook.com/dukainteriors",
+      "https://www.tiktok.com/@duka.interiors.plc"
     ]
   };
 

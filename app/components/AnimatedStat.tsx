@@ -3,37 +3,52 @@
 
 import { useEffect, useRef } from 'react';
 
+/**
+ * Renders the real number in the server HTML (so search engines and
+ * no-JS visitors see it), then counts up from 0 once the stat scrolls
+ * into view. The "+" sign is rendered by the parent.
+ */
 export default function AnimatedStat({ target }: { target: number }) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    const stat = ref.current;
-    if (!stat) return;
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    let current = 0;
-    const duration = 2000; // 2 seconds
-    const increment = target / (duration / 16); // ~60fps
-
-    const updateCount = () => {
-      current += increment;
-      if (current >= target) {
-        stat.textContent = target + '+';
-        return;
-      }
-      stat.textContent = Math.floor(current) + '+';
-      requestAnimationFrame(updateCount);
+    let frame = 0;
+    const run = () => {
+      const duration = 1600;
+      const start = performance.now();
+      const tick = (now: number) => {
+        const t = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - t, 3);
+        el.textContent = String(Math.round(target * eased));
+        if (t < 1) frame = requestAnimationFrame(tick);
+      };
+      frame = requestAnimationFrame(tick);
     };
 
-    updateCount();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          observer.disconnect();
+          run();
+        }
+      },
+      { threshold: 0.4 }
+    );
+    observer.observe(el);
+
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(frame);
+    };
   }, [target]);
 
   return (
-    <div
-      ref={ref}
-      className="text-3xl md:text-4xl font-bold text-red-600"
-      aria-live="polite"
-    >
-      0+
-    </div>
+    <span ref={ref} className="tabular-nums">
+      {target}
+    </span>
   );
 }

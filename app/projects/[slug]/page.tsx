@@ -4,6 +4,7 @@ import path from 'path';
 import { notFound } from 'next/navigation';
 import ProjectClient from './ProjectClient';
 import { Metadata } from 'next';
+import { pageMeta } from '@/lib/seo';
 
 function getProjectsData() {
   const filePath = path.join(process.cwd(), 'public/data/projects.json');
@@ -19,13 +20,18 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   if (!project) return { title: 'Project Not Found' };
 
-  return {
-    title: `${project.title} | Interior Design Project in ${project.location}`,
-    description: `Case study for ${project.title}. A professional ${project.type} interior design and build project by Duka Interiors in Addis Ababa, Ethiopia.`,
-    openGraph: {
-      images: [project.image],
-    },
-  };
+  const area = project.area && project.area !== 'N/A' ? ` ${project.area}` : '';
+  const description =
+    `${project.description || ''} ${project.type} interior project for ${project.client || 'our client'} in ${project.location}${project.year ? `, ${project.year}` : ''}.${area ? ` Area:${area}.` : ''} Designed and built by Duka Interiors.`.trim();
+
+  return pageMeta({
+    title: project.title,
+    description,
+    path: `/projects/${project.slug}/`,
+    image: project.image,
+    imageAlt: `${project.title} – ${project.type} interior by Duka Interiors`,
+    type: 'article',
+  });
 }
 
 export async function generateStaticParams() {

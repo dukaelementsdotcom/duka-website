@@ -1,23 +1,38 @@
 'use client';
 import Image from 'next/image';
 
-export default function ProtectedImage({ src, alt }: { src: string; alt: string }) {
+// Repeating "DUKA INTERIORS" watermark drawn as a background image, so it adds
+// no text to the page (the old version repeated the brand name 12 times per image).
+const WATERMARK = `url("data:image/svg+xml,${encodeURIComponent(
+  '<svg xmlns="http://www.w3.org/2000/svg" width="220" height="140"><text x="20" y="90" transform="rotate(-30 110 70)" fill="white" font-family="Arial,sans-serif" font-size="14" font-weight="700" letter-spacing="2">DUKA INTERIORS</text></svg>'
+)}")`;
+
+export default function ProtectedImage({
+  src,
+  alt,
+  sizes = '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw',
+  priority = false,
+}: {
+  src: string;
+  alt: string;
+  sizes?: string;
+  priority?: boolean;
+  width?: number;
+  height?: number;
+}) {
   return (
     <div className="relative group w-full h-full overflow-hidden select-none bg-gray-100">
-      {/* The Actual Image */}
-      <Image src={src} alt={alt} fill className="object-cover pointer-events-none" />
+      <Image src={src} alt={alt} fill sizes={sizes} priority={priority} className="object-cover pointer-events-none" />
 
-      {/* The Invisible Shield (Blocks saving) */}
-      <div className="absolute inset-0 z-10 bg-transparent" />
+      {/* Transparent layer that blocks right-click saving */}
+      <div className="absolute inset-0 z-10 bg-transparent" aria-hidden="true" />
 
-      {/* The Shutterstock-Style Watermark (Hidden until Hover) */}
-      <div className="absolute inset-0 z-20 opacity-0 group-hover:opacity-20 pointer-events-none transition-opacity duration-500 flex flex-wrap justify-center items-center gap-8 p-4">
-        {[...Array(12)].map((_, i) => (
-          <span key={i} className="text-white font-bold text-xs rotate-[-45deg] uppercase whitespace-nowrap border border-white/20 p-1">
-            Duka Interiors
-          </span>
-        ))}
-      </div>
+      {/* Watermark, visible on hover */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 z-20 opacity-0 group-hover:opacity-20 pointer-events-none transition-opacity duration-500"
+        style={{ backgroundImage: WATERMARK }}
+      />
     </div>
   );
 }

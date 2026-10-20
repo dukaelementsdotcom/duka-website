@@ -184,7 +184,8 @@ export default function NavBar() {
               <Link href="/" aria-label="Go to homepage">
                 <Image
                   src="/images/icons-duka-interiors/logo-duka-interiors-big.svg"
-                  alt="Duka Interiors Logo"
+                  alt="Duka Interiors"
+                  unoptimized
                   width={isScrolled ? 100 : 120} // ✅ FIXED: Maintains 1.79 ratio (120x67, 100x56)
                   height={isScrolled ? 56 : 67} // ✅ FIXED: Correct height for aspect ratio
                   priority
@@ -398,7 +399,8 @@ export default function NavBar() {
                 {/* ✅ FIXED: Mobile logo with correct aspect ratio */}
                 <Image
                   src="/images/icons-duka-interiors/logo-duka-interiors-big.svg"
-                  alt="Duka Interiors Logo"
+                  alt="Duka Interiors"
+                  unoptimized
                   width={98} // ✅ FIXED: Maintains 1.79 ratio (98x55)
                   height={55} // ✅ FIXED: Correct height for aspect ratio
                   className="h-[55px] w-auto"
