@@ -638,6 +638,41 @@ setIsCalculating(false);
 document.getElementById('results-section')?.scrollIntoView({ behavior: 'smooth' });
 }, 300);
 };
+// Lead capture: name + phone before the cost result is shown
+const [leadUnlocked, setLeadUnlocked] = useState(false);
+const [leadSending, setLeadSending] = useState(false);
+useEffect(() => {
+try { if (localStorage.getItem('duka-estimate-lead')) setLeadUnlocked(true); } catch {}
+}, []);
+// Rates give the low end; real sites run up to 20% higher
+const roundTo10k = (n: number) => Math.round(n / 10000) * 10000;
+const costRange = costResult
+? { low: roundTo10k(costResult.total), high: roundTo10k(costResult.total * 1.2) }
+: null;
+const handleLeadSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+e.preventDefault();
+const form = new FormData(e.currentTarget);
+const name = String(form.get('name') || '');
+const phone = String(form.get('phone') || '');
+setLeadSending(true);
+try {
+await fetch('/api/contact/', {
+method: 'POST',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify({
+name,
+phone,
+'project-type': 'Cost estimator lead',
+area: totalRentedArea || undefined,
+budget: costRange ? `${costRange.low.toLocaleString()} – ${costRange.high.toLocaleString()} ETB (estimator)` : undefined,
+message: `Estimator result: ${totalRentedArea} m², ${costHeadcount} staff, ${qualityTier} tier.`,
+}),
+});
+} catch {}
+try { localStorage.setItem('duka-estimate-lead', '1'); } catch {}
+setLeadSending(false);
+setLeadUnlocked(true);
+};
 const handleCostCalculate = () => {
 setIsCalculating(true);
 setTimeout(() => {
@@ -2053,14 +2088,34 @@ Room Configuration Breakdown
 )}
 </div>
 )}
-{activeTab === 'cost' && costResult && (
+{activeTab === 'cost' && costResult && !leadUnlocked && (
+<form onSubmit={handleLeadSubmit} className="max-w-xl mx-auto text-center py-6 space-y-5">
+<h3 className="text-2xl font-bold tracking-tighter text-gray-900">Your estimate is ready</h3>
+<p className="text-gray-600">Enter your name and phone number to see it. A Duka architect may call to walk you through the numbers.</p>
+<div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
+<label className="block">
+<span className="text-xs font-bold uppercase tracking-wider text-gray-600">Full name</span>
+<input name="name" required autoComplete="name" className="mt-1 w-full border border-gray-300 rounded-md px-3 py-3 focus:border-gray-900 outline-none" />
+</label>
+<label className="block">
+<span className="text-xs font-bold uppercase tracking-wider text-gray-600">Phone</span>
+<input name="phone" type="tel" required autoComplete="tel" pattern="[+0-9 ]{9,16}" placeholder="+251 9.. ... ..." className="mt-1 w-full border border-gray-300 rounded-md px-3 py-3 focus:border-gray-900 outline-none" />
+</label>
+</div>
+<button type="submit" disabled={leadSending} className="w-full bg-red-600 hover:bg-red-700 text-white px-8 py-4 text-sm font-medium uppercase tracking-widest rounded-lg disabled:bg-gray-400">
+{leadSending ? 'Opening...' : 'Show my estimate'}
+</button>
+</form>
+)}
+{activeTab === 'cost' && costResult && leadUnlocked && costRange && (
 <div>
 {/* Total Cost Card */}
 <div className="bg-gray-900 rounded-lg p-6 text-white mb-8">
-<div className="text-xl font-bold opacity-90 mb-2">TOTAL PROJECT ESTIMATE</div>
-<div className="text-4xl font-bold tracking-tighter mb-4">
-{costResult.total.toLocaleString()} <span className="text-2xl">ETB</span>
+<div className="text-xl font-bold opacity-90 mb-2">ESTIMATED PROJECT COST</div>
+<div className="text-4xl font-bold tracking-tighter mb-2">
+{costRange.low.toLocaleString()} – {costRange.high.toLocaleString()} <span className="text-2xl">ETB</span>
 </div>
+<p className="text-sm opacity-75 mb-4">Including 15% VAT. The final price depends on the site survey and the materials you choose.</p>
 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
 <div>
 <div className="opacity-75 mb-1">Quality Tier</div>
@@ -2130,7 +2185,7 @@ return (
 </div>
 </div>
 <div className="mt-4 pt-4 border-t border-gray-300">
-<div className="text-sm font-bold text-gray-600 mb-1">TOTAL PROJECT COST</div>
+<div className="text-sm font-bold text-gray-600 mb-1">TOTAL AT LISTED RATES (range: up to +20%)</div>
 <div className="text-2xl font-bold text-red-600">{costResult.total.toLocaleString()} ETB</div>
 </div>
 </div>
@@ -2176,7 +2231,7 @@ return (
 This estimate provides a professional ballpark figure. For a precise quotation with material specifications, 3D visuals, and site-specific details, schedule a free consultation with our design team.
 </p>
 <Link
-href="/contact"
+href="/contact/"
 className="inline-block bg-red-600 text-white px-8 py-3 rounded-md font-bold uppercase tracking-widest text-sm hover:bg-red-700 transition-colors shadow"
 >
 Schedule Free Consultation →

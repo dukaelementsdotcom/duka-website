@@ -32,7 +32,7 @@ Duka Interiors PLC: interior design and build firm in Addis Ababa, Ethiopia (sin
 - [ ] Team page: fix LinkedIn links set to "#", and check photo files against the names shown.
 
 ### Conversion
-- [ ] Estimator: add ETB price ranges and lead capture (name and phone before sending the result).
+- [x] Estimator: add ETB price ranges and lead capture (name and phone before sending the result).
 - [x] Contact form: add the missing project types (Partitioning, Branding & Signage, Technology, Renovation). Add fields for budget, area (m²) and timeline.
 - [x] Use one destination for the "Free Consultation" button (it goes to Telegram on About and to /contact/ elsewhere).
 - [x] Hide Products ("Coming soon") from the menu until it launches. Make header and footer menu labels match. Show opening hours.

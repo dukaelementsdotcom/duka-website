@@ -24,13 +24,13 @@ export async function POST(req: Request) {
       subject: `New Project Inquiry: ${name}${projectType ? ` – ${projectType}` : ''}`,
 
       // This allows you to click 'Reply' in your email app to talk to the customer
-      replyTo: email,
+      ...(email ? { replyTo: email } : {}),
 
       text: `
         NEW LEAD DETAILS
         ================
         Name: ${name}
-        Email: ${email}
+        Email: ${email || 'Not provided'}
         Phone: ${phone || 'Not provided'}
         Project: ${projectType}
         Area: ${area ? `${area} m²` : 'Not provided'}
