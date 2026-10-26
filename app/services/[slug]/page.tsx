@@ -6,6 +6,9 @@ import Footer from '@/app/components/Footer';
 import Link from 'next/link';
 import React, { use } from 'react';
 import type { Metadata } from 'next';
+import fs from 'fs';
+import path from 'path';
+import { pageMeta } from '@/lib/seo';
 
 // 1. Tell Next.js which paths to pre-render at build time
 export async function generateStaticParams() {
@@ -21,23 +24,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   
   if (!service) return { title: "Service Not Found" };
 
-  // Create unique meta description from service data
-  const metaDescription = `${service.shortDesc} ${service.title} services by Duka Interiors in Addis Ababa, Ethiopia. Professional solutions for your commercial space.`;
-
-  return {
-    title: `${service.title} Services in Addis Ababa | Duka Interiors`,
-    description: metaDescription,
-    keywords: [
-      `${service.title.toLowerCase()} Addis Ababa`,
-      `${service.title.toLowerCase()} Ethiopia`,
-      `interior design Addis Ababa`,
-      `office renovation Ethiopia`,
-      `Duka Interiors ${service.slug}`
-    ],
-    alternates: {
-      canonical: `https://www.dukainteriors.com/services/${resolvedParams.slug}`,
-    },
-  };
+  return pageMeta({
+    title: `${service.title} in Addis Ababa`,
+    description: service.shortDesc,
+    path: `/services/${service.slug}/`,
+    image: service.image && fs.existsSync(path.join(process.cwd(), 'public', service.image)) ? service.image : undefined,
+  });
 }
 
 // IMPORTANT: Force a 404 for any slug NOT in the list
@@ -180,9 +172,9 @@ export default function ServiceDetail({ params }: PageProps) {
           {/* FINAL CTA SECTION */}
           <div className="mt-12 py-16 border-t-2 border-black flex flex-col md:flex-row gap-6 justify-between items-center bg-white">
             <div className="text-center md:text-left">
-              <h4 className="text-xl font-black uppercase tracking-tighter mb-1">
+              <h3 className="text-xl font-black uppercase tracking-tighter mb-1">
                 Ready to start?
-              </h4>
+              </h3>
               <p className="text-xs text-gray-500 uppercase tracking-widest font-bold">
                 Free consultation for your next project
               </p>

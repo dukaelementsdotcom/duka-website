@@ -8,24 +8,7 @@ export default function ContactPage() {
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
-  // ✅ CLIENT-SIDE TITLE UPDATE (Optimized for SEO)
-  useEffect(() => {
-    document.title = "Contact Interior Designers Addis Ababa | Duka Interiors";
-    return () => { document.title = "Duka Interiors"; };
-  }, []);
 
-  // ✅ CRITICAL FIX: Inject canonical URL for Client Component (GMB migration essential)
-  useEffect(() => {
-    const existing = document.querySelector('link[rel="canonical"]');
-    if (existing) existing.remove();
-    
-    const canonicalLink = document.createElement('link');
-    canonicalLink.rel = 'canonical';
-    canonicalLink.href = 'https://www.dukainteriors.com/contact';
-    document.head.appendChild(canonicalLink);
-    
-    return () => { canonicalLink.remove(); };
-  }, []);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();

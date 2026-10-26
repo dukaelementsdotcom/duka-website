@@ -1,7 +1,14 @@
+import { pageMeta } from '@/lib/seo';
 // app/privacy-policy/page.tsx
 
 import NavBar from '@/app/components/NavBar';
 import Footer from '@/app/components/Footer';
+
+export const metadata = pageMeta({
+  title: 'Privacy Policy',
+  description: 'How Duka Interiors PLC collects, uses and protects the information you share with us.',
+  path: '/privacy-policy/',
+});
 
 export default function PrivacyPolicy() {
   return (

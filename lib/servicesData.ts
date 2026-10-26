@@ -48,7 +48,7 @@ export const services: Service[] = [
       }
     ],
     whyChooseUs: [
-      '9+ years of local design expertise',
+      'Designing Addis Ababa workplaces since 2015',
       'Data-driven space planning',
       'Seamless transition from design to construction'
     ]

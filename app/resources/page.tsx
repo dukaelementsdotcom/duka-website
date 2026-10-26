@@ -8,24 +8,7 @@ import Footer from '../components/Footer';
 import { BLOG_POSTS } from './post.data';
 
 export default function ResourcesPage() {
-  // ✅ CLIENT-SIDE TITLE UPDATE (Optimized + no trailing space)
-  useEffect(() => {
-    document.title = "Office Design Resources & Guides Ethiopia | Duka Interiors";
-    return () => { document.title = "Duka Interiors"; };
-  }, []);
 
-  // ✅ CRITICAL FIX: Inject canonical URL for Client Component (GMB migration essential)
-  useEffect(() => {
-    const existing = document.querySelector('link[rel="canonical"]');
-    if (existing) existing.remove();
-    
-    const canonicalLink = document.createElement('link');
-    canonicalLink.rel = 'canonical';
-    canonicalLink.href = 'https://www.dukainteriors.com/resources/'; // ✅ NO TRAILING SPACES + TRAILING SLASH (matches next.config.js)
-    document.head.appendChild(canonicalLink);
-    
-    return () => { canonicalLink.remove(); };
-  }, []);
 
   return (
     <div className="min-h-screen bg-white">

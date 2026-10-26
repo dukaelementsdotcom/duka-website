@@ -1,7 +1,14 @@
+import { pageMeta } from '@/lib/seo';
 // app/terms-of-service/page.tsx
 
 import NavBar from '@/app/components/NavBar';
 import Footer from '@/app/components/Footer';
+
+export const metadata = pageMeta({
+  title: 'Terms of Service',
+  description: 'Terms for using the Duka Interiors website and its tools.',
+  path: '/terms-of-service/',
+});
 
 export default function TermsOfService() {
   return (

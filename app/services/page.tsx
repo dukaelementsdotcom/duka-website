@@ -5,25 +5,13 @@ import { services } from '@/lib/servicesData';
 import NavBar from '@/app/components/NavBar';
 import Footer from '@/app/components/Footer';
 import type { Metadata } from 'next';
+import { pageMeta } from '@/lib/seo';
 
-// ✅ FIXED: Added CORRECT canonical URL (critical for GMB migration)
-export const metadata: Metadata = {
-  title: "Explore Our Interior Design Services in Addis Ababa",
-  description: "Expert office partitioning, office renovation, and interior decoration services in Addis Ababa, Ethiopia. Professional design and construction for commercial spaces.",
-  keywords: [
-    "interior design Addis Ababa",
-    "office partitioning Ethiopia",
-    "office renovation Addis Ababa",
-    "interior decoration Ethiopia",
-    "design and build Addis Ababa",
-    "commercial interior design",
-    "Duka Interiors services"
-  ],
-  // ✅ CRITICAL FIX: Canonical URL MUST match page URL exactly
-  alternates: {
-    canonical: "https://www.dukainteriors.com/services"
-  },
-};
+export const metadata: Metadata = pageMeta({
+  title: "Interior Design & Fit-Out Services in Addis Ababa",
+  description: "Interior design, design-and-build, office partitioning, custom furniture, signage, technology and renovation management for workplaces in Addis Ababa.",
+  path: "/services/",
+});
 
 export default function ServicesPage() {
   // ✅ FIXED: Removed trailing spaces in Schema.org URLs
@@ -73,7 +61,7 @@ export default function ServicesPage() {
             Professional Interior Design & Build <br className="hidden md:block" /> Services in Addis Ababa.
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Expert office partitioning, office renovation, and interior decoration services in Addis Ababa, Ethiopia. Delivering high-quality commercial spaces for over 10 years.
+            Expert office partitioning, office renovation, and interior decoration services in Addis Ababa, Ethiopia. Delivering commercial interiors in Addis Ababa since 2015.
           </p>
         </div>
       </section>

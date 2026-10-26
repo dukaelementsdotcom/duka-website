@@ -1,63 +1,29 @@
-'use client';
-
-import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import dynamic from 'next/dynamic';
-
-const AnimatedStat = dynamic(() => import('./components/AnimatedStat'), { ssr: true });
-const Gallery = dynamic(() => import('./components/Gallery'));
-const Testimonials = dynamic(() => import('./components/Testimonials'));
-const Footer = dynamic(() => import('./components/Footer'));
-const ClientLogosFinal = dynamic(() => import('./components/ClientLogosFinal'));
-const FinalCTA = dynamic(() => import('./components/FinalCTA'));
-const ResetScroll = dynamic(() => import('./components/ResetScroll'));
-const NavBar = dynamic(() => import('./components/NavBar'));
-
+import AnimatedStat from './components/AnimatedStat';
+import Gallery from './components/Gallery';
+import Testimonials from './components/Testimonials';
+import Footer from './components/Footer';
+import ClientLogosFinal from './components/ClientLogosFinal';
+import FinalCTA from './components/FinalCTA';
+import ResetScroll from './components/ResetScroll';
+import NavBar from './components/NavBar';
 import { services } from '@/lib/servicesData';
+import { pageMeta } from '@/lib/seo';
+
+export const metadata = pageMeta({
+  title: 'Interior Design & Fit-Out in Addis Ababa | Duka Interiors',
+  absoluteTitle: true,
+  description:
+    'Design-and-build interior firm in Addis Ababa since 2015. Office partitioning, renovation, fit-out and custom furniture for companies across Ethiopia.',
+  path: '/',
+});
+
+const YEARS_IN_BUSINESS = new Date().getFullYear() - 2015;
 
 export default function Home() {
-  const scrollToConsultation = () => {
-    const section = document.getElementById('final-cta');
-    if (section) section.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <>
-      <title>Interior Design Company in Addis Ababa Ethiopia</title>
-
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "LocalBusiness",
-            "name": "Duka Interiors",
-            "alternateName": "The Best Interior Design Company in Addis Ababa",
-            "url": "https://dukainteriors.com",
-            "logo": "https://dukainteriors.com/images/icons-duka-interiors/logo-duka-interiors-big.svg",
-            "description": "Duka Interiors is the best interior design company in Addis Ababa, specializing in office partitioning, renovation, and interior decoration in Ethiopia.",
-            "telephone": "+251940607055",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "Bole, Djibouti Street, Welela Building, 5th Floor",
-              "addressLocality": "Addis Ababa",
-              "addressCountry": "ET"
-            },
-            "contactPoint": {
-              "@type": "ContactPoint",
-              "telephone": "+251940607055",
-              "contactType": "customer service"
-            },
-            "geo": {
-              "@type": "GeoCoordinates",
-              "latitude": "9.0012",
-              "longitude": "38.7834"
-            }
-          })
-        }}
-      />
-
       <NavBar />
       <ResetScroll />
 
@@ -116,7 +82,7 @@ export default function Home() {
                 
                 <div className="space-y-4 text-gray-600 text-base leading-relaxed max-w-2xl font-medium">
                   <p>
-                    Duka Interiors is a professional design and build firm with over 10 years of experience in the Ethiopian market.
+                    Duka Interiors is a professional design and build firm working in the Ethiopian market since 2015.
                   </p>
                   <p>
                     From specialized office partitioning in Addis Ababa to full office renovation and interior decoration, we handle the entire process from start to finish.
@@ -171,7 +137,7 @@ export default function Home() {
               </div>
               <div className="space-y-1">
                 <div className="text-4xl font-black tracking-tighter flex items-center">
-                    <AnimatedStat target={10} /><span className="text-red-500">+</span>
+                    <AnimatedStat target={YEARS_IN_BUSINESS} /><span className="text-red-500">+</span>
                 </div>
                 <div className="text-[10px] font-black uppercase tracking-widest text-gray-300">Years</div>
               </div>

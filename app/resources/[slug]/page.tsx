@@ -4,6 +4,7 @@ import NavBar from '../../components/NavBar';
 import Footer from '../../components/Footer';
 import Link from 'next/link';
 import React, { use } from 'react';
+import { pageMeta } from '@/lib/seo';
 
 // Pre-rendering all blog paths
 export async function generateStaticParams() {
@@ -25,18 +26,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     };
   }
 
-  return {
-    title: `${post.title} | Duka Interiors`,
+  return pageMeta({
+    title: post.title.length > 60 ? post.title.split(':')[0] : post.title,
     description: post.excerpt,
-    alternates: {
-      canonical: `https://www.dukainteriors.com/resources/${post.slug}/`, // ✅ TRAILING SLASH (matches next.config.js)
-    },
-    openGraph: {
-      title: post.title,
-      description: post.excerpt,
-      images: [post.image],
-    },
-  };
+    path: `/resources/${post.slug}/`,
+    image: post.image,
+    type: 'article',
+  });
 }
 
 export default function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
