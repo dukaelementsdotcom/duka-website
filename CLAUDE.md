@@ -5,7 +5,7 @@ Duka Interiors PLC: interior design and build firm in Addis Ababa, Ethiopia (sin
 ## Stack and workflow
 - Next.js site at https://www.dukainteriors.com, hosted on Vercel.
 - Workflow: edit in VS Code, commit and push with GitHub Desktop, Vercel deploys automatically.
-- Use a new branch for each batch of changes, check the Vercel preview, merge into main when approved.
+- Use a new branch for each batch of changes. Claude builds and checks it locally, pushes, opens a pull request, waits for the Vercel check, then merges into main (= live site) without asking. Standing approval from Dagmawi, 26 Oct 2026.
 - Never commit .env files or secrets. Keep the repository private.
 
 ## 1. Website audit fixes (Oct 2026) – do these first

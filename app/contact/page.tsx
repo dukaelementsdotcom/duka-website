@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Navbar from '@/app/components/NavBar';
 import Footer from '@/app/components/Footer';
+import { CONTACT, whatsappLink } from '@/lib/siteConfig';
 
 export default function ContactPage() {
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
@@ -249,8 +250,14 @@ export default function ContactPage() {
                 </div>
 
                 {status === "error" && (
-                  <div className="p-4 bg-red-50 text-red-600 text-[10px] font-black uppercase tracking-widest border border-red-100 animate-pulse">
-                    Error // {errorMessage}
+                  <div role="alert" className="p-4 bg-red-50 text-red-700 text-sm border border-red-100 space-y-2">
+                    <p className="text-[10px] font-black uppercase tracking-widest">Your message could not be sent ({errorMessage})</p>
+                    <p>
+                      Please reach us directly on{' '}
+                      <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="font-bold underline">WhatsApp</a>,
+                      call <a href={`tel:${CONTACT.phones[0].number}`} className="font-bold underline">{CONTACT.phones[0].label}</a>,
+                      or email <a href={`mailto:${CONTACT.email}`} className="font-bold underline">{CONTACT.email}</a>.
+                    </p>
                   </div>
                 )}
               </form>
