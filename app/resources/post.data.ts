@@ -1208,5 +1208,603 @@ Try Our Cost Estimator
 </div>
 </section>
 `
+  },
+  {
+    slug: 'open-plan-vs-private-offices-addis-ababa',
+    category: 'WORKPLACE STRATEGY',
+    title: 'Open Plan or Private Offices? What Actually Works for Ethiopian Companies',
+    date: 'Oct 26, 2026',
+    image: '/images/duka-interiors-portfolio/corporate-office-interior-finishing-bole/open-plan-concept-bole.webp',
+    excerpt: 'The open-plan debate has reached Addis. Before you tear down walls or build new ones, here is what we have learned from 50+ Ethiopian offices about which layout fits which team.',
+    content: `
+<section class="mb-16 md:mb-24">
+<h1 class="text-3xl md:text-5xl font-bold tracking-tight text-gray-900 mb-8 leading-tight">
+Open Plan or Private Offices?<br />
+<span class="text-red-600">What Works</span> for Ethiopian Companies.
+</h1>
+<div class="max-w-4xl space-y-6">
+<p class="text-lg md:text-xl text-gray-800 leading-relaxed font-medium italic border-l-4 border-red-600 pl-6">
+Walk into any new office building in Bole or Kazanchis and you'll see the trend: glass everywhere, desks in clusters, no walls in sight. The open-plan office has arrived in Addis. But is it right for your team?
+</p>
+<p class="text-base md:text-lg text-gray-600 leading-relaxed">
+We've fitted out offices for banks, tech startups, NGOs, trading companies, and government agencies across the city. Some went full open-plan and loved it. Others tried it and came back six months later asking us to add walls. Here's what we've learned about what actually works—and what doesn't—in the Ethiopian context.
+</p>
+</div>
+</section>
+
+<section class="mb-20 pt-12 border-t border-gray-200">
+<h2 class="text-2xl md:text-4xl font-black text-gray-900 mb-8 uppercase tracking-tighter">The Case for Open Plan</h2>
+<div class="max-w-4xl space-y-6 text-gray-600 leading-relaxed">
+<p>
+Open-plan offices aren't just a Western import. They solve real problems that Ethiopian businesses face:
+</p>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-8">
+<div class="p-6 bg-green-50 border-l-4 border-green-600">
+<h4 class="font-bold text-gray-900 mb-2">Lower Fit-Out Cost</h4>
+<p class="text-sm">Fewer walls means less material. An open-plan office can cost 30–40% less to fit out than a fully partitioned one. When you're paying $25–35/m² per year in Bole rent, saving on construction makes sense.</p>
+</div>
+
+<div class="p-6 bg-green-50 border-l-4 border-green-600">
+<h4 class="font-bold text-gray-900 mb-2">Flexibility</h4>
+<p class="text-sm">Teams grow and shrink. Projects come and go. In an open layout, you rearrange desks in an afternoon. With private offices, you're calling the contractor again.</p>
+</div>
+
+<div class="p-6 bg-green-50 border-l-4 border-green-600">
+<h4 class="font-bold text-gray-900 mb-2">Natural Light</h4>
+<p class="text-sm">Most Addis office buildings have windows only on the perimeter. Private offices give window views to a few; open layouts share daylight with everyone.</p>
+</div>
+
+<div class="p-6 bg-green-50 border-l-4 border-green-600">
+<h4 class="font-bold text-gray-900 mb-2">Supervision</h4>
+<p class="text-sm">Let's be honest: some managers prefer to see their teams working. Open layouts make this possible without cameras or tracking software.</p>
+</div>
+</div>
+
+<p>
+Tech companies and creative agencies tend to love open plans. Their work is collaborative by nature—designers reviewing work together, developers pairing on code, teams gathered around a whiteboard. When the work is visual and interactive, walls just get in the way.
+</p>
+</div>
+</section>
+
+<section class="mb-20 pt-12 border-t border-gray-200">
+<h2 class="text-2xl md:text-4xl font-black text-gray-900 mb-8 uppercase tracking-tighter">The Case for Private Offices</h2>
+<div class="max-w-4xl space-y-6 text-gray-600 leading-relaxed">
+<p>
+But open plan isn't magic. Some of our clients have struggled with it—not because the design was bad, but because their work simply doesn't fit the format:
+</p>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-8">
+<div class="p-6 bg-red-50 border-l-4 border-red-600">
+<h4 class="font-bold text-gray-900 mb-2">Confidential Work</h4>
+<p class="text-sm">Banks, law firms, HR departments, finance teams—if your staff handles sensitive information, they need privacy. You can't discuss someone's salary or review a loan application with colleagues listening in.</p>
+</div>
+
+<div class="p-6 bg-red-50 border-l-4 border-red-600">
+<h4 class="font-bold text-gray-900 mb-2">Phone-Heavy Roles</h4>
+<p class="text-sm">Sales teams, customer service, anyone who spends hours on calls. One person's conversation is everyone's distraction. We've seen open-plan call centers where staff could barely hear their own customers.</p>
+</div>
+
+<div class="p-6 bg-red-50 border-l-4 border-red-600">
+<h4 class="font-bold text-gray-900 mb-2">Deep Focus Work</h4>
+<p class="text-sm">Accountants reconciling figures, lawyers drafting contracts, engineers doing calculations. Interruptions aren't just annoying—they cause errors. One study found it takes 23 minutes to regain focus after an interruption.</p>
+</div>
+
+<div class="p-6 bg-red-50 border-l-4 border-red-600">
+<h4 class="font-bold text-gray-900 mb-2">Hierarchy and Status</h4>
+<p class="text-sm">In Ethiopian business culture, position matters. Senior staff often expect—and clients often expect them to have—private offices. A department head sitting at an open desk can feel like a demotion.</p>
+</div>
+</div>
+
+<p class="p-4 bg-gray-100 border-l-4 border-gray-600 text-sm">
+<strong>Real example:</strong> A financial services company in Kirkos went full open-plan in 2023. Within four months, their compliance team was making errors because they couldn't concentrate. Their client-facing advisors were losing deals because competitors offered private meeting rooms. We came back and retrofitted six private offices and two meeting rooms. Lesson learned: know your work before you choose your layout.
+</p>
+</div>
+</section>
+
+<section class="mb-20 pt-12 border-t border-gray-200">
+<h2 class="text-2xl md:text-4xl font-black text-gray-900 mb-8 uppercase tracking-tighter">The Ethiopian Factor: What's Different Here</h2>
+<div class="max-w-4xl space-y-6 text-gray-600 leading-relaxed">
+
+<p>
+International office design advice doesn't always translate. Here's what we've noticed working specifically in Addis:
+</p>
+
+<h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Power Cuts</h3>
+<p>
+When the power goes out, generator backup usually covers lights and computers but not always the HVAC. In a sealed open-plan office with no operable windows, 50 people with laptops generating heat and no air conditioning gets uncomfortable fast. Buildings with operable windows have an advantage—but those windows also let in Bole road noise.
+</p>
+
+<h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Noise</h3>
+<p>
+Addis is loud. Traffic, construction, the call to prayer, street vendors—the soundscape is constant. If your building faces a main road, open plan means everyone hears it. Interior offices or good acoustic treatment become essential, not optional.
+</p>
+
+<h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Meeting Culture</h3>
+<p>
+Ethiopian business culture involves a lot of meetings—and a lot of hospitality. Clients expect coffee, conversation, comfort. An open-plan office with one glass fishbowl meeting room doesn't cut it. You need proper meeting spaces, ideally with some acoustic privacy for negotiations.
+</p>
+
+<h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Multi-Language Work</h3>
+<p>
+Many offices operate in Amharic, English, and sometimes other languages. When half the office is speaking Amharic and half is on English conference calls with international partners, the noise compounds. Teams working in different languages often need more separation than a single-language office.
+</p>
+</div>
+</section>
+
+<section class="mb-20 pt-12 border-t border-gray-200">
+<h2 class="text-2xl md:text-4xl font-black text-gray-900 mb-8 uppercase tracking-tighter">The Hybrid Approach: What We Recommend</h2>
+<div class="max-w-4xl space-y-6 text-gray-600 leading-relaxed">
+
+<p>
+Most Ethiopian offices work best with a mix. Here's a framework we use:
+</p>
+
+<div class="overflow-x-auto my-8">
+<table class="w-full text-sm border-collapse">
+<thead>
+<tr class="bg-gray-900 text-white">
+<th class="p-4 text-left">Team Type</th>
+<th class="p-4 text-left">Recommended Layout</th>
+<th class="p-4 text-left">Why</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-200">
+<tr class="bg-white">
+<td class="p-4 font-medium">Executive / C-suite</td>
+<td class="p-4">Private offices</td>
+<td class="p-4">Confidential calls, client meetings, status expectations</td>
+</tr>
+<tr class="bg-gray-50">
+<td class="p-4 font-medium">Finance / HR / Legal</td>
+<td class="p-4">Private or semi-private</td>
+<td class="p-4">Confidential documents and conversations</td>
+</tr>
+<tr class="bg-white">
+<td class="p-4 font-medium">Sales (outbound calls)</td>
+<td class="p-4">Clustered pods with acoustic panels</td>
+<td class="p-4">Energy of open plan, but sound absorption between groups</td>
+</tr>
+<tr class="bg-gray-50">
+<td class="p-4 font-medium">Creative / Design / IT</td>
+<td class="p-4">Open plan with focus booths</td>
+<td class="p-4">Collaboration by default, quiet space when needed</td>
+</tr>
+<tr class="bg-white">
+<td class="p-4 font-medium">Admin / Operations</td>
+<td class="p-4">Open plan</td>
+<td class="p-4">High interaction, low confidentiality needs</td>
+</tr>
+<tr class="bg-gray-50">
+<td class="p-4 font-medium">Customer Service (calls)</td>
+<td class="p-4">Separated zone with acoustic ceiling</td>
+<td class="p-4">Contains noise, protects other teams</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">The 60/40 Rule</h3>
+<p>
+For most Ethiopian offices, we suggest roughly 60% open or semi-open space, 40% enclosed. That 40% includes:
+</p>
+<ul class="list-disc pl-6 space-y-2">
+<li>Executive offices (2–4 depending on company size)</li>
+<li>1–2 meeting rooms per 20 employees</li>
+<li>At least one small "phone booth" or focus room per 10 employees</li>
+<li>A dedicated room for HR/confidential conversations</li>
+</ul>
+
+<p class="mt-6">
+This ratio keeps fit-out costs reasonable, maximizes natural light, and still gives people the privacy they need when they need it.
+</p>
+</div>
+</section>
+
+<section class="mb-20 pt-12 border-t border-gray-200">
+<h2 class="text-2xl md:text-4xl font-black text-gray-900 mb-8 uppercase tracking-tighter">Making Open Plan Work: Practical Tips</h2>
+<div class="max-w-4xl space-y-6 text-gray-600 leading-relaxed">
+
+<p>If you're committed to open plan, here's how to avoid the common failures:</p>
+
+<div class="space-y-6 mt-8">
+<div class="flex gap-4">
+<div class="w-10 h-10 bg-black text-white flex items-center justify-center font-black flex-shrink-0">1</div>
+<div>
+<h4 class="font-bold text-gray-900">Invest in Acoustic Treatment</h4>
+<p class="text-sm text-gray-600">Carpet (not hard floors), acoustic ceiling tiles, fabric panels on walls, and desk-mounted screens. Budget 15–20% of your fit-out cost for acoustics. It's not optional—it's what makes the space usable.</p>
+</div>
+</div>
+
+<div class="flex gap-4">
+<div class="w-10 h-10 bg-black text-white flex items-center justify-center font-black flex-shrink-0">2</div>
+<div>
+<h4 class="font-bold text-gray-900">Create Zones</h4>
+<p class="text-sm text-gray-600">Use furniture, planters, rugs, and ceiling height changes to define areas. The sales team here, the design team there, a quiet zone in the back. Visual boundaries help even without walls.</p>
+</div>
+</div>
+
+<div class="flex gap-4">
+<div class="w-10 h-10 bg-black text-white flex items-center justify-center font-black flex-shrink-0">3</div>
+<div>
+<h4 class="font-bold text-gray-900">Provide Escape Routes</h4>
+<p class="text-sm text-gray-600">Phone booths, focus rooms, outdoor terraces—give people places to go when they need to concentrate or take a private call. One booth per 8–10 people is the minimum.</p>
+</div>
+</div>
+
+<div class="flex gap-4">
+<div class="w-10 h-10 bg-black text-white flex items-center justify-center font-black flex-shrink-0">4</div>
+<div>
+<h4 class="font-bold text-gray-900">Set Norms</h4>
+<p class="text-sm text-gray-600">Headphones mean "don't interrupt." Calls happen in designated areas. No speakerphone at desks. The space design only works if the culture supports it.</p>
+</div>
+</div>
+
+<div class="flex gap-4">
+<div class="w-10 h-10 bg-black text-white flex items-center justify-center font-black flex-shrink-0">5</div>
+<div>
+<h4 class="font-bold text-gray-900">Plan for Growth</h4>
+<p class="text-sm text-gray-600">Open plan is flexible—if you design it that way. Modular furniture, power in the floor (not just walls), and easily movable partitions let you reconfigure without reconstruction.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="mb-20 pt-12 border-t border-gray-200">
+<h2 class="text-2xl md:text-4xl font-black text-gray-900 mb-8 uppercase tracking-tighter">Cost Comparison</h2>
+<div class="max-w-4xl">
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="p-6 bg-gray-50 border-t-4 border-gray-400">
+<h4 class="font-black text-gray-900 uppercase mb-2">Full Open Plan</h4>
+<p class="text-3xl font-black text-gray-900 mb-2">8,000–12,000 <span class="text-sm">ETB/m²</span></p>
+<p class="text-sm text-gray-600">Basic fit-out with desks, minimal partitions, standard ceiling</p>
+</div>
+
+<div class="p-6 bg-blue-50 border-t-4 border-blue-600">
+<h4 class="font-black text-gray-900 uppercase mb-2">Hybrid (60/40)</h4>
+<p class="text-3xl font-black text-blue-900 mb-2">12,000–18,000 <span class="text-sm">ETB/m²</span></p>
+<p class="text-sm text-gray-600">Mix of open space, private offices, meeting rooms, acoustic treatment</p>
+</div>
+
+<div class="p-6 bg-gray-50 border-t-4 border-gray-400">
+<h4 class="font-black text-gray-900 uppercase mb-2">Full Private</h4>
+<p class="text-3xl font-black text-gray-900 mb-2">18,000–25,000 <span class="text-sm">ETB/m²</span></p>
+<p class="text-sm text-gray-600">Individual offices for most staff, full partitioning, higher finish level</p>
+</div>
+</div>
+
+<p class="text-sm text-gray-500 mt-6 italic">
+Prices are indicative for Addis Ababa (Q4 2026) and vary based on finish levels, furniture quality, and building conditions.
+</p>
+</div>
+</section>
+
+<section class="mt-20 p-12 md:p-16 border-4 border-black text-center rounded-sm bg-gray-50">
+<h3 class="text-3xl md:text-5xl font-black text-gray-900 mb-6 uppercase tracking-tighter leading-none">
+Not Sure What <br /><span class="text-red-600">Fits Your Team?</span>
+</h3>
+<p class="text-gray-600 mb-10 max-w-2xl mx-auto text-lg font-medium">
+We can walk through your current space, understand how your teams work, and recommend a layout that balances cost, collaboration, and focus.
+</p>
+<div class="flex flex-col sm:flex-row justify-center gap-6">
+<a href="/contact/" class="bg-black text-white px-12 py-5 font-black uppercase tracking-widest text-sm hover:bg-red-600 transition-all">
+Book a Free Consultation →
+</a>
+<a href="/projects/" class="px-10 py-5 bg-white border-2 border-black font-black uppercase text-sm flex items-center justify-center hover:bg-gray-100 transition-all">
+See Office Examples
+</a>
+</div>
+</section>
+`
+  },
+  {
+    slug: 'office-flooring-ethiopia-guide',
+    category: 'MATERIALS GUIDE',
+    title: 'Office Flooring in Ethiopia: Costs, Durability, and What to Avoid',
+    date: 'Oct 26, 2026',
+    image: '/images/duka-interiors-portfolio/apartment-interior-finishing-addis-ababa/porcelain-tiling-addis-ababa.webp',
+    excerpt: 'Porcelain, vinyl, carpet tiles, or epoxy? A breakdown of what each flooring type costs in Addis, how long it lasts, and which works best for different office areas.',
+    content: `
+<section class="mb-16 md:mb-24">
+<h1 class="text-3xl md:text-5xl font-bold tracking-tight text-gray-900 mb-8 leading-tight">
+Office Flooring in Ethiopia:<br />
+<span class="text-red-600">What to Choose</span> and What to Skip.
+</h1>
+<div class="max-w-4xl space-y-6">
+<p class="text-lg md:text-xl text-gray-800 leading-relaxed font-medium italic border-l-4 border-red-600 pl-6">
+Flooring is one of those things you stop noticing—until it fails. Tiles crack, carpet stains, vinyl peels. Then you're either living with it for years or paying to redo everything.
+</p>
+<p class="text-base md:text-lg text-gray-600 leading-relaxed">
+After fitting out dozens of offices across Addis Ababa, we've seen what holds up and what doesn't. This guide covers the flooring options actually available in the Ethiopian market, what they cost, how they perform, and where each one belongs in your office.
+</p>
+</div>
+</section>
+
+<section class="mb-20 pt-12 border-t border-gray-200">
+<h2 class="text-2xl md:text-4xl font-black text-gray-900 mb-8 uppercase tracking-tighter">What's Available in Addis</h2>
+<div class="max-w-4xl space-y-6 text-gray-600 leading-relaxed">
+
+<p>
+International flooring guides list dozens of options. In practice, here's what you can reliably source in Ethiopia:
+</p>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-8">
+<div class="p-6 bg-gray-50 border-l-4 border-gray-400">
+<h4 class="font-bold text-gray-900 uppercase mb-2">Porcelain Tile</h4>
+<p class="text-sm text-gray-600">Widely available, locally and imported. The default choice for most commercial spaces.</p>
+</div>
+
+<div class="p-6 bg-gray-50 border-l-4 border-gray-400">
+<h4 class="font-bold text-gray-900 uppercase mb-2">Ceramic Tile</h4>
+<p class="text-sm text-gray-600">Cheaper than porcelain, less durable. Good for low-traffic areas.</p>
+</div>
+
+<div class="p-6 bg-gray-50 border-l-4 border-gray-400">
+<h4 class="font-bold text-gray-900 uppercase mb-2">Vinyl / LVT</h4>
+<p class="text-sm text-gray-600">Luxury Vinyl Tile. Imported, growing in popularity for offices. Good wood-look options.</p>
+</div>
+
+<div class="p-6 bg-gray-50 border-l-4 border-gray-400">
+<h4 class="font-bold text-gray-900 uppercase mb-2">Carpet Tiles</h4>
+<p class="text-sm text-gray-600">Modular squares, easy to replace. Imported, mainly from UAE or Turkey.</p>
+</div>
+
+<div class="p-6 bg-gray-50 border-l-4 border-gray-400">
+<h4 class="font-bold text-gray-900 uppercase mb-2">Epoxy Coating</h4>
+<p class="text-sm text-gray-600">Poured resin over concrete. Industrial look, very durable. Local applicators available.</p>
+</div>
+
+<div class="p-6 bg-gray-50 border-l-4 border-gray-400">
+<h4 class="font-bold text-gray-900 uppercase mb-2">Polished Concrete</h4>
+<p class="text-sm text-gray-600">Grind and seal the existing slab. Industrial aesthetic, lowest cost if slab is good.</p>
+</div>
+</div>
+
+<p>
+What's hard to find: genuine hardwood, engineered wood (limited stock), rubber flooring, high-end specialty products. These require special import orders with long lead times and high costs.
+</p>
+</div>
+</section>
+
+<section class="mb-20 pt-12 border-t border-gray-200">
+<h2 class="text-2xl md:text-4xl font-black text-gray-900 mb-8 uppercase tracking-tighter">Price Comparison (Addis Market)</h2>
+<div class="max-w-4xl">
+
+<div class="overflow-x-auto">
+<table class="w-full text-sm border-collapse">
+<thead>
+<tr class="bg-gray-900 text-white">
+<th class="p-4 text-left">Flooring Type</th>
+<th class="p-4 text-left">Material Cost (ETB/m²)</th>
+<th class="p-4 text-left">Installed Cost (ETB/m²)</th>
+<th class="p-4 text-left">Lifespan</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-200">
+<tr class="bg-white">
+<td class="p-4 font-medium">Ceramic Tile (local)</td>
+<td class="p-4">400–800</td>
+<td class="p-4">800–1,400</td>
+<td class="p-4">10–15 years</td>
+</tr>
+<tr class="bg-gray-50">
+<td class="p-4 font-medium">Porcelain Tile (local)</td>
+<td class="p-4">600–1,200</td>
+<td class="p-4">1,200–2,000</td>
+<td class="p-4">15–25 years</td>
+</tr>
+<tr class="bg-white">
+<td class="p-4 font-medium">Porcelain Tile (imported)</td>
+<td class="p-4">1,500–3,500</td>
+<td class="p-4">2,200–4,500</td>
+<td class="p-4">20–30 years</td>
+</tr>
+<tr class="bg-gray-50">
+<td class="p-4 font-medium">Vinyl / LVT (imported)</td>
+<td class="p-4">800–2,000</td>
+<td class="p-4">1,200–2,800</td>
+<td class="p-4">10–20 years</td>
+</tr>
+<tr class="bg-white">
+<td class="p-4 font-medium">Carpet Tiles (imported)</td>
+<td class="p-4">1,200–3,000</td>
+<td class="p-4">1,500–3,500</td>
+<td class="p-4">7–12 years</td>
+</tr>
+<tr class="bg-gray-50">
+<td class="p-4 font-medium">Epoxy (applied)</td>
+<td class="p-4">—</td>
+<td class="p-4">1,500–3,000</td>
+<td class="p-4">10–15 years</td>
+</tr>
+<tr class="bg-white">
+<td class="p-4 font-medium">Polished Concrete</td>
+<td class="p-4">—</td>
+<td class="p-4">600–1,200</td>
+<td class="p-4">15–25 years</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p class="text-sm text-gray-500 mt-4 italic">
+Prices as of Q4 2026. Imported products subject to forex fluctuations and customs clearance time.
+</p>
+</div>
+</section>
+
+<section class="mb-20 pt-12 border-t border-gray-200">
+<h2 class="text-2xl md:text-4xl font-black text-gray-900 mb-8 uppercase tracking-tighter">What to Use Where</h2>
+<div class="max-w-4xl space-y-8">
+
+<div class="flex gap-6 items-start p-6 bg-blue-50 rounded-lg">
+<div class="w-16 h-16 bg-blue-600 text-white flex items-center justify-center text-xl font-black flex-shrink-0 rounded">REC</div>
+<div>
+<h4 class="font-black text-lg mb-2">Reception & Lobby</h4>
+<p class="text-sm text-gray-700 mb-3">First impressions matter. This is where you spend on appearance.</p>
+<p class="text-sm"><strong>Best choice:</strong> Imported porcelain (large format, 60×60 or 80×80) or polished concrete with a feature rug</p>
+<p class="text-sm"><strong>Budget option:</strong> Local porcelain with quality grout work</p>
+</div>
+</div>
+
+<div class="flex gap-6 items-start p-6 bg-gray-100 rounded-lg">
+<div class="w-16 h-16 bg-gray-700 text-white flex items-center justify-center text-xl font-black flex-shrink-0 rounded">WRK</div>
+<div>
+<h4 class="font-black text-lg mb-2">Open Plan Work Areas</h4>
+<p class="text-sm text-gray-700 mb-3">Acoustics and comfort matter here. Hard floors reflect sound; soft floors absorb it.</p>
+<p class="text-sm"><strong>Best choice:</strong> Carpet tiles—easy to replace damaged sections, reduces noise, hides cables</p>
+<p class="text-sm"><strong>Budget option:</strong> LVT with desk-mounted acoustic panels to compensate</p>
+</div>
+</div>
+
+<div class="flex gap-6 items-start p-6 bg-gray-100 rounded-lg">
+<div class="w-16 h-16 bg-gray-700 text-white flex items-center justify-center text-xl font-black flex-shrink-0 rounded">MTG</div>
+<div>
+<h4 class="font-black text-lg mb-2">Meeting Rooms</h4>
+<p class="text-sm text-gray-700 mb-3">Quiet and professional. Carpet helps acoustics; hard floors need rugs.</p>
+<p class="text-sm"><strong>Best choice:</strong> Carpet tiles (darker colors hide wear)</p>
+<p class="text-sm"><strong>Alternative:</strong> LVT wood-look with a large area rug under the table</p>
+</div>
+</div>
+
+<div class="flex gap-6 items-start p-6 bg-gray-100 rounded-lg">
+<div class="w-16 h-16 bg-gray-700 text-white flex items-center justify-center text-xl font-black flex-shrink-0 rounded">EXC</div>
+<div>
+<h4 class="font-black text-lg mb-2">Executive Offices</h4>
+<p class="text-sm text-gray-700 mb-3">Status signaling. Worth the premium if the CEO meets clients here.</p>
+<p class="text-sm"><strong>Best choice:</strong> Imported porcelain (marble-look or premium wood-look) with quality area rug</p>
+<p class="text-sm"><strong>Alternative:</strong> High-end LVT—looks like wood, easier maintenance</p>
+</div>
+</div>
+
+<div class="flex gap-6 items-start p-6 bg-yellow-50 rounded-lg">
+<div class="w-16 h-16 bg-yellow-600 text-white flex items-center justify-center text-xl font-black flex-shrink-0 rounded">KIT</div>
+<div>
+<h4 class="font-black text-lg mb-2">Kitchen / Pantry</h4>
+<p class="text-sm text-gray-700 mb-3">Water, spills, foot traffic. Durability and cleanability are everything.</p>
+<p class="text-sm"><strong>Best choice:</strong> Porcelain tile with anti-slip finish</p>
+<p class="text-sm"><strong>Avoid:</strong> Carpet (absorbs spills), unsealed concrete (stains), cheap vinyl (peels at edges)</p>
+</div>
+</div>
+
+<div class="flex gap-6 items-start p-6 bg-gray-100 rounded-lg">
+<div class="w-16 h-16 bg-gray-700 text-white flex items-center justify-center text-xl font-black flex-shrink-0 rounded">WC</div>
+<div>
+<h4 class="font-black text-lg mb-2">Toilets</h4>
+<p class="text-sm text-gray-700 mb-3">Wet, needs frequent cleaning, must be hygienic.</p>
+<p class="text-sm"><strong>Only choice:</strong> Porcelain tile, anti-slip rated (R10 or higher), proper waterproofing underneath</p>
+</div>
+</div>
+
+<div class="flex gap-6 items-start p-6 bg-gray-100 rounded-lg">
+<div class="w-16 h-16 bg-gray-700 text-white flex items-center justify-center text-xl font-black flex-shrink-0 rounded">SRV</div>
+<div>
+<h4 class="font-black text-lg mb-2">Server Room / IT</h4>
+<p class="text-sm text-gray-700 mb-3">Cable management, static control, dust resistance.</p>
+<p class="text-sm"><strong>Best choice:</strong> Raised access floor with vinyl or laminate tiles (allows cable routing below)</p>
+<p class="text-sm"><strong>Budget option:</strong> Epoxy with cable trays along walls</p>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="mb-20 pt-12 border-t border-gray-200">
+<h2 class="text-2xl md:text-4xl font-black text-gray-900 mb-8 uppercase tracking-tighter">Common Mistakes We See</h2>
+<div class="max-w-4xl space-y-6">
+
+<div class="p-6 bg-red-50 border-l-4 border-red-600">
+<h4 class="font-bold text-red-800 mb-2">1. Cheap Grout on Good Tiles</h4>
+<p class="text-sm text-gray-700">You spent on imported porcelain, then saved on grout. Within two years, the grout is cracking, discoloring, and letting water underneath. Quality epoxy grout costs more but lasts. Budget 15–20% of tile cost for proper grouting.</p>
+</div>
+
+<div class="p-6 bg-red-50 border-l-4 border-red-600">
+<h4 class="font-bold text-red-800 mb-2">2. No Subfloor Preparation</h4>
+<p class="text-sm text-gray-700">Tiles installed directly on uneven concrete crack. Vinyl over dusty concrete peels. Carpet over damp screed grows mold. Proper preparation—leveling, curing, priming—is invisible but essential. Skip it and you'll be replacing flooring in 3 years.</p>
+</div>
+
+<div class="p-6 bg-red-50 border-l-4 border-red-600">
+<h4 class="font-bold text-red-800 mb-2">3. Wrong Finish for the Space</h4>
+<p class="text-sm text-gray-700">Polished porcelain in a kitchen (slippery when wet). Light carpet in a high-traffic corridor (shows dirt immediately). Matte tiles in a showroom (doesn't reflect light, looks dull). Match the finish to the use.</p>
+</div>
+
+<div class="p-6 bg-red-50 border-l-4 border-red-600">
+<h4 class="font-bold text-red-800 mb-2">4. No Expansion Joints</h4>
+<p class="text-sm text-gray-700">Large tile areas without expansion joints crack when temperature changes. Addis has significant day/night temperature swings. Every 6–8 meters needs a movement joint, plus around columns and at doorways.</p>
+</div>
+
+<div class="p-6 bg-red-50 border-l-4 border-red-600">
+<h4 class="font-bold text-red-800 mb-2">5. Buying Just Enough</h4>
+<p class="text-sm text-gray-700">You ordered exactly 200m² for a 200m² space. Two years later, something cracks and that batch is discontinued. Always order 10–15% extra and store it. Finding matching tiles later is often impossible.</p>
+</div>
+
+</div>
+</section>
+
+<section class="mb-20 pt-12 border-t border-gray-200">
+<h2 class="text-2xl md:text-4xl font-black text-gray-900 mb-8 uppercase tracking-tighter">Our Recommendation for Most Offices</h2>
+<div class="max-w-4xl space-y-6 text-gray-600 leading-relaxed">
+
+<p>For a typical 300–500m² office in Addis, here's what we usually recommend:</p>
+
+<div class="overflow-x-auto my-8">
+<table class="w-full text-sm border-collapse">
+<thead>
+<tr class="bg-black text-white">
+<th class="p-4 text-left">Area</th>
+<th class="p-4 text-left">Flooring</th>
+<th class="p-4 text-left">% of Total</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-200">
+<tr class="bg-white">
+<td class="p-4">Reception, corridors, kitchen, WC</td>
+<td class="p-4">Porcelain tile (local good quality)</td>
+<td class="p-4">~30%</td>
+</tr>
+<tr class="bg-gray-50">
+<td class="p-4">Open work areas, meeting rooms</td>
+<td class="p-4">Carpet tiles (mid-range imported)</td>
+<td class="p-4">~55%</td>
+</tr>
+<tr class="bg-white">
+<td class="p-4">Executive offices</td>
+<td class="p-4">LVT wood-look + area rugs</td>
+<td class="p-4">~15%</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p>
+This mix keeps costs reasonable (around 1,500–2,000 ETB/m² average), provides good acoustics in work areas, and still looks professional for clients. The porcelain in high-wear areas lasts decades; the carpet tiles can be replaced in sections as needed.
+</p>
+
+<p class="p-4 bg-gray-100 border-l-4 border-gray-600 text-sm mt-6">
+<strong>Budget tip:</strong> If you need to cut costs, go with local porcelain everywhere and add area rugs in meeting rooms. You lose some acoustic comfort but save 25–30% on flooring. You can always add carpet tiles later if noise becomes an issue.
+</p>
+
+</div>
+</section>
+
+<section class="mt-20 p-12 md:p-16 border-4 border-black text-center rounded-sm bg-gray-50">
+<h3 class="text-3xl md:text-5xl font-black text-gray-900 mb-6 uppercase tracking-tighter leading-none">
+Need Flooring <br /><span class="text-red-600">Advice?</span>
+</h3>
+<p class="text-gray-600 mb-10 max-w-2xl mx-auto text-lg font-medium">
+Bring us your floor plan and we'll recommend materials, estimate costs, and source samples for you to compare.
+</p>
+<div class="flex flex-col sm:flex-row justify-center gap-6">
+<a href="/contact/" class="bg-black text-white px-12 py-5 font-black uppercase tracking-widest text-sm hover:bg-red-600 transition-all">
+Get a Free Flooring Quote →
+</a>
+<a href="/resources/materials/" class="px-10 py-5 bg-white border-2 border-black font-black uppercase text-sm flex items-center justify-center hover:bg-gray-100 transition-all">
+Browse Materials
+</a>
+</div>
+</section>
+`
   }
 ];
