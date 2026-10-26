@@ -1,35 +1,31 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-// Hardcoded key as requested to bypass environment variable issues
-const resend = new Resend('re_i3u1LBAY_KaSTg1hadfbL3gEsCqk2ieF3');
-
 export async function POST(req: Request) {
+  // Key lives in Vercel → Settings → Environment Variables, never in the code
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    console.error("RESEND_API_KEY is not set");
+    return NextResponse.json({ error: "Email service is not configured" }, { status: 500 });
+  }
+  const resend = new Resend(apiKey);
+
   try {
     const body = await req.json();
-    
+
     // Extracting fields from your form
-    const { name, email, phone, "project-type": projectType, message } = body;
+    const { name, email, phone, "project-type": projectType, area, budget, timeline, message } = body;
 
     const { data, error } = await resend.emails.send({
-      /**
-       * CHANGE 1: THE SENDER
-       * Now that you are verified, you MUST use an email from your domain.
-       * 'onboarding@resend.dev' will no longer work for external sending.
-       */
-      from: 'Duka Interiors <info@dukainteriors.com>', 
-      
-      /**
-       * CHANGE 2: THE RECIPIENT
-       * You can now send directly to your business email or your gmail.
-       */
-      to: 'contact@dukainteriors.com', 
-      
-      subject: `New Project Inquiry: ${name}`,
-      
+      // Must be an address on the verified dukainteriors.com domain
+      from: 'Duka Interiors <info@dukainteriors.com>',
+      to: 'contact@dukainteriors.com',
+
+      subject: `New Project Inquiry: ${name}${projectType ? ` – ${projectType}` : ''}`,
+
       // This allows you to click 'Reply' in your email app to talk to the customer
       replyTo: email,
-      
+
       text: `
         NEW LEAD DETAILS
         ================
@@ -37,10 +33,13 @@ export async function POST(req: Request) {
         Email: ${email}
         Phone: ${phone || 'Not provided'}
         Project: ${projectType}
-        
+        Area: ${area ? `${area} m²` : 'Not provided'}
+        Budget: ${budget || 'Not provided'}
+        Timeline: ${timeline || 'Not provided'}
+
         MESSAGE:
         ${message}
-        
+
         --------------------------------------------------
         This email was sent from the Duka Interiors Website.
       `,

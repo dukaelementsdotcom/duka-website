@@ -5,7 +5,7 @@ Duka Interiors PLC: interior design and build firm in Addis Ababa, Ethiopia (sin
 ## Stack and workflow
 - Next.js site at https://www.dukainteriors.com, hosted on Vercel.
 - Workflow: edit in VS Code, commit and push with GitHub Desktop, Vercel deploys automatically.
-- Use a new branch for each batch of changes, check the Vercel preview, merge into main when approved.
+- Use a new branch for each batch of changes. Claude builds and checks it locally, pushes, opens a pull request, waits for the Vercel check, then merges into main (= live site) without asking. Standing approval from Dagmawi, 26 Oct 2026.
 - Never commit .env files or secrets. Keep the repository private.
 
 ## 1. Website audit fixes (Oct 2026) – do these first
@@ -23,18 +23,18 @@ Duka Interiors PLC: interior design and build firm in Addis Ababa, Ethiopia (sin
 - [x] Add LocalBusiness structured data.
 
 ### Content
-- [ ] Fix "Scheinder" to "Schneider" in the Schneider Electric showroom project (done). Resolve its location conflict (Bambis vs Bole).
+- [x] Fix "Scheinder" to "Schneider" in the Schneider Electric showroom project. Location confirmed: Bambis.
 - [x] Use "Since 2015" everywhere. Remove "9+ years" from the Interior Design page.
 - [ ] Testimonial: add a name and company, then more quotes.
-- [ ] Back up or soften "best", "leading", "transparent fixed costs" and "Used by 150+ businesses".
-- [ ] Case study template: client, location, m², scope, timeline, challenge, result, and a "Get a quote" call to action.
+- [x] Back up or soften "best", "leading", "transparent fixed costs" and "Used by 150+ businesses".
+- [x] Case study template: client, location, m², scope, timeline, challenge, result, and a "Get a quote" call to action.
 - [x] Fix the raw HTML showing in the third blog post's excerpt on /resources/.
 - [ ] Team page: fix LinkedIn links set to "#", and check photo files against the names shown.
 
 ### Conversion
 - [ ] Estimator: add ETB price ranges and lead capture (name and phone before sending the result).
-- [ ] Contact form: add the missing project types (Partitioning, Branding & Signage, Technology, Renovation). Add fields for budget, area (m²) and timeline.
-- [ ] Use one destination for the "Free Consultation" button (it goes to Telegram on About and to /contact/ elsewhere).
+- [x] Contact form: add the missing project types (Partitioning, Branding & Signage, Technology, Renovation). Add fields for budget, area (m²) and timeline.
+- [x] Use one destination for the "Free Consultation" button (it goes to Telegram on About and to /contact/ elsewhere).
 - [x] Hide Products ("Coming soon") from the menu until it launches. Make header and footer menu labels match. Show opening hours.
 
 ## 2. Planned builds – discuss before building

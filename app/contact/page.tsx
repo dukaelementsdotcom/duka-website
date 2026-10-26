@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Navbar from '@/app/components/NavBar';
 import Footer from '@/app/components/Footer';
+import { CONTACT, whatsappLink } from '@/lib/siteConfig';
 
 export default function ContactPage() {
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
@@ -171,9 +172,55 @@ export default function ContactPage() {
                       className="w-full bg-transparent border-b border-gray-300 py-3 outline-none focus:border-black transition-all font-medium text-lg appearance-none cursor-pointer"
                     >
                       <option value="">Select Service</option>
-                      <option value="office">Office Fit-out</option>
-                      <option value="residential">Residential Design</option>
-                      <option value="furniture">Custom Furniture</option>
+                      <option value="Office Fit-out">Office Fit-out</option>
+                      <option value="Office Partitioning">Office Partitioning</option>
+                      <option value="Renovation">Renovation</option>
+                      <option value="Residential Design">Residential Design</option>
+                      <option value="Custom Furniture">Custom Furniture</option>
+                      <option value="Branding & Signage">Branding & Signage</option>
+                      <option value="Technology">Technology (lighting, network, AV)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+                  <div className="relative group">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 group-focus-within:text-red-600 transition-colors">Area (m²)</label>
+                    <input
+                      name="area"
+                      type="number"
+                      min="1"
+                      inputMode="numeric"
+                      className="w-full bg-transparent border-b border-gray-300 py-3 outline-none focus:border-black transition-all font-medium text-lg"
+                      placeholder="e.g. 250"
+                    />
+                  </div>
+                  <div className="relative group">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 group-focus-within:text-red-600 transition-colors">Budget (ETB)</label>
+                    <select
+                      name="budget"
+                      className="w-full bg-transparent border-b border-gray-300 py-3 outline-none focus:border-black transition-all font-medium text-lg appearance-none cursor-pointer"
+                    >
+                      <option value="">Select range</option>
+                      <option value="Under 500,000 ETB">Under 500,000</option>
+                      <option value="500,000 – 1,000,000 ETB">500,000 – 1M</option>
+                      <option value="1M – 3M ETB">1M – 3M</option>
+                      <option value="3M – 10M ETB">3M – 10M</option>
+                      <option value="Over 10M ETB">Over 10M</option>
+                      <option value="Not sure yet">Not sure yet</option>
+                    </select>
+                  </div>
+                  <div className="relative group">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 group-focus-within:text-red-600 transition-colors">Timeline</label>
+                    <select
+                      name="timeline"
+                      className="w-full bg-transparent border-b border-gray-300 py-3 outline-none focus:border-black transition-all font-medium text-lg appearance-none cursor-pointer"
+                    >
+                      <option value="">When to start?</option>
+                      <option value="As soon as possible">As soon as possible</option>
+                      <option value="Within 1–3 months">Within 1–3 months</option>
+                      <option value="In 3–6 months">In 3–6 months</option>
+                      <option value="Just exploring">Just exploring</option>
                     </select>
                   </div>
                 </div>
@@ -203,8 +250,14 @@ export default function ContactPage() {
                 </div>
 
                 {status === "error" && (
-                  <div className="p-4 bg-red-50 text-red-600 text-[10px] font-black uppercase tracking-widest border border-red-100 animate-pulse">
-                    Error // {errorMessage}
+                  <div role="alert" className="p-4 bg-red-50 text-red-700 text-sm border border-red-100 space-y-2">
+                    <p className="text-[10px] font-black uppercase tracking-widest">Your message could not be sent ({errorMessage})</p>
+                    <p>
+                      Please reach us directly on{' '}
+                      <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="font-bold underline">WhatsApp</a>,
+                      call <a href={`tel:${CONTACT.phones[0].number}`} className="font-bold underline">{CONTACT.phones[0].label}</a>,
+                      or email <a href={`mailto:${CONTACT.email}`} className="font-bold underline">{CONTACT.email}</a>.
+                    </p>
                   </div>
                 )}
               </form>
