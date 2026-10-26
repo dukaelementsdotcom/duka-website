@@ -14,7 +14,7 @@ import GlobalProtection from "./components/GlobalProtection";
 const geistSans = GeistSans;
 const geistMono = GeistMono;
 
-const HOME_TITLE = "Interior Design & Office Fit-Out in Addis Ababa | Duka Interiors";
+const HOME_TITLE = "Interior Design & Fit-Out in Addis Ababa | Duka Interiors";
 const HOME_DESCRIPTION =
   "Design-and-build interior firm in Addis Ababa since 2015. Office partitioning, renovation, fit-out and custom furniture for companies across Ethiopia.";
 

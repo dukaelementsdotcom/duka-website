@@ -11,31 +11,31 @@ Duka Interiors PLC: interior design and build firm in Addis Ababa, Ethiopia (sin
 ## 1. Website audit fixes (Oct 2026) – do these first
 
 ### SEO and technical
-- [ ] Give every page its own title (≤60 chars), meta description (≤160 chars), og:title and og:url. About, Contact, Projects, Resources, Estimate and Products currently copy the homepage's. Service pages point og:url at the homepage, and project pages have no og:url.
-- [ ] Server-render /projects/. Without JavaScript it only shows "Loading Projects Portfolio...".
-- [ ] Homepage counters show "0+ Projects / 0+ Clients / 0+ Years" in the page HTML. Put the real numbers in the HTML.
-- [ ] sitemap.xml: use www and trailing slashes (the site serves https://www.dukainteriors.com/about/). Add the blog posts, /estimate/, /resources/materials/ and /resources/faq/. Use real lastmod dates. Point robots.txt at the www sitemap.
-- [ ] Shorten titles on service and project pages (remove the duplicate "| Duka Interiors Addis Ababa"). Trim meta descriptions over 160 chars.
-- [ ] Replace the "thumbnail" alt text in project galleries with real descriptions.
-- [ ] Fix the empty-URL LinkedIn and Telegram share links on project pages.
-- [ ] Add `sizes` to large images (they currently request w=3840). Serve the SVG logo directly instead of through /_next/image.
-- [ ] Fix heading order (H2 jumps to H4 on service pages). Remove the meta keywords tag.
-- [ ] Add LocalBusiness structured data.
+- [x] Give every page its own title (≤60 chars), meta description (≤160 chars), og:title and og:url. About, Contact, Projects, Resources, Estimate and Products currently copy the homepage's. Service pages point og:url at the homepage, and project pages have no og:url.
+- [x] Server-render /projects/. Without JavaScript it only shows "Loading Projects Portfolio...".
+- [x] Homepage counters show "0+ Projects / 0+ Clients / 0+ Years" in the page HTML. Put the real numbers in the HTML.
+- [x] sitemap.xml: use www and trailing slashes (the site serves https://www.dukainteriors.com/about/). Add the blog posts, /estimate/, /resources/materials/ and /resources/faq/. Use real lastmod dates. Point robots.txt at the www sitemap.
+- [x] Shorten titles on service and project pages (remove the duplicate "| Duka Interiors Addis Ababa"). Trim meta descriptions over 160 chars.
+- [x] Replace the "thumbnail" alt text in project galleries with real descriptions.
+- [x] Fix the empty-URL LinkedIn and Telegram share links on project pages.
+- [x] Add `sizes` to large images (they currently request w=3840). Serve the SVG logo directly instead of through /_next/image.
+- [x] Fix heading order (H2 jumps to H4 on service pages). Remove the meta keywords tag.
+- [x] Add LocalBusiness structured data.
 
 ### Content
-- [ ] Fix "Scheinder" to "Schneider" in the Schneider Electric showroom project. Resolve its location conflict (Bambis vs Bole).
-- [ ] Use "Since 2015" everywhere. Remove "9+ years" from the Interior Design page.
+- [ ] Fix "Scheinder" to "Schneider" in the Schneider Electric showroom project (done). Resolve its location conflict (Bambis vs Bole).
+- [x] Use "Since 2015" everywhere. Remove "9+ years" from the Interior Design page.
 - [ ] Testimonial: add a name and company, then more quotes.
 - [ ] Back up or soften "best", "leading", "transparent fixed costs" and "Used by 150+ businesses".
 - [ ] Case study template: client, location, m², scope, timeline, challenge, result, and a "Get a quote" call to action.
-- [ ] Fix the raw HTML showing in the third blog post's excerpt on /resources/.
+- [x] Fix the raw HTML showing in the third blog post's excerpt on /resources/.
 - [ ] Team page: fix LinkedIn links set to "#", and check photo files against the names shown.
 
 ### Conversion
 - [ ] Estimator: add ETB price ranges and lead capture (name and phone before sending the result).
 - [ ] Contact form: add the missing project types (Partitioning, Branding & Signage, Technology, Renovation). Add fields for budget, area (m²) and timeline.
 - [ ] Use one destination for the "Free Consultation" button (it goes to Telegram on About and to /contact/ elsewhere).
-- [ ] Hide Products ("Coming soon") from the menu until it launches. Make header and footer menu labels match. Show opening hours.
+- [x] Hide Products ("Coming soon") from the menu until it launches. Make header and footer menu labels match. Show opening hours.
 
 ## 2. Planned builds – discuss before building
 
