@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { SITE_URL } from "@/lib/seo";
+import { SITE_URL, organizationSchema, websiteSchema, breadcrumbSchema } from "@/lib/seo";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
@@ -65,6 +65,7 @@ export default function RootLayout({
   const logoPath = "/images/icons-duka-interiors/logo-duka-interiors-big.svg";
   const fullLogoUrl = `https://www.dukainteriors.com${logoPath}`;
 
+  // LocalBusiness schema (specific to physical business location)
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
@@ -75,8 +76,8 @@ export default function RootLayout({
     "email": "contact@dukainteriors.com",
     "foundingDate": "2015",
     "founder": [
-      { "@type": "Person", "name": "Dagmawi Tilahun" },
-      { "@type": "Person", "name": "Henok Teshome" }
+      { "@type": "Person", "name": "Dagmawi Tilahun", "jobTitle": "CEO & Architect" },
+      { "@type": "Person", "name": "Henok Teshome", "jobTitle": "COO & Architect" }
     ],
     "address": {
       "@type": "PostalAddress",
@@ -126,20 +127,49 @@ export default function RootLayout({
       "https://www.instagram.com/dukainteriors",
       "https://www.linkedin.com/company/duka-interiors",
       "https://www.facebook.com/dukainteriors",
-      "https://www.tiktok.com/@duka.interiors.plc"
+      "https://www.tiktok.com/@duka.interiors.plc",
+      "https://wa.me/251940607055"
+    ],
+    "knowsAbout": [
+      "Interior Design",
+      "Office Partitioning",
+      "Office Renovation",
+      "Custom Furniture",
+      "Commercial Fit-Out",
+      "Space Planning"
+    ],
+    "makesOffer": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Interior Design",
+          "description": "Professional office interior design and space planning"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Office Partitioning",
+          "description": "Glass and GWB office partitioning systems"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Office Renovation",
+          "description": "Complete office renovation and fit-out services"
+        }
+      }
     ]
   };
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [{
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://www.dukainteriors.com"
-    }]
-  };
+  // Generate Organization and WebSite schemas from lib/seo
+  const orgSchema = organizationSchema();
+  const siteSchema = websiteSchema();
+  const homeBreadcrumb = breadcrumbSchema([{ name: 'Home', url: '/' }]);
 
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
@@ -174,7 +204,7 @@ export default function RootLayout({
           }
         ` }} />
         
-        {/* Schema markup */}
+        {/* Schema markup - multiple schemas for rich results */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -184,7 +214,19 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(breadcrumbSchema)
+            __html: JSON.stringify(orgSchema)
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(siteSchema)
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(homeBreadcrumb)
           }}
         />
         

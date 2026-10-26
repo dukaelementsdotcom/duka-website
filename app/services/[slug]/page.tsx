@@ -8,7 +8,7 @@ import React, { use } from 'react';
 import type { Metadata } from 'next';
 import fs from 'fs';
 import path from 'path';
-import { pageMeta } from '@/lib/seo';
+import { pageMeta, serviceSchema, breadcrumbSchema } from '@/lib/seo';
 
 // 1. Tell Next.js which paths to pre-render at build time
 export async function generateStaticParams() {
@@ -65,28 +65,34 @@ export default function ServiceDetail({ params }: PageProps) {
     );
   }
 
-  // DYNAMIC SERVICE SCHEMA for AI Search Models (FIXED TRAILING SPACES)
-  const serviceSchema = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "name": `${service.title} Services in Addis Ababa`,
-    "description": service.longDesc,
-    "provider": {
-      "@type": "LocalBusiness",
-      "name": "Duka Interiors P.L.C",
-      "url": "https://www.dukainteriors.com"
-    },
-    "areaServed": {
-      "@type": "City",
-      "name": "Addis Ababa"
-    },
-    "serviceType": service.title,
-    "offers": {
-      "@type": "Offer",
-      "businessFunction": "ProvideService",
-      "areaServed": "ET"
-    }
-  };
+  // Generate structured data from lib/seo
+  const serviceStructuredData = serviceSchema({
+    name: service.title,
+    description: service.longDesc,
+    slug: service.slug,
+    image: service.image,
+  });
+
+  // Breadcrumb structured data
+  const breadcrumbData = breadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Services', url: '/services/' },
+    { name: service.title, url: `/services/${service.slug}/` },
+  ]);
+
+  // HowTo schema for services with process steps
+  const howToSchema = service.processSteps ? {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: `${service.title} Process in Addis Ababa`,
+    description: `How Duka Interiors delivers ${service.title.toLowerCase()} services`,
+    step: service.processSteps.map((step, i) => ({
+      '@type': 'HowToStep',
+      position: i + 1,
+      name: step.title,
+      text: step.description,
+    })),
+  } : null;
 
   // Format breadcrumb text naturally
   const breadcrumbText = service.title
@@ -98,8 +104,18 @@ export default function ServiceDetail({ params }: PageProps) {
     <div className="min-h-screen bg-white selection:bg-red-600 selection:text-white">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceStructuredData) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
+      />
+      {howToSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+        />
+      )}
       <NavBar />
 
       <main className="pt-24 md:pt-32">
