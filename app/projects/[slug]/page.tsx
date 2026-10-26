@@ -4,7 +4,7 @@ import path from 'path';
 import { notFound } from 'next/navigation';
 import ProjectClient from './ProjectClient';
 import { Metadata } from 'next';
-import { pageMeta } from '@/lib/seo';
+import { pageMeta, projectSchema, breadcrumbSchema, SITE_URL } from '@/lib/seo';
 
 function getProjectsData() {
   const filePath = path.join(process.cwd(), 'public/data/projects.json');
@@ -48,20 +48,45 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
   if (!project) notFound();
 
-  // SCHEMA FOR SINGLE PROJECT
-  const projectSchema = {
-    "@context": "https://schema.org",
-    "@type": "CreativeWork",
-    "name": project.title,
-    "creator": { "@type": "Organization", "name": "Duka Interiors" },
-    "locationCreated": { "@type": "Place", "name": project.location },
-    "image": project.image,
-    "description": `A ${project.type} project delivered in Addis Ababa.`
+  // Generate structured data for this project
+  const projectStructuredData = projectSchema({
+    title: project.title,
+    slug: project.slug,
+    type: project.type,
+    location: project.location,
+    description: project.description,
+    image: project.image,
+    year: project.year,
+    client: project.client,
+  });
+
+  // Breadcrumb structured data
+  const breadcrumbData = breadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Projects', url: '/projects/' },
+    { name: project.title, url: `/projects/${project.slug}/` },
+  ]);
+
+  // ImageGallery schema for all project images
+  const galleryImages = project.images || [project.image];
+  const imageGallerySchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ImageGallery',
+    name: `${project.title} - Interior Design Photos`,
+    description: `Interior design photos of ${project.title} by Duka Interiors`,
+    image: galleryImages.map((img: string) => ({
+      '@type': 'ImageObject',
+      contentUrl: img.startsWith('http') ? img : `${SITE_URL}${img}`,
+      description: `${project.title} interior design by Duka Interiors`,
+      creator: { '@type': 'Organization', name: 'Duka Interiors' },
+    })),
   };
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(projectStructuredData) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(imageGallerySchema) }} />
       <ProjectClient project={project} allProjects={allProjects} slug={slug} />
     </>
   );

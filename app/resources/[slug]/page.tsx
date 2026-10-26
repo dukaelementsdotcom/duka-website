@@ -4,7 +4,7 @@ import NavBar from '../../components/NavBar';
 import Footer from '../../components/Footer';
 import Link from 'next/link';
 import React, { use } from 'react';
-import { pageMeta } from '@/lib/seo';
+import { pageMeta, articleSchema, breadcrumbSchema } from '@/lib/seo';
 
 // Pre-rendering all blog paths
 export async function generateStaticParams() {
@@ -61,8 +61,31 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
     );
   }
 
+  // Generate structured data for this article
+  const articleStructuredData = articleSchema({
+    title: post.title,
+    slug: post.slug,
+    description: post.excerpt,
+    date: post.date,
+    image: post.image,
+  });
+
+  const breadcrumbData = breadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Insights', url: '/resources/' },
+    { name: post.title.length > 40 ? post.title.split(':')[0] : post.title, url: `/resources/${post.slug}/` },
+  ]);
+
   return (
     <div className="min-h-screen bg-white selection:bg-red-600 selection:text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleStructuredData) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
+      />
       <NavBar />
       <main className="pt-32 pb-20 px-6">
         <article className="max-w-4xl mx-auto">

@@ -44,7 +44,7 @@ const nextConfig: NextConfig = {
     cpus: Math.max(2, Math.floor(require('os').cpus().length / 2)),
   },
   
-  // ✅ SECURITY & CACHING HEADERS
+  // ✅ SECURITY & CACHING HEADERS (Enhanced for SEO)
   async headers() {
     return [
       // Security headers for all pages
@@ -55,20 +55,54 @@ const nextConfig: NextConfig = {
           { key: 'X-Frame-Options', value: 'DENY' },
           { key: 'X-XSS-Protection', value: '1; mode=block' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+          { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+          // Content Security Policy (adjust as needed)
+          {
+            key: 'Content-Security-Policy',
+            value: "frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://wa.me https://t.me"
+          },
         ],
       },
-      // Immutable caching for images
+      // SEO: Preconnect hints for critical origins (moved to headers for HTTP/2 push)
+      {
+        source: '/',
+        headers: [
+          { key: 'Link', value: '<https://fonts.gstatic.com>; rel=preconnect; crossorigin' },
+        ],
+      },
+      // Immutable caching for images (1 year)
       {
         source: '/_next/image/:path*',
         headers: [
           { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
         ],
       },
-      // Immutable caching for static assets
+      // Immutable caching for static assets (1 year)
       {
         source: '/_next/static/:path*',
         headers: [
           { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+        ],
+      },
+      // Cache public images
+      {
+        source: '/images/:path*',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=86400, stale-while-revalidate=604800' },
+        ],
+      },
+      // Cache JSON data files
+      {
+        source: '/data/:path*',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=3600, stale-while-revalidate=86400' },
+        ],
+      },
+      // SEO: SVG logo should be cached
+      {
+        source: '/images/icons-duka-interiors/:path*',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=604800, immutable' },
         ],
       },
     ];
