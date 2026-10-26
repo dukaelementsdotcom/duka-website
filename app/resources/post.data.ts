@@ -893,5 +893,320 @@ Est. 2026 | Addis Ababa
   </p>
 </section>
 `
+  },
+  {
+    slug: 'glass-vs-gypsum-office-partitions-ethiopia',
+    category: 'TECHNICAL GUIDE',
+    title: 'Glass vs Gypsum Partitions: Choosing the Right Office Dividers for Your Addis Ababa Workspace',
+    date: 'Oct 26, 2026',
+    image: '/images/duka-interiors-portfolio/dereja-office-interior-partition-work/modern-open-plan-office-layout-addis.webp',
+    excerpt: 'A practical comparison of glass and gypsum board partitions for Ethiopian offices—covering cost, acoustics, installation time, and which works best for different spaces.',
+    content: `
+<section class="mb-16 md:mb-24">
+<h1 class="text-3xl md:text-5xl font-bold tracking-tight text-gray-900 mb-8 leading-tight">
+Glass vs Gypsum Partitions:<br />
+<span class="text-red-600">The Right Choice</span> for Your Office.
+</h1>
+<div class="max-w-4xl space-y-6">
+<p class="text-lg md:text-xl text-gray-800 leading-relaxed font-medium italic border-l-4 border-red-600 pl-6">
+When planning an office fit-out in Addis Ababa, one of the first decisions you'll face is how to divide your space. The two dominant options in the Ethiopian market—aluminum-framed glass partitions and gypsum board (GWB) walls—each come with distinct advantages, costs, and trade-offs.
+</p>
+<p class="text-base md:text-lg text-gray-600 leading-relaxed">
+This guide breaks down everything you need to know: material costs, installation timelines, acoustic performance, and which option works best for different areas of your office. Based on our experience delivering partition systems across Bole, Kazanchis, and the Addis Ababa Financial District, we'll help you make an informed decision that balances budget, aesthetics, and functionality.
+</p>
+</div>
+</section>
+
+<section class="mb-20 pt-12 border-t border-gray-200">
+<h2 class="text-2xl md:text-4xl font-black text-gray-900 mb-8 uppercase tracking-tighter">01. The Two Main Options</h2>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+<div class="p-8 bg-blue-50 border-2 border-blue-200">
+<h3 class="text-2xl font-black text-blue-900 uppercase mb-4">Glass Partitions</h3>
+<p class="text-sm leading-relaxed text-blue-800 mb-4">
+Aluminum-framed systems with single or double glazing. Available in clear, frosted, or tinted glass. Can include logo films, sandblasted patterns, or full-height doors.
+</p>
+<div class="space-y-2 text-sm">
+<p><strong>Best for:</strong> Reception areas, executive offices, meeting rooms, spaces requiring natural light</p>
+<p><strong>Addis Market Price:</strong> 14,500–16,500 ETB per m² (installed)</p>
+</div>
+</div>
+
+<div class="p-8 bg-gray-100 border-2 border-gray-300">
+<h3 class="text-2xl font-black text-gray-900 uppercase mb-4">Gypsum Board (GWB)</h3>
+<p class="text-sm leading-relaxed text-gray-700 mb-4">
+Steel stud framing with gypsum board on both sides. Can be painted any color, fitted with acoustic insulation, and easily modified for electrical outlets and data points.
+</p>
+<div class="space-y-2 text-sm">
+<p><strong>Best for:</strong> Private offices, server rooms, storage, toilets, areas requiring full privacy</p>
+<p><strong>Addis Market Price:</strong> 2,800–3,500 ETB per m² (installed)</p>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="mb-20 pt-12 border-t border-gray-200">
+<h2 class="text-2xl md:text-4xl font-black text-gray-900 mb-8 uppercase tracking-tighter">02. Head-to-Head Comparison</h2>
+
+<div class="overflow-x-auto">
+<table class="w-full text-sm border-collapse">
+<thead>
+<tr class="bg-gray-900 text-white">
+<th class="p-4 text-left font-black uppercase tracking-wider">Factor</th>
+<th class="p-4 text-left font-black uppercase tracking-wider">Glass Partition</th>
+<th class="p-4 text-left font-black uppercase tracking-wider">Gypsum Board</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-200">
+<tr class="bg-white">
+<td class="p-4 font-bold">Cost per m²</td>
+<td class="p-4">14,500–16,500 ETB</td>
+<td class="p-4 text-green-700 font-bold">2,800–3,500 ETB ✓</td>
+</tr>
+<tr class="bg-gray-50">
+<td class="p-4 font-bold">Installation Time</td>
+<td class="p-4">3–5 days per 50m²</td>
+<td class="p-4 text-green-700 font-bold">2–3 days per 50m² ✓</td>
+</tr>
+<tr class="bg-white">
+<td class="p-4 font-bold">Sound Insulation</td>
+<td class="p-4">25–35 dB (single glass)</td>
+<td class="p-4 text-green-700 font-bold">40–50 dB (with insulation) ✓</td>
+</tr>
+<tr class="bg-gray-50">
+<td class="p-4 font-bold">Natural Light</td>
+<td class="p-4 text-green-700 font-bold">100% transmission ✓</td>
+<td class="p-4">0% (solid wall)</td>
+</tr>
+<tr class="bg-white">
+<td class="p-4 font-bold">Visual Privacy</td>
+<td class="p-4">Low (clear) / Medium (frosted)</td>
+<td class="p-4 text-green-700 font-bold">100% private ✓</td>
+</tr>
+<tr class="bg-gray-50">
+<td class="p-4 font-bold">Flexibility</td>
+<td class="p-4 text-green-700 font-bold">Easy to relocate ✓</td>
+<td class="p-4">Permanent (requires demolition)</td>
+</tr>
+<tr class="bg-white">
+<td class="p-4 font-bold">Electrical Integration</td>
+<td class="p-4">Limited (surface-mounted only)</td>
+<td class="p-4 text-green-700 font-bold">Full integration ✓</td>
+</tr>
+<tr class="bg-gray-50">
+<td class="p-4 font-bold">Maintenance</td>
+<td class="p-4">Regular cleaning required</td>
+<td class="p-4 text-green-700 font-bold">Minimal (repaint every 3–5 years) ✓</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section class="mb-20 pt-12 border-t border-gray-200">
+<h2 class="text-2xl md:text-4xl font-black text-gray-900 mb-8 uppercase tracking-tighter">03. Glass Partition Types Available in Ethiopia</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+<div class="p-6 bg-gray-50 border-l-4 border-red-600">
+<h4 class="font-bold text-gray-900 mb-2">Single Glass (Aluminum Frame)</h4>
+<p class="text-sm text-gray-600 mb-3">Standard 10mm tempered glass in powder-coated aluminum frame. Good for general office use.</p>
+<p class="text-xs font-bold text-red-600">14,500 ETB/m²</p>
+</div>
+
+<div class="p-6 bg-gray-50 border-l-4 border-red-600">
+<h4 class="font-bold text-gray-900 mb-2">Double Glass (Soundproof)</h4>
+<p class="text-sm text-gray-600 mb-3">Two glass panels with air gap for superior acoustic insulation. Ideal for meeting rooms and executive offices.</p>
+<p class="text-xs font-bold text-red-600">16,500 ETB/m²</p>
+</div>
+
+<div class="p-6 bg-gray-50 border-l-4 border-red-600">
+<h4 class="font-bold text-gray-900 mb-2">Frameless Tempered</h4>
+<p class="text-sm text-gray-600 mb-3">12mm tempered glass with minimal hardware. Premium aesthetic for high-end reception and feature walls.</p>
+<p class="text-xs font-bold text-red-600">15,500 ETB/m²</p>
+</div>
+
+</div>
+
+<div class="mt-8 p-6 bg-black text-white">
+<h4 class="font-black text-red-500 uppercase tracking-widest text-xs mb-3">Glass Enhancement Options</h4>
+<ul class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+<li>• <strong>Sandblasted sticker:</strong> 1,200 ETB/m² — privacy bands, patterns, or full frosting</li>
+<li>• <strong>Logo film:</strong> 800–2,000 ETB per logo — company branding on glass</li>
+<li>• <strong>Colored film:</strong> 950 ETB/m² — tinted privacy without replacing glass</li>
+<li>• <strong>Smart glass:</strong> On request — electronically switchable privacy (imported)</li>
+</ul>
+</div>
+</section>
+
+<section class="mb-20 pt-12 border-t border-gray-200">
+<h2 class="text-2xl md:text-4xl font-black text-gray-900 mb-8 uppercase tracking-tighter">04. When to Use Each Type</h2>
+
+<div class="space-y-6">
+
+<div class="flex gap-6 items-start p-6 bg-blue-50 rounded-lg">
+<div class="w-16 h-16 bg-blue-600 text-white flex items-center justify-center text-2xl font-black flex-shrink-0">G</div>
+<div>
+<h4 class="font-black text-lg mb-2">Use Glass For:</h4>
+<ul class="text-sm text-gray-700 space-y-1">
+<li>• <strong>Reception areas</strong> — first impressions matter; glass conveys modernity and openness</li>
+<li>• <strong>Executive offices</strong> — visibility signals approachability while maintaining status</li>
+<li>• <strong>Meeting rooms</strong> — double glass for soundproofing with visual connection</li>
+<li>• <strong>Interior offices without windows</strong> — borrowed light keeps spaces bright</li>
+<li>• <strong>Spaces you may reconfigure</strong> — glass systems can be disassembled and moved</li>
+</ul>
+</div>
+</div>
+
+<div class="flex gap-6 items-start p-6 bg-gray-100 rounded-lg">
+<div class="w-16 h-16 bg-gray-800 text-white flex items-center justify-center text-2xl font-black flex-shrink-0">W</div>
+<div>
+<h4 class="font-black text-lg mb-2">Use Gypsum Board For:</h4>
+<ul class="text-sm text-gray-700 space-y-1">
+<li>• <strong>Server rooms and IT areas</strong> — full privacy, easy cable management, fire-rated options</li>
+<li>• <strong>Finance and HR offices</strong> — confidential conversations require acoustic isolation</li>
+<li>• <strong>Storage and archive rooms</strong> — no need for visibility; cost efficiency matters</li>
+<li>• <strong>Toilets and wet areas</strong> — moisture-resistant gypsum available</li>
+<li>• <strong>Budget-conscious fit-outs</strong> — 4–5× cheaper than glass</li>
+</ul>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="mb-20 pt-12 border-t border-gray-200">
+<h2 class="text-2xl md:text-4xl font-black text-gray-900 mb-8 uppercase tracking-tighter">05. The Duka Recommendation: The 70/30 Split</h2>
+
+<div class="max-w-4xl space-y-6 text-gray-600 leading-relaxed">
+<p>
+For most Addis Ababa offices, we recommend a <strong>70% gypsum / 30% glass</strong> partition split. This ratio delivers the best balance of cost, acoustics, and aesthetics.
+</p>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-8">
+<div class="p-6 border-2 border-gray-200">
+<h4 class="font-black text-gray-900 mb-3">Example: 500m² Office</h4>
+<ul class="text-sm space-y-2">
+<li>Total partition area: ~180m² (walls)</li>
+<li>GWB (70%): 126m² × 3,000 = <strong>378,000 ETB</strong></li>
+<li>Glass (30%): 54m² × 15,000 = <strong>810,000 ETB</strong></li>
+<li class="pt-2 border-t font-bold">Total: 1,188,000 ETB</li>
+</ul>
+</div>
+
+<div class="p-6 border-2 border-red-200 bg-red-50">
+<h4 class="font-black text-gray-900 mb-3">If 100% Glass</h4>
+<ul class="text-sm space-y-2">
+<li>Total partition area: ~180m²</li>
+<li>Glass (100%): 180m² × 15,000 = <strong>2,700,000 ETB</strong></li>
+<li class="pt-2 border-t font-bold text-red-600">+127% more expensive</li>
+</ul>
+</div>
+</div>
+
+<p>
+<strong>Where to place the 30% glass:</strong> Reception frontage, CEO/MD office, main boardroom, and one or two feature meeting rooms. The rest—finance, HR, IT, storage, general private offices—uses gypsum for cost efficiency and better acoustics.
+</p>
+</div>
+</section>
+
+<section class="mb-20 pt-12 border-t border-gray-200">
+<h2 class="text-2xl md:text-4xl font-black text-gray-900 mb-8 uppercase tracking-tighter">06. Installation Considerations for Addis</h2>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="space-y-4">
+<h4 class="font-black text-gray-900 uppercase text-sm tracking-widest">Glass Partition Installation</h4>
+<ul class="text-sm text-gray-600 space-y-2">
+<li>• <strong>Lead time:</strong> 2–3 weeks for aluminum frame fabrication</li>
+<li>• <strong>Glass sourcing:</strong> Tempered glass cut to order locally; specialty glass imported (4–6 weeks)</li>
+<li>• <strong>Floor preparation:</strong> Must be level within 3mm over 3m span</li>
+<li>• <strong>Ceiling attachment:</strong> Requires solid ceiling or dedicated track</li>
+<li>• <strong>Power outage impact:</strong> Minimal (no wet work)</li>
+</ul>
+</div>
+
+<div class="space-y-4">
+<h4 class="font-black text-gray-900 uppercase text-sm tracking-widest">Gypsum Board Installation</h4>
+<ul class="text-sm text-gray-600 space-y-2">
+<li>• <strong>Lead time:</strong> Materials available immediately from local suppliers</li>
+<li>• <strong>Dust and mess:</strong> Significant—plan for cleaning or install before moving in</li>
+<li>• <strong>Painting:</strong> Requires 2–3 coats; add 2–3 days drying time</li>
+<li>• <strong>Electrical:</strong> Plan outlet and switch locations before closing walls</li>
+<li>• <strong>Fire rating:</strong> Standard GWB is 1-hour rated; specify fire-rated for server rooms</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="mb-20 pt-12 border-t border-gray-200">
+<h2 class="text-2xl md:text-4xl font-black text-gray-900 mb-8 uppercase tracking-tighter">07. Acoustic Considerations</h2>
+
+<div class="max-w-4xl space-y-6 text-gray-600 leading-relaxed">
+<p>
+Sound privacy is often underestimated during planning—and regretted after move-in. Here's what different partition types actually deliver:
+</p>
+
+<div class="overflow-x-auto my-8">
+<table class="w-full text-sm border-collapse">
+<thead>
+<tr class="bg-gray-900 text-white">
+<th class="p-4 text-left">Partition Type</th>
+<th class="p-4 text-left">STC Rating</th>
+<th class="p-4 text-left">What You'll Hear</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-200">
+<tr class="bg-white">
+<td class="p-4">Single glass (10mm)</td>
+<td class="p-4">STC 25–28</td>
+<td class="p-4 text-red-600">Normal speech clearly audible</td>
+</tr>
+<tr class="bg-gray-50">
+<td class="p-4">Double glass (6mm+6mm)</td>
+<td class="p-4">STC 35–38</td>
+<td class="p-4 text-yellow-600">Loud speech audible but not intelligible</td>
+</tr>
+<tr class="bg-white">
+<td class="p-4">Standard GWB (no insulation)</td>
+<td class="p-4">STC 33–35</td>
+<td class="p-4 text-yellow-600">Loud speech audible</td>
+</tr>
+<tr class="bg-gray-50">
+<td class="p-4">GWB + mineral wool insulation</td>
+<td class="p-4">STC 45–50</td>
+<td class="p-4 text-green-600">Normal speech not audible ✓</td>
+</tr>
+<tr class="bg-white">
+<td class="p-4">Double GWB + insulation</td>
+<td class="p-4">STC 55–60</td>
+<td class="p-4 text-green-600">Confidential privacy ✓</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p class="p-4 bg-red-50 border-l-4 border-red-600 text-sm">
+<strong>Addis Reality Check:</strong> If your boardroom has single glass walls and faces an open-plan area, expect meeting content to be overheard. For confidential meetings, specify double glass or use a GWB-enclosed room for sensitive discussions.
+</p>
+</div>
+</section>
+
+<section class="mt-20 p-12 md:p-16 border-4 border-black text-center rounded-sm bg-gray-50">
+<h3 class="text-3xl md:text-5xl font-black text-gray-900 mb-6 uppercase tracking-tighter leading-none">
+Need Help <br /><span class="text-red-600">Choosing?</span>
+</h3>
+<p class="text-gray-600 mb-10 max-w-2xl mx-auto text-lg font-medium">
+Every office is different. Our team can visit your site, assess your layout, and recommend the right partition mix for your budget and workflow.
+</p>
+<div class="flex flex-col sm:flex-row justify-center gap-6">
+<a href="/contact/" class="bg-black text-white px-12 py-5 font-black uppercase tracking-widest text-sm hover:bg-red-600 transition-all">
+Get a Free Site Assessment →
+</a>
+<a href="/estimate/" class="px-10 py-5 bg-white border-2 border-black font-black uppercase text-sm flex items-center justify-center hover:bg-gray-100 transition-all">
+Try Our Cost Estimator
+</a>
+</div>
+</section>
+`
   }
 ];
