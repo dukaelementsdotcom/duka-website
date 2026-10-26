@@ -181,7 +181,7 @@ export default function ServiceDetail({ params }: PageProps) {
             </div>
             <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
               <Link
-                href="/contact"
+                href="/contact/"
                 aria-label="Schedule a free consultation for your project"
                 className="inline-block bg-red-600 hover:bg-black text-white font-black py-5 px-10 rounded-none text-[10px] uppercase tracking-[0.3em] transition-all text-center shadow-xl hover:-translate-y-1"
               >

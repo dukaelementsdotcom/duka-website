@@ -32,7 +32,7 @@ export default function Home() {
         <div style={{ aspectRatio: '16/9' }}>
           <Image
             src="/images/duka-interiors-portfolio/modern-conference-room-and-lobby-design/modern-board-room-habesha-breweries.webp"
-            alt="The best interior design company in Addis Ababa - Duka Interiors"
+            alt="Office interior designed and built by Duka Interiors in Addis Ababa"
             fill
             className="object-cover"
             priority
@@ -49,13 +49,13 @@ export default function Home() {
           
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[0.9] max-w-4xl mb-8 uppercase tracking-tighter">
             We Design & Build <br />
-            The Best <span className="text-red-600">Interiors</span> <br />
+            Office <span className="text-red-600">Interiors</span> <br />
             In Addis Ababa.
           </h1>
           
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
-              href="/contact"
+              href="/contact/"
               className="bg-red-600 hover:bg-white hover:text-black text-white font-black py-4 px-8 text-[11px] uppercase tracking-widest transition-all duration-500 shadow-xl"
             >
               Free Consultation
@@ -142,7 +142,7 @@ export default function Home() {
                 <div className="text-[10px] font-black uppercase tracking-widest text-gray-300">Years</div>
               </div>
               <div className="flex items-center justify-end">
-                  <Link href="/contact" className="border border-white/20 px-6 py-3 text-[10px] font-black uppercase tracking-widest hover:bg-white hover:text-black transition-all">
+                  <Link href="/contact/" className="border border-white/20 px-6 py-3 text-[10px] font-black uppercase tracking-widest hover:bg-white hover:text-black transition-all">
                     Start Project
                   </Link>
               </div>
@@ -193,7 +193,7 @@ export default function Home() {
                 Plan & Estimate Your Project
               </h2>
               <p className="text-gray-600 max-w-2xl mx-auto">
-                Get instant, professional estimates. Used by 150+ Ethiopian businesses.
+                Get an instant estimate for your space. Free, and takes about two minutes.
               </p>
             </div>
             

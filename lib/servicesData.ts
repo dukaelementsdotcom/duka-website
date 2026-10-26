@@ -20,7 +20,7 @@ export const services: Service[] = [
     title: 'Interior Design',
     slug: 'interior-design',
     shortDesc: 'Expert interior design services in Addis Ababa, creating functional and beautiful commercial office spaces with strategic space planning.',
-    longDesc: `At Duka Interiors, we specialize in professional office interior design and strategic space planning in Addis Ababa. We craft innovative and highly functional workspaces that propel your business forward. In today's dynamic Ethiopian market, a well-designed office is a strategic asset that significantly enhances employee productivity. Our expert team provides the best interior design in Addis Ababa, combining global trends with local expertise to create commercial environments tailored to your brand identity. From initial concept to final layout, we ensure every square meter of your office space is optimized for success.`,
+    longDesc: `At Duka Interiors, we specialize in professional office interior design and strategic space planning in Addis Ababa. We craft innovative and highly functional workspaces that propel your business forward. In today's dynamic Ethiopian market, a well-designed office is a strategic asset that significantly enhances employee productivity. Our architect-led team combines global trends with local expertise to create commercial environments tailored to your brand identity. From initial concept to final layout, we ensure every square meter of your office space is optimized for success.`,
     linkText: 'Explore Design Services',
     features: [
       'Space planning & zoning',
@@ -57,11 +57,11 @@ export const services: Service[] = [
     title: 'Design+Build',
     slug: 'design-build',
     shortDesc: 'Integrated design and build services in Addis Ababa, providing single-source accountability from concept to completion for seamless project delivery.',
-    longDesc: `Duka Interiors offers a comprehensive 'Design+Build' model, providing clients in Addis Ababa with a single point of responsibility for their entire project. This integrated approach eliminates traditional gaps between separate designers and contractors. By handling both the creative vision and the technical construction, we ensure the final result perfectly matches the initial design. For businesses in Ethiopia, this means faster project delivery and the peace of mind that comes from total accountability. We are known for delivering the best interior design and construction services in Addis Ababa with full transparency.`,
+    longDesc: `Duka Interiors offers a comprehensive 'Design+Build' model, providing clients in Addis Ababa with a single point of responsibility for their entire project. This integrated approach eliminates traditional gaps between separate designers and contractors. By handling both the creative vision and the technical construction, we ensure the final result perfectly matches the initial design. For businesses in Ethiopia, this means faster project delivery and the peace of mind that comes from total accountability. You get one itemised quote and one team accountable from design to handover.`,
     linkText: 'Discover Build Solutions',
     features: [
       'Single point of responsibility',
-      'Fixed-price transparency',
+      'Itemised, agreed pricing',
       'Accelerated project timelines',
       'Unified design & engineering teams'
     ],
@@ -128,7 +128,7 @@ export const services: Service[] = [
     title: 'Branding and Signage',
     slug: 'branding-signage',
     shortDesc: 'Corporate branding and signage solutions in Addis Ababa, transforming office interiors through environmental graphics and custom visual identity.',
-    longDesc: `At Duka Interiors, we believe your office should be your best brand ambassador. Our Branding and Signage service in Addis Ababa focuses on weaving your company's DNA into every corner of the workspace. We use environmental graphics, custom signage, and professional interior decoration to tell your brand story. This creates a powerful impression on visitors and fosters a sense of pride for employees. From the reception area to the breakroom, we ensure your physical environment communicates your values and culture with the best interior decoration standards in Ethiopia.`,
+    longDesc: `At Duka Interiors, we believe your office should be your best brand ambassador. Our Branding and Signage service in Addis Ababa focuses on weaving your company's DNA into every corner of the workspace. We use environmental graphics, custom signage, and professional interior decoration to tell your brand story. This creates a powerful impression on visitors and fosters a sense of pride for employees. From the reception area to the breakroom, we ensure your physical environment communicates your values and culture, finished to a consistent standard.`,
     linkText: 'See Branding Work',
     features: [
       'Environmental graphics & murals',
@@ -161,7 +161,7 @@ export const services: Service[] = [
     title: 'Technology Integration',
     slug: 'technology',
     shortDesc: 'Smart office technology integration in Addis Ababa, featuring intelligent lighting, networking infrastructure, and security systems for modern workspaces.',
-    longDesc: `Duka Interiors delivers future-ready workplace technology for businesses in Addis Ababa. We specialize in the seamless integration of essential systems: intelligent human-centric lighting, high-speed networking infrastructure, and professional audio-visual (AV) systems. In the evolving Ethiopian corporate landscape, technology should be invisible and intuitive. From designing robust server rooms in Addis Ababa to installing automated security access controls, we ensure your office is equipped for the demands of tomorrow. Our approach prioritizes scalability, making us a leader in smart office technology and interior renovation in Ethiopia.`,
+    longDesc: `Duka Interiors delivers future-ready workplace technology for businesses in Addis Ababa. We specialize in the seamless integration of essential systems: intelligent human-centric lighting, high-speed networking infrastructure, and professional audio-visual (AV) systems. In the evolving Ethiopian corporate landscape, technology should be invisible and intuitive. From designing robust server rooms in Addis Ababa to installing automated security access controls, we ensure your office is equipped for the demands of tomorrow. Our approach prioritizes scalability, so your office can grow without costly rework.`,
     linkText: 'Explore Smart Office Tech',
     features: [
       'Intelligent LED lighting & automation',
@@ -198,7 +198,7 @@ export const services: Service[] = [
     title: 'Office Renovation & PM',
     slug: 'project-management',
     shortDesc: 'Professional office renovation and project management services in Addis Ababa, ensuring quality, timeline, and budget control for your fit-out project.',
-    longDesc: `Successful project delivery in Addis Ababa's construction environment requires expert oversight. Our Office Renovation and Project Management service provides you with a dedicated advocate who manages the complex logistics of your fit-out. From coordinating subcontractors for office renovation in Ethiopia to conducting rigorous quality inspections, we handle the stress so you can focus on your business. We maintain a laser focus on the three pillars of success: Quality, Time, and Budget, ensuring we remain the best interior design company in Addis Ababa for turnkey renovations.`,
+    longDesc: `Successful project delivery in Addis Ababa's construction environment requires expert oversight. Our Office Renovation and Project Management service provides you with a dedicated advocate who manages the complex logistics of your fit-out. From coordinating subcontractors for office renovation in Ethiopia to conducting rigorous quality inspections, we handle the stress so you can focus on your business. We maintain a laser focus on the three pillars of success: Quality, Time, and Budget on every turnkey renovation.`,
     linkText: 'Start Your Renovation',
     features: [
       'Weekly progress reporting',

@@ -64,7 +64,7 @@ export default function AboutPage() {
           "sameAs": "https://www.linkedin.com/in/henok-teshome-a3852b56" // ✅ Clean URL
         }
       ],
-      "description": "The leading force in commercial interior design and office partitioning in Addis Ababa, Ethiopia since 2015."
+      "description": "Architect-led interior design and office partitioning firm in Addis Ababa, Ethiopia, since 2015."
     }
   };
 
@@ -101,7 +101,7 @@ export default function AboutPage() {
             </div>
             <div className="lg:col-span-5 space-y-6">
               <p className="text-lg text-gray-700 leading-relaxed font-medium italic">
-                Established in 2015 by two visionary professional architects, Dagmawi Tilahun and Henok Teshome, Duka Interiors has grown since then into a leading force in commercial interior design across Addis Ababa and throughout Ethiopia.
+                Established in 2015 by two visionary professional architects, Dagmawi Tilahun and Henok Teshome, Duka Interiors has since delivered office, retail and residential interiors for clients such as Habesha Breweries, Kifiya Financial Technology and Awash Wine.
               </p>
               <p className="text-gray-600 leading-relaxed">
                 We have delivered offices, showrooms and homes across the city, and our mission is clear: to craft exceptional office interiors and execute turnkey solutions that are delivered on time, within budget, and to the highest standards of quality.
@@ -283,9 +283,7 @@ export default function AboutPage() {
             <p className="text-gray-400 font-bold mt-4 uppercase text-[10px] tracking-widest">Reach out for a no-obligation discussion</p>
           </div>
           <a
-            href="https://t.me/dukainteriorsplc" // ✅ Fixed trailing spaces
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/contact/"
             className="group relative inline-flex items-center justify-center bg-red-600 text-white font-black py-5 px-12 uppercase tracking-[0.2em] text-[11px] overflow-hidden transition-all hover:bg-white hover:text-red-600 active:scale-95"
           >
             <span className="relative z-10">Get a Free Consultation</span>

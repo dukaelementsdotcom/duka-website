@@ -112,6 +112,8 @@ export default function ProjectClient({ project, slug }: any) {
             ['Location', project.location?.replace(/,(?=\S)/g, ', ')],
             ['Category', project.type],
             ['Area', project.area && project.area !== 'N/A' ? project.area : null],
+            ['Scope', project.scope],
+            ['Timeline', project.timeline],
             ['Style', project.style],
             ['Year', project.year],
           ]
@@ -133,6 +135,21 @@ export default function ProjectClient({ project, slug }: any) {
               {project.description}
             </p>
           </div>
+          {(project.challenge || project.result) && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 mt-14 max-w-5xl">
+              {[
+                ['The challenge', project.challenge],
+                ['The result', project.result],
+              ]
+                .filter(([, text]) => text)
+                .map(([heading, text]) => (
+                  <div key={heading} className="border-t-2 border-gray-950 pt-6">
+                    <h2 className="text-[11px] font-black uppercase tracking-[0.3em] text-red-600 mb-4">{heading}</h2>
+                    <p className="text-gray-700 text-base md:text-lg leading-relaxed whitespace-pre-line">{text}</p>
+                  </div>
+                ))}
+            </div>
+          )}
         </div>
 
         <section className="mb-20 bg-gray-950 text-white px-6 py-12 md:px-16 md:py-16 flex flex-col md:flex-row md:items-center justify-between gap-8">
@@ -142,7 +159,7 @@ export default function ProjectClient({ project, slug }: any) {
               Planning a similar {String(project.type || 'interior').toLowerCase()} space?
             </h2>
             <p className="text-gray-400 mt-3 text-sm max-w-xl">
-              Tell us your floor area and timeline, and we&apos;ll send a design and fixed-price proposal.
+              Tell us your floor area and timeline, and we&apos;ll send a design and an itemised proposal.
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 shrink-0">
