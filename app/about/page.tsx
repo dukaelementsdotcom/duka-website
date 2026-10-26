@@ -262,9 +262,12 @@ export default function AboutPage() {
                 <p className="text-[10px] font-black text-red-600 uppercase tracking-[0.15em]">
                   {member.title}
                 </p>
-                <div className="mt-3 flex justify-center gap-4 opacity-40 group-hover:opacity-100 transition-opacity">
-                   <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-blue-700"><Linkedin size={16} /></a>
-                </div>
+                {/* Only show LinkedIn icon if they have a real profile URL */}
+                {member.linkedin && member.linkedin !== '#' && (
+                  <div className="mt-3 flex justify-center gap-4 opacity-40 group-hover:opacity-100 transition-opacity">
+                    <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-blue-700"><Linkedin size={16} /></a>
+                  </div>
+                )}
               </div>
             ))}
           </div>
