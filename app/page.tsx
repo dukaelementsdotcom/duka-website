@@ -2,7 +2,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import AnimatedStat from './components/AnimatedStat';
 import Gallery from './components/Gallery';
-import Testimonials from './components/Testimonials';
+// Testimonials hidden until we have real quotes with names and companies
+// import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
 import ClientLogosFinal from './components/ClientLogosFinal';
 import FinalCTA from './components/FinalCTA';
@@ -235,7 +236,7 @@ export default function Home() {
 
         <Gallery />
         <ClientLogosFinal />
-        <Testimonials />
+        {/* Testimonials hidden until we have real quotes with names and companies */}
         <div id="final-cta">
           <FinalCTA />
         </div>
