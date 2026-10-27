@@ -23,8 +23,9 @@ glassDoubleSoundproof: 16500,
 glassFramelessTempered: 15500,
 falseCeiling: 2800,
 painting: 200,
-carpet: 1800,
-spcFlooring: 2000
+carpet: 4500, // carpet tiles, supply & install (Oct 2026)
+spcFlooring: 2500, // locally made SPC, supply & install (Oct 2026)
+porcelainTile: 4500 // plus adhesive
 },
 // Furniture rates (ETB per unit)
 furniture: {

@@ -1,97 +1,155 @@
 // Article: Office flooring in Ethiopia
-// Only SPC and carpet prices come from Duka's 2026 rates (app/estimate/page.tsx); other options are compared
-// without prices on purpose, because tile prices vary too much by source and batch.
+// Prices are Duka's real 2026 supply-and-install figures given by Dagmawi (Oct 2026):
+// SPC ≈ 2,500 ETB/m², carpet tiles ≈ 4,500 ETB/m², porcelain ≈ 4,500 ETB/m² + adhesive.
+// Keep in sync with app/resources/materials/page.tsx, lib/serviceExtras.ts and app/estimate/page.tsx.
 const content = `
-<p class="lead">Nobody notices a good floor. Everyone notices a bad one: the tile that cracks in the corridor, the carpet that turns grey in six months, the vinyl that lifts at the doorway. And replacing a floor in an office that is already running is one of the most disruptive jobs there is.</p>
+<p class="lead">Ask for an office floor in Addis Ababa and, whatever the showroom brochures say, you will really be choosing between four things: ceramic or porcelain tiles, carpet tiles, carpet sold on a roll, or SPC. Each one is right somewhere in your office, and each one is wrong somewhere else.</p>
 
-<p>This guide covers the office floors you can actually get and install in Addis Ababa, where each one works, what goes wrong, and how to avoid paying twice. It is based on what we see on site, in new buildings and in old ones.</p>
+<p>This guide explains how the four compare in real Addis offices: what they cost, how they are installed, how they are cleaned, how they handle noise, and what happens to them when your lease ends and you move. The prices are our current figures for supply and installation in 2026.</p>
 
-<h2>First, look at what is already there</h2>
+<h2>Start with the floor you already have</h2>
 
-<p>Office floors in Addis are rarely a blank slate. Before choosing a finish, find out what you are building on:</p>
+<p>Most offices here are rented, and most rented floors already have something on them: ceramic tiles, an old terrazzo ("mosaic") floor, or a bare concrete screed in a new building. Two questions decide a lot before you even look at samples:</p>
 <ul>
-<li><strong>Bare concrete screed:</strong> common in new buildings handed over as a shell. It must be level, dry and clean before anything goes on top.</li>
-<li><strong>Existing ceramic or porcelain tiles:</strong> very common in rented offices. Often you can lay a new finish (SPC or carpet tiles) directly over them, if they are flat and well bonded, without the noise and dust of breaking them out.</li>
-<li><strong>Terrazzo ("mosaic"):</strong> found in many older buildings around Piassa, Kazanchis and the city centre. A good terrazzo floor can often be ground and polished back to life, which is far cheaper than replacing it and looks great.</li>
+<li><strong>What does the landlord allow?</strong> Many buildings don't want tenants breaking out tiles, and some expect the floor back as it was when you leave.</li>
+<li><strong>Is the existing floor flat and solid?</strong> If it is, carpet and SPC can usually go straight on top of it, with no demolition, no dust and no waiting for screed to dry.</li>
 </ul>
 
-<p>Ask your landlord what is allowed. Some buildings don't let tenants break existing tiles, and some expect the floor back in its original condition at the end of the lease. That alone can decide between a floating floor and a glued or tiled one.</p>
+<h2>1. Ceramic and porcelain tiles</h2>
 
-<h2>The main options</h2>
+<p>Tiles are what most Addis buildings are handed over with, and they are still the standard for wet and heavy-use areas. Porcelain is denser and harder than ceramic and is the better choice for offices. Good porcelain costs around <strong>4,500 ETB per m²</strong>, and on top of that you pay for <strong>tile adhesive and grout</strong>, which many first quotes leave out.</p>
 
-<h3>Porcelain tiles</h3>
-<p>The default choice for reception areas, corridors, kitchens and toilets. Hard-wearing, easy to clean, available in large formats (60 × 60, 60 × 120 cm and bigger), in stone, concrete and wood looks. Both locally made and imported tiles are sold in Addis, and quality varies a lot between batches and suppliers, so always see the actual boxes, not only the showroom sample.</p>
-<p><strong>Watch out for:</strong> polished tiles in wet areas (slippery), uneven screeds (tiles crack), and buying exactly the quantity you need (more on that below).</p>
+<h3>Where tiles are the right choice</h3>
+<ul>
+<li>Toilets, the kitchen, the buna corner and anywhere water is used daily.</li>
+<li>Entrances and lobbies where mud and dust come in from the street, especially in the rainy season.</li>
+<li>Staircases and service areas.</li>
+</ul>
 
-<h3>Ceramic tiles</h3>
-<p>Cheaper and softer than porcelain. Fine for stores and low-traffic rooms, but chips show the colour underneath, and they wear in busy corridors.</p>
+<h3>The downsides</h3>
+<ul>
+<li><strong>Installation is heavy work.</strong> Old tiles are often broken out first, then come screed, adhesive, laying, grouting and curing. It is noisy and dusty, and the area can't be used until it sets.</li>
+<li><strong>It can't move with you.</strong> Tiles are fixed to the building. When you move, they stay behind and your money stays with them.</li>
+<li><strong>It is hard to change.</strong> Moving a partition or a floor box later means cutting tiles, and an exact match for a broken tile is rarely available after a year or two.</li>
+<li><strong>It is loud.</strong> Hard floors bounce footsteps, chairs and voices around the room. A large tiled open office echoes.</li>
+</ul>
 
-<h3>SPC flooring</h3>
-<p>SPC (stone plastic composite) is a rigid, click-together vinyl plank with a stone-powder core. It has become very popular in Addis offices because it looks like wood, is quiet underfoot compared with tiles, is not damaged by water like laminate is, and can often be laid over existing tiles in a day or two. Our 2026 rate is about <strong>2,000 ETB per m²</strong>.</p>
-<p><strong>Watch out for:</strong> very thin, cheap boards (the click joints break), and laying it over an uneven floor (it rocks and the joints open).</p>
+<h2>2. Carpet tiles</h2>
 
-<h3>Carpet tiles</h3>
-<p>Square carpet tiles (usually 50 × 50 cm) are the best floor for sound in open-plan offices and meeting rooms. They soak up footsteps and voices, and a damaged or stained tile can be replaced on its own. Our 2026 rate for carpet is about <strong>1,800 ETB per m²</strong>.</p>
-<p><strong>Watch out for:</strong> light colours (they show dust within weeks in the dry season), and carpet near the kitchen or buna corner (coffee and spills).</p>
+<p>Carpet tiles are squares of carpet, usually 50 × 50 cm, laid one by one. They cost around <strong>4,500 ETB per m²</strong>, similar to porcelain, but they solve a different problem: noise. They absorb footsteps, chair movement and conversation, which is why they belong in open work areas and meeting rooms.</p>
 
-<h3>Epoxy and polished concrete</h3>
-<p>Good for workshops, warehouses, server rooms, gyms and some showrooms. Very durable and seamless, with an industrial look. The quality depends almost entirely on the preparation of the concrete underneath and on the applicator.</p>
+<p>Their big practical advantage over roll carpet is that <strong>a damaged or stained tile can be lifted out and replaced on its own</strong>. Keep a box of spare tiles from the same batch in the store for exactly this.</p>
 
-<h3>Wood and laminate</h3>
-<p>Solid wood is beautiful in an executive office but needs care, and imported engineered wood is expensive and hard to find in quantity. Laminate is cheaper but swells if it gets wet, which is a real risk during the rainy season and near pantries. For most offices that want a wood look, SPC is the safer choice.</p>
+<h3>Can you take carpet tiles with you?</h3>
+<p>Often, yes. It depends on how they were glued. Carpet tiles can be laid with a permanent adhesive, or with a lighter "tackifier" glue that holds them in place but lets them be lifted cleanly. With the lighter glue, a good share of the tiles can be reused in your next office. With permanent glue, they usually tear or lose their backing when you pull them up. If you think you may move within a few years, agree on the glue type before installation.</p>
 
-<figure><img src="/images/duka-interiors-portfolio/coffee-export-company-interior-addis/modern-open-pool-workspace-addis-ababa.webp" alt="Wood-look flooring in an open office in Addis Ababa" loading="lazy" /><figcaption>Wood-look flooring in the open workspace of a coffee export company's office (200 m²).</figcaption></figure>
+<h3>Where carpet tiles are the right choice</h3>
+<ul>
+<li>Open-plan work areas, where they make the biggest difference to noise.</li>
+<li>Meeting rooms, training rooms and private offices.</li>
+<li>Any area where you want to be able to change the layout later.</li>
+</ul>
 
-<h2>Which floor for which area</h2>
+<figure><img src="/images/duka-interiors-portfolio/creative-studio-workspace-interior-styling/office-open-pool-ethio-jobs.webp" alt="Open office with carpet under the desks and tiles in the walkways, Addis Ababa" loading="lazy" /><figcaption>Carpet under the desks and a hard floor in the walkways at the Dereja Academy office in Bole.</figcaption></figure>
+
+<h2>3. Roll carpet (wall-to-wall)</h2>
+
+<p>Roll carpet, also called broadloom or wall-to-wall carpet, comes in wide rolls and is cut to fit the room, so the floor looks like one continuous surface without the grid of carpet tiles. It feels soft and quiet, and it is the best of the four at absorbing sound.</p>
+
+<h3>Where roll carpet works</h3>
+<ul>
+<li><strong>Meeting rooms, boardrooms and training rooms</strong>, where sound should be soft and voices clear, especially for video calls.</li>
+<li><strong>Executive offices</strong> that should feel quiet and calm.</li>
+<li><strong>Busy circulation areas</strong> between offices, where frequent footsteps would otherwise echo down the corridor and into the rooms beside it.</li>
+</ul>
+
+<h3>The cleaning problem</h3>
+<p>Be honest with yourself about cleaning before choosing roll carpet. Because it is one piece:</p>
+<ul>
+<li>A coffee stain, ink or mud mark stays in the whole carpet. You can't just swap out the damaged square as you can with carpet tiles.</li>
+<li>Dust goes deep into the pile, and Addis has plenty of it in the dry season. It needs vacuuming every day in busy areas, not just sweeping.</li>
+<li>It needs a professional deep clean (shampoo or extraction) from time to time, and the room can't be used until it dries.</li>
+<li>Over the years, the main walking routes wear and darken while the rest stays new, and the only fix is replacing the whole room.</li>
+</ul>
+<p>So choose darker or patterned colours, which hide dust and wear, keep roll carpet away from the buna corner, canteen and entrances, and put a doormat at every door that leads in from outside or from a tiled area.</p>
+
+<h2>4. SPC: the locally made option that changed the market</h2>
+
+<p>SPC (stone plastic composite) is a rigid plank or tile with a stone-powder core and a printed wood or stone surface. It is now manufactured locally in Ethiopia and has become very popular in Addis offices over the last few years, for good reasons. At around <strong>2,500 ETB per m²</strong>, it is also the most affordable of the four.</p>
+
+<h3>Why companies choose SPC</h3>
+<ul>
+<li><strong>Water-resistant and easy to clean.</strong> Spills and mud wipe off, and it can be mopped daily like a tile.</li>
+<li><strong>A facelift without the heavy cost.</strong> SPC clicks together and usually goes straight over existing tiles, with no breaking out, no adhesive and almost no dust. An old, tired office can look modern in a few days.</li>
+<li><strong>It moves with you.</strong> Because it is clicked, not glued, up to about 90% of an SPC floor can be lifted and reused when you move to another office. For a rented office, that changes the whole calculation.</li>
+<li><strong>Easy to adapt.</strong> A new partition or floor box means lifting a few planks, not cutting tiles.</li>
+<li><strong>Local supply.</strong> Because it is made here, it is easier to get on time and in matching batches, and less exposed to exchange-rate changes than imported floors.</li>
+<li><strong>Warmer and quieter underfoot than tiles</strong>, though not as quiet as carpet.</li>
+</ul>
+
+<h3>What to watch</h3>
+<ul>
+<li><strong>The floor underneath must be flat.</strong> Over uneven tiles, SPC rocks and the joints open. Small dips should be levelled first.</li>
+<li><strong>Quality varies.</strong> Ask about the thickness and the wear layer, and look at a sample of the click joint. Cheap boards break at the joint.</li>
+<li><strong>Chairs and heavy furniture.</strong> Use soft castors or chair mats at desks where people roll a lot.</li>
+<li><strong>Not for constantly wet areas.</strong> SPC resists spills, but toilets and shower areas still belong to tiles.</li>
+</ul>
+
+<figure><img src="/images/duka-interiors-portfolio/coffee-export-company-interior-addis/modern-open-pool-workspace-addis-ababa.webp" alt="Wood-look office floor in an open workspace in Addis Ababa" loading="lazy" /><figcaption>A wood-look floor gives the open workspace at a coffee export company's office (200 m²) a warm, modern feel.</figcaption></figure>
+
+<h2>Side by side</h2>
 
 <div class="table-wrap"><table>
-<thead><tr><th>Area</th><th>Our usual choice</th><th>Why</th></tr></thead>
+<thead><tr><th></th><th>Porcelain tiles</th><th>Carpet tiles</th><th>Roll carpet</th><th>SPC</th></tr></thead>
 <tbody>
-<tr><td>Reception and lobby</td><td>Large-format porcelain, sometimes with a rug or a carpet inlay at the waiting area</td><td>Takes heavy traffic, looks sharp, easy to clean</td></tr>
-<tr><td>Corridors</td><td>Porcelain or SPC</td><td>Durable; avoid light carpet here</td></tr>
-<tr><td>Open work areas</td><td>Carpet tiles or SPC</td><td>Carpet is quieter; SPC is easier to keep clean</td></tr>
-<tr><td>Meeting rooms</td><td>Carpet tiles, or SPC with a large rug under the table</td><td>Sound absorption makes calls and meetings clearer</td></tr>
-<tr><td>Executive offices</td><td>SPC or porcelain with a quality rug</td><td>Warm and smart without high maintenance</td></tr>
-<tr><td>Kitchen and buna corner</td><td>Porcelain with an anti-slip finish</td><td>Water, coffee and hot pots</td></tr>
-<tr><td>Toilets</td><td>Anti-slip porcelain over proper waterproofing</td><td>The only sensible choice for wet areas</td></tr>
-<tr><td>Server / UPS room</td><td>Epoxy, or a raised floor in larger rooms</td><td>Dust control and cable routing</td></tr>
+<tr><td><strong>Price (2026)</strong></td><td>~4,500 ETB/m² + adhesive and grout</td><td>~4,500 ETB/m²</td><td>Quoted per project</td><td>~2,500 ETB/m²</td></tr>
+<tr><td><strong>Installation</strong></td><td>Wet work, dust, curing time</td><td>Fast, glued down</td><td>Fast, cut to room</td><td>Fast, clicks over existing tiles</td></tr>
+<tr><td><strong>Cleaning</strong></td><td>Mop; grout needs care</td><td>Vacuum; replace stained tiles</td><td>Daily vacuum, deep clean; stains stay</td><td>Mop or wipe</td></tr>
+<tr><td><strong>Water</strong></td><td>Excellent</td><td>Poor</td><td>Poor</td><td>Good (not for wet rooms)</td></tr>
+<tr><td><strong>Noise</strong></td><td>Loud, echoes</td><td>Quiet</td><td>Quietest</td><td>Medium</td></tr>
+<tr><td><strong>Change layout later</strong></td><td>Hard</td><td>Easy</td><td>Hard</td><td>Easy</td></tr>
+<tr><td><strong>Reuse when you move</strong></td><td>No</td><td>Partly, depends on glue</td><td>No</td><td>Up to ~90%</td></tr>
 </tbody></table></div>
 
-<figure><img src="/images/duka-interiors-portfolio/creative-studio-workspace-interior-styling/office-open-pool-ethio-jobs.webp" alt="Office with tiled floor and carpet runner in Addis Ababa" loading="lazy" /><figcaption>Tiles in circulation areas and carpet under the desks at the Dereja Academy office in Bole.</figcaption></figure>
+<h2>Which floor where</h2>
 
-<h2>Mistakes we are often asked to fix</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Area</th><th>Best choice</th></tr></thead>
+<tbody>
+<tr><td>Toilets, kitchen, buna corner</td><td>Porcelain tiles (keep existing ones if they are sound)</td></tr>
+<tr><td>Entrance and reception</td><td>Porcelain, or SPC with a good doormat at the entrance</td></tr>
+<tr><td>Open work areas</td><td>SPC (easy to clean) or carpet tiles (quieter)</td></tr>
+<tr><td>Meeting rooms and boardroom</td><td>Carpet tiles or roll carpet, for clear sound</td></tr>
+<tr><td>Executive offices</td><td>SPC with a rug, or roll carpet</td></tr>
+<tr><td>Busy corridors between offices</td><td>Roll carpet or carpet tiles in a dark, patterned colour to cut footstep noise; SPC if cleaning is the priority</td></tr>
+</tbody></table></div>
 
-<h3>1. Skipping floor preparation</h3>
-<p>Tiles laid on an uneven or hollow screed crack. SPC laid on a bumpy floor clicks and gaps. Carpet glued to a dusty or damp screed lifts. Levelling, cleaning and letting a new screed dry properly is invisible work, and it decides whether the floor lasts two years or fifteen. New screed takes longer to dry in the rainy season, so build that into the programme.</p>
+<h2>What it adds up to: a 300 m² office</h2>
 
-<h3>2. Cheap grout and no movement joints</h3>
-<p>Good tiles with poor grout soon look old: the joints crack, darken and let water underneath. And large tiled areas need movement joints, at doorways, around columns and across big rooms, or the tiles eventually lift or crack.</p>
+<p>Take a typical rented office of 300 m²: about 200 m² of open work area, 60 m² of meeting rooms and private offices, and 40 m² of toilets, kitchen and entrance with existing tiles in good condition.</p>
 
-<h3>3. Buying exactly enough</h3>
-<p>Order 10% extra (more for patterned or large-format tiles) and keep the spare boxes in the store. Two years later, when one tile breaks, that exact batch and colour will almost certainly be gone from the market.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Approach</th><th>Calculation</th><th>Flooring cost</th></tr></thead>
+<tbody>
+<tr><td>Re-tile everything in porcelain</td><td>300 m² × 4,500</td><td><strong>about 1,350,000 ETB</strong> plus adhesive, grout and breaking out the old tiles</td></tr>
+<tr><td>Mix: SPC in work areas, carpet tiles in meeting rooms, keep existing tiles</td><td>200 m² × 2,500 + 60 m² × 4,500</td><td><strong>about 770,000 ETB</strong></td></tr>
+</tbody></table></div>
 
-<h3>4. The wrong finish in the wrong place</h3>
-<p>Polished tiles at the entrance in the rainy season are dangerous. Light carpet in a corridor turns grey. Laminate next to the pantry swells. Match the floor to how the room is used, not only to the mood board.</p>
+<p>The mixed approach costs a little over half, installs in days instead of weeks, keeps the office quieter, and most of the SPC and possibly the carpet tiles can go with you when you move.</p>
 
-<h3>5. Forgetting the chairs</h3>
-<p>Office chairs with hard castors scratch SPC and wear tracks into carpet. Ask for soft castors, or use chair mats at desks where people move a lot.</p>
+<h2>Mistakes to avoid</h2>
+<ol>
+<li><strong>Comparing tile prices without the adhesive.</strong> Ask every supplier for the price per m² installed, including adhesive, grout and any breaking out.</li>
+<li><strong>Laying SPC or carpet on an uneven floor.</strong> Level it first. It is cheap compared with redoing the floor.</li>
+<li><strong>Choosing glue without thinking about the lease.</strong> For carpet tiles, a releasable adhesive keeps the option of reusing them.</li>
+<li><strong>Light roll carpet in busy areas.</strong> It will look tired within months. Go darker, add a pattern, and plan the cleaning.</li>
+<li><strong>Buying exactly enough.</strong> Order about 5–10% extra and keep it. Matching batches later is difficult for every floor type.</li>
+<li><strong>Forgetting the doors.</strong> A new floor on top of old tiles raises the level. Doors may need trimming, and you need neat edge strips where floors change.</li>
+</ol>
 
-<h3>6. Ignoring doors and thresholds</h3>
-<p>A new floor laid over old tiles raises the floor level. Doors may need trimming, and you need neat transition strips between different floors so nobody trips.</p>
+<div class="note"><p><strong>In short:</strong> keep tiles where there is water, use carpet where sound matters, and use SPC almost everywhere else, especially if you rent. It is the cheapest of the four, installs fastest, looks modern, and most of it moves with you.</p></div>
 
-<h2>What we recommend for a typical office</h2>
-
-<p>For a typical 300–500 m² office in Addis, the combination we suggest most often is:</p>
-<ul>
-<li><strong>Porcelain</strong> at the reception, corridors, kitchen, buna corner and toilets (roughly a third of the floor);</li>
-<li><strong>Carpet tiles</strong> in the open work areas and meeting rooms, for comfort and quiet;</li>
-<li><strong>SPC</strong> in executive offices, or across the whole work area if the company prefers a hard floor that is easy to mop.</li>
-</ul>
-<p>It is durable where people walk most, quiet where people work and meet, and easy to repair one section at a time.</p>
-
-<div class="note"><p><strong>Budget tip:</strong> if the existing tiles are sound, keep them in the corridors and toilets, and lay SPC or carpet tiles only in the work areas. You avoid demolition, dust and noise, and the office can stay open while the work is done.</p></div>
-
-<p>Not sure what your floor needs? <a href="/contact/">Ask us for a site visit</a> and we will check the existing floor, bring samples and give you an itemised price. You can also see our <a href="/resources/materials/">2026 material prices</a>, read <a href="/resources/glass-vs-gypsum-office-partitions-ethiopia/">glass vs gypsum partitions</a>, or try the <a href="/estimate/">cost estimator</a>.</p>
+<p>Want to know what your floor needs? <a href="/contact/">Ask us for a site visit</a>. We will check the existing floor, bring SPC, carpet and tile samples, and give you an itemised price. You can also see our <a href="/resources/materials/">2026 material prices</a> or read <a href="/resources/glass-vs-gypsum-office-partitions-ethiopia/">glass vs gypsum partitions</a>.</p>
 `;
 
 export default content;
