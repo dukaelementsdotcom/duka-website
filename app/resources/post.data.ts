@@ -7,6 +7,7 @@ import realEstatePartnership from './posts/real-estate-partnership';
 import glassVsGypsum from './posts/glass-vs-gypsum';
 import openPlanVsPrivate from './posts/open-plan-vs-private';
 import officeFlooring from './posts/office-flooring';
+import chooseInteriorDesigner from './posts/choose-interior-designer';
 
 export interface BlogPost {
   slug: string;
@@ -87,5 +88,16 @@ export const BLOG_POSTS: BlogPost[] = [
     excerpt:
       'Porcelain, carpet tiles, roll carpet or locally made SPC? Real 2026 prices in Addis Ababa, where each floor belongs, cleaning, and what you can take with you when you move.',
     content: officeFlooring,
+  },
+  {
+    slug: 'how-to-choose-best-interior-designer-addis-ababa',
+    seoTitle: 'How to Choose the Best Interior Designer in Addis Ababa',
+    category: 'BUYER’S GUIDE',
+    title: 'How to Choose the Best Interior Designer in Addis Ababa',
+    date: 'Oct 27, 2026',
+    image: '/images/duka-interiors-portfolio/board-room-interior-design-addis-ababa.webp',
+    excerpt:
+      'Every company says it is the best. Ten checks that show you which interior designer in Addis Ababa really fits your project: finished work, reviews, itemised quotes, payment stages and more.',
+    content: chooseInteriorDesigner,
   },
 ];
