@@ -155,7 +155,7 @@ function calculateDesignServiceCost(totalArea: number): number {
   // Design service typically costs 8-15% of construction cost
   // For estimation, we use ETB per m²
   
-  const ratePerM2 = 450; // ETB per m² for design services (Ethiopian market average)
+  const ratePerM2 = 1000; // ETB per m² for design services (Ethiopian market average, varies by project type)
   return Math.round(totalArea * ratePerM2);
 }
 

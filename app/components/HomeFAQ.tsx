@@ -7,8 +7,8 @@ import { CONTACT } from '@/lib/siteConfig';
 // Prices come from Duka's own rates (portal catalog and the estimator's 2026 material rates).
 // Update them here when rates change.
 
-const DESIGN_FEE_OFFICE = 200; // ETB per m², design only
-const DESIGN_FEE_HOME = 260; // ETB per m², design only
+const DESIGN_FEE_OFFICE = 800; // ETB per m², design only (varies by project type and detail level)
+const DESIGN_FEE_HOME = 1000; // ETB per m², design only (varies by project type and detail level)
 const RATE_GYPSUM_PARTITION = 3000; // ETB per m²
 const RATE_GLASS_FROM = 14500; // ETB per m², aluminium single glass
 const RATE_GLASS_TO = 16500; // ETB per m², double glass (sound proof)

@@ -10,9 +10,9 @@ import { QUALITY_TIER_NAMES } from '@/components/ProjectScopePro/Shared/constant
 export const ETHIOPIAN_MARKET_RATES: EthiopianMarketRates = {
   designServices: {
     spacePlanningPerM2: {
-      standard: 300,
-      premium: 450,
-      luxury: 650
+      standard: 800,
+      premium: 1200,
+      luxury: 1800
     },
     technicalDrawingsPerSheet: {
       standard: 800,
