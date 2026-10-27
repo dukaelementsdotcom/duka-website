@@ -11,7 +11,7 @@ export const SERVICE_EXTRAS: Record<string, ServiceExtra> = {
     faqs: [
       {
         q: 'How much does office interior design cost in Addis Ababa?',
-        a: 'Our design-only fee starts at about 200 ETB per m² for offices and 260 ETB per m² for homes. It covers space planning, layout revisions, material selection and 3D visuals. Construction is quoted separately, or together if you choose design and build.',
+        a: 'Our design-only fee starts at about 800 ETB per m² for offices and 1,000 ETB per m² for homes, depending on the project type and level of detail required. It covers space planning, layout revisions, material selection and 3D visuals. Construction is quoted separately, or together if you choose design and build.',
       },
       {
         q: 'What do I receive at the end of the design stage?',
