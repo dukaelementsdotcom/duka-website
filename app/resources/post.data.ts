@@ -85,7 +85,7 @@ export const BLOG_POSTS: BlogPost[] = [
     date: 'Oct 26, 2026',
     image: '/images/duka-interiors-portfolio/corporate-office-interior-finishing-bole/modern-office-open-pool-bole.webp',
     excerpt:
-      'Porcelain, SPC, carpet tiles or epoxy? What works in Addis Ababa offices, where to use each one, and the mistakes that make you pay twice.',
+      'Porcelain, carpet tiles, roll carpet or locally made SPC? Real 2026 prices in Addis Ababa, where each floor belongs, cleaning, and what you can take with you when you move.',
     content: officeFlooring,
   },
 ];

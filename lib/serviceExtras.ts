@@ -108,7 +108,7 @@ export const SERVICE_EXTRAS: Record<string, ServiceExtra> = {
     faqs: [
       {
         q: 'What does an office renovation include?',
-        a: 'Usually new partitions, false ceilings, lighting, flooring, painting and furniture. Typical 2026 rates: gypsum false ceilings about 2,800 ETB per m², SPC flooring about 2,000 ETB per m², carpet about 1,800 ETB per m², and painting about 200 ETB per m².',
+        a: 'Usually new partitions, false ceilings, lighting, flooring, painting and furniture. Typical 2026 rates: gypsum false ceilings about 2,800 ETB per m², SPC flooring about 2,500 ETB per m², carpet tiles about 4,500 ETB per m², and painting about 200 ETB per m².',
       },
       {
         q: 'Who manages the site during the renovation?',

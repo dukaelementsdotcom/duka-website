@@ -28,8 +28,9 @@ const RATES: { group: string; rows: [string, string][] }[] = [
     group: 'Ceilings, floors and walls',
     rows: [
       ['Gypsum false ceiling', '2,800 ETB / m²'],
-      ['SPC flooring', '2,000 ETB / m²'],
-      ['Carpet', '1,800 ETB / m²'],
+      ['SPC flooring (locally made)', '2,500 ETB / m²'],
+      ['Carpet tiles', '4,500 ETB / m²'],
+      ['Porcelain tiles (plus adhesive)', '4,500 ETB / m²'],
       ['Painting', '200 ETB / m²'],
     ],
   },
@@ -60,7 +61,7 @@ const RATES: { group: string; rows: [string, string][] }[] = [
 
 const GUIDES = [
   { href: '/resources/glass-vs-gypsum-office-partitions-ethiopia/', title: 'Glass vs gypsum partitions', text: 'Cost, acoustics and where each one works best.' },
-  { href: '/resources/office-flooring-ethiopia-guide/', title: 'Office flooring in Ethiopia', text: 'Porcelain, vinyl, carpet tiles or epoxy: costs and durability.' },
+  { href: '/resources/office-flooring-ethiopia-guide/', title: 'Office flooring in Ethiopia', text: 'Porcelain, carpet tiles, roll carpet or SPC: cost, cleaning and reuse.' },
   { href: '/resources/ethiopian-office-furniture-dimensions-guide/', title: 'Office furniture dimensions', text: 'Desk, workstation, storage and breakout sizes that work.' },
   { href: '/resources/office-color-psychology-productivity-addis/', title: 'Office colour psychology', text: 'Choosing colours that help your team focus.' },
 ];
