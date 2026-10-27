@@ -7,6 +7,7 @@ import Gallery from './components/Gallery';
 import Footer from './components/Footer';
 import ClientLogosFinal from './components/ClientLogosFinal';
 import FinalCTA from './components/FinalCTA';
+import HomeFAQ from './components/HomeFAQ';
 import ResetScroll from './components/ResetScroll';
 import NavBar from './components/NavBar';
 import { services } from '@/lib/servicesData';
@@ -234,6 +235,7 @@ export default function Home() {
           </div>
         </section>
 
+        <HomeFAQ />
         <Gallery />
         <ClientLogosFinal />
         {/* Testimonials hidden until we have real quotes with names and companies */}
