@@ -11,23 +11,12 @@ export default function manifest(): MetadataRoute.Manifest {
     background_color: '#ffffff',
     theme_color: '#dc2626',
     icons: [
-      {
-        src: '/images/icons-duka-interiors/logo-duka-interiors-big.svg', // ✅ Use your SVG logo
-        sizes: 'any',
-        type: 'image/svg+xml',
-      },
-      {
-        src: '/images/icons-duka-interiors/logo-duka-interiors-big.svg',
-        sizes: '192x192',
-        type: 'image/svg+xml',
-        purpose: 'any maskable'
-      },
-      {
-        src: '/images/icons-duka-interiors/logo-duka-interiors-big.svg',
-        sizes: '512x512',
-        type: 'image/svg+xml',
-        purpose: 'any maskable'
-      }
+      { src: "/icon-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
+      { src: "/icon-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
+      { src: "/icon-maskable-192.png", sizes: "192x192", type: "image/png", purpose: "maskable" },
+      { src: "/icon-maskable-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
+      { src: "/icon.svg", sizes: "any", type: "image/svg+xml" },
     ],
+
   }
 }

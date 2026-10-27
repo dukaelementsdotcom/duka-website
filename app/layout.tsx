@@ -25,9 +25,15 @@ export const metadata: Metadata = {
     default: HOME_TITLE,
   },
   description: HOME_DESCRIPTION,
+  // Square "d" mark (the wide logo looked squashed in tabs and in Google results).
+  // /favicon.ico (16/32/48 px) is added automatically from app/favicon.ico.
   icons: {
-    icon: "/images/icons-duka-interiors/logo-duka-interiors-big.svg",
-    apple: "/images/icons-duka-interiors/logo-duka-interiors-big.svg",
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icon-48.png", sizes: "48x48", type: "image/png" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+    ],
+    apple: { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
   },
   openGraph: {
     title: HOME_TITLE,
