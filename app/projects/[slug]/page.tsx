@@ -4,7 +4,7 @@ import path from 'path';
 import { notFound } from 'next/navigation';
 import ProjectClient from './ProjectClient';
 import { Metadata } from 'next';
-import { pageMeta, projectSchema, breadcrumbSchema, SITE_URL } from '@/lib/seo';
+import { pageMeta, projectSchema, breadcrumbSchema, SITE_URL, imageRights } from '@/lib/seo';
 
 function getProjectsData() {
   const filePath = path.join(process.cwd(), 'public/data/projects.json');
@@ -76,9 +76,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     description: `Interior design photos of ${project.title} by Duka Interiors`,
     image: galleryImages.map((img: string) => ({
       '@type': 'ImageObject',
-      contentUrl: img.startsWith('http') ? img : `${SITE_URL}${img}`,
+      // encodeURI: a few image files have spaces in their names, which aren't valid in a URL.
+      contentUrl: encodeURI(img.startsWith('http') ? img : `${SITE_URL}${img}`),
       description: `${project.title} interior design by Duka Interiors`,
-      creator: { '@type': 'Organization', name: 'Duka Interiors' },
+      ...imageRights(),
     })),
   };
 
