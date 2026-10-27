@@ -20,7 +20,40 @@ function altFromPath(src: string, fallback: string) {
   return name.charAt(0).toUpperCase() + name.slice(1);
 }
 
-export default function ProjectClient({ project, slug }: any) {
+// Which service pages match each project category (internal links for visitors and Google).
+const SERVICES_BY_TYPE: Record<string, { href: string; label: string }[]> = {
+  Office: [
+    { href: '/services/interior-design/', label: 'Office interior design' },
+    { href: '/services/design-build/', label: 'Design and build' },
+    { href: '/services/furniture-production/', label: 'Office partitioning and furniture' },
+  ],
+  Apartment: [
+    { href: '/services/interior-design/', label: 'Interior design' },
+    { href: '/services/design-build/', label: 'Design and build' },
+  ],
+  Residential: [
+    { href: '/services/interior-design/', label: 'Interior design' },
+    { href: '/services/design-build/', label: 'Design and build' },
+  ],
+  default: [
+    { href: '/services/interior-design/', label: 'Interior design' },
+    { href: '/services/design-build/', label: 'Design and build' },
+    { href: '/services/branding-signage/', label: 'Branding and signage' },
+  ],
+};
+
+// A plain factual summary built from the project record, e.g.
+// "Duka Interiors delivered this 800 m² office interior for Info-mind Solutions PLC in Bole, Addis Ababa in 2024."
+function projectSummary(p: any): string {
+  const area = p.area && p.area !== 'N/A' ? `${p.area} ` : '';
+  const type = String(p.type || 'interior').toLowerCase();
+  const client = !p.client || /private/i.test(p.client) ? 'a private client' : p.client;
+  const where = p.location ? ` in ${String(p.location).replace(/,(?=\S)/g, ', ')}` : '';
+  const when = p.year ? ` in ${p.year}` : '';
+  return `Duka Interiors delivered this ${area}${type} interior for ${client}${where}${when}.`;
+}
+
+export default function ProjectClient({ project, slug, allProjects = [] }: any) {
   const [mainImageIndex, setMainImageIndex] = useState(0);
   const [favorites, setFavorites] = useState<string[]>([]);
 
@@ -131,10 +164,52 @@ export default function ProjectClient({ project, slug }: any) {
             {project.title}
           </h1>
           <div className="max-w-4xl">
-            <p className="text-gray-600 text-base md:text-lg leading-relaxed whitespace-pre-line">
-              {project.description}
-            </p>
+            {/* Skip the description when it only repeats the title */}
+            {String(project.description || '').trim().toLowerCase() !== String(project.title).trim().toLowerCase() && (
+              <p className="text-gray-600 text-base md:text-lg leading-relaxed whitespace-pre-line mb-4">
+                {project.description}
+              </p>
+            )}
+            <p className="text-gray-600 text-base md:text-lg leading-relaxed">{projectSummary(project)}</p>
           </div>
+
+          {/* What the photos show, taken from the descriptive photo names */}
+          {(() => {
+            const features = Array.from(
+              new Set(
+                images
+                  .map((img: string) => altFromPath(img, ''))
+                  .filter((t: string) => t && !/^best\b/i.test(t))
+              )
+            ).slice(0, 10) as string[];
+            const servicesUsed = SERVICES_BY_TYPE[project.type] || SERVICES_BY_TYPE.default;
+            return (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 mt-14 max-w-5xl">
+                {features.length > 0 && (
+                  <div className="border-t-2 border-gray-950 pt-6">
+                    <h2 className="text-[11px] font-black uppercase tracking-[0.3em] text-red-600 mb-4">In this project</h2>
+                    <ul className="space-y-2 text-gray-700">
+                      {features.map((f) => (
+                        <li key={f}>— {f}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                <div className="border-t-2 border-gray-950 pt-6">
+                  <h2 className="text-[11px] font-black uppercase tracking-[0.3em] text-red-600 mb-4">Services used</h2>
+                  <ul className="space-y-2">
+                    {servicesUsed.map((s) => (
+                      <li key={s.href}>
+                        <Link href={s.href} className="font-semibold text-gray-950 hover:text-red-600 transition-colors">
+                          → {s.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            );
+          })()}
           {(project.challenge || project.result) && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 mt-14 max-w-5xl">
               {[
@@ -151,6 +226,35 @@ export default function ProjectClient({ project, slug }: any) {
             </div>
           )}
         </div>
+
+        {(() => {
+          const related = allProjects
+            .filter((p: any) => p.slug !== project.slug && p.type === project.type)
+            .slice(0, 3);
+          if (related.length === 0) return null;
+          return (
+            <section className="mb-16">
+              <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tighter mb-6">
+                More {String(project.type).toLowerCase()} projects
+              </h2>
+              <ul className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {related.map((p: any) => (
+                  <li key={p.slug}>
+                    <Link
+                      href={`/projects/${p.slug}/`}
+                      className="block h-full border border-gray-200 p-5 hover:border-red-600 transition-colors"
+                    >
+                      <span className="block font-bold text-gray-950">{p.title}</span>
+                      <span className="block mt-1 text-sm text-gray-500">
+                        {[p.area, String(p.location || '').replace(/,(?=\S)/g, ', ')].filter(Boolean).join(' · ')}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          );
+        })()}
 
         <section className="mb-20 bg-gray-950 text-white px-6 py-12 md:px-16 md:py-16 flex flex-col md:flex-row md:items-center justify-between gap-8">
           <div>

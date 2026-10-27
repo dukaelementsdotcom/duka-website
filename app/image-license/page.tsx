@@ -32,8 +32,8 @@ export default function ImageLicense() {
         <h2 className="text-xl font-semibold text-gray-900 mt-8 mb-4">How to ask</h2>
         <p className="text-gray-700">
           Tell us which images you would like to use and where. Write to{' '}
-          <a href="mailto:welcome@dukainteriors.com" className="text-red-600 hover:text-red-700">
-            welcome@dukainteriors.com
+          <a href="mailto:contact@dukainteriors.com" className="text-red-600 hover:text-red-700">
+            contact@dukainteriors.com
           </a>{' '}
           or use our{' '}
           <Link href="/contact/" className="text-red-600 hover:text-red-700">

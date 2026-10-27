@@ -9,6 +9,7 @@ import type { Metadata } from 'next';
 import fs from 'fs';
 import path from 'path';
 import { pageMeta, serviceSchema, breadcrumbSchema } from '@/lib/seo';
+import { SERVICE_EXTRAS } from '@/lib/serviceExtras';
 
 // 1. Tell Next.js which paths to pre-render at build time
 export async function generateStaticParams() {
@@ -94,6 +95,26 @@ export default function ServiceDetail({ params }: PageProps) {
     })),
   } : null;
 
+  // Questions and example projects for this service (lib/serviceExtras.ts)
+  const extra = SERVICE_EXTRAS[service.slug];
+  const allProjects: { slug: string; title: string; area?: string; location?: string }[] = JSON.parse(
+    fs.readFileSync(path.join(process.cwd(), 'public/data/projects.json'), 'utf8').replace(/^﻿/, '')
+  );
+  const exampleProjects = (extra?.projects ?? [])
+    .map((s) => allProjects.find((p) => p.slug === s))
+    .filter((p): p is (typeof allProjects)[number] => Boolean(p));
+  const faqSchema = extra?.faqs.length
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: extra.faqs.map((f) => ({
+          '@type': 'Question',
+          name: f.q,
+          acceptedAnswer: { '@type': 'Answer', text: f.a },
+        })),
+      }
+    : null;
+
   // Format breadcrumb text naturally
   const breadcrumbText = service.title
     .split(' ')
@@ -115,6 +136,9 @@ export default function ServiceDetail({ params }: PageProps) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
         />
+      )}
+      {faqSchema && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       )}
       <NavBar />
 
@@ -184,6 +208,68 @@ export default function ServiceDetail({ params }: PageProps) {
               </div>
             )}
           </div>
+
+          {/* QUESTIONS */}
+          {extra && extra.faqs.length > 0 && (
+            <div className="mb-20">
+              <div className="flex items-center gap-4 mb-10">
+                <h2 className="text-3xl font-black text-gray-900 uppercase tracking-tighter shrink-0">
+                  <span className="text-red-600 italic">03.</span> Questions
+                </h2>
+                <div className="h-px bg-gray-200 w-full"></div>
+              </div>
+              <div className="divide-y divide-gray-200 border-y border-gray-200">
+                {extra.faqs.map((f, i) => (
+                  <details key={f.q} className="group py-5" open={i === 0}>
+                    <summary className="flex cursor-pointer list-none items-start justify-between gap-4">
+                      <h3 className="text-base md:text-lg font-bold text-gray-900">{f.q}</h3>
+                      <span className="mt-1 text-red-600 text-xl leading-none transition-transform group-open:rotate-45">+</span>
+                    </summary>
+                    <p className="mt-3 text-gray-700 leading-relaxed">{f.a}</p>
+                  </details>
+                ))}
+              </div>
+              {service.slug === 'furniture-production' && (
+                <p className="mt-6 text-sm text-gray-600">
+                  Read more:{' '}
+                  <Link href="/resources/glass-vs-gypsum-office-partitions-ethiopia/" className="text-red-600 underline">
+                    Glass vs gypsum partitions
+                  </Link>{' '}
+                  ·{' '}
+                  <Link href="/estimate/" className="text-red-600 underline">
+                    Estimate your project cost
+                  </Link>
+                </p>
+              )}
+            </div>
+          )}
+
+          {/* EXAMPLE PROJECTS */}
+          {exampleProjects.length > 0 && (
+            <div className="mb-20">
+              <div className="flex items-center gap-4 mb-10">
+                <h2 className="text-3xl font-black text-gray-900 uppercase tracking-tighter shrink-0">
+                  <span className="text-red-600 italic">04.</span> Recent Projects
+                </h2>
+                <div className="h-px bg-gray-200 w-full"></div>
+              </div>
+              <ul className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {exampleProjects.map((p) => (
+                  <li key={p.slug}>
+                    <Link
+                      href={`/projects/${p.slug}/`}
+                      className="block h-full border border-gray-200 p-5 hover:border-red-600 transition-colors"
+                    >
+                      <span className="block font-bold text-gray-950">{p.title}</span>
+                      <span className="block mt-1 text-sm text-gray-500">
+                        {[p.area, String(p.location || '').replace(/,(?=\S)/g, ', ')].filter(Boolean).join(' · ')}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           {/* FINAL CTA SECTION */}
           <div className="mt-12 py-16 border-t-2 border-black flex flex-col md:flex-row gap-6 justify-between items-center bg-white">

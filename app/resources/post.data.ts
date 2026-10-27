@@ -23,6 +23,7 @@ export interface BlogPost {
 export const BLOG_POSTS: BlogPost[] = [
   {
     slug: 'ethiopian-office-furniture-dimensions-guide',
+    seoTitle: "Office Furniture Dimensions for Ethiopia",
     category: 'TECHNICAL DESIGN',
     title: 'The Ethiopian Office Blueprint: Real-World Dimensions for Desks, Workstations, Storage, Soft Furnishings & Breakout Zones',
     date: 'Jan 20, 2026',
@@ -587,6 +588,7 @@ Coming Soon — Q2 2026
   },
   {
     slug: 'office-color-psychology-productivity-addis',
+    seoTitle: "Office Colour Psychology for Addis Ababa",
     category: 'DESIGN SCIENCE',
     title: 'The Strategic Spectrum: Mastering Office Color Psychology in 2026',
     date: 'Feb 02, 2026',
@@ -753,6 +755,7 @@ Est. 2026 | Addis Ababa
   // ✅ ARTICLE 3: LIVE ETHIO PARTNERSHIP (FIXED STRUCTURE & CTA)
   {
     slug: 'transforming-addis-ababa-properties-real-estate-interior-design-partnership',
+    seoTitle: "Real Estate Interior Design in Addis Ababa",
     category: 'INDUSTRY INSIGHTS',
     title: 'Transforming Addis Ababa Properties: A New Partnership Between Real Estate Experts and Interior Designers',
     date: 'Mar 09, 2026',
@@ -896,6 +899,7 @@ Est. 2026 | Addis Ababa
   },
   {
     slug: 'glass-vs-gypsum-office-partitions-ethiopia',
+    seoTitle: "Glass vs Gypsum Partitions in Ethiopia",
     category: 'TECHNICAL GUIDE',
     title: 'Glass vs Gypsum Partitions: Choosing the Right Office Dividers for Your Addis Ababa Workspace',
     date: 'Oct 26, 2026',
@@ -1211,6 +1215,7 @@ Try Our Cost Estimator
   },
   {
     slug: 'open-plan-vs-private-offices-addis-ababa',
+    seoTitle: "Open Plan vs Private Offices in Addis",
     category: 'WORKPLACE STRATEGY',
     title: 'Open Plan or Private Offices? What Actually Works for Ethiopian Companies',
     date: 'Oct 26, 2026',
@@ -1501,6 +1506,7 @@ See Office Examples
   },
   {
     slug: 'office-flooring-ethiopia-guide',
+    seoTitle: "Office Flooring Costs in Ethiopia",
     category: 'MATERIALS GUIDE',
     title: 'Office Flooring in Ethiopia: Costs, Durability, and What to Avoid',
     date: 'Oct 26, 2026',

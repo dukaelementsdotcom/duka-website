@@ -14,10 +14,10 @@ import { services } from '@/lib/servicesData';
 import { pageMeta } from '@/lib/seo';
 
 export const metadata = pageMeta({
-  title: 'Interior Design & Fit-Out in Addis Ababa | Duka Interiors',
+  title: 'Interior Designers in Addis Ababa | Duka Interiors',
   absoluteTitle: true,
   description:
-    'Design-and-build interior firm in Addis Ababa since 2015. Office partitioning, renovation, fit-out and custom furniture for companies across Ethiopia.',
+    'Architect-led interior designers in Addis Ababa since 2015. Office design, partitioning, renovation and custom furniture, designed and built by one team.',
   path: '/',
 });
 

@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 
   return pageMeta({
-    title: post.title.length > 60 ? post.title.split(':')[0] : post.title,
+    title: post.seoTitle ?? (post.title.length > 60 ? post.title.split(":")[0] : post.title),
     description: post.excerpt,
     path: `/resources/${post.slug}/`,
     image: post.image,
