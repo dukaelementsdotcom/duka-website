@@ -88,7 +88,18 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(projectStructuredData) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(imageGallerySchema) }} />
-      <ProjectClient project={project} allProjects={allProjects} slug={slug} />
+      <ProjectClient
+        project={project}
+        // Only what the "More projects" links need, to keep the page small.
+        allProjects={allProjects.map((p: any) => ({
+          slug: p.slug,
+          title: p.title,
+          type: p.type,
+          area: p.area,
+          location: p.location,
+        }))}
+        slug={slug}
+      />
     </>
   );
 }

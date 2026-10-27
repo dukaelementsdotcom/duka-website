@@ -34,8 +34,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: absoluteUrl('/contact/'), priority: 0.8, lastModified: recentUpdate, changeFrequency: 'yearly' },
     { url: absoluteUrl('/estimate/'), priority: 0.7, lastModified: recentUpdate, changeFrequency: 'monthly' },
     { url: absoluteUrl('/resources/'), priority: 0.7, lastModified: recentUpdate, changeFrequency: 'weekly' },
-    // /resources/faq/ and /resources/materials/ are "Coming soon" pages marked noindex.
-    // Add them back here once they have real content and the noindex is removed.
+    { url: absoluteUrl('/resources/faq/'), priority: 0.6, lastModified: new Date('2026-10-27'), changeFrequency: 'monthly' },
+    { url: absoluteUrl('/resources/materials/'), priority: 0.6, lastModified: new Date('2026-10-27'), changeFrequency: 'monthly' },
     { url: absoluteUrl('/directory/'), priority: 0.3, lastModified: recentUpdate, changeFrequency: 'monthly' },
     { url: absoluteUrl('/privacy-policy/'), priority: 0.2, lastModified: new Date('2026-01-01'), changeFrequency: 'yearly' },
     { url: absoluteUrl('/terms-of-service/'), priority: 0.2, lastModified: new Date('2026-01-01'), changeFrequency: 'yearly' },

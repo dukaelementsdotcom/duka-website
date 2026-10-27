@@ -18,7 +18,7 @@ const n = (v: number) => v.toLocaleString('en-US');
 
 type QA = { q: string; a: React.ReactNode; text: string };
 
-const FAQS: QA[] = [
+export const FAQS: QA[] = [
   {
     q: 'How much does interior design cost in Ethiopia?',
     text: `At Duka Interiors, design-only fees start at about ${n(DESIGN_FEE_OFFICE)} ETB per m² for offices and ${n(DESIGN_FEE_HOME)} ETB per m² for homes. That covers the concept, layouts, material selection and 3D visuals. Building the design is priced separately by material: in 2026, gypsum partitions cost about ${n(RATE_GYPSUM_PARTITION)} ETB per m², aluminium glass partitions ${n(RATE_GLASS_FROM)} to ${n(RATE_GLASS_TO)} ETB per m², and gypsum false ceilings about ${n(RATE_CEILING)} ETB per m². The final price depends on the area, the specification and the site.`,
@@ -172,6 +172,12 @@ export default function HomeFAQ() {
               </details>
             ))}
           </div>
+          <Link
+            href="/resources/faq/"
+            className="inline-block mt-6 text-[10px] font-black uppercase tracking-widest text-black border-b-2 border-red-600 pb-1"
+          >
+            See all questions
+          </Link>
         </div>
       </div>
     </section>

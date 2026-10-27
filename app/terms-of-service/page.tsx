@@ -40,7 +40,7 @@ export default function TermsOfService() {
           These terms are governed by the laws of Ethiopia. Any disputes will be resolved in Addis Ababa courts.
         </p>
         <p className="text-gray-700">
-          For questions about these Terms, please contact us at <a href="mailto:welcome@dukainteriors.com" className="text-red-600 hover:text-red-700">welcome@dukainteriors.com</a>.
+          For questions about these Terms, please contact us at <a href="mailto:contact@dukainteriors.com" className="text-red-600 hover:text-red-700">contact@dukainteriors.com</a>.
         </p>
       </main>
       <Footer />
