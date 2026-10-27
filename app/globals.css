@@ -180,3 +180,34 @@ button {
   white-space: nowrap;
   border: 0;
 }
+/* ========== BLOG ARTICLE BODY (/resources/[slug]) ==========
+   Plain HTML articles in app/resources/posts/*.ts are styled here,
+   so the article text needs no utility classes. */
+.article-body { color: #374151; font-size: 1.0625rem; line-height: 1.8; }
+.article-body > * + * { margin-top: 1.25rem; }
+.article-body .lead { font-size: 1.25rem; line-height: 1.7; color: #111827; font-weight: 500; border-left: 4px solid #dc2626; padding-left: 1.25rem; }
+.article-body h2 { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; font-size: 1.75rem; line-height: 1.15; font-weight: 900; letter-spacing: -0.02em; text-transform: uppercase; color: #111827; }
+.article-body h3 { margin-top: 2.25rem; font-size: 1.25rem; line-height: 1.3; font-weight: 800; color: #111827; }
+.article-body strong { color: #111827; font-weight: 700; }
+.article-body a { color: #dc2626; text-decoration: underline; text-underline-offset: 3px; }
+.article-body a:hover { color: #111827; }
+.article-body ul, .article-body ol { padding-left: 1.4rem; }
+.article-body ul { list-style: disc; }
+.article-body ol { list-style: decimal; }
+.article-body li + li { margin-top: 0.5rem; }
+.article-body li::marker { color: #dc2626; }
+.article-body blockquote { border-left: 4px solid #111827; background: #f9fafb; padding: 1rem 1.25rem; font-style: italic; color: #111827; }
+.article-body .note { background: #fef2f2; border-left: 4px solid #dc2626; padding: 1rem 1.25rem; font-size: 0.98rem; }
+.article-body .note p + p { margin-top: 0.75rem; }
+.article-body figure { margin-top: 2.5rem; margin-bottom: 2.5rem; }
+.article-body figure img { width: 100%; height: auto; border-radius: 0.5rem; background: #f3f4f6; }
+.article-body figcaption { margin-top: 0.6rem; font-size: 0.85rem; color: #6b7280; }
+.article-body .table-wrap { overflow-x: auto; margin-top: 1.5rem; }
+.article-body table { width: 100%; border-collapse: collapse; font-size: 0.95rem; line-height: 1.5; }
+.article-body th { background: #111827; color: #fff; text-align: left; padding: 0.7rem 0.9rem; font-weight: 700; }
+.article-body td { padding: 0.7rem 0.9rem; border-bottom: 1px solid #e5e7eb; vertical-align: top; }
+.article-body tr:nth-child(even) td { background: #f9fafb; }
+.article-body .small { font-size: 0.85rem; color: #6b7280; }
+@media (min-width: 768px) {
+  .article-body h2 { font-size: 2.25rem; }
+}

@@ -114,9 +114,8 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
           </header>
 
           <div
-            className="prose prose-lg max-w-none text-gray-700 leading-relaxed
-            prose-h3:text-2xl prose-h3:font-black prose-h3:uppercase prose-h3:tracking-tighter prose-h3:mt-12 prose-h3:text-black
-            prose-img:rounded-lg prose-img:my-10 prose-strong:text-black prose-p:mb-6"
+            // Styles for the plain-HTML article text: .article-body in app/globals.css
+            className="article-body max-w-3xl"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
 
