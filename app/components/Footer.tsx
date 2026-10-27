@@ -163,6 +163,11 @@ export default function Footer() {
               </Link>
             </li>
             <li>
+              <Link href="/image-license/" className={linkClass}>
+                Image Use
+              </Link>
+            </li>
+            <li>
               <Link href="/directory/" className={linkClass}>
                 Sitemap
               </Link>

@@ -113,6 +113,20 @@ export function pageMeta({
 // STRUCTURED DATA GENERATORS
 // =============================================================================
 
+/**
+ * Copyright and licence details for every ImageObject. Google Search Console asks for these
+ * (Image Metadata: license, acquireLicensePage, creditText, copyrightNotice).
+ */
+export function imageRights() {
+  return {
+    creator: { '@type': 'Organization', name: COMPANY_INFO.name, url: SITE_URL },
+    creditText: 'Duka Interiors',
+    copyrightNotice: `© ${COMPANY_INFO.name}`,
+    license: `${SITE_URL}/image-license/`,
+    acquireLicensePage: `${SITE_URL}/contact/`,
+  };
+}
+
 /** Organization schema - add to root layout for sitewide presence */
 export function organizationSchema() {
   return {
@@ -125,8 +139,10 @@ export function organizationSchema() {
     logo: {
       '@type': 'ImageObject',
       url: LOGO_URL,
+      contentUrl: LOGO_URL,
       width: 500,
       height: 280,
+      ...imageRights(),
     },
     image: `${SITE_URL}/og-image.jpg`,
     email: COMPANY_INFO.email,
