@@ -110,30 +110,6 @@ export default function MoodboardPage() {
     }
   };
 
-  const downloadMoodboardImage = async () => {
-    alert('Coming soon! This feature will allow you to download your moodboard as a beautiful collage image.');
-  };
-
-  const shareMoodboardLink = () => {
-    const moodboardData = {
-      projects: favoriteProjects.map(p => p.slug),
-      timestamp: new Date().toISOString()
-    };
-    
-    const encoded = btoa(JSON.stringify(moodboardData));
-    const shareUrl = `${window.location.origin}/share/moodboard?data=${encoded}`;
-    
-    if (navigator.share && navigator.canShare) {
-      navigator.share({
-        title: 'My Duka Interiors Moodboard',
-        text: `Check out my interior design inspiration board with ${favoriteProjects.length} projects from Duka Interiors`,
-        url: shareUrl,
-      });
-    } else {
-      navigator.clipboard.writeText(shareUrl);
-      alert('Moodboard link copied to clipboard! Share it with friends or your designer.');
-    }
-  };
 
   if (loading) {
     return (
@@ -223,15 +199,6 @@ export default function MoodboardPage() {
                     Clear All
                   </button>
                   
-                  <button
-                    onClick={shareMoodboardLink}
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white rounded-full font-black text-[10px] uppercase tracking-widest hover:bg-gray-800 transition-all"
-                  >
-                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-                    </svg>
-                    Share Board
-                  </button>
                 </>
               )}
             </div>
@@ -453,16 +420,6 @@ export default function MoodboardPage() {
 
                         {/* Additional Options */}
                         <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                          <button
-                            onClick={downloadMoodboardImage}
-                            className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-white border-2 border-gray-200 text-gray-700 rounded-2xl font-black text-[11px] uppercase tracking-widest hover:bg-gray-50 hover:border-gray-300 transition-all"
-                          >
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                            </svg>
-                            Export Moodboard
-                          </button>
-                          
                           <Link
                             href="/projects"
                             className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-gray-100 text-gray-700 rounded-2xl font-black text-[11px] uppercase tracking-widest hover:bg-gray-200 transition-all"
