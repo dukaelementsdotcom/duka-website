@@ -26,7 +26,7 @@ const content = `
 <tr><td>Aluminium single-glass partition</td><td>about 14,500 ETB / m²</td></tr>
 <tr><td>Frameless tempered glass</td><td>about 15,500 ETB / m²</td></tr>
 <tr><td>Double-glazed sound-proof glass</td><td>about 16,500 ETB / m²</td></tr>
-<tr><td>Glass door</td><td>about 8,500 ETB each</td></tr>
+<tr><td>Glass door</td><td>about 18,000 ETB each</td></tr>
 <tr><td>Frosted (sandblasted) film on glass</td><td>about 1,200 ETB / m²</td></tr>
 </tbody></table></div>
 
