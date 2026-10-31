@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
+import { jsPDF } from 'jspdf';
 
 // ============================================================================
 // DUKA OFFICE FIT-OUT ESTIMATOR
@@ -212,6 +213,202 @@ export default function EstimatePage() {
   const scopeCount = Object.values(scope).filter(Boolean).length;
   const canProceedStep1 = headcount && (hasSpace === 'no' || (hasSpace === 'yes' && existingArea));
   const canProceedStep2 = scopeCount > 0;
+
+  // ===== PDF GENERATION =====
+  const generatePDF = () => {
+    if (!spaceResult || !budgetResult) return;
+
+    const doc = new jsPDF();
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const margin = 20;
+    let y = 20;
+
+    // Helper for centered text
+    const centerText = (text: string, yPos: number, size = 12) => {
+      doc.setFontSize(size);
+      const textWidth = doc.getTextWidth(text);
+      doc.text(text, (pageWidth - textWidth) / 2, yPos);
+    };
+
+    // ===== HEADER =====
+    doc.setFillColor(220, 38, 38); // red-600
+    doc.rect(0, 0, pageWidth, 45, 'F');
+
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(24);
+    doc.setFont('helvetica', 'bold');
+    centerText('DUKA INTERIORS', 22);
+
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'normal');
+    centerText('Office Fit-Out Estimate', 32);
+
+    // Reset text color
+    doc.setTextColor(0, 0, 0);
+    y = 60;
+
+    // ===== CLIENT INFO =====
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(100, 100, 100);
+    doc.text(`Prepared for: ${name || 'Client'}`, margin, y);
+    doc.text(`Date: ${new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}`, pageWidth - margin - 50, y);
+    y += 15;
+
+    // ===== PROJECT SUMMARY BOX =====
+    doc.setFillColor(249, 250, 251); // gray-50
+    doc.roundedRect(margin, y, pageWidth - 2 * margin, 35, 3, 3, 'F');
+
+    doc.setTextColor(0, 0, 0);
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Project Summary', margin + 5, y + 10);
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10);
+    const summaryY = y + 20;
+    doc.text(`Team Size: ${headcount} people`, margin + 5, summaryY);
+    doc.text(`Work Style: ${workStyle === 'openPlan' ? 'Open Plan' : workStyle.charAt(0).toUpperCase() + workStyle.slice(1)}`, margin + 60, summaryY);
+    doc.text(`Quality: ${BUDGET_RANGES[quality].label}`, margin + 120, summaryY);
+    y += 45;
+
+    // ===== SPACE REQUIREMENTS =====
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(0, 0, 0);
+    doc.text('Space Requirements', margin, y);
+    y += 10;
+
+    // Recommended area highlight
+    doc.setFillColor(17, 24, 39); // gray-900
+    doc.roundedRect(margin, y, 80, 25, 3, 3, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(9);
+    doc.text('Recommended Area', margin + 5, y + 8);
+    doc.setFontSize(16);
+    doc.setFont('helvetica', 'bold');
+    doc.text(`${spaceResult.total} m²`, margin + 5, y + 20);
+
+    // Range
+    doc.setTextColor(100, 100, 100);
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'normal');
+    doc.text(`Range: ${spaceResult.min} – ${spaceResult.max} m²`, margin + 90, y + 15);
+    y += 35;
+
+    // Space breakdown table
+    doc.setTextColor(0, 0, 0);
+    doc.setFontSize(10);
+    const spaceItems = [
+      ['Workspaces', `${spaceResult.workspace} m²`],
+      ['Reception & Waiting', `${spaceResult.reception} m²`],
+      ['Meeting Rooms', `${spaceResult.meeting} m²`],
+      ['Amenities (Kitchen, Storage)', `${spaceResult.amenities} m²`],
+      ['Circulation (18%)', `${spaceResult.circulation} m²`],
+    ];
+
+    spaceItems.forEach(([label, value]) => {
+      doc.setFont('helvetica', 'normal');
+      doc.text(label, margin, y);
+      doc.setFont('helvetica', 'bold');
+      doc.text(value, pageWidth - margin - 30, y);
+      y += 7;
+    });
+
+    // Total line
+    doc.setDrawColor(200, 200, 200);
+    doc.line(margin, y, pageWidth - margin, y);
+    y += 7;
+    doc.setFont('helvetica', 'bold');
+    doc.text('Total', margin, y);
+    doc.text(`${spaceResult.total} m²`, pageWidth - margin - 30, y);
+    y += 20;
+
+    // ===== BUDGET ESTIMATE =====
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Budget Estimate', margin, y);
+    y += 10;
+
+    // Budget highlight
+    doc.setFillColor(17, 24, 39);
+    doc.roundedRect(margin, y, pageWidth - 2 * margin, 30, 3, 3, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(9);
+    doc.text('Estimated Total (Including VAT)', margin + 5, y + 10);
+    doc.setFontSize(18);
+    doc.setFont('helvetica', 'bold');
+    doc.text(`${budgetResult.min.toLocaleString()} – ${budgetResult.max.toLocaleString()} ETB`, margin + 5, y + 23);
+    y += 40;
+
+    // Scope included
+    doc.setTextColor(0, 0, 0);
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'bold');
+    doc.text("What's Included:", margin, y);
+    y += 8;
+
+    const includedScopes = Object.entries(scope)
+      .filter(([_, v]) => v)
+      .map(([k]) => k.charAt(0).toUpperCase() + k.slice(1));
+
+    doc.setFont('helvetica', 'normal');
+    doc.text(includedScopes.join(', '), margin, y);
+    y += 15;
+
+    // Calculation details
+    doc.setFontSize(9);
+    doc.setTextColor(100, 100, 100);
+    doc.text(`Area: ${budgetResult.area} m²  •  Rate: ${BUDGET_RANGES[quality].min.toLocaleString()}–${BUDGET_RANGES[quality].max.toLocaleString()} ETB/m²  •  Scope: ${budgetResult.scopePercent}% of full fit-out`, margin, y);
+    y += 20;
+
+    // ===== DISCLAIMER =====
+    doc.setFillColor(254, 243, 199); // amber-100
+    doc.roundedRect(margin, y, pageWidth - 2 * margin, 25, 3, 3, 'F');
+    doc.setTextColor(146, 64, 14); // amber-800
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Important Notice', margin + 5, y + 8);
+    doc.setFont('helvetica', 'normal');
+    doc.text('This is a planning estimate. Final pricing depends on site conditions, material choices,', margin + 5, y + 15);
+    doc.text('and detailed requirements. Contact us for an accurate quote after a site visit.', margin + 5, y + 21);
+    y += 35;
+
+    // ===== FOOTER =====
+    doc.setDrawColor(220, 38, 38);
+    doc.setLineWidth(0.5);
+    doc.line(margin, y, pageWidth - margin, y);
+    y += 10;
+
+    doc.setTextColor(0, 0, 0);
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Ready for a detailed quote?', margin, y);
+    y += 7;
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.text('Schedule a free site visit for accurate pricing with material options and timelines.', margin, y);
+    y += 12;
+
+    doc.setFontSize(10);
+    doc.text('📞  +251 912 960 576  /  +251 929 144 290', margin, y);
+    y += 6;
+    doc.text('📧  dukaelements@gmail.com', margin, y);
+    y += 6;
+    doc.text('🌐  www.dukainteriors.com', margin, y);
+    y += 15;
+
+    // Company info
+    doc.setFontSize(8);
+    doc.setTextColor(150, 150, 150);
+    centerText('Duka Interiors PLC  •  Bole Medhanialem, Welelay Building 5th Floor, Room 507  •  Addis Ababa, Ethiopia', y);
+    y += 5;
+    centerText('Interior Design & Build Since 2015', y);
+
+    // Save
+    const filename = `Duka-Estimate-${headcount}pax-${spaceResult.total}sqm-${new Date().toISOString().split('T')[0]}.pdf`;
+    doc.save(filename);
+  };
 
   // ============================================================================
   // RENDER
@@ -736,6 +933,22 @@ export default function EstimatePage() {
                         <div className="text-gray-500">Scope</div>
                         <div className="font-bold text-gray-900">{budgetResult.scopePercent}% of fit-out</div>
                       </div>
+                    </div>
+
+                    {/* Download PDF Button */}
+                    <div className="mt-6 pt-6 border-t border-gray-200">
+                      <button
+                        onClick={generatePDF}
+                        className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-gray-900 text-white font-medium rounded-lg hover:bg-gray-800 transition-colors"
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        Download PDF Estimate
+                      </button>
+                      <p className="text-xs text-gray-500 text-center mt-2">
+                        Save this estimate to share with your team
+                      </p>
                     </div>
                   </div>
 
