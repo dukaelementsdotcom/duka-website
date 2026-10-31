@@ -10,15 +10,13 @@
   },
   "browserslist": {
     "production": [
-      ">0.25%",
-      "not dead",
-      "not op_mini all",
-      "not ie 11",
-      "not ios_saf 15",
-      "not safari 15",
-      "not samsung 17",
-      "not and_qq 14",
-      "not baidu 14"
+      "chrome >= 92",
+      "edge >= 92",
+      "firefox >= 91",
+      "safari >= 15.4",
+      "ios_saf >= 15.4",
+      "samsung >= 17",
+      "not dead"
     ],
     "development": [
       "last 1 chrome version",
