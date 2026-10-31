@@ -28,25 +28,25 @@ const SPACE_STANDARDS = {
   amenities: 0.6,           // Kitchen, prayer room, storage per staff
 };
 
-// Budget ranges per m² (ETB) - based on Oct 2026 Addis Ababa market research
-// These are FULL FIT-OUT costs including materials and labor
-// Sources: 2merkato.com, Jiji.com.et, Conmaret, supplier quotes
+// Budget ranges per m² (ETB) - VERIFIED against Duka BOQs
+// FENOT 2022: ~8,700 ETB/m² | Precision 2026: ~12,000-16,000 ETB/m²
+// INTERPOL 2026: ~22,000+ ETB/m² (premium + imported items)
 const BUDGET_RANGES = {
   standard: {
-    min: 9000,
-    max: 14000,
+    min: 10000,
+    max: 15000,
     label: 'Standard',
     desc: 'Local materials, functional finishes'
   },
   premium: {
-    min: 14000,
-    max: 22000,
+    min: 15000,
+    max: 24000,
     label: 'Premium',
     desc: 'Branded materials, professional finish'
   },
   luxury: {
-    min: 22000,
-    max: 35000,
+    min: 24000,
+    max: 40000,
     label: 'Luxury',
     desc: 'Imported materials, custom details'
   },

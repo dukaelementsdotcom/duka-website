@@ -8,7 +8,7 @@ import { EthiopianMarketRates, PricingTier } from './types';
 import { QUALITY_TIER_NAMES } from '@/components/ProjectScopePro/Shared/constants';
 
 // Ethiopian Market Rates - Updated October 2026
-// Based on research from 2merkato, Jiji.com.et, Conmaret price guides
+// VERIFIED against actual Duka BOQs: FENOT (2022), Ethiojobs (2024), INTERPOL (2026), Precision (2026)
 export const ETHIOPIAN_MARKET_RATES: EthiopianMarketRates = {
   designServices: {
     spacePlanningPerM2: {
@@ -39,128 +39,127 @@ export const ETHIOPIAN_MARKET_RATES: EthiopianMarketRates = {
     projectManagementPercentage: 0.10 // 10% of construction cost
   },
   materials: {
-    // GWB partition installed: board (~120 ETB/m²) + framing + labor
+    // GWB partition - VERIFIED: FENOT 2,724; Ethiojobs 3,500; Precision 3,900-5,200
     gwbPartitionPerM2: {
-      standard: 2500,  // Local gypsum, basic finish
-      premium: 3200,   // Branded board, smooth finish
-      luxury: 4500     // Moisture/fire resistant, premium finish
+      standard: 3500,  // Basic 90mm double-sided (Ethiojobs 2024)
+      premium: 4200,   // Quality finish (Precision 2026)
+      luxury: 5500     // Sound insulated (INTERPOL 4,800; Precision 5,200)
     },
-    // Glass partition: 6mm clear (~2,500 ETB/m²) + aluminum frame + labor
-    // Single glass: 12,000-14,000; Double soundproof: 16,000-20,000
+    // Glass partition - VERIFIED: FENOT 9,000; Ethiojobs 15,295; INTERPOL 15,000; Precision 17,550
     glassPartitionPerM2: {
-      standard: 12000, // Single glass, aluminum frame
-      premium: 15000,  // Single glass, powder-coated frame
-      luxury: 20000    // Double glass soundproof / frameless tempered
+      standard: 13000, // Aluminum frame, 6mm glass
+      premium: 16000,  // Tempered 10mm, U-channel (INTERPOL 15,000)
+      luxury: 20000    // Tempered 10mm premium (Precision 17,550 + margin)
     },
-    // False ceiling: mineral fiber tiles + grid + labor
+    // False ceiling - VERIFIED: FENOT 2,004; Ethiojobs 3,500; Precision 3,640
     ceilingWorkPerM2: {
-      standard: 2000,  // Local tiles, basic grid
-      premium: 2800,   // Branded tiles (Armstrong), T-grid
-      luxury: 4000     // Acoustic tiles, concealed grid
+      standard: 2800,  // Local tiles, basic grid
+      premium: 3600,   // Quality tiles (Ethiojobs/Precision ~3,500-3,640)
+      luxury: 5000     // Acoustic tiles, concealed grid
     },
-    // LED panel 60x60: 2,000-2,500 ETB each
+    // LED panel 600x600 - VERIFIED: FENOT 4,880; INTERPOL 5,400; Precision 4,550
     electricalLightingPerFixture: {
-      standard: 2000,
-      premium: 2800,
+      standard: 4000,  // Basic 48W panel
+      premium: 5000,   // Quality brand (INTERPOL 5,400)
+      luxury: 7000     // Premium with dimming
+    },
+    // Socket outlet - VERIFIED: Ethiojobs 1,540-1,680; INTERPOL 1,200
+    electricalPowerPerPoint: {
+      standard: 1200,
+      premium: 1600,
+      luxury: 2200
+    },
+    // Data point - VERIFIED: INTERPOL 2,940/pt
+    dataPointPerPort: {
+      standard: 2500,
+      premium: 3200,
       luxury: 4500
     },
-    // Socket outlet: 80-350 ETB + installation
-    electricalPowerPerPoint: {
-      standard: 450,
-      premium: 650,
-      luxury: 1000
-    },
-    // Data point: 650 ETB + cabling
-    dataPointPerPort: {
-      standard: 800,
-      premium: 1200,
-      luxury: 1800
-    },
-    // Carpet tiles installed: 3,500-5,500 ETB/m²
+    // Carpet tiles - VERIFIED: FENOT 2,280; Ethiojobs 1,974; INTERPOL 8,400 (premium)
     carpetFlooringPerM2: {
-      standard: 3500,  // Local/economy tiles
-      premium: 4500,   // Branded (Interface, Milliken)
-      luxury: 6500     // Premium acoustic/modular
+      standard: 2500,  // Economy bitumen-backed (FENOT/Ethiojobs ~2,000-2,300)
+      premium: 5000,   // Mid-range branded
+      luxury: 8500     // Premium (INTERPOL 8,400)
     },
-    // SPC flooring: 1,500-3,500 ETB/m² installed
+    // SPC flooring - market survey based
     spcFlooringPerM2: {
-      standard: 2000,
-      premium: 2800,
-      luxury: 4000
+      standard: 2200,
+      premium: 3200,
+      luxury: 4500
     },
-    // Porcelain tiles: 2,500-5,000 ETB/m² installed
+    // Porcelain tiles - VERIFIED: FENOT 2,400
     tileFlooringPerM2: {
-      standard: 2800,
-      premium: 4000,
-      luxury: 5500
+      standard: 2500,
+      premium: 3500,
+      luxury: 5000
     },
-    // Painting: 150-250 ETB/m² (2 coats, including prep)
+    // Painting - VERIFIED: FENOT 156; Ethiojobs 231; INTERPOL 420; Precision 325
     paintingPerM2: {
-      standard: 180,
-      premium: 250,
-      luxury: 400
+      standard: 250,   // Two coats emulsion (avg of recent BOQs)
+      premium: 380,    // Three coats, prep included
+      luxury: 550      // Premium finish, feature walls
     },
-    // Glass door with hardware: 8,500 ETB
+    // Doors - VERIFIED: FENOT wooden 21,600-24,000; INTERPOL wooden 48,000; Precision 41,600
     doorPerUnit: {
-      standard: 6500,  // Wooden door
-      premium: 9000,   // Glass door, aluminum frame
-      luxury: 15000    // Frameless glass, premium hardware
+      standard: 25000, // Wooden flush door
+      premium: 42000,  // Quality wooden (Precision 41,600)
+      luxury: 65000    // Aluminum/glass framed
     }
   },
   furniture: {
-    // Executive desk: Jiji shows 35,000-250,000 ETB
+    // Executive desk - VERIFIED: INTERPOL 62,843 (EBY-M1511 160cm)
     executiveDesk: {
-      standard: 28000,
-      premium: 45000,
-      luxury: 85000
+      standard: 35000,
+      premium: 55000,
+      luxury: 95000
     },
-    // Manager desk: Jiji shows 35,000-42,000 ETB
+    // Manager/L-type desk - VERIFIED: INTERPOL 52,973 (EB140 L-shape)
     managerDesk: {
-      standard: 22000,
-      premium: 35000,
-      luxury: 55000
-    },
-    // Staff desk / workstation: 13,000-27,000 ETB
-    workstation: {
-      standard: 14000,
-      premium: 22000,
-      luxury: 35000
-    },
-    // Managerial leather chair: ~38,000 ETB; Ergonomic: 42,000-49,000
-    executiveChair: {
-      standard: 15000,
-      premium: 28000,
-      luxury: 45000
-    },
-    // Task chair: Jiji shows ~6,500 ETB basic, mesh with headrest ~9,500
-    taskChair: {
-      standard: 6500,
-      premium: 9500,
-      luxury: 18000
-    },
-    // Visitor/guest chair: 3,200-6,000 ETB
-    visitorChair: {
-      standard: 3500,
-      premium: 5500,
-      luxury: 9000
-    },
-    // Conference table per seat
-    conferenceTablePerSeat: {
-      standard: 8000,
-      premium: 14000,
-      luxury: 24000
-    },
-    // Storage cabinet: tall 90x180 ~15,000; short 90x90 ~9,000
-    storageCabinet: {
-      standard: 9000,
-      premium: 15000,
-      luxury: 25000
-    },
-    // Reception desk: small 1.8m ~28,000; medium 2.4m ~42,000; large 3.2m ~65,000
-    receptionDesk: {
       standard: 28000,
       premium: 45000,
       luxury: 75000
+    },
+    // Staff workstation - VERIFIED: INTERPOL 52,973 (with pedestal)
+    workstation: {
+      standard: 18000,
+      premium: 28000,
+      luxury: 45000
+    },
+    // Executive chair - VERIFIED: INTERPOL 32,414 (EBY-A3069 high back)
+    executiveChair: {
+      standard: 18000,
+      premium: 32000,
+      luxury: 50000
+    },
+    // Task chair - VERIFIED: INTERPOL 15,341 (EBY-AOD557 mid back)
+    taskChair: {
+      standard: 8000,
+      premium: 15000,
+      luxury: 25000
+    },
+    // Visitor/guest chair - VERIFIED: INTERPOL 17,640
+    visitorChair: {
+      standard: 6000,
+      premium: 12000,
+      luxury: 20000
+    },
+    // Conference table per seat
+    conferenceTablePerSeat: {
+      standard: 10000,
+      premium: 18000,
+      luxury: 30000
+    },
+    // Storage cabinet - VERIFIED: INTERPOL 38,430 (metal); Deluxe 94,448
+    storageCabinet: {
+      standard: 12000,
+      premium: 25000,
+      luxury: 50000
+    },
+    // Reception desk - VERIFIED: market survey
+    receptionDesk: {
+      standard: 35000,
+      premium: 55000,
+      luxury: 90000
     }
   }
 };
