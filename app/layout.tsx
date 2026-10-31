@@ -181,12 +181,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <head>
-        {/* ✅ CRITICAL PERFORMANCE: Preconnect to essential origins */}
-        <link rel="preconnect" href="https://www.dukainteriors.com" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://maps.googleapis.com" />
-        <link rel="preconnect" href="https://googleusercontent.com" />
+        {/* ✅ CRITICAL PERFORMANCE: Preconnect only to origins used on initial render */}
+        {/* Removed unused preconnects: dukainteriors.com (same origin), maps/googleusercontent (images lazy-load) */}
+        {/* fonts.gstatic.com preconnect sent via Link header in next.config.ts */}
         
         {/* ✅ CRITICAL CSS: Inline critical above-the-fold styles */}
         <style dangerouslySetInnerHTML={{ __html: `
