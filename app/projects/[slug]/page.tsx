@@ -99,6 +99,15 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           location: p.location,
         }))}
         slug={slug}
+        // Prev/next navigation
+        prevProject={(() => {
+          const idx = allProjects.findIndex((p: any) => p.slug === slug);
+          return idx > 0 ? { slug: allProjects[idx - 1].slug, title: allProjects[idx - 1].title } : null;
+        })()}
+        nextProject={(() => {
+          const idx = allProjects.findIndex((p: any) => p.slug === slug);
+          return idx < allProjects.length - 1 ? { slug: allProjects[idx + 1].slug, title: allProjects[idx + 1].title } : null;
+        })()}
       />
     </>
   );
