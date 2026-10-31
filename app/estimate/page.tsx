@@ -6,42 +6,62 @@ import Footer from '../components/Footer';
 
 // ============================================================================
 // DUKA OFFICE FIT-OUT ESTIMATOR
-// A genuinely useful planning tool for Ethiopian commercial projects
+// Ethiopian commercial projects - realistic local standards
+// Last updated: October 2026
+// Sources: 2merkato, Jiji.com.et, Conmaret, Duka project data
 // ============================================================================
 
-// Ethiopian workspace standards (based on local practice)
+// Ethiopian workspace standards - tighter than international norms
+// Reflects local practice where rent is expensive relative to wages
 const SPACE_STANDARDS = {
-  // m² per person by work style
+  // m² per person by work style (Ethiopian practice, not int'l standards)
   perPerson: {
-    traditional: 10,  // Private offices, formal hierarchy
-    hybrid: 8,        // Mix of private and open
-    openPlan: 6,      // Modern open layout with hot-desking
+    traditional: 8,   // Private offices, formal hierarchy (int'l would be 12)
+    hybrid: 6,        // Mix of private and open (int'l would be 9)
+    openPlan: 5,      // Modern open layout, hot-desking (int'l would be 7)
   },
-  // Additional space allowances
-  circulation: 0.20,        // 20% for corridors, movement
-  reception: 15,            // Base reception area (m²)
-  receptionPerStaff: 0.3,   // Additional per staff for waiting
-  meetingPerStaff: 1.2,     // Meeting room space per staff member
-  amenities: 0.8,           // Kitchen, prayer room, storage per staff
+  // Additional space allowances - Ethiopian norms
+  circulation: 0.18,        // 18% for corridors (tighter than 22% int'l)
+  reception: 12,            // Base reception area (m²)
+  receptionPerStaff: 0.2,   // Additional per staff for waiting
+  meetingPerStaff: 1.0,     // Meeting room space per staff member
+  amenities: 0.6,           // Kitchen, prayer room, storage per staff
 };
 
-// Budget ranges per m² (ETB) - honest ranges based on market
-// These are FIT-OUT costs, not rent
+// Budget ranges per m² (ETB) - based on Oct 2026 Addis Ababa market research
+// These are FULL FIT-OUT costs including materials and labor
+// Sources: 2merkato.com, Jiji.com.et, Conmaret, supplier quotes
 const BUDGET_RANGES = {
-  standard: { min: 8000, max: 12000, label: 'Standard', desc: 'Local materials, functional finishes' },
-  premium: { min: 12000, max: 18000, label: 'Premium', desc: 'Quality materials, professional finish' },
-  luxury: { min: 18000, max: 28000, label: 'Luxury', desc: 'Imported materials, custom details' },
+  standard: {
+    min: 9000,
+    max: 14000,
+    label: 'Standard',
+    desc: 'Local materials, functional finishes'
+  },
+  premium: {
+    min: 14000,
+    max: 22000,
+    label: 'Premium',
+    desc: 'Branded materials, professional finish'
+  },
+  luxury: {
+    min: 22000,
+    max: 35000,
+    label: 'Luxury',
+    desc: 'Imported materials, custom details'
+  },
 };
 
-// Scope multipliers - what percentage of full fit-out cost
+// Scope multipliers - what percentage of full fit-out cost each scope represents
+// Based on typical Duka project cost breakdowns
 const SCOPE_WEIGHTS = {
-  partitioning: 0.30,   // GWB + glass partitions
-  furniture: 0.25,      // Desks, chairs, storage
-  flooring: 0.12,       // Carpet, tiles, SPC
-  electrical: 0.15,     // Lighting, sockets, data points
-  ceiling: 0.08,        // False ceiling
-  painting: 0.05,       // Wall finishes
-  branding: 0.05,       // Signage, logo, graphics
+  partitioning: 0.28,   // GWB + glass partitions (glass is expensive)
+  furniture: 0.27,      // Desks, chairs, storage, reception
+  flooring: 0.12,       // Carpet tiles, SPC, porcelain
+  electrical: 0.15,     // LED panels, sockets, data points
+  ceiling: 0.08,        // Mineral fiber false ceiling
+  painting: 0.05,       // Wall finishes (2 coats)
+  branding: 0.05,       // Logo, signage, sandblasted glass
 };
 
 export default function EstimatePage() {

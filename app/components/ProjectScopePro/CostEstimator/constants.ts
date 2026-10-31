@@ -1,143 +1,166 @@
 ﻿// ========================================
 // COST ESTIMATOR - CONSTANTS
-// Ethiopian Market Rates (2026)
+// Ethiopian Market Rates (October 2026)
+// Sources: 2merkato.com, Jiji.com.et, Conmaret, supplier quotes
 // ========================================
 
 import { EthiopianMarketRates, PricingTier } from './types';
 import { QUALITY_TIER_NAMES } from '@/components/ProjectScopePro/Shared/constants';
 
-// Ethiopian Market Rates - PLACEHOLDER VALUES (to be refined with real data)
+// Ethiopian Market Rates - Updated October 2026
+// Based on research from 2merkato, Jiji.com.et, Conmaret price guides
 export const ETHIOPIAN_MARKET_RATES: EthiopianMarketRates = {
   designServices: {
     spacePlanningPerM2: {
-      standard: 800,
-      premium: 1200,
-      luxury: 1800
+      standard: 1000,
+      premium: 1500,
+      luxury: 2500
     },
     technicalDrawingsPerSheet: {
-      standard: 800,
-      premium: 1200,
-      luxury: 1800
+      standard: 1200,
+      premium: 1800,
+      luxury: 2800
     },
     visualizationPerView: {
-      standard: 2500,
-      premium: 4000,
-      luxury: 6500
-    },
-    workingDrawingsPackage: {
-      standard: 15000,
-      premium: 25000,
-      luxury: 40000
-    },
-    boqPreparation: {
-      standard: 8000,
-      premium: 12000,
-      luxury: 18000
-    },
-    projectManagementPercentage: 0.08 // 8% of construction cost
-  },
-  materials: {
-    gwbPartitionPerM2: {
-      standard: 1800,
-      premium: 2800,
-      luxury: 4200
-    },
-    glassPartitionPerM2: {
       standard: 3500,
       premium: 5500,
-      luxury: 8500
+      luxury: 9000
     },
+    workingDrawingsPackage: {
+      standard: 20000,
+      premium: 35000,
+      luxury: 55000
+    },
+    boqPreparation: {
+      standard: 10000,
+      premium: 15000,
+      luxury: 25000
+    },
+    projectManagementPercentage: 0.10 // 10% of construction cost
+  },
+  materials: {
+    // GWB partition installed: board (~120 ETB/m²) + framing + labor
+    gwbPartitionPerM2: {
+      standard: 2500,  // Local gypsum, basic finish
+      premium: 3200,   // Branded board, smooth finish
+      luxury: 4500     // Moisture/fire resistant, premium finish
+    },
+    // Glass partition: 6mm clear (~2,500 ETB/m²) + aluminum frame + labor
+    // Single glass: 12,000-14,000; Double soundproof: 16,000-20,000
+    glassPartitionPerM2: {
+      standard: 12000, // Single glass, aluminum frame
+      premium: 15000,  // Single glass, powder-coated frame
+      luxury: 20000    // Double glass soundproof / frameless tempered
+    },
+    // False ceiling: mineral fiber tiles + grid + labor
     ceilingWorkPerM2: {
-      standard: 950,
-      premium: 1500,
-      luxury: 2400
+      standard: 2000,  // Local tiles, basic grid
+      premium: 2800,   // Branded tiles (Armstrong), T-grid
+      luxury: 4000     // Acoustic tiles, concealed grid
     },
+    // LED panel 60x60: 2,000-2,500 ETB each
     electricalLightingPerFixture: {
-      standard: 1200,
-      premium: 2200,
-      luxury: 3800
+      standard: 2000,
+      premium: 2800,
+      luxury: 4500
     },
+    // Socket outlet: 80-350 ETB + installation
     electricalPowerPerPoint: {
       standard: 450,
       premium: 650,
-      luxury: 950
+      luxury: 1000
     },
+    // Data point: 650 ETB + cabling
     dataPointPerPort: {
-      standard: 650,
-      premium: 950,
-      luxury: 1400
+      standard: 800,
+      premium: 1200,
+      luxury: 1800
     },
+    // Carpet tiles installed: 3,500-5,500 ETB/m²
     carpetFlooringPerM2: {
-      standard: 1100,
-      premium: 1900,
-      luxury: 3200
+      standard: 3500,  // Local/economy tiles
+      premium: 4500,   // Branded (Interface, Milliken)
+      luxury: 6500     // Premium acoustic/modular
     },
+    // SPC flooring: 1,500-3,500 ETB/m² installed
     spcFlooringPerM2: {
-      standard: 1400,
-      premium: 2400,
-      luxury: 4100
+      standard: 2000,
+      premium: 2800,
+      luxury: 4000
     },
+    // Porcelain tiles: 2,500-5,000 ETB/m² installed
     tileFlooringPerM2: {
-      standard: 1300,
-      premium: 2200,
-      luxury: 3800
+      standard: 2800,
+      premium: 4000,
+      luxury: 5500
     },
+    // Painting: 150-250 ETB/m² (2 coats, including prep)
     paintingPerM2: {
-      standard: 350,
-      premium: 550,
-      luxury: 850
+      standard: 180,
+      premium: 250,
+      luxury: 400
     },
+    // Glass door with hardware: 8,500 ETB
     doorPerUnit: {
-      standard: 4500,
-      premium: 7500,
-      luxury: 12500
+      standard: 6500,  // Wooden door
+      premium: 9000,   // Glass door, aluminum frame
+      luxury: 15000    // Frameless glass, premium hardware
     }
   },
   furniture: {
+    // Executive desk: Jiji shows 35,000-250,000 ETB
     executiveDesk: {
-      standard: 18000,
-      premium: 32000,
+      standard: 28000,
+      premium: 45000,
+      luxury: 85000
+    },
+    // Manager desk: Jiji shows 35,000-42,000 ETB
+    managerDesk: {
+      standard: 22000,
+      premium: 35000,
       luxury: 55000
     },
-    managerDesk: {
-      standard: 12000,
-      premium: 22000,
-      luxury: 38000
-    },
+    // Staff desk / workstation: 13,000-27,000 ETB
     workstation: {
-      standard: 8500,
-      premium: 15000,
-      luxury: 26000
+      standard: 14000,
+      premium: 22000,
+      luxury: 35000
     },
+    // Managerial leather chair: ~38,000 ETB; Ergonomic: 42,000-49,000
     executiveChair: {
-      standard: 9500,
-      premium: 18000,
-      luxury: 32000
+      standard: 15000,
+      premium: 28000,
+      luxury: 45000
     },
+    // Task chair: Jiji shows ~6,500 ETB basic, mesh with headrest ~9,500
     taskChair: {
-      standard: 4500,
-      premium: 8500,
-      luxury: 15000
-    },
-    visitorChair: {
-      standard: 2800,
-      premium: 5200,
-      luxury: 9500
-    },
-    conferenceTablePerSeat: {
       standard: 6500,
-      premium: 11000,
-      luxury: 19000
+      premium: 9500,
+      luxury: 18000
     },
+    // Visitor/guest chair: 3,200-6,000 ETB
+    visitorChair: {
+      standard: 3500,
+      premium: 5500,
+      luxury: 9000
+    },
+    // Conference table per seat
+    conferenceTablePerSeat: {
+      standard: 8000,
+      premium: 14000,
+      luxury: 24000
+    },
+    // Storage cabinet: tall 90x180 ~15,000; short 90x90 ~9,000
     storageCabinet: {
-      standard: 7500,
-      premium: 13000,
-      luxury: 22000
+      standard: 9000,
+      premium: 15000,
+      luxury: 25000
     },
+    // Reception desk: small 1.8m ~28,000; medium 2.4m ~42,000; large 3.2m ~65,000
     receptionDesk: {
       standard: 28000,
-      premium: 48000,
-      luxury: 82000
+      premium: 45000,
+      luxury: 75000
     }
   }
 };

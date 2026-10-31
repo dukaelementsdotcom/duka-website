@@ -11,7 +11,7 @@ export const ETHIOPIAN_STANDARDS: EthiopianStandards = {
   currency: 'ETB',
   currencySymbol: 'Br',
   defaultVAT: 0.15,
-  circulationPercentage: 0.22, // 22% circulation space
+  circulationPercentage: 0.18, // 18% circulation space (Ethiopian practice)
   electricalStandards: {
     voltage: '220V',
     socketPerDesk: 2,
@@ -37,73 +37,75 @@ export const ETHIOPIAN_STANDARDS: EthiopianStandards = {
 };
 
 // ==================== ROOM SIZE STANDARDS (m²) ====================
+// Ethiopian standards - more compact than international norms
+// Reflects local practice where rent is expensive relative to wages
 
 export const ROOM_STANDARDS = {
   [RoomType.PRIVATE_OFFICE]: {
-    executive: { min: 18, max: 25, default: 20 },      // Manager/Director
-    senior: { min: 15, max: 20, default: 16 },         // Senior staff
-    standard: { min: 12, max: 16, default: 14 },       // Regular staff
+    executive: { min: 15, max: 20, default: 16 },      // Manager/Director (int'l: 20-25)
+    senior: { min: 12, max: 16, default: 14 },         // Senior staff (int'l: 16-20)
+    standard: { min: 9, max: 12, default: 10 },        // Regular staff (int'l: 12-16)
   },
   [RoomType.OPEN_PLAN]: {
-    perPerson: { min: 6, max: 8, default: 7 },         // Desk + circulation
-    deskSize: 1.4,                                     // m² per workstation
+    perPerson: { min: 5, max: 7, default: 6 },         // Desk + circulation (int'l: 7-8)
+    deskSize: 1.2,                                     // m² per workstation
   },
   [RoomType.MEETING_SMALL]: {
-    perPerson: 1.8,                                    // 4-6 people
-    tableSize: { width: 1.8, length: 1.2 },            // 6-seater table
-    minArea: 12,
-    maxArea: 18,
+    perPerson: 1.6,                                    // 4-6 people
+    tableSize: { width: 1.6, length: 1.0 },            // 6-seater table
+    minArea: 10,
+    maxArea: 14,
   },
   [RoomType.MEETING_MEDIUM]: {
-    perPerson: 1.8,                                    // 8-12 people
-    tableSize: { width: 2.4, length: 1.2 },            // 10-seater table
-    minArea: 20,
-    maxArea: 30,
+    perPerson: 1.6,                                    // 8-12 people
+    tableSize: { width: 2.2, length: 1.0 },            // 10-seater table
+    minArea: 16,
+    maxArea: 24,
   },
   [RoomType.MEETING_LARGE]: {
-    perPerson: 1.8,                                    // 15-20 people
-    tableSize: { width: 3.0, length: 1.2 },            // 18-seater table
-    minArea: 35,
-    maxArea: 50,
+    perPerson: 1.6,                                    // 15-20 people
+    tableSize: { width: 2.8, length: 1.0 },            // 18-seater table
+    minArea: 28,
+    maxArea: 40,
   },
   [RoomType.FOCUS_ROOM]: {
-    area: { min: 6, max: 8, default: 7 },              // Single person focus
+    area: { min: 5, max: 7, default: 6 },              // Single person focus
   },
   [RoomType.RECEPTION]: {
-    small: { min: 12, max: 18, default: 15 },          // < 20 staff
-    medium: { min: 18, max: 25, default: 20 },         // 20-50 staff
-    large: { min: 25, max: 35, default: 30 },          // 50+ staff
+    small: { min: 10, max: 15, default: 12 },          // < 20 staff
+    medium: { min: 15, max: 22, default: 18 },         // 20-50 staff
+    large: { min: 22, max: 30, default: 25 },          // 50+ staff
   },
   [RoomType.BREAKOUT]: {
-    perPerson: 4,                                      // Lounge seating
-    minArea: 15,
+    perPerson: 3,                                      // Lounge seating
+    minArea: 12,
   },
   [RoomType.ARCHIVE]: {
-    small: { min: 8, max: 12, default: 10 },           // < 500 files
-    medium: { min: 12, max: 20, default: 15 },         // 500-1500 files
-    large: { min: 20, max: 30, default: 25 },          // 1500+ files
+    small: { min: 6, max: 10, default: 8 },            // < 500 files
+    medium: { min: 10, max: 15, default: 12 },         // 500-1500 files
+    large: { min: 15, max: 25, default: 20 },          // 1500+ files
   },
   [RoomType.STORAGE]: {
-    small: { min: 6, max: 10, default: 8 },            // General storage
-    medium: { min: 10, max: 15, default: 12 },
-    large: { min: 15, max: 25, default: 20 },
+    small: { min: 5, max: 8, default: 6 },             // General storage
+    medium: { min: 8, max: 12, default: 10 },
+    large: { min: 12, max: 20, default: 15 },
   },
   [RoomType.CANTEEN]: {
-    perSeat: 1.5,                                      // Dining space
-    kitchenArea: 10,                                   // Fixed kitchen area
-    minSeats: 8,
+    perSeat: 1.3,                                      // Dining space (tighter)
+    kitchenArea: 8,                                    // Fixed kitchen area
+    minSeats: 6,
   },
   [RoomType.PANTRY]: {
-    area: { min: 6, max: 10, default: 8 },             // Tea/coffee area
+    area: { min: 5, max: 8, default: 6 },              // Tea/coffee area
   },
   [RoomType.PRINT_ROOM]: {
-    area: { min: 6, max: 10, default: 8 },
+    area: { min: 5, max: 8, default: 6 },
   },
   [RoomType.SERVER_ROOM]: {
-    area: { min: 8, max: 12, default: 10 },
+    area: { min: 6, max: 10, default: 8 },
   },
   [RoomType.WELLNESS]: {
-    area: { min: 8, max: 12, default: 10 },            // Mother's room, etc.
+    area: { min: 6, max: 10, default: 8 },             // Mother's room, etc.
   },
 };
 

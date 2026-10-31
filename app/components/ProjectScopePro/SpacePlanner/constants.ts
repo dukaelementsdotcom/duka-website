@@ -13,11 +13,13 @@ export const SPACE_PLANNER_CONFIG = {
   defaultWorkStyle: 'hybrid' as const,
 };
 
+// Ethiopian circulation ratios - tighter than international standards
+// Reflects local practice where space efficiency is prioritized
 export const CIRCULATION_RATIOS = {
-  traditional: 0.28,  // 28% circulation for traditional layouts
-  hybrid: 0.24,       // 24% circulation for hybrid layouts
-  modern: 0.20,       // 20% circulation for modern layouts
-  activityBased: 0.22, // 22% circulation for activity-based
+  traditional: 0.22,  // 22% circulation for traditional layouts (int'l: 28%)
+  hybrid: 0.20,       // 20% circulation for hybrid layouts (int'l: 24%)
+  modern: 0.18,       // 18% circulation for modern layouts (int'l: 20%)
+  activityBased: 0.18, // 18% circulation for activity-based (int'l: 22%)
 };
 
 export const EFFICIENCY_TARGETS = {
