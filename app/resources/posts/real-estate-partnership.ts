@@ -64,7 +64,7 @@ const content = `
 <p>Through our partnership with <a href="https://livingethio.com/" target="_blank" rel="noopener noreferrer">Live Ethio</a>, you can go from choosing <a href="https://livingethio.com/site/property/apartment-for-sale" target="_blank" rel="noopener noreferrer">the right property</a> to moving into a finished space, with people who know both sides of the process.</p>
 
 <div class="note">
-<p><strong>Find your home with Live Ethio</strong><br />Whether you are looking for an apartment in Bole or a house in Kazanchis, Live Ethio's team can guide you from search to signing.</p>
+<p><strong>Find your home with Live Ethio</strong><br />Whether you are looking to buy or rent, Live Ethio's team can guide you from search to signing.</p>
 <p><strong>Call:</strong> <a href="tel:+251947002233">+251 947 002 233</a> &nbsp;·&nbsp; <strong>WhatsApp:</strong> <a href="https://wa.me/251974299472" target="_blank" rel="noopener noreferrer">+251 974 299 472</a><br /><a href="https://livingethio.com/" target="_blank" rel="noopener noreferrer">livingethio.com</a>: homes and apartments for rent and sale in Addis Ababa</p>
 <p><strong>Ready to finish or furnish it?</strong> <a href="/contact/">Talk to Duka Interiors</a>.</p>
 </div>

@@ -1,7 +1,7 @@
 // Article: Office furniture dimensions for Ethiopian offices
 // Styled by .article-body in app/globals.css. Use plain HTML only.
 const content = `
-<p class="lead">Before anyone talks about colours or finishes, an office has to fit. Desks that are too big eat the corridor. Cabinets that are too deep block the door. And in Addis, where every square metre of a Bole or Kazanchis floor costs real rent, those mistakes are expensive to live with.</p>
+<p class="lead">Before anyone talks about colours or finishes, an office has to fit. Desks that are too big eat the corridor. Cabinets that are too deep block the door. And in Addis, where every square metre costs real rent, those mistakes are expensive to live with.</p>
 
 <p>This is the guide we wish every client had before their first meeting with us. It covers the sizes we actually use when we lay out offices in Addis Ababa: desks, workstations, storage, meeting rooms, reception, and the space you need between all of them. None of it is theory. These are the numbers we draw with every week.</p>
 

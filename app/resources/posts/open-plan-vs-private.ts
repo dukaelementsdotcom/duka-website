@@ -1,6 +1,6 @@
 // Article: Open plan vs private offices for Ethiopian companies
 const content = `
-<p class="lead">Visit any new office in Bole or Kazanchis and you will probably see the same picture: long rows of workstations, glass meeting rooms, hardly a solid wall. Open plan has clearly arrived in Addis. But should your company follow?</p>
+<p class="lead">Visit any new office in Addis and you will probably see the same picture: long rows of workstations, glass meeting rooms, hardly a solid wall. Open plan has clearly arrived. But should your company follow?</p>
 
 <p>We have designed offices for NGOs, consultancies, real estate companies, a brewery, a cement company, a microfinance institution, tech and payment companies, and many more. Some teams work beautifully in open plan. Others need doors. Most companies need both. This article explains how to decide, based on how your people actually work, not on what looks modern in photos.</p>
 
