@@ -5,501 +5,190 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
-import ShareButton from '../components/ShareButton';
 import ProtectedImage from '../components/ProtectedImage';
 
 export default function MoodboardPage() {
   const [favoriteProjects, setFavoriteProjects] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [removedProject, setRemovedProject] = useState<string>('');
   const router = useRouter();
 
-  const loadFavorites = () => {
+  useEffect(() => {
     fetch('/data/projects.json')
       .then((res) => res.json())
       .then((allData) => {
-        const savedSlugs = JSON.parse(localStorage.getItem('duka_moodboard') || '[]');
-        const filtered = allData.filter((p: any) => savedSlugs.includes(p.slug));
-        setFavoriteProjects(filtered);
+        try {
+          const savedSlugs = JSON.parse(localStorage.getItem('duka_moodboard') || '[]');
+          const filtered = allData.filter((p: any) => savedSlugs.includes(p.slug));
+          setFavoriteProjects(filtered);
+        } catch {}
         setLoading(false);
       })
       .catch(() => setLoading(false));
-  };
-
-  useEffect(() => {
-    loadFavorites();
   }, []);
 
-  const undoRemove = (slug: string) => {
-    const savedSlugs = JSON.parse(localStorage.getItem('duka_moodboard') || '[]');
-    if (!savedSlugs.includes(slug)) {
-      const updatedSlugs = [...savedSlugs, slug];
+  const removeProject = (slug: string) => {
+    try {
+      const savedSlugs = JSON.parse(localStorage.getItem('duka_moodboard') || '[]');
+      const updatedSlugs = savedSlugs.filter((s: string) => s !== slug);
       localStorage.setItem('duka_moodboard', JSON.stringify(updatedSlugs));
-      loadFavorites();
-    }
-    setShowSuccess(false);
-  };
-
-  const toggleFavorite = (slug: string, e?: React.MouseEvent) => {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    
-    const projectTitle = favoriteProjects.find(p => p.slug === slug)?.title;
-    setRemovedProject(projectTitle || '');
-    
-    const savedSlugs = JSON.parse(localStorage.getItem('duka_moodboard') || '[]');
-    const updatedSlugs = savedSlugs.filter((s: string) => s !== slug);
-    localStorage.setItem('duka_moodboard', JSON.stringify(updatedSlugs));
+    } catch {}
     setFavoriteProjects((prev) => prev.filter((p) => p.slug !== slug));
-
-    setShowSuccess(true);
-    setTimeout(() => setShowSuccess(false), 5000);
-
-    if (e?.currentTarget) {
-      const button = e.currentTarget as HTMLElement;
-      button.classList.add('animate-pulse');
-      setTimeout(() => button.classList.remove('animate-pulse'), 300);
-    }
   };
 
-  const clearAllFavorites = () => {
+  const clearAll = () => {
     if (favoriteProjects.length === 0) return;
-    
-    if (confirm(`Are you sure you want to remove all ${favoriteProjects.length} projects from your moodboard?`)) {
-      const originalCount = favoriteProjects.length;
-      localStorage.removeItem('duka_moodboard');
+    if (confirm(`Remove all ${favoriteProjects.length} projects from your moodboard?`)) {
+      try { localStorage.removeItem('duka_moodboard'); } catch {}
       setFavoriteProjects([]);
-      
-      if (document) {
-        const toast = document.createElement('div');
-        toast.className = 'fixed top-6 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white px-6 py-3 rounded-lg shadow-xl z-[9999] flex items-center gap-3 animate-fade-in';
-        toast.innerHTML = `
-          <span>🗑️ Cleared ${originalCount} projects</span>
-          <button onclick="this.parentElement.remove()" class="text-white/70 hover:text-white text-lg">&times;</button>
-        `;
-        document.body.appendChild(toast);
-        setTimeout(() => toast.remove(), 4000);
-      }
     }
   };
 
-  const sendMoodboardViaWhatsApp = () => {
+  const sendViaWhatsApp = () => {
     if (favoriteProjects.length === 0) return;
-
     const origin = typeof window !== 'undefined' ? window.location.origin : 'https://dukainteriors.com';
     const projectLinks = favoriteProjects
-      .map((p) => `• ${p.title}: ${origin}/projects/${p.slug}`)
+      .map((p) => `• ${p.title}: ${origin}/projects/${p.slug}/`)
       .join('\n');
 
     const message = encodeURIComponent(
-      `🎨 *DUKA INTERIORS MOODBOARD*\n\nI've curated ${favoriteProjects.length} project${favoriteProjects.length === 1 ? '' : 's'} I love and would like to discuss a design inspired by these:\n\n${projectLinks}\n\n📋 *My Details:*\n• Name: ________\n• Project Type: ________\n• Budget Range: ________\n• Timeline: ________\n\nPlease contact me to start a conversation!`
+      `Hi Duka Interiors,\n\nI'm interested in a project inspired by these ${favoriteProjects.length} designs:\n\n${projectLinks}\n\nPlease contact me to discuss.`
     );
-
-    const whatsappUrl = `https://wa.me/251940607055?text=${message}`;
-    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
-    
-    if (window.gtag) {
-      window.gtag('event', 'whatsapp_cta_click', {
-        event_category: 'Moodboard',
-        event_label: `${favoriteProjects.length}_projects`,
-        value: favoriteProjects.length
-      });
-    }
+    window.open(`https://wa.me/251940607055?text=${message}`, '_blank', 'noopener,noreferrer');
   };
-
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center font-black text-[10px] uppercase">
-        <div className="flex flex-col items-center gap-4">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
-          <div>Loading Moodboard...</div>
-        </div>
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-600"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-white selection:bg-red-600">
+    <div className="min-h-screen flex flex-col bg-white">
       <NavBar />
-      
-      {showSuccess && (
-        <div className="fixed top-6 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white px-6 py-3 rounded-lg shadow-xl z-[9999] flex items-center gap-4 animate-fade-in">
-          <span>✓ Removed "{removedProject}"</span>
-          <button 
-            onClick={() => undoRemove(favoriteProjects.find(p => p.title === removedProject)?.slug || '')}
-            className="text-red-400 hover:text-red-300 text-sm font-medium underline"
-          >
-            Undo
-          </button>
-          <button 
-            onClick={() => setShowSuccess(false)}
-            className="text-white/70 hover:text-white text-lg"
-          >
-            &times;
-          </button>
-        </div>
-      )}
 
-      <main className="flex-grow pt-32 md:pt-48 px-4 md:px-20 pb-20">
-        <div className="max-w-[1600px] mx-auto">
-          <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
-            <div className="flex-1">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 bg-red-600 rounded-xl flex items-center justify-center">
-                  <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/>
-                  </svg>
-                </div>
-                <div>
-                  <h1 className="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-none text-gray-950">
-                    My Moodboard
-                  </h1>
-                  {favoriteProjects.length > 0 && (
-                    <p className="mt-4 text-gray-600 font-medium">
-                      {favoriteProjects.length} curated {favoriteProjects.length === 1 ? 'inspiration' : 'inspirations'}
-                    </p>
-                  )}
-                </div>
-              </div>
-              
+      <main className="flex-grow pt-28 md:pt-36 px-4 md:px-8 pb-20">
+        <div className="max-w-6xl mx-auto">
+          {/* Header */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+            <div>
+              <h1 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-gray-900">
+                My Moodboard
+              </h1>
               {favoriteProjects.length > 0 && (
-                <div className="flex flex-wrap gap-4 mt-6">
-                  <div className="px-3 py-1.5 bg-red-50 text-red-700 rounded-full text-xs font-bold uppercase tracking-widest">
-                    {favoriteProjects.length} {favoriteProjects.length === 1 ? 'Project' : 'Projects'}
-                  </div>
-                  {Array.from(new Set(favoriteProjects.map(p => p.category))).slice(0, 3).map(category => (
-                    <div key={category} className="px-3 py-1.5 bg-gray-100 text-gray-700 rounded-full text-xs font-bold uppercase tracking-widest">
-                      {category}
-                    </div>
-                  ))}
-                </div>
+                <p className="text-gray-500 mt-1">
+                  {favoriteProjects.length} saved {favoriteProjects.length === 1 ? 'project' : 'projects'}
+                </p>
               )}
             </div>
 
-            <div className="flex flex-wrap gap-3">
-              {favoriteProjects.length > 0 && (
-                <>
-                  <button
-                    onClick={clearAllFavorites}
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 text-gray-700 rounded-full font-black text-[10px] uppercase tracking-widest hover:bg-red-50 hover:text-red-600 transition-all"
-                    aria-label="Clear all favorites"
-                  >
-                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                      />
-                    </svg>
-                    Clear All
-                  </button>
-                  
-                </>
-              )}
-            </div>
+            {favoriteProjects.length > 0 && (
+              <button
+                onClick={clearAll}
+                className="text-gray-500 hover:text-red-600 text-sm font-medium transition-colors"
+              >
+                Clear all
+              </button>
+            )}
           </div>
 
           {favoriteProjects.length === 0 ? (
-            <div className="min-h-[60vh] flex flex-col items-center justify-center bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200 p-12 text-center">
-              <div className="relative w-32 h-32 mb-8">
-                <div className="absolute inset-0 bg-gradient-to-br from-red-100 to-pink-100 rounded-full animate-pulse"></div>
-                <div className="absolute inset-4 bg-white rounded-full flex items-center justify-center">
-                  <svg
-                    viewBox="0 0 24 24"
-                    className="w-16 h-16 text-red-400"
-                    fill="currentColor"
-                  >
-                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                  </svg>
-                </div>
+            /* Empty State */
+            <div className="text-center py-20">
+              <div className="w-16 h-16 mx-auto mb-6 bg-gray-100 rounded-full flex items-center justify-center">
+                <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                </svg>
               </div>
-              <h2 className="text-2xl md:text-4xl font-black uppercase tracking-tighter text-gray-800 mb-4">
-                Your Inspiration Board Awaits
-              </h2>
-              <p className="text-gray-500 max-w-md mb-8 text-base">
-                Collect your favorite interior design projects. Create visual stories. Share with our designers.
+              <h2 className="text-xl font-bold text-gray-900 mb-2">No saved projects yet</h2>
+              <p className="text-gray-500 mb-6 max-w-sm mx-auto">
+                Tap the heart icon on any project to save it here. Then send your favourites to our team.
               </p>
               <Link
-                href="/projects"
-                className="group inline-flex items-center gap-3 bg-black text-white px-10 py-5 rounded-full font-black text-[12px] uppercase tracking-widest hover:bg-gray-900 transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-[1.02]"
+                href="/projects/"
+                className="inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-full font-bold text-sm hover:bg-gray-800 transition-colors"
               >
-                <svg className="w-5 h-5 group-hover:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                Browse projects
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                 </svg>
-                Start Exploring Projects
               </Link>
-              <div className="mt-12 grid grid-cols-3 gap-6 max-w-lg">
-                <div className="text-center">
-                  <div className="w-8 h-8 mx-auto mb-2 bg-red-100 rounded-full flex items-center justify-center">
-                    <span className="text-red-600 font-black text-sm">1</span>
-                  </div>
-                  <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Browse</p>
-                </div>
-                <div className="text-center">
-                  <div className="w-8 h-8 mx-auto mb-2 bg-red-100 rounded-full flex items-center justify-center">
-                    <span className="text-red-600 font-black text-sm">2</span>
-                  </div>
-                  <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Save</p>
-                </div>
-                <div className="text-center">
-                  <div className="w-8 h-8 mx-auto mb-2 bg-red-100 rounded-full flex items-center justify-center">
-                    <span className="text-red-600 font-black text-sm">3</span>
-                  </div>
-                  <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Share</p>
-                </div>
-              </div>
             </div>
           ) : (
             <>
               {/* Project Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {favoriteProjects.map((project: any, index: number) => (
-                  <div
-                    key={project.slug}
-                    className="relative group bg-white overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500"
-                    style={{ animationDelay: `${index * 50}ms` }}
-                  >
-                    <div 
-                      className="aspect-square relative overflow-hidden cursor-pointer"
-                      onClick={() => router.push(`/projects/${project.slug}`)}
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+                {favoriteProjects.map((project: any) => (
+                  <div key={project.slug} className="group relative">
+                    <Link
+                      href={`/projects/${project.slug}/`}
+                      className="block aspect-square relative overflow-hidden bg-gray-100 rounded-lg"
                     >
                       <ProtectedImage
                         src={project.image}
                         alt={project.title}
-                        className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700"
+                        className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
                       />
-
-                      <div className="absolute top-4 left-4 z-10">
-                        <div className="px-3 py-1.5 bg-black/80 backdrop-blur-sm text-white text-[9px] font-black uppercase tracking-widest rounded-full">
-                          #{index + 1}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="absolute bottom-3 left-3 right-3">
+                          <p className="text-white text-sm font-bold truncate">{project.title}</p>
+                          <p className="text-white/70 text-xs">{project.type}</p>
                         </div>
                       </div>
+                    </Link>
 
-                      <button
-                        onClick={(e) => toggleFavorite(project.slug, e)}
-                        className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center bg-white/90 backdrop-blur-sm rounded-full text-gray-900 hover:bg-red-600 hover:text-white transition-all duration-300 z-20 shadow-lg hover:scale-110"
-                        aria-label="Remove from moodboard"
-                      >
-                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-                        </svg>
-                      </button>
-
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-8">
-                        <h3 className="text-white text-2xl font-black uppercase tracking-tighter mb-2">
-                          {project.title}
-                        </h3>
-                        {project.category && (
-                          <p className="text-gray-300 text-sm font-medium mb-4">
-                            {project.category}
-                          </p>
-                        )}
-                        <div className="flex items-center justify-between">
-                          <span className="text-white/80 text-[10px] font-bold uppercase tracking-widest">
-                            Click to view details →
-                          </span>
-                          <div className="flex items-center gap-3">
-                            <ShareButton
-                              title={project.title}
-                              url={`${window.location.origin}/projects/${project.slug}`}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="p-6">
-                      <div className="flex items-start justify-between mb-3">
-                        <div>
-                          <h3 className="text-gray-900 font-black uppercase tracking-tighter text-lg mb-1">
-                            {project.title}
-                          </h3>
-                          {project.category && (
-                            <p className="text-gray-600 text-sm">{project.category}</p>
-                          )}
-                        </div>
-                        <button
-                          onClick={(e) => toggleFavorite(project.slug, e)}
-                          className="text-red-500 hover:text-red-600 text-[10px] font-black uppercase tracking-widest"
-                        >
-                          Remove
-                        </button>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <button
-                          onClick={() => router.push(`/projects/${project.slug}`)}
-                          className="text-gray-900 text-[10px] font-black uppercase tracking-widest border-b border-gray-900 pb-1 hover:border-red-600 hover:text-red-600 transition-colors"
-                        >
-                          View Project Details
-                        </button>
-                        <span className="text-gray-400 text-[9px] font-bold uppercase tracking-widest">
-                          Saved
-                        </span>
-                      </div>
-                    </div>
+                    {/* Remove button */}
+                    <button
+                      onClick={() => removeProject(project.slug)}
+                      className="absolute top-2 right-2 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-600 hover:text-red-600 hover:bg-white transition-all shadow-sm"
+                      aria-label={`Remove ${project.title}`}
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/>
+                      </svg>
+                    </button>
                   </div>
                 ))}
-              </div>
 
-              {/* ✅ REDESIGNED CTA SECTION - Full Bleed & Sophisticated */}
-              <div className="mt-24 -mx-4 md:-mx-20 px-4 md:px-20 py-20 bg-gradient-to-b from-white via-gray-50 to-white border-t border-b border-gray-100">
-                <div className="max-w-6xl mx-auto">
-                  <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-                    {/* Left Column - Visual */}
-                    <div className="lg:w-2/5 relative">
-                      <div className="relative">
-                        {/* Decorative Elements */}
-                        <div className="absolute -top-6 -left-6 w-24 h-24 bg-gradient-to-br from-red-50 to-red-100 rounded-2xl rotate-12"></div>
-                        <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl -rotate-12"></div>
-                        
-                        {/* Main WhatsApp Icon Card */}
-                        <div className="relative bg-white p-10 rounded-3xl shadow-xl border border-gray-100 backdrop-blur-sm">
-                          <div className="w-32 h-32 mx-auto mb-8 bg-gradient-to-br from-green-50 to-green-100 rounded-3xl flex items-center justify-center">
-                            <svg className="w-20 h-20" viewBox="0 0 24 24" fill="#25D366">
-                              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.199.05-.372-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.372-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.226 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.491h.004c-2.255-.001-4.498-.646-6.466-1.928-2.116-1.378-3.62-3.398-4.248-5.702C.675 11.192.553 8.82.947 6.503 1.38 3.959 2.948 1.78 5.336.646 7.724-.489 10.453-.53 12.862.117c2.409.646 4.456 2.03 5.884 4.002 1.429 1.971 2.169 4.396 2.104 6.842-.005.188-.016.376-.033.563l.004-.002-.002.004-.001.001c-.099 1.315-.566 2.553-1.332 3.562-.78 1.026-1.826 1.783-2.999 2.234-1.304.5-2.733.73-4.13.694z"/>
-                            </svg>
-                          </div>
-                          <div className="text-center">
-                            <div className="inline-flex items-center gap-2 bg-gray-50 px-4 py-2 rounded-full mb-4">
-                              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                              <span className="text-gray-700 text-xs font-bold uppercase tracking-widest">Instant Connection</span>
-                            </div>
-                            <p className="text-gray-600 text-sm">
-                              Direct line to our senior designers
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Right Column - Content */}
-                    <div className="lg:w-3/5 text-center lg:text-left">
-                      <div className="mb-8">
-                        <span className="inline-block px-4 py-2 bg-red-50 text-red-700 rounded-full text-xs font-bold uppercase tracking-widest mb-6">
-                          Next Step
-                        </span>
-                        <h3 className="text-3xl md:text-4xl font-black uppercase tracking-tighter text-gray-900 mb-6">
-                          Transform Inspiration into Reality
-                        </h3>
-                        <p className="text-gray-600 text-lg leading-relaxed mb-8">
-                          You've curated {favoriteProjects.length} beautiful inspiration{favoriteProjects.length === 1 ? '' : 's'}. 
-                          Now let our design team create a personalized concept that brings your vision to life.
-                        </p>
-                      </div>
-
-                      <div className="space-y-8">
-                        {/* WhatsApp CTA Button */}
-                        <button
-                          onClick={sendMoodboardViaWhatsApp}
-                          className="group w-full max-w-md mx-auto lg:mx-0 flex items-center justify-center gap-4 bg-gradient-to-r from-gray-900 to-black text-white px-10 py-6 rounded-2xl font-black text-[13px] uppercase tracking-widest transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-[1.02] active:scale-95 border border-gray-800"
-                        >
-                          <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                              <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.199.05-.372-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.372-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.226 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.491h.004c-2.255-.001-4.498-.646-6.466-1.928-2.116-1.378-3.62-3.398-4.248-5.702C.675 11.192.553 8.82.947 6.503 1.38 3.959 2.948 1.78 5.336.646 7.724-.489 10.453-.53 12.862.117c2.409.646 4.456 2.03 5.884 4.002 1.429 1.971 2.169 4.396 2.104 6.842-.005.188-.016.376-.033.563l.004-.002-.002.004-.001.001c-.099 1.315-.566 2.553-1.332 3.562-.78 1.026-1.826 1.783-2.999 2.234-1.304.5-2.733.73-4.13.694z"/>
-                              </svg>
-                            </div>
-                            <div className="text-left">
-                              <div className="text-[11px] text-gray-300 font-medium uppercase tracking-widest">
-                                Connect via WhatsApp
-                              </div>
-                              <div className="text-lg font-bold">
-                                Send Moodboard to Design Team
-                              </div>
-                            </div>
-                          </div>
-                          <svg className="w-5 h-5 ml-4 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                          </svg>
-                        </button>
-
-                        {/* Additional Options */}
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                          <Link
-                            href="/projects"
-                            className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-gray-100 text-gray-700 rounded-2xl font-black text-[11px] uppercase tracking-widest hover:bg-gray-200 transition-all"
-                          >
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                            </svg>
-                            Add More Projects
-                          </Link>
-                        </div>
-                      </div>
-
-                      {/* Benefits */}
-                      <div className="mt-12 pt-8 border-t border-gray-200">
-                        <h4 className="text-gray-700 text-sm font-bold uppercase tracking-widest mb-6 text-center lg:text-left">
-                          What Happens Next
-                        </h4>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                          <div className="flex items-start gap-4 p-4 bg-white rounded-xl border border-gray-100 shadow-sm">
-                            <div className="w-10 h-10 bg-red-50 rounded-lg flex items-center justify-center flex-shrink-0">
-                              <span className="text-red-600 font-black">1</span>
-                            </div>
-                            <div>
-                              <h5 className="font-bold text-gray-900 mb-1">24-Hour Review</h5>
-                              <p className="text-gray-600 text-sm">Our senior designers analyze your selections</p>
-                            </div>
-                          </div>
-                          <div className="flex items-start gap-4 p-4 bg-white rounded-xl border border-gray-100 shadow-sm">
-                            <div className="w-10 h-10 bg-red-50 rounded-lg flex items-center justify-center flex-shrink-0">
-                              <span className="text-red-600 font-black">2</span>
-                            </div>
-                            <div>
-                              <h5 className="font-bold text-gray-900 mb-1">Free Consultation</h5>
-                              <p className="text-gray-600 text-sm">Personalized video call to discuss your vision</p>
-                            </div>
-                          </div>
-                          <div className="flex items-start gap-4 p-4 bg-white rounded-xl border border-gray-100 shadow-sm">
-                            <div className="w-10 h-10 bg-red-50 rounded-lg flex items-center justify-center flex-shrink-0">
-                              <span className="text-red-600 font-black">3</span>
-                            </div>
-                            <div>
-                              <h5 className="font-bold text-gray-900 mb-1">Custom Proposal</h5>
-                              <p className="text-gray-600 text-sm">Tailored design concept & transparent quote</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Additional Tip */}
-              <div className="mt-12 p-6 bg-gray-50 rounded-2xl text-center max-w-2xl mx-auto">
-                <p className="text-gray-600 text-sm">
-                  <span className="font-black text-red-600">PRO TIP:</span> Add more projects from different categories to give our designers a complete picture of your style preferences.
-                </p>
-                <Link 
-                  href="/projects" 
-                  className="inline-flex items-center gap-2 mt-4 text-gray-900 text-[10px] font-black uppercase tracking-widest border-b border-gray-900 pb-1 hover:text-red-600 hover:border-red-600 transition-colors"
+                {/* Add more card */}
+                <Link
+                  href="/projects/"
+                  className="aspect-square border-2 border-dashed border-gray-200 rounded-lg flex flex-col items-center justify-center text-gray-400 hover:border-gray-400 hover:text-gray-600 transition-colors"
                 >
-                  Continue Exploring Projects
-                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  <svg className="w-8 h-8 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
                   </svg>
+                  <span className="text-xs font-medium">Add more</span>
                 </Link>
+              </div>
+
+              {/* Send CTA */}
+              <div className="mt-10 bg-gray-50 rounded-xl p-6 md:p-8">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                  <div>
+                    <h3 className="text-lg font-bold text-gray-900 mb-1">Ready to discuss your project?</h3>
+                    <p className="text-gray-600 text-sm">
+                      Send these {favoriteProjects.length} inspirations to our design team via WhatsApp.
+                    </p>
+                  </div>
+                  <button
+                    onClick={sendViaWhatsApp}
+                    className="flex items-center justify-center gap-3 bg-green-600 hover:bg-green-700 text-white px-6 py-4 rounded-xl font-bold text-sm transition-colors shrink-0"
+                  >
+                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.199.05-.372-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.372-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.226 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.491h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                    </svg>
+                    Send via WhatsApp
+                  </button>
+                </div>
               </div>
             </>
           )}
         </div>
       </main>
-      <Footer />
 
-      {favoriteProjects.length === 0 && (
-        <div className="fixed bottom-6 left-0 right-0 z-[999] flex justify-center px-4 pointer-events-none">
-          <div className="pointer-events-auto bg-gradient-to-r from-red-600 to-red-700 text-white px-8 py-4 rounded-full text-[11px] font-black uppercase tracking-widest backdrop-blur-sm shadow-2xl animate-pulse">
-            ❤️ Click the heart icon on any project to save it here
-          </div>
-        </div>
-      )}
+      <Footer />
     </div>
   );
 }
