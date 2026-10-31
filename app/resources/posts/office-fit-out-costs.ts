@@ -50,7 +50,7 @@ const content = `
 <tr><td>Single-glass aluminium partition</td><td>14,500 ETB/m²</td></tr>
 <tr><td>Double-glazed soundproof glass</td><td>16,500 ETB/m²</td></tr>
 <tr><td>Frameless tempered glass</td><td>15,500 ETB/m²</td></tr>
-<tr><td>Glass door</td><td>8,500 ETB each</td></tr>
+<tr><td>Glass door</td><td>18,000 ETB each</td></tr>
 <tr><td>Wooden door</td><td>25,000–42,000 ETB each</td></tr>
 <tr><td>Frosted film on glass</td><td>1,200 ETB/m²</td></tr>
 </tbody></table></div>
@@ -115,7 +115,7 @@ const content = `
 <tbody>
 <tr><td>Gypsum partitions</td><td>120 m²</td><td>4,000</td><td>480,000</td></tr>
 <tr><td>Single-glass partitions</td><td>50 m²</td><td>14,500</td><td>725,000</td></tr>
-<tr><td>Glass doors</td><td>4</td><td>8,500</td><td>34,000</td></tr>
+<tr><td>Glass doors</td><td>4</td><td>18,000</td><td>72,000</td></tr>
 <tr><td>Wooden doors</td><td>6</td><td>35,000</td><td>210,000</td></tr>
 <tr><td>Frosted film</td><td>25 m²</td><td>1,200</td><td>30,000</td></tr>
 <tr><td>Suspended ceiling</td><td>280 m²</td><td>3,600</td><td>1,008,000</td></tr>
@@ -131,14 +131,14 @@ const content = `
 <tr><td>Executive chairs</td><td>4</td><td>28,000</td><td>112,000</td></tr>
 <tr><td>Conference table (10-seat)</td><td>1</td><td>150,000</td><td>150,000</td></tr>
 <tr><td>Reception desk</td><td>1</td><td>50,000</td><td>50,000</td></tr>
-<tr><td colspan="3"><strong>Construction and furniture total</strong></td><td><strong>5,083,000 ETB</strong></td></tr>
-<tr><td colspan="3">Per m²</td><td>~16,900 ETB/m²</td></tr>
-<tr><td colspan="3">Design fee (10%)</td><td>508,000 ETB</td></tr>
-<tr><td colspan="3">VAT (15%)</td><td>839,000 ETB</td></tr>
-<tr><td colspan="3"><strong>Grand total with VAT</strong></td><td><strong>6,430,000 ETB</strong></td></tr>
+<tr><td colspan="3"><strong>Construction and furniture total</strong></td><td><strong>5,121,000 ETB</strong></td></tr>
+<tr><td colspan="3">Per m²</td><td>~17,100 ETB/m²</td></tr>
+<tr><td colspan="3">Design fee (10%)</td><td>512,000 ETB</td></tr>
+<tr><td colspan="3">VAT (15%)</td><td>845,000 ETB</td></tr>
+<tr><td colspan="3"><strong>Grand total with VAT</strong></td><td><strong>6,478,000 ETB</strong></td></tr>
 </tbody></table></div>
 
-<p>That is roughly <strong>21,400 ETB per m² all-in</strong>, which sits in the mid-range band. A simpler layout with less glass and more basic furniture would come in under 16,000 ETB/m². A premium finish with more glass, custom joinery and imported furniture could reach 45,000 ETB/m² or more.</p>
+<p>That is roughly <strong>21,600 ETB per m² all-in</strong>, which sits in the mid-range band. A simpler layout with less glass and more basic furniture would come in under 16,000 ETB/m². A premium finish with more glass, custom joinery and imported furniture could reach 45,000 ETB/m² or more.</p>
 
 <h2>Design-only vs design-and-build</h2>
 
