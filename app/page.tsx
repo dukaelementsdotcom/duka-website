@@ -181,57 +181,68 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ===== COMPACT: Project Planning & Estimation CTA ===== */}
+        {/* ===== Project Estimator CTA ===== */}
         <section className="py-16 px-6 lg:px-12 bg-gradient-to-b from-white to-gray-50">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-3 bg-gradient-to-r from-red-500 to-red-600 text-white px-6 py-2 rounded-full mb-4">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-                <span className="text-xs font-black uppercase tracking-widest">NEW TOOL</span>
+          <div className="max-w-4xl mx-auto">
+            <Link href="/estimate/" className="group block bg-white border-2 border-gray-200 rounded-2xl p-8 md:p-10 hover:border-red-600 hover:shadow-xl transition-all">
+              <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
+                <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <div className="inline-flex items-center gap-2 bg-red-50 text-red-600 px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest mb-3">
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    Free Tool
+                  </div>
+                  <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tighter text-gray-900 mb-2">
+                    Office Fit-Out Estimator
+                  </h2>
+                  <p className="text-gray-600 mb-4">
+                    Find out how much space you need and what it will cost. Takes 2 minutes.
+                  </p>
+                  <div className="flex flex-wrap gap-4 text-sm text-gray-500">
+                    <span className="flex items-center gap-1.5">
+                      <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      Space requirements
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      Budget estimate in ETB
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      Ethiopian market rates
+                    </span>
+                  </div>
+                </div>
+                <div className="flex-shrink-0 hidden md:block">
+                  <span className="inline-flex items-center gap-2 bg-red-600 text-white px-6 py-3 rounded-lg font-black text-sm uppercase tracking-widest group-hover:bg-red-700 transition-colors">
+                    Try It Free
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </span>
+                </div>
               </div>
-              <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tighter text-gray-900 mb-4">
-                Plan & Estimate Your Project
-              </h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Get an instant estimate for your space. Free, and takes about two minutes.
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-              {/* Compact Card 1 */}
-              <Link href="/estimate#area" className="group bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-red-600 hover:shadow-xl transition-all block">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-red-50 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                    </svg>
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-lg font-black mb-1">Space Planner</h3>
-                    <p className="text-gray-600 text-sm mb-3">Calculate exact m² requirements</p>
-                    <span className="text-red-600 font-black text-xs uppercase tracking-widest">Plan →</span>
-                  </div>
-                </div>
-              </Link>
-              
-              {/* Compact Card 2 */}
-              <Link href="/estimate#cost" className="group bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-red-600 hover:shadow-xl transition-all block">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-red-50 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-lg font-black mb-1">Cost Estimator</h3>
-                    <p className="text-gray-600 text-sm mb-3">Get detailed pricing breakdown</p>
-                    <span className="text-red-600 font-black text-xs uppercase tracking-widest">Estimate →</span>
-                  </div>
-                </div>
-              </Link>
-            </div>
+              <div className="mt-6 md:hidden">
+                <span className="inline-flex items-center gap-2 bg-red-600 text-white px-6 py-3 rounded-lg font-black text-sm uppercase tracking-widest w-full justify-center">
+                  Try It Free
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </span>
+              </div>
+            </Link>
           </div>
         </section>
 
