@@ -1,23 +1,23 @@
 // Article: What to check before renting an office in Addis Ababa
 // Practical guide for Ethiopian companies looking for office space
+// Pricing in ETB confirmed by Dagmawi (Oct 2026)
 const content = `
 <p class="lead">Finding an office in Addis Ababa looks simple until you sign the lease and discover the generator only covers the lift, there is no parking, and the building next door has prayers at 5 a.m. This guide covers what to check before you commit, so you don't spend the next three years working around problems you could have spotted on the viewing.</p>
 
 <p>We have fitted out offices all over the city, and we hear the same complaints after move-in: power problems, noise, no room for visitors, awkward lifts, surprise costs. Most of these come from not asking the right questions before signing. This article is that checklist.</p>
 
-<h2>Know the going rates</h2>
+<h2>Rent prices vary a lot</h2>
 
-<p>Office rents in Addis are usually quoted in US dollars per square metre per month. Rates vary widely depending on the building, the floor, the view and how desperate the landlord is. As a rough guide in late 2026:</p>
+<p>Office rents in Addis are quoted in birr per square metre per month. The price depends on the building, the floor, the condition, and how long the space has been vacant. As a rough guide in late 2026:</p>
 
 <div class="table-wrap"><table>
-<thead><tr><th>Building grade</th><th>Typical areas</th><th>Rent (USD/m²/month)</th></tr></thead>
+<thead><tr><th>Area</th><th>Rent (ETB/m²/month)</th><th>Notes</th></tr></thead>
 <tbody>
-<tr><td>Grade A (new, full amenities)</td><td>Bole, Kazanchis</td><td>$25–45</td></tr>
-<tr><td>Grade B (good condition)</td><td>Secondary Bole, Ajer Lafto, Megenagna</td><td>$15–25</td></tr>
-<tr><td>Grade C (older buildings)</td><td>Various</td><td>$8–15</td></tr>
+<tr><td>Bole</td><td>1,500–2,500</td><td>Prime location, modern buildings, but parking can be difficult</td></tr>
+<tr><td>Megenagna</td><td>800–1,500</td><td>More affordable, but parking is the worst in the city</td></tr>
 </tbody></table></div>
 
-<p>But the headline rent is only the start. What really matters is the <strong>total cost per person per month</strong>, including fit-out, utilities, generator fuel, parking and any service charge. A cheap floor that needs a million birr in finishing and has no included parking may cost more in the end than a pricier building that is move-in ready.</p>
+<p>Prices vary widely even within the same area. A new building with a working lift and generator costs more than an older one. A floor with good natural light costs more than a basement. Always compare the <strong>total monthly cost</strong>, not just the rent per m²: add the service charge, parking fees, generator contribution and any other extras.</p>
 
 <h2>Power: the make-or-break question</h2>
 
@@ -31,7 +31,7 @@ const content = `
 <h3>UPS and surge protection</h3>
 <p>Even with a generator, there is a gap of a few seconds when the power goes and the generator starts. That gap is enough to crash computers and lose unsaved work. Plan for a UPS (uninterruptible power supply) in your fit-out budget, especially for your servers and finance team's machines. Most landlords don't provide this.</p>
 
-<h3>Voltage and capacity</h3>
+<h3>Electrical capacity</h3>
 <p>Check the electrical capacity allocated to your floor. If you plan to run a lot of equipment, air conditioners or a server room, you may need to upgrade, and that costs money and time. Ask before you sign.</p>
 
 <h2>Air conditioning: don't assume</h2>
@@ -56,10 +56,11 @@ const content = `
 <li>What is the cost for extra spaces?</li>
 <li>Is there visitor parking?</li>
 <li>Is the parking basement or open-air? Basement parking keeps cars cool and out of the rain, but some basements flood in the rainy season.</li>
-<li>Are the parking spaces big enough for the cars your staff actually drive? Some older buildings have tight bays designed for smaller cars.</li>
 </ul>
 
-<p>If parking is limited, think about where staff will park. A building on a busy street with no side roads will have staff circling for 20 minutes every morning. That affects morale and punctuality.</p>
+<p>If the building has limited parking, check whether there is a public paid parking nearby. The city is building more of these, and they can be a practical backup. Find out what they charge per hour or per day, and how far staff would have to walk.</p>
+
+<p>Some areas are worse than others. Megenagna, for example, has terrible parking despite the affordable rents. A building on a busy street with no side roads will have staff circling for 20 minutes every morning. That affects morale and punctuality.</p>
 
 <h2>Lifts: test them</h2>
 
@@ -93,7 +94,7 @@ const content = `
 <li><strong>Security guards:</strong> Are they 24-hour? Who employs them, the landlord or a shared service?</li>
 <li><strong>Access control:</strong> Is there a sign-in for visitors? Can anyone walk into the building?</li>
 <li><strong>CCTV:</strong> Are the common areas covered? Is the footage actually recorded and kept?</li>
-<li><strong>Fire safety:</strong> Are there extinguishers on every floor? Is there a fire escape that is kept clear? Are the fire doors locked or propped open?</li>
+<li><strong>Fire safety:</strong> Are there extinguishers on every floor? Is there a fire escape that is kept clear?</li>
 <li><strong>Emergency exits:</strong> Check the stairwell yourself. Is it clear, lit and safe?</li>
 </ul>
 
@@ -116,12 +117,10 @@ const content = `
 <h3>Subletting</h3>
 <p>If your plans change and you need less space, can you sublet part of the floor? Some landlords forbid it.</p>
 
-<h2>Building services</h2>
+<h2>Other things to check</h2>
 <ul>
 <li><strong>Water:</strong> Is there a tank and pump for the upper floors? In some buildings, water pressure drops during peak hours.</li>
 <li><strong>Toilets:</strong> Are they private to your floor or shared with other tenants? Who cleans them?</li>
-<li><strong>Internet:</strong> Is fibre available in the building? Who are the current providers? Getting a new line installed can take weeks.</li>
-<li><strong>Rubbish collection:</strong> Is there a service charge, and is it included in the rent?</li>
 <li><strong>Building management:</strong> Who do you call when something breaks? Is there a building manager on site?</li>
 </ul>
 
@@ -131,14 +130,13 @@ const content = `
 <li>Visit at different times of day, including early morning and lunch hour.</li>
 <li>Ask current tenants about the landlord, the lifts, the generator and any recurring problems.</li>
 <li>Get the total cost in writing: rent, service charge, parking, generator contribution, any other fees.</li>
-<li>Clarify what is included: AC, fit-out, furniture, internet, cleaning.</li>
+<li>Clarify what is included: AC, fit-out, furniture, cleaning.</li>
 <li>Check the generator coverage: does it include your floor and your AC?</li>
-<li>Count the parking spaces and check where visitors will park.</li>
+<li>Count the parking spaces and check where visitors will park. Is there paid public parking nearby?</li>
 <li>Test the lift with a tape measure. Can you fit your furniture?</li>
 <li>Walk the stairs and check the fire exits.</li>
 <li>Ask about rent increase caps and get them in writing.</li>
 <li>Clarify who pays for alterations and whether you must reinstate when you leave.</li>
-<li>Check fibre availability and water pressure.</li>
 <li>Ask about noise: religious institutions, construction, other tenants.</li>
 </ol>
 
