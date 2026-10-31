@@ -1,6 +1,6 @@
 // Article: Office colours for Addis Ababa offices
 const content = `
-<p class="lead">Walk through ten offices in Bole and you will see the same thing nine times: white walls, grey floor, grey chairs, and one wall painted the company's logo colour. It is safe. It is also why so many offices feel the same, and why staff spend the day under flat, tiring light.</p>
+<p class="lead">Walk through ten offices in Addis and you will see the same thing nine times: white walls, grey floor, grey chairs, and one wall painted the company's logo colour. It is safe. It is also why so many offices feel the same, and why staff spend the day under flat, tiring light.</p>
 
 <p>Colour isn't decoration you add at the end. It changes how bright a room feels, how big it looks, how quickly it gets dirty, and whether a visitor remembers your brand. This article explains how we choose colours for offices in Addis Ababa: what works in our light, what survives our dust, and how to use your brand colours without shouting.</p>
 

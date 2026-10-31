@@ -8,6 +8,8 @@ import glassVsGypsum from './posts/glass-vs-gypsum';
 import openPlanVsPrivate from './posts/open-plan-vs-private';
 import officeFlooring from './posts/office-flooring';
 import chooseInteriorDesigner from './posts/choose-interior-designer';
+import officeFitOutCosts from './posts/office-fit-out-costs';
+import officeRentGuide from './posts/office-rent-guide';
 
 export interface BlogPost {
   slug: string;
@@ -41,7 +43,7 @@ export const BLOG_POSTS: BlogPost[] = [
     date: 'Feb 02, 2026',
     image: '/images/duka-interiors-portfolio/modern-office-finishing-work-bole.webp',
     excerpt:
-      'How to choose office colours that work in Addis Ababa’s strong light and dust: warm whites, brand accents, the 60-30-10 rule and colour by area.',
+      "How to choose office colours that work in Addis Ababa's strong light and dust: warm whites, brand accents, the 60-30-10 rule and colour by area.",
     content: colourPsychology,
   },
   {
@@ -92,12 +94,34 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     slug: 'how-to-choose-best-interior-designer-addis-ababa',
     seoTitle: 'How to Choose the Best Interior Designer in Addis Ababa',
-    category: 'BUYER’S GUIDE',
+    category: "BUYER'S GUIDE",
     title: 'How to Choose the Best Interior Designer in Addis Ababa',
     date: 'Oct 27, 2026',
     image: '/images/duka-interiors-portfolio/board-room-interior-design-addis-ababa.webp',
     excerpt:
       'Every company says it is the best. Ten checks that show you which interior designer in Addis Ababa really fits your project: finished work, reviews, itemised quotes, payment stages and more.',
     content: chooseInteriorDesigner,
+  },
+  {
+    slug: 'office-fit-out-cost-addis-ababa-ethiopia',
+    seoTitle: 'Office Fit-Out Costs in Addis Ababa 2026',
+    category: 'COST GUIDE',
+    title: 'How Much Does an Office Fit-Out Cost in Addis Ababa? 2026 Prices',
+    date: 'Oct 31, 2026',
+    image: '/images/duka-interiors-portfolio/modern-open-interior-design-bole/modern-open-pool-workspace-addis-ababa.webp',
+    excerpt:
+      'Real 2026 fit-out costs in Addis Ababa: per-m² rates for partitions, ceilings, flooring, electrical and furniture, with a worked example for a 300 m² office.',
+    content: officeFitOutCosts,
+  },
+  {
+    slug: 'office-rent-addis-ababa-what-to-check',
+    seoTitle: 'Renting an Office in Addis Ababa: What to Check',
+    category: "BUYER'S GUIDE",
+    title: 'Renting an Office in Addis Ababa: What to Check Before You Sign',
+    date: 'Oct 31, 2026',
+    image: '/images/duka-interiors-portfolio/corporate-office-interior-finishing-bole/reception-interior-design-bole.webp',
+    excerpt:
+      'Power, parking, noise, AC, security, lease terms and real rent prices: a checklist for companies looking for office space in Addis Ababa.',
+    content: officeRentGuide,
   },
 ];
