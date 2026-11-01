@@ -1,37 +1,87 @@
 'use client';
 import Image from 'next/image';
+import { useEffect, useRef } from 'react';
 
-// Repeating "DUKA INTERIORS" watermark drawn as a background image, so it adds
-// no text to the page (the old version repeated the brand name 12 times per image).
-const WATERMARK = `url("data:image/svg+xml,${encodeURIComponent(
-  '<svg xmlns="http://www.w3.org/2000/svg" width="220" height="140"><text x="20" y="90" transform="rotate(-30 110 70)" fill="white" font-family="Arial,sans-serif" font-size="14" font-weight="700" letter-spacing="2">DUKA INTERIORS</text></svg>'
-)}")`;
+interface ProtectedImageProps {
+  src: string;
+  alt: string;
+  sizes?: string;
+  priority?: boolean;
+  className?: string;
+  /** Use object-contain instead of object-cover (for lightbox) */
+  contain?: boolean;
+  /** onClick handler for opening lightbox */
+  onClick?: () => void;
+}
 
+/**
+ * Protected image component that discourages casual downloading:
+ * - Transparent overlay blocks right-click on the actual image
+ * - Pointer-events:none on the img prevents drag-to-save
+ * - No watermark (cleaner look, same protection level)
+ *
+ * Note: Determined users can still screenshot or use dev tools.
+ * This is about discouraging casual copying, not absolute prevention.
+ */
 export default function ProtectedImage({
   src,
   alt,
   sizes = '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw',
   priority = false,
-}: {
-  src: string;
-  alt: string;
-  sizes?: string;
-  priority?: boolean;
-  width?: number;
-  height?: number;
-}) {
+  className = '',
+  contain = false,
+  onClick,
+}: ProtectedImageProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Disable right-click context menu on the container
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const handleContextMenu = (e: MouseEvent) => {
+      e.preventDefault();
+      return false;
+    };
+
+    const handleDragStart = (e: DragEvent) => {
+      e.preventDefault();
+      return false;
+    };
+
+    el.addEventListener('contextmenu', handleContextMenu);
+    el.addEventListener('dragstart', handleDragStart);
+
+    return () => {
+      el.removeEventListener('contextmenu', handleContextMenu);
+      el.removeEventListener('dragstart', handleDragStart);
+    };
+  }, []);
+
   return (
-    <div className="relative group w-full h-full overflow-hidden select-none bg-gray-100">
-      <Image src={src} alt={alt} fill sizes={sizes} priority={priority} className="object-cover pointer-events-none" />
+    <div
+      ref={containerRef}
+      className={`relative w-full h-full overflow-hidden select-none bg-gray-100 ${onClick ? 'cursor-pointer' : ''}`}
+      onClick={onClick}
+      role={onClick ? 'button' : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      onKeyDown={onClick ? (e) => e.key === 'Enter' && onClick() : undefined}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes={sizes}
+        priority={priority}
+        className={`${contain ? 'object-contain' : 'object-cover'} pointer-events-none ${className}`}
+        draggable={false}
+      />
 
-      {/* Transparent layer that blocks right-click saving */}
-      <div className="absolute inset-0 z-10 bg-transparent" aria-hidden="true" />
-
-      {/* Watermark, visible on hover */}
+      {/* Transparent overlay that intercepts mouse events */}
       <div
+        className="absolute inset-0 z-10"
         aria-hidden="true"
-        className="absolute inset-0 z-20 opacity-0 group-hover:opacity-20 pointer-events-none transition-opacity duration-500"
-        style={{ backgroundImage: WATERMARK }}
+        style={{ background: 'transparent' }}
       />
     </div>
   );
