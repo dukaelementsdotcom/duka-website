@@ -11,7 +11,7 @@ import { services } from '@/lib/servicesData';
 // (FAQ structured data is on the homepage and service pages, so it isn't repeated here.)
 
 export const metadata = pageMeta({
-  title: 'Interior Design and Fit-Out FAQ, Addis Ababa',
+  title: 'Office Fit-Out FAQ – Addis Ababa',
   description:
     'Costs, partitions, furniture, branding and renovation: answers to the questions companies in Addis Ababa ask Duka Interiors most.',
   path: '/resources/faq/',

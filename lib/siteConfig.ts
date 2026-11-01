@@ -5,8 +5,8 @@
 export const CONTACT = {
   companyName: 'Duka Interiors PLC',
   phones: [
-    { number: '+251940607055', label: '+251 940 607 055' },
     { number: '+251929144290', label: '+251 929 144 290' },
+    { number: '+251940607055', label: '+251 940 607 055' },
   ],
   whatsapp: '251940607055',
   email: 'contact@dukainteriors.com',

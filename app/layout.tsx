@@ -79,7 +79,7 @@ export default function RootLayout({
     "@id": "https://www.dukainteriors.com/#business",
     "name": "Duka Interiors P.L.C",
     "url": "https://www.dukainteriors.com",
-    "telephone": "+251940607055",
+    "telephone": "+251929144290",
     "email": "contact@dukainteriors.com",
     "foundingDate": "2015",
     "founder": [
@@ -115,7 +115,7 @@ export default function RootLayout({
     "hasMap": "https://maps.app.goo.gl/FNBrMacYUefLEH7k8",
     "contactPoint": {
       "@type": "ContactPoint",
-      "telephone": "+251940607055",
+      "telephone": "+251929144290",
       "contactType": "customer service",
       "areaServed": "ET",
       "availableLanguage": ["English", "Amharic"]
