@@ -33,8 +33,8 @@ export default function Home() {
         {/* ✅ FIXED: Added aspect ratio to prevent layout shifts */}
         <div style={{ aspectRatio: '16/9' }}>
           <Image
-            src="/images/duka-interiors-portfolio/modern-conference-room-and-lobby-design/modern-board-room-habesha-breweries.webp"
-            alt="Office interior designed and built by Duka Interiors in Addis Ababa"
+            src="/images/duka-interiors-portfolio/habesha-cement-open-office-addis/office-view-addis-ababa-8.webp"
+            alt="Executive boardroom designed and built by Duka Interiors for Habesha Cement in Addis Ababa"
             fill
             className="object-cover"
             priority
