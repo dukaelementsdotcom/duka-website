@@ -50,7 +50,7 @@ export default function ContactPage() {
         <div className="pt-32 pb-12 px-6 md:px-12 border-b border-gray-100">
           <div className="max-w-7xl mx-auto">
             <h1 className="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-4">
-              Get in <span className="text-red-600">Touch.</span>
+              Get in <span className="text-red-600">Touch</span>
             </h1>
             <p className="text-gray-400 font-medium tracking-[0.2em] uppercase text-xs">
               07 — Contact Us
