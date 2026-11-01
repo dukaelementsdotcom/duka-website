@@ -1,6 +1,7 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import NavBar from '@/app/components/NavBar';
 import Footer from '@/app/components/Footer';
 import ShareButton from '@/app/components/ShareButton';
@@ -59,7 +60,10 @@ interface ProjectClientProps {
 
 export default function ProjectClient({ project, slug, allProjects = [], prevProject, nextProject }: ProjectClientProps) {
   const [mainImageIndex, setMainImageIndex] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
   const [favorites, setFavorites] = useState<string[]>([]);
+
+  const images = project.images || [project.image];
 
   useEffect(() => {
     try {
@@ -78,19 +82,49 @@ export default function ProjectClient({ project, slug, allProjects = [], prevPro
     });
   };
 
-  const images = project.images || [project.image];
-  const nextImage = () => setMainImageIndex((prev) => (prev + 1) % images.length);
-  const prevImage = () => setMainImageIndex((prev) => (prev - 1 + images.length) % images.length);
+  const nextImage = useCallback(() => {
+    setMainImageIndex((prev) => (prev + 1) % images.length);
+  }, [images.length]);
 
-  // Keyboard navigation for gallery
+  const prevImage = useCallback(() => {
+    setMainImageIndex((prev) => (prev - 1 + images.length) % images.length);
+  }, [images.length]);
+
+  const openLightbox = (index: number) => {
+    setMainImageIndex(index);
+    setLightboxOpen(true);
+  };
+
+  const closeLightbox = useCallback(() => {
+    setLightboxOpen(false);
+  }, []);
+
+  // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight') nextImage();
-      if (e.key === 'ArrowLeft') prevImage();
+      if (e.key === 'Escape' && lightboxOpen) {
+        closeLightbox();
+      } else if (e.key === 'ArrowRight') {
+        nextImage();
+      } else if (e.key === 'ArrowLeft') {
+        prevImage();
+      }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [lightboxOpen, closeLightbox, nextImage, prevImage]);
+
+  // Lock body scroll when lightbox is open
+  useEffect(() => {
+    if (lightboxOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [lightboxOpen]);
 
   return (
     <div className="min-h-screen bg-white selection:bg-red-600">
@@ -126,33 +160,46 @@ export default function ProjectClient({ project, slug, allProjects = [], prevPro
           </div>
         </div>
 
-        {/* Main Image Gallery */}
+        {/* Main Image Gallery - Inline Preview */}
         <div className="relative w-full max-w-[1800px] mx-auto px-4 md:px-8">
-          <div className="relative aspect-[16/10] md:aspect-[16/9] bg-gray-100 overflow-hidden rounded-lg shadow-2xl">
+          {/* Hero image with click to open lightbox */}
+          <div
+            className="relative aspect-[16/10] md:aspect-[16/9] bg-gray-900 overflow-hidden rounded-lg shadow-2xl cursor-pointer group"
+            onClick={() => openLightbox(mainImageIndex)}
+          >
             <ProtectedImage
               src={images[mainImageIndex]}
               alt={`${altFromPath(images[mainImageIndex], project.title)} – ${project.title}`}
               sizes="(max-width: 1800px) 100vw, 1800px"
               priority={mainImageIndex === 0}
-              className="object-cover"
             />
 
-            {/* Navigation Arrows */}
+            {/* Hover overlay with expand hint */}
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center z-20">
+              <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full flex items-center gap-2">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
+                </svg>
+                <span className="text-sm font-bold">Click to expand</span>
+              </div>
+            </div>
+
+            {/* Navigation Arrows (on the inline preview) */}
             {images.length > 1 && (
               <>
                 <button
-                  onClick={prevImage}
+                  onClick={(e) => { e.stopPropagation(); prevImage(); }}
                   aria-label="Previous photo"
-                  className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110 z-20"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110 z-30"
                 >
                   <svg className="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"/>
                   </svg>
                 </button>
                 <button
-                  onClick={nextImage}
+                  onClick={(e) => { e.stopPropagation(); nextImage(); }}
                   aria-label="Next photo"
-                  className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110 z-20"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110 z-30"
                 >
                   <svg className="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"/>
@@ -163,13 +210,13 @@ export default function ProjectClient({ project, slug, allProjects = [], prevPro
 
             {/* Image Counter */}
             {images.length > 1 && (
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/70 text-white px-4 py-2 rounded-full text-[11px] font-bold tracking-wider z-20">
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/70 text-white px-4 py-2 rounded-full text-[11px] font-bold tracking-wider z-30">
                 {mainImageIndex + 1} / {images.length}
               </div>
             )}
 
             {/* Share Button */}
-            <div className="absolute bottom-4 right-4 z-30">
+            <div className="absolute bottom-4 right-4 z-30" onClick={(e) => e.stopPropagation()}>
               <ShareButton title={project.title} url={`https://www.dukainteriors.com/projects/${slug}/`} />
             </div>
           </div>
@@ -180,12 +227,12 @@ export default function ProjectClient({ project, slug, allProjects = [], prevPro
               {images.map((img: string, idx: number) => (
                 <button
                   key={idx}
-                  onClick={() => setMainImageIndex(idx)}
-                  aria-label={`Show photo ${idx + 1} of ${images.length}`}
+                  onClick={() => openLightbox(idx)}
+                  aria-label={`View photo ${idx + 1} of ${images.length}`}
                   className={`relative w-20 h-14 md:w-28 md:h-20 flex-shrink-0 rounded overflow-hidden transition-all ${
                     idx === mainImageIndex
                       ? 'ring-2 ring-red-600 ring-offset-2'
-                      : 'opacity-50 hover:opacity-100'
+                      : 'opacity-60 hover:opacity-100'
                   }`}
                 >
                   <ProtectedImage src={img} alt={altFromPath(img, `${project.title} photo ${idx + 1}`)} sizes="112px" />
@@ -394,7 +441,7 @@ export default function ProjectClient({ project, slug, allProjects = [], prevPro
 
       {/* Floating Moodboard Button */}
       {favorites.length > 0 && (
-        <div className="fixed bottom-6 left-0 right-0 z-[1000] flex justify-center pointer-events-none px-4">
+        <div className="fixed bottom-6 left-0 right-0 z-[100] flex justify-center pointer-events-none px-4">
           <Link
             href="/moodboard/"
             className="pointer-events-auto bg-black text-white px-6 py-4 rounded-full flex items-center gap-3 shadow-2xl hover:scale-105 transition-all border border-white/10"
@@ -407,6 +454,120 @@ export default function ProjectClient({ project, slug, allProjects = [], prevPro
               {favorites.length}
             </span>
           </Link>
+        </div>
+      )}
+
+      {/* ===== LIGHTBOX MODAL ===== */}
+      {lightboxOpen && (
+        <div
+          className="fixed inset-0 z-[1000] bg-black/95 flex flex-col"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${project.title} image gallery`}
+        >
+          {/* Header with title and close button */}
+          <div className="flex items-center justify-between px-4 md:px-8 py-4 text-white">
+            <div className="flex items-center gap-4">
+              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-red-500">
+                {project.type}
+              </span>
+              <h2 className="text-lg md:text-xl font-bold truncate max-w-[50vw]">
+                {project.title}
+              </h2>
+            </div>
+            <div className="flex items-center gap-4">
+              {images.length > 1 && (
+                <span className="text-sm text-gray-400">
+                  {mainImageIndex + 1} / {images.length}
+                </span>
+              )}
+              <button
+                onClick={closeLightbox}
+                aria-label="Close gallery"
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          {/* Main image area */}
+          <div className="flex-1 relative flex items-center justify-center px-4 md:px-20 py-4 min-h-0">
+            {/* Image container - respects aspect ratio, no stretching */}
+            <div className="relative w-full h-full max-w-[90vw] max-h-[80vh]">
+              <ProtectedImage
+                src={images[mainImageIndex]}
+                alt={`${altFromPath(images[mainImageIndex], project.title)} – ${project.title}`}
+                sizes="90vw"
+                contain
+                className="bg-black"
+              />
+            </div>
+
+            {/* Navigation arrows */}
+            {images.length > 1 && (
+              <>
+                <button
+                  onClick={prevImage}
+                  aria-label="Previous photo"
+                  className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-all"
+                >
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"/>
+                  </svg>
+                </button>
+                <button
+                  onClick={nextImage}
+                  aria-label="Next photo"
+                  className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-all"
+                >
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"/>
+                  </svg>
+                </button>
+              </>
+            )}
+          </div>
+
+          {/* Thumbnail strip at bottom */}
+          {images.length > 1 && (
+            <div className="px-4 md:px-8 py-4 bg-black/50">
+              <div className="flex gap-2 overflow-x-auto justify-center scrollbar-hide">
+                {images.map((img: string, idx: number) => (
+                  <button
+                    key={idx}
+                    onClick={() => setMainImageIndex(idx)}
+                    aria-label={`View photo ${idx + 1}`}
+                    className={`relative w-16 h-12 md:w-20 md:h-14 flex-shrink-0 rounded overflow-hidden transition-all ${
+                      idx === mainImageIndex
+                        ? 'ring-2 ring-red-600 ring-offset-2 ring-offset-black opacity-100'
+                        : 'opacity-50 hover:opacity-80'
+                    }`}
+                  >
+                    <Image
+                      src={img}
+                      alt={`Thumbnail ${idx + 1}`}
+                      fill
+                      sizes="80px"
+                      className="object-cover"
+                    />
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Image description */}
+          <div className="px-4 md:px-8 py-3 text-center">
+            <p className="text-gray-400 text-sm">
+              {altFromPath(images[mainImageIndex], `${project.title} – Photo ${mainImageIndex + 1}`)}
+            </p>
+            <p className="text-gray-600 text-xs mt-1">
+              Press ESC to close · Use arrow keys to navigate
+            </p>
+          </div>
         </div>
       )}
     </div>
