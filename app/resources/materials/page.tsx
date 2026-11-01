@@ -7,7 +7,7 @@ import Footer from '@/app/components/Footer';
 // plus links to the detailed guides. Update the table when rates change.
 
 export const metadata = pageMeta({
-  title: 'Office Material Prices in Addis Ababa (2026)',
+  title: 'Office Material Prices, Addis Ababa 2026',
   description:
     'Partition, ceiling, flooring, lighting and furniture prices in ETB from Duka Interiors, with guides to choosing materials for Ethiopian offices.',
   path: '/resources/materials/',

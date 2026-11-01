@@ -20,7 +20,7 @@ export const COMPANY_INFO = {
     { name: 'Henok Teshome', title: 'COO', linkedin: 'https://www.linkedin.com/in/henok-teshome-a3852b56' },
   ],
   email: 'contact@dukainteriors.com',
-  phone: '+251940607055',
+  phone: '+251929144290',
   address: {
     streetAddress: 'Djibouti Street, Welela Building, 5th Floor, Suite 507',
     addressLocality: 'Bole',
