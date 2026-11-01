@@ -35,7 +35,7 @@ export const COMPANY_INFO = {
     'https://www.linkedin.com/company/duka-interiors',
     'https://www.facebook.com/dukainteriors',
     'https://www.tiktok.com/@duka.interiors.plc',
-    'https://wa.me/251940607055',
+    'https://wa.me/251929144290',
   ],
 };
 

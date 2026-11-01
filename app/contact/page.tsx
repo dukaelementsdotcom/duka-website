@@ -96,7 +96,7 @@ export default function ContactPage() {
             {/* ✅ FIXED: Removed ALL trailing spaces in social URLs */}
             <div className="flex gap-6 pt-12">
               {[
-                { icon: 'fab fa-whatsapp', href: 'https://wa.me/251940607055' },
+                { icon: 'fab fa-whatsapp', href: 'https://wa.me/251929144290' },
                 { icon: 'fab fa-telegram', href: 'https://t.me/dukainteriorsplc' },
                 { icon: 'fab fa-instagram', href: 'https://www.instagram.com/dukainteriors' },
                 { icon: 'fab fa-linkedin', href: 'https://www.linkedin.com/company/duka-interiors' }

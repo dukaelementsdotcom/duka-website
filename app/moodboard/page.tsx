@@ -53,7 +53,7 @@ export default function MoodboardPage() {
     const message = encodeURIComponent(
       `Hi Duka Interiors,\n\nI'm interested in a project inspired by these ${favoriteProjects.length} designs:\n\n${projectLinks}\n\nPlease contact me to discuss.`
     );
-    window.open(`https://wa.me/251940607055?text=${message}`, '_blank', 'noopener,noreferrer');
+    window.open(`https://wa.me/251929144290?text=${message}`, '_blank', 'noopener,noreferrer');
   };
 
   if (loading) {
