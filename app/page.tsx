@@ -43,7 +43,7 @@ export default function Home() {
             sizes="100vw"
           />
         </div>
-        <div className="absolute inset-0 bg-black/30"></div>
+        <div className="absolute inset-0 bg-black/15"></div>
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
           <p className="text-red-600 font-black tracking-[0.3em] uppercase text-[10px] mb-4">
             Since 2015 // Addis Ababa
