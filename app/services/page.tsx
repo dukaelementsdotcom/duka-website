@@ -81,8 +81,8 @@ export default function ServicesPage() {
       {/* Hero Section with Image */}
       <section className="relative h-[60vh] min-h-[500px] overflow-hidden">
         <Image
-          src="/images/duka-interiors-portfolio/corporate-office-interior-finishing-bole/modern-office-open-pool-bole.webp"
-          alt="Office interior design by Duka Interiors in Addis Ababa"
+          src="/images/duka-interiors-portfolio/habesha-cement-open-office-addis/office-interior-addis-ababa-2.webp"
+          alt="Glass partition with branded vinyl film installed by Duka Interiors for Habesha Cement"
           fill
           className="object-cover"
           priority

@@ -130,9 +130,9 @@ export default function ProjectClient({ project, slug, allProjects = [], prevPro
     <div className="min-h-screen bg-white selection:bg-red-600">
       <NavBar />
 
-      <main className="pt-24 md:pt-32">
+      <main className="pt-20 md:pt-24">
         {/* Top Navigation Bar */}
-        <div className="max-w-[1800px] mx-auto px-4 md:px-8 mb-6">
+        <div className="max-w-[1800px] mx-auto px-4 md:px-8 mb-3">
           <div className="flex flex-row justify-between items-center gap-4">
             <Link
               href="/projects/"

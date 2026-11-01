@@ -75,9 +75,9 @@ export default function ProjectsClient({ initialProjects }: { initialProjects: a
 
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="pt-32 md:pt-40 pb-8 px-4 md:px-8">
+        <section className="pt-20 md:pt-24 pb-6 px-4 md:px-8">
           <div className="max-w-7xl mx-auto">
-            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-6">
               <div>
                 <p className="text-red-600 text-[10px] font-black uppercase tracking-[0.3em] mb-3">Portfolio</p>
                 <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-gray-900 uppercase tracking-tighter leading-[0.9]">
