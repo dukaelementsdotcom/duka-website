@@ -29,23 +29,28 @@ export default function Home() {
       <NavBar />
       <ResetScroll />
 
-      <div className="relative h-screen min-h-screen overflow-hidden">
-        {/* ✅ FIXED: Added aspect ratio to prevent layout shifts */}
-        <div style={{ aspectRatio: '16/9' }}>
+      {/* Hero fills the first screen below the fixed header (72px mobile, 128px desktop) */}
+      <div className="relative h-[calc(100svh-72px)] lg:h-[calc(100vh-128px)] min-h-[520px] overflow-hidden">
+        {/* Background image sits behind the text instead of pushing it down */}
+        <div className="absolute inset-0">
           <Image
-            src="/images/duka-interiors-portfolio/habesha-cement-open-office-addis/office-view-addis-ababa-8.webp"
-            alt="Executive boardroom designed and built by Duka Interiors for Habesha Cement in Addis Ababa"
+            src="/images/duka-interiors-portfolio/modern-conference-room-and-lobby-design/modern-board-room-habesha-breweries.webp"
+            alt="Office interior designed and built by Duka Interiors in Addis Ababa"
             fill
             className="object-cover"
             priority
             fetchPriority="high" // ✅ FIXED: Added high fetch priority
-            quality={60}
-            sizes="100vw"
+            quality={70}
+            // On tall (portrait) screens the photo is cropped to fill the height,
+            // so request a copy wide enough for that crop (about 2,000px on a modern phone).
+            sizes="(orientation: portrait) 680px, 100vw"
           />
         </div>
         <div className="absolute inset-0 bg-black/15"></div>
+        {/* Soft shade behind the headline only, so text stays readable while the photo stays bright */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.55)_0%,rgba(0,0,0,0.25)_45%,transparent_75%)]"></div>
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
-          <p className="text-red-600 font-black tracking-[0.3em] uppercase text-[10px] mb-4">
+          <p className="text-white font-black tracking-[0.3em] uppercase text-[11px] mb-4 drop-shadow">
             Since 2015 // Addis Ababa
           </p>
           

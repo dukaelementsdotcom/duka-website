@@ -8,7 +8,7 @@ export const CONTACT = {
     { number: '+251929144290', label: '+251 929 144 290' },
     { number: '+251940607055', label: '+251 940 607 055' },
   ],
-  whatsapp: '251940607055',
+  whatsapp: '251929144290',
   email: 'contact@dukainteriors.com',
   address: {
     line1: 'Djibouti Street, Welela Building',

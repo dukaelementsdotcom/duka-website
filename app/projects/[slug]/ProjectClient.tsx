@@ -425,7 +425,7 @@ export default function ProjectClient({ project, slug, allProjects = [], prevPro
                 Get a Quote
               </Link>
               <a
-                href={`https://wa.me/251940607055?text=${encodeURIComponent(`Hello Duka Interiors, I saw the "${project.title}" project and I'd like a quote for a similar space.`)}`}
+                href={`https://wa.me/251929144290?text=${encodeURIComponent(`Hello Duka Interiors, I saw the "${project.title}" project and I'd like a quote for a similar space.`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="border border-white/30 hover:bg-white hover:text-black font-black py-4 px-8 text-[11px] uppercase tracking-widest text-center transition-colors rounded"
