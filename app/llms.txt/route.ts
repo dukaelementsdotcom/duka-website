@@ -1,10 +1,17 @@
-# Duka Interiors PLC
+// /llms.txt – a plain-text summary of the company for AI assistants (llmstxt.org).
+// Built from lib/siteConfig.ts and lib/rates.ts so contact details and prices always match the site.
+import { CONTACT } from '@/lib/siteConfig';
+import { RATES, RATES_UPDATED, n, band, short } from '@/lib/rates';
+
+export const dynamic = 'force-static';
+
+const body = `# Duka Interiors PLC
 
 > Interior design and build company in Addis Ababa, Ethiopia, founded in 2015 by architects Dagmawi Tilahun (CEO) and Henok Teshome (COO). Duka designs and builds office interiors (space planning, glass and gypsum partitions, ceilings, lighting, flooring, custom furniture, branding and signage) and also designs and finishes apartments and homes.
 
 - Website: https://www.dukainteriors.com
 - Address: Djibouti Street, Welela Building, 5th Floor, Suite 507, Bole, Addis Ababa, Ethiopia
-- Phone / WhatsApp: +251 940 607 055, +251 929 144 290
+- Phone / WhatsApp: ${CONTACT.phones.map((p) => p.label).join(', ')}
 - Email: contact@dukainteriors.com
 - Hours: Monday–Saturday, 8:30 AM – 6:00 PM
 - Service area: Addis Ababa and across Ethiopia
@@ -12,7 +19,7 @@
 
 ## Services
 
-- [Interior design](https://www.dukainteriors.com/services/interior-design/): space planning, concept, 3D visuals, material selection. Design-only fees from about 800 ETB/m² (offices) and 1,000 ETB/m² (homes), varying by project type and detail level, 2026.
+- [Interior design](https://www.dukainteriors.com/services/interior-design/): space planning, concept, 3D visuals, material selection. Design-only fees from about ${n(RATES.designOffice.from)} ETB/m² (offices) and ${n(RATES.designHome.from)} ETB/m² (homes), varying by project type and detail level.
 - [Design and build](https://www.dukainteriors.com/services/design-build/): one contract and one itemised price from design to handover.
 - [Office partitioning and furniture](https://www.dukainteriors.com/services/furniture-production/): glass and gypsum partitions, workstations, storage.
 - [Branding and signage](https://www.dukainteriors.com/services/branding-signage/): logo walls, frosted and printed film on glass.
@@ -23,7 +30,22 @@
 
 Habesha Breweries (conference room and lobby), Habesha Cement (CEO office and boardroom), Ethiojobs (800 m² office), Precise Consult (600 m² headquarters), Washington Medical Center (1,500 m² hospital interior), Vision Fund Microfinance, Schneider Electric showroom, Ghion Homes, CCD Real Estate, Afrosweden Real Estate. Portfolio: https://www.dukainteriors.com/projects/
 
-## Prices and guides
+## Current prices (${RATES_UPDATED}, supply and install, before 15% VAT)
+
+These replace any older Duka prices found elsewhere online (the birr floated in July 2024, so pre-2024 prices are out of date).
+
+- Office fit-out per m² of floor: standard ${band('standard')} ETB, premium ${band('premium')} ETB, luxury ${band('luxury')} ETB
+- Gypsum board partition: ${short('gypsumPartition')}; sound-insulated ${short('gypsumSoundproof')}
+- Glass partition (10 mm tempered or aluminium-framed): ${short('glassPartition')}; double-glazed sound-proof from ${short('glassDoubleGlazed')}
+- Tempered glass door with hardware: ${short('glassDoor')}
+- Gypsum false ceiling: ${short('gypsumCeiling')}
+- SPC flooring: ${short('spcFlooring')}; carpet tiles ${short('carpetTiles')}
+- Painting: ${short('paint')}
+- LED panel 60 × 60: ${short('ledPanel')}; data point (CAT6) ${short('dataPoint')}
+- Frosted film on glass: ${short('frostedFilm')}
+- Workstations: 2-seater ${short('workstation2')}, 4-seater ${short('workstation4')}
+
+## Guides
 
 - [Office material prices in Addis Ababa (2026)](https://www.dukainteriors.com/resources/materials/)
 - [Frequently asked questions](https://www.dukainteriors.com/resources/faq/)
@@ -37,3 +59,8 @@ Habesha Breweries (conference room and lobby), Habesha Cement (CEO office and bo
 ## Contact
 
 Free consultation and site visit: https://www.dukainteriors.com/contact/
+`;
+
+export function GET() {
+  return new Response(body, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
+}

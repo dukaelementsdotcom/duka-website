@@ -1,4 +1,6 @@
 // Article: Office colours for Addis Ababa offices
+import { about } from '@/lib/rates';
+
 const content = `
 <p class="lead">Walk through ten offices in Addis and you will see the same thing nine times: white walls, grey floor, grey chairs, and one wall painted the company's logo colour. It is safe. It is also why so many offices feel the same, and why staff spend the day under flat, tiring light.</p>
 
@@ -53,7 +55,7 @@ const content = `
 <p>Most clients come to us with a brand manual and a logo colour. The temptation is to paint everything in it. Here is what works better:</p>
 <ul>
 <li><strong>Reception and the first wall a visitor sees:</strong> this is where your logo and brand colour belong, ideally lit by a spotlight or a backlit sign.</li>
-<li><strong>Glass partitions:</strong> frosted film with your logo or a pattern in brand colours gives meeting rooms privacy and carries the brand through the office. Our 2026 rate for frosted (sandblasted) film is about 1,200 ETB per m².</li>
+<li><strong>Glass partitions:</strong> frosted film with your logo or a pattern in brand colours gives meeting rooms privacy and carries the brand through the office. Our 2026 rate for frosted film is ${about('frostedFilm')}.</li>
 <li><strong>Wayfinding:</strong> a different accent colour per floor or department helps people find their way in larger offices.</li>
 <li><strong>Furniture accents:</strong> chairs or soft seating in the brand colour in breakout areas only.</li>
 </ul>

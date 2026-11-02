@@ -1,4 +1,6 @@
 // Article: Open plan vs private offices for Ethiopian companies
+import { about } from '@/lib/rates';
+
 const content = `
 <p class="lead">Visit any new office in Addis and you will probably see the same picture: long rows of workstations, glass meeting rooms, hardly a solid wall. Open plan has clearly arrived. But should your company follow?</p>
 
@@ -7,7 +9,7 @@ const content = `
 <h2>Why open plan is popular</h2>
 
 <h3>It costs less to build</h3>
-<p>Every wall costs money. A gypsum partition is about 3,000 ETB per m² and glass about 14,500 ETB per m² (our 2026 rates), before doors, ceilings and electrical work. Fewer rooms means a cheaper fit-out and a faster one.</p>
+<p>Every wall costs money. A gypsum partition is ${about('gypsumPartition')} and a glass partition ${about('glassPartition')} (our 2026 rates, before VAT), before doors, ceilings and electrical work. Fewer rooms means a cheaper fit-out and a faster one.</p>
 
 <h3>It shares the daylight</h3>
 <p>Most Addis office buildings have windows only on the outside walls and a deep floor in the middle. If you line the windows with private offices, the managers get the view and everyone else works under LED panels all day. An open floor lets the light reach the whole team.</p>

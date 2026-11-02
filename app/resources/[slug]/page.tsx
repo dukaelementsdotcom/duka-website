@@ -67,6 +67,7 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
     slug: post.slug,
     description: post.excerpt,
     date: post.date,
+    modified: post.updated,
     image: post.image,
   });
 

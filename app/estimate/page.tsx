@@ -4,6 +4,8 @@ import Link from 'next/link';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import { jsPDF } from 'jspdf';
+import { FITOUT_BANDS } from '@/lib/rates';
+import { CONTACT } from '@/lib/siteConfig';
 
 // ============================================================================
 // DUKA OFFICE FIT-OUT ESTIMATOR
@@ -29,29 +31,9 @@ const SPACE_STANDARDS = {
   amenities: 0.6,           // Kitchen, prayer room, storage per staff
 };
 
-// Budget ranges per m² (ETB) - VERIFIED against Duka BOQs
-// FENOT 2022: ~8,700 ETB/m² | Precision 2026: ~12,000-16,000 ETB/m²
-// INTERPOL 2026: ~22,000+ ETB/m² (premium + imported items)
-const BUDGET_RANGES = {
-  standard: {
-    min: 10000,
-    max: 15000,
-    label: 'Standard',
-    desc: 'Local materials, functional finishes'
-  },
-  premium: {
-    min: 15000,
-    max: 24000,
-    label: 'Premium',
-    desc: 'Branded materials, professional finish'
-  },
-  luxury: {
-    min: 24000,
-    max: 40000,
-    label: 'Luxury',
-    desc: 'Imported materials, custom details'
-  },
-};
+// Budget ranges per m² (ETB, before VAT) - shared with the blog via lib/rates.ts.
+// Checked against Duka BOQs: Precision 2026 ~12,000-16,000 ETB/m², INTERPOL 2026 ~22,000+ ETB/m².
+const BUDGET_RANGES = FITOUT_BANDS;
 
 // Scope multipliers - what percentage of full fit-out cost each scope represents
 // Based on typical Duka project cost breakdowns
@@ -391,17 +373,17 @@ export default function EstimatePage() {
     y += 12;
 
     doc.setFontSize(10);
-    doc.text('📞  +251 912 960 576  /  +251 929 144 290', margin, y);
+    doc.text(`Tel: ${CONTACT.phones.map((p) => p.label).join('  /  ')}`, margin, y);
     y += 6;
-    doc.text('📧  dukaelements@gmail.com', margin, y);
+    doc.text(`Email: ${CONTACT.email}`, margin, y);
     y += 6;
-    doc.text('🌐  www.dukainteriors.com', margin, y);
+    doc.text('Web: www.dukainteriors.com', margin, y);
     y += 15;
 
     // Company info
     doc.setFontSize(8);
     doc.setTextColor(150, 150, 150);
-    centerText('Duka Interiors PLC  •  Bole Medhanialem, Welelay Building 5th Floor, Room 507  •  Addis Ababa, Ethiopia', y);
+    centerText(`${CONTACT.companyName}  •  ${CONTACT.address.line1}, ${CONTACT.address.line2}  •  ${CONTACT.address.city}`, y);
     y += 5;
     centerText('Interior Design & Build Since 2015', y);
 
@@ -969,7 +951,7 @@ export default function EstimatePage() {
                         Request Site Visit
                       </Link>
                       <a
-                        href="tel:+251911123456"
+                        href={`tel:${CONTACT.phones[0].number}`}
                         className="inline-block px-6 py-3 border-2 border-white text-white font-medium rounded-lg hover:bg-white/10 transition-colors"
                       >
                         Call Us Now

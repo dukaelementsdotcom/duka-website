@@ -19,6 +19,7 @@ export interface BlogPost {
   image: string;
   excerpt: string;
   content: string;
+  updated?: string; // last content change (prices etc.), shown to Google as dateModified
   hideDefaultCTA?: boolean; // hides the Duka call-to-action box (used for the partner article)
   seoTitle?: string; // shorter, keyword-clear title for Google (≤60 chars incl. " | Duka Interiors")
 }
@@ -34,6 +35,7 @@ export const BLOG_POSTS: BlogPost[] = [
     excerpt:
       'Desk, workstation, storage, meeting room and reception sizes that work in real Addis Ababa offices, with the walkway clearances we check on every layout.',
     content: furnitureDimensions,
+    updated: 'Nov 02, 2026',
   },
   {
     slug: 'office-color-psychology-productivity-addis',
@@ -45,6 +47,7 @@ export const BLOG_POSTS: BlogPost[] = [
     excerpt:
       "How to choose office colours that work in Addis Ababa's strong light and dust: warm whites, brand accents, the 60-30-10 rule and colour by area.",
     content: colourPsychology,
+    updated: 'Nov 02, 2026',
   },
   {
     slug: 'transforming-addis-ababa-properties-real-estate-interior-design-partnership',
@@ -68,6 +71,7 @@ export const BLOG_POSTS: BlogPost[] = [
     excerpt:
       'Glass or gypsum? Costs at 2026 Addis Ababa rates, sound privacy, daylight, and the 70/30 mix we recommend for most Ethiopian offices.',
     content: glassVsGypsum,
+    updated: 'Nov 02, 2026',
   },
   {
     slug: 'open-plan-vs-private-offices-addis-ababa',
@@ -79,6 +83,7 @@ export const BLOG_POSTS: BlogPost[] = [
     excerpt:
       'Open plan suits some teams and fails others. How to decide, what is different about offices in Addis, and the mix most Ethiopian companies end up with.',
     content: openPlanVsPrivate,
+    updated: 'Nov 02, 2026',
   },
   {
     slug: 'office-flooring-ethiopia-guide',
@@ -90,6 +95,7 @@ export const BLOG_POSTS: BlogPost[] = [
     excerpt:
       'Porcelain, carpet tiles, roll carpet or locally made SPC? Real 2026 prices in Addis Ababa, where each floor belongs, cleaning, and what you can take with you when you move.',
     content: officeFlooring,
+    updated: 'Nov 02, 2026',
   },
   {
     slug: 'how-to-choose-best-interior-designer-addis-ababa',
@@ -112,6 +118,7 @@ export const BLOG_POSTS: BlogPost[] = [
     excerpt:
       'Real 2026 fit-out costs in Addis Ababa: per-m² rates for partitions, ceilings, flooring, electrical and furniture, with a worked example for a 300 m² office.',
     content: officeFitOutCosts,
+    updated: 'Nov 02, 2026',
   },
   {
     slug: 'office-rent-addis-ababa-what-to-check',

@@ -1,5 +1,13 @@
 // Article: Glass vs gypsum office partitions in Ethiopia
-// Prices: Duka's 2026 rates (same as app/estimate/page.tsx). Update both together.
+// Prices come from lib/rates.ts.
+import { RATES, n, short } from '@/lib/rates';
+
+const G = RATES.gypsumPartition.from;
+const GL = RATES.glassPartition.from;
+const roundK = (x: number) => Math.round(x / 10000) * 10000;
+const MIX = roundK(126 * G + 54 * GL);
+const ALL_GLASS = roundK(180 * GL);
+
 const content = `
 <p class="lead">Almost every office fit-out in Addis Ababa starts with the same question: how do we divide the floor? Most buildings are handed over as an open concrete shell, so every manager's office, meeting room and server room has to be built. And in practice there are two main choices: aluminium-framed glass, or gypsum board on a metal frame.</p>
 
@@ -17,20 +25,20 @@ const content = `
 
 <h2>What they cost</h2>
 
-<p>These are Duka Interiors' 2026 rates in Addis Ababa. Your final price depends on height, quantity, doors and site conditions, but they are a reliable starting point for a budget.</p>
+<p>These are Duka Interiors' 2026 supply-and-install rates in Addis Ababa, before VAT, taken from our recent bills of quantities. Your final price depends on height, quantity, doors and site conditions, but they are a reliable starting point for a budget.</p>
 
 <div class="table-wrap"><table>
 <thead><tr><th>Partition</th><th>2026 rate</th></tr></thead>
 <tbody>
-<tr><td>Gypsum board partition</td><td>about 3,000 ETB / m²</td></tr>
-<tr><td>Aluminium single-glass partition</td><td>about 14,500 ETB / m²</td></tr>
-<tr><td>Frameless tempered glass</td><td>about 15,500 ETB / m²</td></tr>
-<tr><td>Double-glazed sound-proof glass</td><td>about 16,500 ETB / m²</td></tr>
-<tr><td>Glass door</td><td>about 18,000 ETB each</td></tr>
-<tr><td>Frosted (sandblasted) film on glass</td><td>about 1,200 ETB / m²</td></tr>
+<tr><td>Gypsum board partition, 90 mm double-sided</td><td>about ${short('gypsumPartition')}</td></tr>
+<tr><td>Sound-insulated gypsum partition</td><td>about ${short('gypsumSoundproof')}</td></tr>
+<tr><td>Glass partition, 10 mm tempered or aluminium-framed</td><td>about ${short('glassPartition')}</td></tr>
+<tr><td>Double-glazed sound-proof glass</td><td>from ${short('glassDoubleGlazed')}</td></tr>
+<tr><td>Tempered glass door with hardware</td><td>about ${short('glassDoor')}</td></tr>
+<tr><td>Frosted film on glass</td><td>about ${short('frostedFilm')}</td></tr>
 </tbody></table></div>
 
-<p>So glass costs roughly <strong>five times as much as gypsum</strong> per square metre. That single fact drives most of the decisions below. Imported aluminium and glass are also more exposed to exchange-rate changes, which is why quotes for glass work usually have a short validity period.</p>
+<p>So glass costs roughly <strong>four times as much as gypsum</strong> per square metre. That single fact drives most of the decisions below. Imported aluminium and glass are also more exposed to exchange-rate changes, which is why quotes for glass work usually have a short validity period.</p>
 
 <h2>Side by side</h2>
 
@@ -89,8 +97,8 @@ const content = `
 <div class="table-wrap"><table>
 <thead><tr><th>Approach</th><th>Calculation</th><th>Partition cost</th></tr></thead>
 <tbody>
-<tr><td>70% gypsum / 30% single glass</td><td>126 m² × 3,000 + 54 m² × 14,500</td><td><strong>about 1,161,000 ETB</strong></td></tr>
-<tr><td>All single glass</td><td>180 m² × 14,500</td><td><strong>about 2,610,000 ETB</strong></td></tr>
+<tr><td>70% gypsum / 30% glass</td><td>126 m² × ${n(G)} + 54 m² × ${n(GL)}</td><td><strong>about ${n(MIX)} ETB</strong></td></tr>
+<tr><td>All glass</td><td>180 m² × ${n(GL)}</td><td><strong>about ${n(ALL_GLASS)} ETB</strong></td></tr>
 </tbody></table></div>
 
 <p>The mixed approach costs well under half, and in most offices it also gives better privacy where it is needed. Spend the difference on good doors, frosted film with your branding, and proper sound insulation in the rooms that need it.</p>
@@ -115,7 +123,7 @@ const content = `
 
 <h2>Summary</h2>
 <ul>
-<li>Glass costs roughly five times as much as gypsum, so use it where it adds light and impression.</li>
+<li>Glass costs roughly four times as much as gypsum, so use it where it adds light and impression.</li>
 <li>Gypsum is cheaper, more private and hides cables, so use it for confidential rooms, service rooms and walls that carry things.</li>
 <li>For confidential rooms, choose double glass or insulated gypsum, and take the wall above the ceiling.</li>
 <li>A 70/30 gypsum-to-glass mix suits most Addis offices.</li>

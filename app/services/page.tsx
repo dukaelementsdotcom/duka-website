@@ -1,5 +1,6 @@
 // app/services/page.tsx
 import Link from 'next/link';
+import { RATES, n } from '@/lib/rates';
 import Image from 'next/image';
 import { services } from '@/lib/servicesData';
 import NavBar from '@/app/components/NavBar';
@@ -17,7 +18,7 @@ export const metadata: Metadata = pageMeta({
 const SERVICE_DATA: Record<string, { image: string; priceHint?: string; badge?: string }> = {
   'interior-design': {
     image: '/images/duka-interiors-portfolio/modern-conference-room-and-lobby-design/modern-conference-room-addis-ababa.webp',
-    priceHint: 'From 800 ETB/m²',
+    priceHint: `From ${n(RATES.designOffice.from)} ETB/m²`,
   },
   'design-build': {
     image: '/images/duka-interiors-portfolio/dereja-office-interior-partition-work/full-office-interior-fit-out-kazanchis.webp',
@@ -26,15 +27,15 @@ const SERVICE_DATA: Record<string, { image: string; priceHint?: string; badge?: 
   },
   'furniture-production': {
     image: '/images/duka-interiors-portfolio/modern-open-interior-design-bole/compact-office-interior-bole.webp',
-    priceHint: 'Partitions from 3,000 ETB/m²',
+    priceHint: `Partitions from ${n(RATES.gypsumPartition.from)} ETB/m²`,
   },
   'branding-signage': {
     image: '/images/duka-interiors-portfolio/schneider-electric-showroom-interior/corporate-showroom-addis-ababa.webp',
-    priceHint: 'Logo signs from 4,800 ETB/m²',
+    priceHint: `Frosted film from ${n(RATES.frostedFilm.from)} ETB/m²`,
   },
   'technology': {
     image: '/images/duka-interiors-portfolio/tech-startup-open-plan-office-addis/start-up-office-interior-design-bole.webp',
-    priceHint: 'Data points from 650 ETB each',
+    priceHint: `Data points from ${n(RATES.dataPoint.from)} ETB each`,
   },
   'project-management': {
     image: '/images/duka-interiors-portfolio/vision-fund-microfinance-office-design/CEO-office-design-addis-ababa.webp',

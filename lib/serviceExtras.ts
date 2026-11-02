@@ -1,5 +1,6 @@
-// Extra content for each service page: common questions (with Duka's own 2026 rates from the
-// estimator) and example projects. Keep prices in sync with app/estimate/page.tsx.
+// Extra content for each service page: common questions and example projects.
+// All prices come from lib/rates.ts.
+import { RATES, n, about, amount } from './rates';
 
 export type ServiceExtra = {
   faqs: { q: string; a: string }[];
@@ -11,7 +12,7 @@ export const SERVICE_EXTRAS: Record<string, ServiceExtra> = {
     faqs: [
       {
         q: 'How much does office interior design cost in Addis Ababa?',
-        a: 'Our design-only fee starts at about 800 ETB per m² for offices and 1,000 ETB per m² for homes, depending on the project type and level of detail required. It covers space planning, layout revisions, material selection and 3D visuals. Construction is quoted separately, or together if you choose design and build.',
+        a: `Our design-only fee starts at about ${n(RATES.designOffice.from)} ETB per m² for offices and ${n(RATES.designHome.from)} ETB per m² for homes, depending on the project type and level of detail required. It covers space planning, layout revisions, material selection and 3D visuals. Construction is quoted separately, or together if you choose design and build.`,
       },
       {
         q: 'What do I receive at the end of the design stage?',
@@ -53,7 +54,7 @@ export const SERVICE_EXTRAS: Record<string, ServiceExtra> = {
     faqs: [
       {
         q: 'How much do office partitions cost in Ethiopia?',
-        a: 'Our 2026 rates in Addis Ababa: gypsum board partitions about 3,000 ETB per m², aluminium single-glass partitions about 14,500 ETB per m², frameless tempered glass about 15,500 ETB per m², and double-glazed sound-proof glass about 16,500 ETB per m². Glass doors are about 8,500 ETB each.',
+        a: `Our 2026 rates in Addis Ababa, before VAT: gypsum board partitions ${about('gypsumPartition')}, sound-insulated gypsum ${about('gypsumSoundproof')}, 10 mm tempered or aluminium-framed glass partitions ${about('glassPartition')}, and double-glazed sound-proof glass from ${n(RATES.glassDoubleGlazed.from)} ETB per m². Tempered glass doors with hardware are ${about('glassDoor')}.`,
       },
       {
         q: 'Glass or gypsum: which partition should I choose?',
@@ -61,7 +62,7 @@ export const SERVICE_EXTRAS: Record<string, ServiceExtra> = {
       },
       {
         q: 'How much does office furniture cost?',
-        a: 'Typical 2026 prices: a 2-seater workstation about 24,000 ETB, a 4-seater about 42,000 ETB, mesh office chairs 6,500 to 9,500 ETB, and an executive desk about 42,000 ETB. Custom sizes and finishes are quoted per project.',
+        a: `Typical 2026 prices, before VAT: a 2-seater workstation about ${n(RATES.workstation2.from)} ETB, a 4-seater about ${n(RATES.workstation4.from)} ETB, mesh staff chairs about ${n(RATES.staffChair.from)} ETB, high-back manager chairs about ${n(RATES.managerChair.from)} ETB, and an executive L-desk about ${n(RATES.executiveDesk.from)} ETB. Custom sizes and finishes are quoted per project.`,
       },
     ],
     projects: [
@@ -74,7 +75,7 @@ export const SERVICE_EXTRAS: Record<string, ServiceExtra> = {
     faqs: [
       {
         q: 'How much does office branding cost?',
-        a: 'Our 2026 rates: acrylic logo signs about 4,800 ETB per m², and frosted (sandblasted) film for glass partitions about 1,200 ETB per m². Film with your logo or pattern also gives meeting rooms privacy.',
+        a: `Our 2026 rates, before VAT: logo signs with an acrylic face ${about('logoSign')} of sign, frosted film for glass partitions ${about('frostedFilm')}, and printed wallpaper ${about('printedWallpaper')}. Film with your logo or pattern also gives meeting rooms privacy.`,
       },
       {
         q: 'Can you put our logo on glass partitions?',
@@ -91,7 +92,7 @@ export const SERVICE_EXTRAS: Record<string, ServiceExtra> = {
     faqs: [
       {
         q: 'Do you install data cabling and lighting?',
-        a: 'Yes. We plan data points, power sockets and lighting together with the layout, so cables run inside partitions and ceilings rather than across the floor. Typical 2026 rates: data points about 650 ETB each, 60×60 LED panels about 1,800 ETB each.',
+        a: `Yes. We plan data points, power sockets and lighting together with the layout, so cables run inside partitions and ceilings rather than across the floor. Typical 2026 rates, before VAT: CAT6 data points ${about('dataPoint')}, power points ${about('powerPoint')}, and 60×60 LED panels ${about('ledPanel')}.`,
       },
       {
         q: 'Can you set up meeting rooms for video calls?',
@@ -108,7 +109,7 @@ export const SERVICE_EXTRAS: Record<string, ServiceExtra> = {
     faqs: [
       {
         q: 'What does an office renovation include?',
-        a: 'Usually new partitions, false ceilings, lighting, flooring, painting and furniture. Typical 2026 rates: gypsum false ceilings about 2,800 ETB per m², SPC flooring about 2,500 ETB per m², carpet tiles about 4,500 ETB per m², and painting about 200 ETB per m².',
+        a: `Usually new partitions, false ceilings, lighting, flooring, painting and furniture. Typical 2026 rates, before VAT: gypsum false ceilings ${about('gypsumCeiling')}, SPC flooring ${about('spcFlooring')}, carpet tiles ${amount('carpetTiles')} ETB per m² depending on grade, and painting ${about('paint')}.`,
       },
       {
         q: 'Who manages the site during the renovation?',

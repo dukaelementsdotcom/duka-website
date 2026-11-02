@@ -1,7 +1,12 @@
 // Article: Office flooring in Ethiopia
-// Prices are Duka's real 2026 supply-and-install figures given by Dagmawi (Oct 2026):
-// SPC ≈ 2,500 ETB/m², carpet tiles ≈ 4,500 ETB/m², porcelain ≈ 4,500 ETB/m² + adhesive.
-// Keep in sync with app/resources/materials/page.tsx, lib/serviceExtras.ts and app/estimate/page.tsx.
+// Prices come from lib/rates.ts (SPC, mid-range carpet tiles, porcelain).
+import { RATES, n, amount } from '@/lib/rates';
+
+const SPC = RATES.spcFlooring.from;
+const CARPET = RATES.carpetTilesTypical.from;
+const PORC = RATES.porcelainTiles.from;
+const roundK = (x: number) => Math.round(x / 10000) * 10000;
+
 const content = `
 <p class="lead">Ask for an office floor in Addis Ababa and, whatever the showroom brochures say, you will really be choosing between four things: ceramic or porcelain tiles, carpet tiles, carpet sold on a roll, or SPC. Each one is right somewhere in your office, and each one is wrong somewhere else.</p>
 
@@ -17,7 +22,7 @@ const content = `
 
 <h2>1. Ceramic and porcelain tiles</h2>
 
-<p>Tiles are what most Addis buildings are handed over with, and they are still the standard for wet and heavy-use areas. Porcelain is denser and harder than ceramic and is the better choice for offices. Good porcelain costs around <strong>4,500 ETB per m²</strong>, and on top of that you pay for <strong>tile adhesive and grout</strong>, which many first quotes leave out.</p>
+<p>Tiles are what most Addis buildings are handed over with, and they are still the standard for wet and heavy-use areas. Porcelain is denser and harder than ceramic and is the better choice for offices. Good porcelain costs around <strong>${n(PORC)} ETB per m²</strong>, and on top of that you pay for <strong>tile adhesive and grout</strong>, which many first quotes leave out.</p>
 
 <h3>Where tiles are the right choice</h3>
 <ul>
@@ -36,7 +41,7 @@ const content = `
 
 <h2>2. Carpet tiles</h2>
 
-<p>Carpet tiles are squares of carpet, usually 50 × 50 cm, laid one by one. They cost around <strong>4,500 ETB per m²</strong>, similar to porcelain, but they solve a different problem: noise. They absorb footsteps, chair movement and conversation, which is why they belong in open work areas and meeting rooms.</p>
+<p>Carpet tiles are squares of carpet, usually 50 × 50 cm, laid one by one. Mid-range carpet tiles cost around <strong>${n(CARPET)} ETB per m²</strong> (${amount('carpetTiles')} from economy to acoustic grades), similar to porcelain, but they solve a different problem: noise. They absorb footsteps, chair movement and conversation, which is why they belong in open work areas and meeting rooms.</p>
 
 <p>Their big practical advantage over roll carpet is that <strong>a damaged or stained tile can be lifted out and replaced on its own</strong>. Keep a box of spare tiles from the same batch in the store for exactly this.</p>
 
@@ -75,7 +80,7 @@ const content = `
 
 <h2>4. SPC: the locally made option that changed the market</h2>
 
-<p>SPC (stone plastic composite) is a rigid plank or tile with a stone-powder core and a printed wood or stone surface. It is now manufactured locally in Ethiopia and has become very popular in Addis offices over the last few years, for good reasons. At around <strong>2,500 ETB per m²</strong>, it is also the most affordable of the four.</p>
+<p>SPC (stone plastic composite) is a rigid plank or tile with a stone-powder core and a printed wood or stone surface. It is now manufactured locally in Ethiopia and has become very popular in Addis offices over the last few years, for good reasons. At around <strong>${n(SPC)} ETB per m²</strong>, it is also the most affordable of the four.</p>
 
 <h3>Why companies choose SPC</h3>
 <ul>
@@ -102,7 +107,7 @@ const content = `
 <div class="table-wrap"><table>
 <thead><tr><th></th><th>Porcelain tiles</th><th>Carpet tiles</th><th>Roll carpet</th><th>SPC</th></tr></thead>
 <tbody>
-<tr><td><strong>Price (2026)</strong></td><td>~4,500 ETB/m² + adhesive and grout</td><td>~4,500 ETB/m²</td><td>Quoted per project</td><td>~2,500 ETB/m²</td></tr>
+<tr><td><strong>Price (2026)</strong></td><td>~${n(PORC)} ETB/m² + adhesive and grout</td><td>~${n(CARPET)} ETB/m²</td><td>Quoted per project</td><td>~${n(SPC)} ETB/m²</td></tr>
 <tr><td><strong>Installation</strong></td><td>Wet work, dust, curing time</td><td>Fast, glued down</td><td>Fast, cut to room</td><td>Fast, clicks over existing tiles</td></tr>
 <tr><td><strong>Cleaning</strong></td><td>Mop; grout needs care</td><td>Vacuum; replace stained tiles</td><td>Daily vacuum, deep clean; stains stay</td><td>Mop or wipe</td></tr>
 <tr><td><strong>Water</strong></td><td>Excellent</td><td>Poor</td><td>Poor</td><td>Good (not for wet rooms)</td></tr>
@@ -131,8 +136,8 @@ const content = `
 <div class="table-wrap"><table>
 <thead><tr><th>Approach</th><th>Calculation</th><th>Flooring cost</th></tr></thead>
 <tbody>
-<tr><td>Re-tile everything in porcelain</td><td>300 m² × 4,500</td><td><strong>about 1,350,000 ETB</strong> plus adhesive, grout and breaking out the old tiles</td></tr>
-<tr><td>Mix: SPC in work areas, carpet tiles in meeting rooms, keep existing tiles</td><td>200 m² × 2,500 + 60 m² × 4,500</td><td><strong>about 770,000 ETB</strong></td></tr>
+<tr><td>Re-tile everything in porcelain</td><td>300 m² × ${n(PORC)}</td><td><strong>about ${n(roundK(300 * PORC))} ETB</strong> plus adhesive, grout and breaking out the old tiles</td></tr>
+<tr><td>Mix: SPC in work areas, carpet tiles in meeting rooms, keep existing tiles</td><td>200 m² × ${n(SPC)} + 60 m² × ${n(CARPET)}</td><td><strong>about ${n(roundK(200 * SPC + 60 * CARPET))} ETB</strong></td></tr>
 </tbody></table></div>
 
 <p>The mixed approach costs a little over half, installs in days instead of weeks, keeps the office quieter, and most of the SPC and possibly the carpet tiles can go with you when you move.</p>
