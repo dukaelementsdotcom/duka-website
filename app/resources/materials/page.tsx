@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import { pageMeta, breadcrumbSchema } from '@/lib/seo';
 import NavBar from '@/app/components/NavBar';
+import { short, RATES_UPDATED } from '@/lib/rates';
 import Footer from '@/app/components/Footer';
 
-// Material price guide: Duka's 2026 rates (same figures as the estimator in app/estimate/page.tsx)
-// plus links to the detailed guides. Update the table when rates change.
+// Material price guide. All figures come from lib/rates.ts (the one place to change prices).
 
 export const metadata = pageMeta({
   title: 'Office Material Prices, Addis Ababa 2026',
@@ -13,48 +13,53 @@ export const metadata = pageMeta({
   path: '/resources/materials/',
 });
 
-const RATES: { group: string; rows: [string, string][] }[] = [
+const GROUPS: { group: string; rows: [string, string][] }[] = [
   {
-    group: 'Partitions',
+    group: 'Partitions and doors',
     rows: [
-      ['Gypsum board partition', '3,000 ETB / m²'],
-      ['Aluminium single-glass partition', '14,500 ETB / m²'],
-      ['Frameless tempered glass partition', '15,500 ETB / m²'],
-      ['Double-glazed sound-proof glass partition', '16,500 ETB / m²'],
-      ['Glass door', '8,500 ETB each'],
+      ['Gypsum board partition, 90 mm double-sided', short('gypsumPartition')],
+      ['Sound-insulated gypsum partition', short('gypsumSoundproof')],
+      ['Glass partition, 10 mm tempered or aluminium-framed', short('glassPartition')],
+      ['Double-glazed sound-proof glass partition', `from ${short('glassDoubleGlazed')}`],
+      ['Glass door, 10 mm tempered with hardware', short('glassDoor')],
+      ['Wooden flush door, 900 × 2100', short('woodenDoor')],
     ],
   },
   {
     group: 'Ceilings, floors and walls',
     rows: [
-      ['Gypsum false ceiling', '2,800 ETB / m²'],
-      ['SPC flooring (locally made)', '2,500 ETB / m²'],
-      ['Carpet tiles', '4,500 ETB / m²'],
-      ['Porcelain tiles (plus adhesive)', '4,500 ETB / m²'],
-      ['Painting', '200 ETB / m²'],
+      ['Gypsum board false ceiling', short('gypsumCeiling')],
+      ['Acoustic ceiling, concealed grid', short('acousticCeiling')],
+      ['SPC flooring (locally made)', short('spcFlooring')],
+      ['Carpet tiles (economy to acoustic)', short('carpetTiles')],
+      ['Porcelain tiles (plus adhesive)', short('porcelainTiles')],
+      ['Painting, primer and two coats', short('paint')],
     ],
   },
   {
-    group: 'Lighting and data',
+    group: 'Lighting, power and data',
     rows: [
-      ['LED panel 60×60', '1,800 ETB each'],
-      ['Data point', '650 ETB each'],
+      ['LED panel 60 × 60, 48 W', short('ledPanel')],
+      ['Power point (double socket)', short('powerPoint')],
+      ['Data point (CAT6)', short('dataPoint')],
     ],
   },
   {
     group: 'Furniture',
     rows: [
-      ['2-seater workstation', '24,000 ETB'],
-      ['4-seater workstation', '42,000 ETB'],
-      ['Mesh office chair', '6,500 – 9,500 ETB'],
-      ['Executive desk', '42,000 ETB'],
+      ['2-seater workstation', short('workstation2')],
+      ['4-seater workstation', short('workstation4')],
+      ['Mesh staff chair', short('staffChair')],
+      ['High-back manager chair', short('managerChair')],
+      ['Executive L-desk 160 × 80', short('executiveDesk')],
     ],
   },
   {
     group: 'Branding',
     rows: [
-      ['Acrylic logo sign', '4,800 ETB / m²'],
-      ['Frosted (sandblasted) film on glass', '1,200 ETB / m²'],
+      ['Logo sign, acrylic face (per m² of sign)', short('logoSign')],
+      ['Frosted film on glass', short('frostedFilm')],
+      ['Printed wallpaper', short('printedWallpaper')],
     ],
   },
 ];
@@ -83,16 +88,17 @@ export default function MaterialsPage() {
           Office material prices in Addis Ababa
         </h1>
         <p className="mt-6 text-gray-700 leading-relaxed max-w-3xl">
-          These are Duka Interiors&rsquo; rates for 2026, the same figures our{' '}
+          These are Duka Interiors&rsquo; supply-and-install rates ({RATES_UPDATED}), before 15% VAT, taken from our
+          own recent bills of quantities. Our{' '}
           <Link href="/estimate/" className="text-red-600 underline">
             cost estimator
           </Link>{' '}
-          uses. They help you set a budget. Your final price depends on quantities, specification and site conditions,
+          uses the same rates. They help you set a budget. Your final price depends on quantities, specification and site conditions,
           and we confirm it in an itemised quote.
         </p>
 
         <div className="mt-12 grid gap-8 md:grid-cols-2">
-          {RATES.map((g) => (
+          {GROUPS.map((g) => (
             <section key={g.group} className="border-t-2 border-gray-950 pt-5">
               <h2 className="text-lg font-black uppercase tracking-tighter text-gray-900 mb-3">{g.group}</h2>
               <table className="w-full text-sm">

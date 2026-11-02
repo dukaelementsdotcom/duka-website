@@ -1,38 +1,29 @@
 import Link from 'next/link';
 import { CONTACT } from '@/lib/siteConfig';
+import { RATES, n, amount } from '@/lib/rates';
 
 // Homepage text block: who we are, links to real projects, and answers to the questions
 // Google shows under "interior designer in Addis Ababa" ("People also ask").
 // Server-rendered and uses <details>, so all text is in the HTML Google reads.
-// Prices come from Duka's own rates (portal catalog and the estimator's 2026 material rates).
-// Update them here when rates change.
-
-const DESIGN_FEE_OFFICE = 800; // ETB per m², design only (varies by project type and detail level)
-const DESIGN_FEE_HOME = 1000; // ETB per m², design only (varies by project type and detail level)
-const RATE_GYPSUM_PARTITION = 3000; // ETB per m²
-const RATE_GLASS_FROM = 14500; // ETB per m², aluminium single glass
-const RATE_GLASS_TO = 16500; // ETB per m², double glass (sound proof)
-const RATE_CEILING = 2800; // ETB per m², gypsum false ceiling
-
-const n = (v: number) => v.toLocaleString('en-US');
+// All prices come from lib/rates.ts.
 
 type QA = { q: string; a: React.ReactNode; text: string };
 
 export const FAQS: QA[] = [
   {
     q: 'How much does interior design cost in Ethiopia?',
-    text: `At Duka Interiors, design-only fees start at about ${n(DESIGN_FEE_OFFICE)} ETB per m² for offices and ${n(DESIGN_FEE_HOME)} ETB per m² for homes. That covers the concept, layouts, material selection and 3D visuals. Building the design is priced separately by material: in 2026, gypsum partitions cost about ${n(RATE_GYPSUM_PARTITION)} ETB per m², aluminium glass partitions ${n(RATE_GLASS_FROM)} to ${n(RATE_GLASS_TO)} ETB per m², and gypsum false ceilings about ${n(RATE_CEILING)} ETB per m². The final price depends on the area, the specification and the site.`,
+    text: `At Duka Interiors, design-only fees start at about ${n(RATES.designOffice.from)} ETB per m² for offices and ${n(RATES.designHome.from)} ETB per m² for homes. That covers the concept, layouts, material selection and 3D visuals. Building the design is priced separately by material: in 2026, gypsum partitions cost about ${amount('gypsumPartition')} ETB per m², tempered glass partitions ${amount('glassPartition')} ETB per m², and gypsum false ceilings about ${amount('gypsumCeiling')} ETB per m², before VAT. The final price depends on the area, the specification and the site.`,
     a: (
       <>
         <p>
-          At Duka Interiors, design-only fees start at about <strong>{n(DESIGN_FEE_OFFICE)} ETB per m²</strong> for
-          offices and <strong>{n(DESIGN_FEE_HOME)} ETB per m²</strong> for homes. That covers the concept, layouts,
+          At Duka Interiors, design-only fees start at about <strong>{n(RATES.designOffice.from)} ETB per m²</strong> for
+          offices and <strong>{n(RATES.designHome.from)} ETB per m²</strong> for homes. That covers the concept, layouts,
           material selection and 3D visuals.
         </p>
         <p className="mt-3">
           Building the design is priced separately by material. Typical 2026 rates in Addis Ababa: gypsum partitions
-          about {n(RATE_GYPSUM_PARTITION)} ETB/m², aluminium glass partitions {n(RATE_GLASS_FROM)} to{' '}
-          {n(RATE_GLASS_TO)} ETB/m², and gypsum false ceilings about {n(RATE_CEILING)} ETB/m². The final price depends
+          about {amount('gypsumPartition')} ETB/m², tempered glass partitions {amount('glassPartition')} ETB/m², and
+          gypsum false ceilings about {amount('gypsumCeiling')} ETB/m², before VAT. The final price depends
           on the area, the specification and the site. For a figure for your own space, try the{' '}
           <Link href="/estimate/" className="text-red-600 underline">
             cost estimator

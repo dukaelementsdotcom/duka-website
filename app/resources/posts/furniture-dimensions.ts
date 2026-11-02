@@ -1,5 +1,7 @@
 // Article: Office furniture dimensions for Ethiopian offices
-// Styled by .article-body in app/globals.css. Use plain HTML only.
+// Styled by .article-body in app/globals.css. Use plain HTML only. Prices come from lib/rates.ts.
+import { RATES, n } from '@/lib/rates';
+
 const content = `
 <p class="lead">Before anyone talks about colours or finishes, an office has to fit. Desks that are too big eat the corridor. Cabinets that are too deep block the door. And in Addis, where every square metre costs real rent, those mistakes are expensive to live with.</p>
 
@@ -45,7 +47,7 @@ const content = `
 <h3>Plan the power before you buy the desks</h3>
 <p>Every workstation needs power, data and, in most buildings here, a UPS. Power cuts are part of life in Addis, so decide early where the UPS units will sit and how the cables reach each desk. A cable spine down the middle of the workstation, fed from a floor box or a wall trunking, is far tidier than extension cables taped across the floor. If you add this later, it always looks like an afterthought.</p>
 
-<p>For prices, our 2026 rates are about <strong>24,000 ETB for a 2-seater workstation</strong> and <strong>42,000 ETB for a 4-seater</strong>, made to size. See the full list on our <a href="/resources/materials/">material prices page</a>.</p>
+<p>For prices, our 2026 rates are about <strong>${n(RATES.workstation2.from)} ETB for a 2-seater workstation</strong> and <strong>${n(RATES.workstation4.from)} ETB for a 4-seater</strong>, made to size. See the full list on our <a href="/resources/materials/">material prices page</a>.</p>
 
 <h2>3. Storage: Ethiopian offices still run on paper</h2>
 

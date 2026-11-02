@@ -24,7 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Current date for pages without specific modification dates
   const now = new Date();
-  const recentUpdate = new Date('2026-10-26'); // Last major update date
+  const recentUpdate = new Date('2026-11-02'); // Last major update date (sitewide price update)
 
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: absoluteUrl('/'), priority: 1, lastModified: recentUpdate, changeFrequency: 'weekly' },
@@ -35,7 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: absoluteUrl('/estimate/'), priority: 0.7, lastModified: recentUpdate, changeFrequency: 'monthly' },
     { url: absoluteUrl('/resources/'), priority: 0.7, lastModified: recentUpdate, changeFrequency: 'weekly' },
     { url: absoluteUrl('/resources/faq/'), priority: 0.6, lastModified: new Date('2026-10-27'), changeFrequency: 'monthly' },
-    { url: absoluteUrl('/resources/materials/'), priority: 0.6, lastModified: new Date('2026-10-27'), changeFrequency: 'monthly' },
+    { url: absoluteUrl('/resources/materials/'), priority: 0.6, lastModified: new Date('2026-11-02'), changeFrequency: 'monthly' },
     { url: absoluteUrl('/directory/'), priority: 0.3, lastModified: recentUpdate, changeFrequency: 'monthly' },
     { url: absoluteUrl('/privacy-policy/'), priority: 0.2, lastModified: new Date('2026-01-01'), changeFrequency: 'yearly' },
     { url: absoluteUrl('/terms-of-service/'), priority: 0.2, lastModified: new Date('2026-01-01'), changeFrequency: 'yearly' },
@@ -58,7 +58,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   const postRoutes = BLOG_POSTS.map((post) => {
-    const date = new Date(post.date);
+    const date = new Date(post.updated || post.date);
     return {
       url: absoluteUrl(`/resources/${post.slug}/`),
       priority: 0.6,

@@ -267,6 +267,7 @@ export function articleSchema(article: {
   slug: string;
   description: string;
   date: string;
+  modified?: string;
   image?: string;
   author?: string;
 }) {
@@ -278,7 +279,7 @@ export function articleSchema(article: {
     description: article.description,
     url: `${SITE_URL}/resources/${article.slug}/`,
     datePublished: article.date,
-    dateModified: article.date,
+    dateModified: article.modified || article.date,
     author: {
       '@type': 'Organization',
       '@id': `${SITE_URL}/#organization`,
