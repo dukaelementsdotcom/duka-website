@@ -15,9 +15,9 @@ const geistSans = GeistSans;
 const geistMono = GeistMono;
 
 // Matches the main search: "interior designer in Addis Ababa".
-const HOME_TITLE = "Interior Designers in Addis Ababa | Duka Interiors";
+const HOME_TITLE = "Interior Designers in Addis Ababa, Ethiopia | Duka Interiors";
 const HOME_DESCRIPTION =
-  "Architect-led interior designers in Addis Ababa since 2015. Office design, partitioning, renovation and custom furniture, designed and built by one team.";
+  "Architect-led interior designers in Addis Ababa, Ethiopia, since 2015. Office design, partitioning, renovation and custom furniture, built by one team.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
